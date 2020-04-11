@@ -2,9 +2,9 @@
 
 var min, max, incr
 
-min = 1,
-    max = 200,
-    incr = 1
+min = 0,
+    max = 6144,
+    incr = 64
 
 for (let i = min; i <= max; i += incr) {
     console.log(i, code(i))
@@ -16,7 +16,7 @@ for (let i = min; i <= max; i += incr) {
 * *| -> Separates items to be multiplied, in this order
 * *:k -> Denotes the kth prime number n, if n happens to be prime
 * *a^b -> Denotes a number n of that form, where a & b are integers
-* *k.a^b -> Denotes a number n of that form, where a, b & k are integers
+* *k;a^b -> Denotes a number n of that form, where a, b & k are integers
 * If n is neither of the above, split n into its desired factors and recurse
 * */
 
@@ -114,7 +114,7 @@ function toCode(n) {
     } else if (isPrime(n)) {
         return isPrime(n)
     } else if (isPower(n) != false) {
-        return getPower(n)
+        return getPowers(n)
     }
     else {
         var factors = chooseFactors(n)
@@ -175,7 +175,7 @@ function power(n) {
         var p = powers[0], n = product(primes)
         return `${n}^${p}`
     } else if (factors.length > 0) {
-        return `${toCode(Math.trunc(n / m))}*${getPowers(m)}`
+        return `${toCode(Math.trunc(n / m))}|${getPowers(m)}`
     }
     else { return false }
 }
