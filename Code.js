@@ -2,9 +2,9 @@
 
 var min, max, incr
 
-min = 0,
-    max = 6144,
-    incr = 64
+min = 100,
+    max = 400,
+    incr = 1
 
 for (let i = min; i <= max; i += incr) {
     console.log(i, code(i))
@@ -15,8 +15,8 @@ for (let i = min; i <= max; i += incr) {
 * Notation:
 * *| -> Separates items to be multiplied, in this order
 * *:k -> Denotes the kth prime number n, if n happens to be prime
-* *a^b -> Denotes a number n of that form, where a & b are integers
-* *k;a^b -> Denotes a number n of that form, where a, b & k are integers
+* *[a]^b -> Denotes a number n of that form, where a & b are integers
+* *k|[a]^b -> Denotes a number n of that form, where a, b & k are integers
 * If n is neither of the above, split n into its desired factors and recurse
 * */
 
@@ -30,12 +30,12 @@ function code(n) {
         powers.push(dict[i])
     }
 
-    if (n <= 16) {
-        return n.toString()
+    if (n <= 20) {
+        return '|' + n.toString()
     } else if (isPrime(n)) {
-        return isPrime(n)
+        return '|' + isPrime(n)
     } else if (power(n) != false) {
-        return power(n)
+        return '|' + power(n)
     }
     else {
         var factors = chooseFactors(n)
@@ -48,7 +48,7 @@ function code(n) {
             out.push(code(factors[i]))
         }
 
-        return out.join('|')
+        return '|' + out.join('|')
     }
 }
 
@@ -109,14 +109,11 @@ function getFactors(n) {
 }
 
 function toCode(n) {
-    if (n <= 16) {
+    if (n <= 20) {
         return n.toString()
     } else if (isPrime(n)) {
         return isPrime(n)
-    } else if (isPower(n) != false) {
-        return getPowers(n)
-    }
-    else {
+    } else {
         var factors = chooseFactors(n)
             || getPrimes(n),
             out = []
@@ -172,10 +169,10 @@ function power(n) {
     m = Math.max(...factors)
 
     if (m == n) {
-        var p = powers[0], n = product(primes)
-        return `${n}^${p}`
+        return getPowers(n)
     } else if (factors.length > 0) {
-        return `${toCode(Math.trunc(n / m))}|${getPowers(m)}`
+        if (getPowers(n) == '') { return `${toCode(Math.trunc(n / m))}` }
+        else { return `${toCode(Math.trunc(n / m))}|${getPowers(m)}` }
     }
     else { return false }
 }
@@ -183,8 +180,6 @@ function power(n) {
 function getPowers(n) {
     var factors = getPrimes(n)
     var dict = new Counter(factors)
-
-    const product = xs => xs.reduce((a, x) => a * x, 1)
 
     var primes = [], powers = []
     for (var i in dict) {
@@ -195,9 +190,11 @@ function getPowers(n) {
     if (n == 4 || n == 8 || n == 9 || n == 16) {
         return n.toString(10)
     }
-    if (set(powers).length == 1 && product(powers) != 1) {
-        var p = powers[0], m = product(primes)
-        return `${m}^${p}`
+    if (isPower(n)) {
+        var p = getGCD(powers),
+            m = Math.floor(Math.pow(n, 1 / p))
+        if (p === Infinity) { return '' }
+        else { return `[${toCode(m)}]^${p}` }
     }
 }
 
@@ -259,7 +256,7 @@ function knv(n) {
     factors = factors.filter(i => isPower(i))
     m = Math.max(...factors)
 
-    if (set(powers).length == 1 && product(powers) != 1) {
+    if (getGCD(powers) != 1) {
         return true
     } else if (m) { return true }
     return false
@@ -269,15 +266,13 @@ function isPower(n) {
     var factors = getPrimes(n)
     var dict = new Counter(factors)
 
-    const product = xs => xs.reduce((a, x) => a * x, 1)
-
     var primes = [], powers = []
     for (var i in dict) {
         primes.push(parseInt(i))
         powers.push(dict[i])
     }
 
-    if (set(powers).length == 1 && product(powers) != 1) {
+    if (getGCD(powers) != 1) {
         return true
     }
     return false
@@ -285,7 +280,7 @@ function isPower(n) {
 
 /**
 * Pass an array of length k.
-* If any element in array has the product of a number n <= 16,
+* If any element in array has the product of a number n <= 20,
 * remove and replace it with the product
 * */
 
@@ -295,7 +290,7 @@ function simplify(a) {
     var combs = combinations(a), products = [], avgs = [],
         con = Math.ceil(Math.log10(product(a)))
 
-    combs = combs.filter(arr => product(arr) <= 16
+    combs = combs.filter(arr => product(arr) <= 20
         && arr.length > 1)
 
     if (combs.length < 1) {
@@ -391,4 +386,25 @@ function set(arr) {
         }
         return a
     }, [])
+}
+
+function getGCD(arr) {
+    // Use spread syntax to get minimum of array
+    const lowest = Math.min(...arr);
+
+    for (let factor = lowest; factor > 1; factor--) {
+        let isCommonDivisor = true;
+
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[j] % factor !== 0) {
+                isCommonDivisor = false;
+                break;
+            }
+        }
+
+        if (isCommonDivisor) {
+            return factor;
+        }
+    }
+    return 1
 }
