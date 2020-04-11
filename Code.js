@@ -3,11 +3,11 @@
 var min, max, incr
 
 min = 1,
-    max = 100,
-    incr = 2
+    max = 200,
+    incr = 1
 
-for (let i = min; i <= max; i++) {
-    console.log(code(i))
+for (let i = min; i <= max; i += incr) {
+    console.log(i, code(i))
 }
 
 /**
@@ -34,8 +34,8 @@ function code(n) {
         return n.toString()
     } else if (isPrime(n)) {
         return isPrime(n)
-    } else if (isPower(n)) {
-        return isPower(n)
+    } else if (power(n) != false) {
+        return power(n)
     }
     else {
         var factors = chooseFactors(n)
@@ -108,6 +108,29 @@ function getFactors(n) {
     return factors
 }
 
+function toCode(n) {
+    if (n <= 16) {
+        return n.toString()
+    } else if (isPrime(n)) {
+        return isPrime(n)
+    } else if (isPower(n) != false) {
+        return getPower(n)
+    }
+    else {
+        var factors = chooseFactors(n)
+            || getPrimes(n),
+            out = []
+
+        factors = simplify(factors)
+
+        for (var i in factors) {
+            out.push(toCode(factors[i]))
+        }
+
+        return `${out.join('|')}`
+    }
+}
+
 function getPrimes(n) {
     var i = 2, factors = []
 
@@ -118,7 +141,6 @@ function getPrimes(n) {
             factors.push(i)
         }
     }
-
     if (n > 1) factors.push(n)
 
     return factors
@@ -133,7 +155,32 @@ function isPrime(n) {
     return `:${pi(n)}`
 }
 
-function isPower(n) {
+function power(n) {
+    var factorization = getPrimes(n)
+    var dict = new Counter(factorization)
+
+    const product = xs => xs.reduce((a, x) => a * x, 1)
+
+    var primes = [], powers = []
+    for (var i in dict) {
+        primes.push(parseInt(i))
+        powers.push(dict[i])
+    }
+
+    var factors = getFactors(n)
+    factors = factors.filter(i => isPower(i) == true)
+    m = Math.max(...factors)
+
+    if (m == n) {
+        var p = powers[0], n = product(primes)
+        return `${n}^${p}`
+    } else if (factors.length > 0) {
+        return `${toCode(Math.trunc(n / m))}*${getPowers(m)}`
+    }
+    else { return false }
+}
+
+function getPowers(n) {
     var factors = getPrimes(n)
     var dict = new Counter(factors)
 
@@ -149,7 +196,6 @@ function isPower(n) {
         var p = powers[0], n = product(primes)
         return `${n}^${p}`
     }
-    return null
 }
 
 function factorize(n) {
@@ -194,17 +240,44 @@ function pi(num) {
     return primes.length + 1
 }
 
-function Counter(array) {
-    array.forEach(val => this[val] = (this[val] || 0) + 1);
+function knv(n) {
+    var factorization = getPrimes(n)
+    var dict = new Counter(factorization)
+
+    const product = xs => xs.reduce((a, x) => a * x, 1)
+
+    var primes = [], powers = []
+    for (var i in dict) {
+        primes.push(parseInt(i))
+        powers.push(dict[i])
+    }
+
+    var factors = getFactors(n)
+    factors = factors.filter(i => isPower(i))
+    m = Math.max(...factors)
+
+    if (set(powers).length == 1 && product(powers) != 1) {
+        return true
+    } else if (m) { return true }
+    return false
 }
 
-function set(arr) {
-    return arr.reduce(function (a, val) {
-        if (a.indexOf(val) === -1) {
-            a.push(val)
-        }
-        return a
-    }, [])
+function isPower(n) {
+    var factors = getPrimes(n)
+    var dict = new Counter(factors)
+
+    const product = xs => xs.reduce((a, x) => a * x, 1)
+
+    var primes = [], powers = []
+    for (var i in dict) {
+        primes.push(parseInt(i))
+        powers.push(dict[i])
+    }
+
+    if (set(powers).length == 1 && product(powers) != 1) {
+        return true
+    }
+    return false
 }
 
 /**
@@ -302,4 +375,17 @@ function avg(array) {
 
 function range(size, startAt = 0) {
     return [...Array(size).keys()].map((i) => i + startAt)
+}
+
+function Counter(array) {
+    array.forEach(val => this[val] = (this[val] || 0) + 1);
+}
+
+function set(arr) {
+    return arr.reduce(function (a, val) {
+        if (a.indexOf(val) === -1) {
+            a.push(val)
+        }
+        return a
+    }, [])
 }
