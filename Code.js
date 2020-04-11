@@ -192,9 +192,12 @@ function getPowers(n) {
         powers.push(dict[i])
     }
 
+    if (n == 4 || n == 8 || n == 9 || n == 16) {
+        return n.toString(10)
+    }
     if (set(powers).length == 1 && product(powers) != 1) {
-        var p = powers[0], n = product(primes)
-        return `${n}^${p}`
+        var p = powers[0], m = product(primes)
+        return `${m}^${p}`
     }
 }
 
