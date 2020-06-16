@@ -464,19 +464,19 @@ function recursiveShuffle(len) {
 
 //?? Helper and Stack Overflow functions ??// 
 Date.prototype.addDays = function(days) {
-    var date = new Date(this.valueOf());
-    date.setDate(date.getDate() + days);
-    return date;
+    var date = new Date(this.valueOf())
+    date.setDate(date.getDate() + days)
+    return date
 }
 
 function getDates(startDate, stopDate) {
-    var dateArray = new Array();
-    var currentDate = startDate;
+    var dateArray = new Array()
+    var currentDate = startDate
     while (currentDate <= stopDate) {
-        dateArray.push(new Date(currentDate));
-        currentDate = currentDate.addDays(1);
+        dateArray.push(new Date(currentDate))
+        currentDate = currentDate.addDays(1)
     }
-    return dateArray;
+    return dateArray
 }
 
 function isLeapYear(date) {
@@ -485,7 +485,7 @@ function isLeapYear(date) {
 }
 
 function getDOY(date) {
-    var dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+    var dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
     var mn = date.getMonth()
     var dn = date.getDate()
     var dayOfYear = dayCount[mn] + dn
@@ -494,30 +494,30 @@ function getDOY(date) {
 }
 
 function randomTime(format, minh = 0, maxh = 24) {
-    var h, m, s, fh, fm, fs, ampm;
+    var h, m, s, fh, fm, fs, ampm
 
-    h = randint(minh, maxh);
-    m = ~~(Math.random() * 60);
-    s = ~~(Math.random() * 60);
+    h = randint(minh, maxh)
+    m = ~~(Math.random() * 60)
+    s = ~~(Math.random() * 60)
 
-    h12 = h % 12 == 0 ? 12 : h % 12;
+    h12 = h % 12 == 0 ? 12 : h % 12
 
-    fh = pad(h, 2);
-    fm = pad(m, 2);
-    fs = pad(s, 2);
+    fh = pad(h, 2)
+    fm = pad(m, 2)
+    fs = pad(s, 2)
 
-    ampm = h < 12 ? 'AM' : 'PM';
+    ampm = h < 12 ? 'AM' : 'PM'
 
     switch (format) {
-        default: return `${fh}:${fm}:${fs}`;
+        default: return `${fh}:${fm}:${fs}`
         case '12h':
-                return `${h12}:${fm}:${fs} ${ampm}`;
+                return `${h12}:${fm}:${fs} ${ampm}`
     }
 }
 
 function generateTimes(len, min = 0, max = 24) {
-    var times = [...Array(len).keys()].map(i => randomTime('', min, max));
-    return times.sort((a, b) => a.localeCompare(b));
+    var times = [...Array(len).keys()].map(i => randomTime('', min, max))
+    return times.sort((a, b) => a.localeCompare(b))
 }
 
 function shuffle(str) {
