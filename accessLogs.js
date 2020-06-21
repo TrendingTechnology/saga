@@ -13,6 +13,26 @@ function groupBy(arr, key) {
     }, {});
 }
 
+/* Todo: Develop chart functions:
+Get all logs & total number of exits:
+- By hour
+- By checkpoint
+- By day
+
+Get all students:
+- One student
+- By class
+- By course
+- By school
+
+Get all staff:
+- One student
+- By class
+- By course
+- By school
+ */
+
+// Todo: Convert nested key-value arrays back to objects
 function getEntryExitCounts(entries) {
     for (var entry of entries) {
         entry[1] = Object.entries(entry[1])
@@ -29,7 +49,7 @@ function getEntryExitCounts(entries) {
 function getDailyCheckptLogs(logs) {
     var entries = Object.entries(logs)
     for (var entry of entries)
-        entry[1] = groupBy(entry[1], "checkpt")
+        entry[1] = groupBy(entry[1], 'checkpt')
     return entries
 }
 
@@ -57,48 +77,7 @@ function getLogCount(logs) {
     }
 }
 
-// Todo: generate chart functions
-function sortLogs(json) {
-    var logs = getAllLogs(json),
-        checkpts = []
-
-    for (var i of logs) {
-        var checkpt = i.checkpt.substr(0, 3)
-        i.checkpt = checkpt
-        checkpts.push(checkpt)
-    }
-    checkpts = checkpts.reduce((u, b) => u.includes(b) ? u : [...u, b], [])
-
-    return checkpts
-}
-
-function countEntryExit(json) {
-    var logs = JSON.parse(json),
-        entries = 0,
-        exits = 0
-
-    for (var i of logs) {
-        var ee = i.entryExit
-        switch (ee) {
-            case 'Entry':
-                entries++
-                break
-            case 'Exit':
-                exits++
-                break
-        }
-    }
-
-    var schools = ['MAI', 'EAS', 'WES'],
-        checkpts = ['ASC', 'BUS', 'DES', 'ENG', 'HSS', 'IIT'],
-        facilities = ['LIB', 'AUD', 'SHG', 'CAN']
-
-    return {
-        entries: entries,
-        exits: exits
-    }
-}
-
+// Get all members of class
 function getClassIDs(json) {
     var sch = getAllClasses(json)
     var classIDs = []
@@ -271,7 +250,5 @@ function searchPerson(query, type, json) {
     return res.map(i => JSON.parse(i))
 }
 
-// console.log(util.inspect(school, { showHidden: false, depth: null }))
-// console.log(searchPerson(`"course":"ITO"`, '', school))
 // console.log(util.inspect(school, { showHidden: false, depth: null }))
 // console.log(searchPerson(`"course":"ITO"`, '', school))
