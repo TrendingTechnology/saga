@@ -1,6 +1,7 @@
-var faker = require('faker')
-var mth = require('mathjs')
-var util = require('util')
+const faker = require('faker')
+const mth = require('mathjs')
+const util = require('util')
+const fs = require('fs')
 
 // http://playcode.io/618191/ //
 
@@ -55,19 +56,22 @@ const Courses = [
 ]
 
 // Prepare a JSON file to submit to the database
-function prepareSchool(numClasses, numStudents, numTutors) {
+function prepareSchool(numClasses, numStudents, numTutors, numDailyLogs) {
     var courses = []
-    for (var a in Courses) {
+    for (var a of Courses) {
+        var classes = [],
+            sch, cour
         var classes = []
+        sch = a[0], cour = a[2]
 
         // Three academic years
         for (var b = 17; b++ < 20;) {
             // At most six classes per course
             for (var c = 0; c++ < numClasses;) {
                 cls = [], tut = []
-                for (var d = 0; d++ < numStudents;) cls.push(generateStudent(b, d))
-                for (var d = 0; d++ < numTutors;) tut.push(generateStaff())
-                var classID = Courses[a][0][0] + Courses[a][2] + b + zeropad(c)
+                for (var d = 0; d++ < numStudents;) cls.push(generateStudent(b, d, numDailyLogs, sch))
+                for (var d = 0; d++ < numTutors;) tut.push(generateStaff(numDailyLogs, sch))
+                var classID = sch[0] + cour + b + zeropad(c)
                 var careGroup = {
                     classID: classID,
                     carePerson: generateStaff(),
@@ -79,10 +83,10 @@ function prepareSchool(numClasses, numStudents, numTutors) {
         }
 
         var course = {
-            school: Courses[a][0],
-            schoolName: Courses[a][1],
-            course: Courses[a][2],
-            courseCode: Courses[a][3],
+            school: a[0],
+            schoolName: a[1],
+            course: a[2],
+            courseCode: a[3],
             classes: classes
         }
         courses.push(course)
@@ -92,7 +96,7 @@ function prepareSchool(numClasses, numStudents, numTutors) {
 }
 
 // Generate a staff member
-function generateStaff() {
+function generateStaff(numDailyLogs, sch) {
     const genders = ['male', 'female']
     var gender = choice(genders)
 
@@ -118,7 +122,7 @@ function generateStaff() {
         email: Email,
         schoolEmail: SchoolEmail,
         status: 'Active',
-        logs: entryExitLogs(from, to, 8, choice(['ASC', 'BUS', 'DES', 'ENG', 'HSS', 'IIT'])),
+        logs: entryExitLogs(from, to, numDailyLogs, sch),
         flag: 'Non-Case',
         case: '',
         caseDate: '',
@@ -127,7 +131,7 @@ function generateStaff() {
 }
 
 // Generate a random student
-function generateStudent(acadYear, regNo) {
+function generateStudent(acadYear, regNo, numDailyLogs, sch) {
     const genders = ['male', 'female']
     var gender = choice(genders)
 
@@ -156,7 +160,7 @@ function generateStudent(acadYear, regNo) {
         email: Email,
         schoolEmail: SchoolEmail,
         status: 'Active',
-        logs: entryExitLogs(from, to, 8, choice(['ASC', 'BUS', 'DES', 'ENG', 'HSS', 'IIT'])),
+        logs: entryExitLogs(from, to, numDailyLogs, sch),
         flag: 'Non-Case',
         case: '',
         caseDate: '',
@@ -188,136 +192,6 @@ function getAllClasses(jsonString) {
     }
 
     return classes.flat()
-}
-
-// Get a list of all students
-function getAllStudents(jsonString) {
-    var classArray = getAllClasses(jsonString)
-
-    var studentArray = []
-    for (var cls of classArray) {
-        var classID = cls.classID,
-            // carePerson = cls.carePerson,
-            // tutors = cls.tutors,
-            students = cls.students,
-            school = cls.school,
-            schoolName = cls.schoolName,
-            course = cls.course,
-            courseCode = cls.courseCode
-
-        for (var student of students) {
-            student.school = school
-            student.schoolName = schoolName
-            student.course = course
-            student.courseCode = courseCode
-            student.classID = classID
-                // student.carePerson = carePerson
-                // student.tutors = tutors
-        }
-
-        studentArray.push(students)
-    }
-
-    return studentArray.flat()
-}
-
-// Get a list of all staff members
-function getAllStaff(jsonString) {
-    var classArray = getAllClasses(jsonString)
-
-    var staffArray = []
-
-    for (var clazz of classArray) {
-        var classID = clazz.classID,
-            carePerson = clazz.carePerson,
-            tutors = clazz.tutors,
-            school = clazz.school,
-            schoolName = clazz.schoolName,
-            course = clazz.course,
-            courseCode = clazz.courseCode
-
-        for (var tutor of tutors) {
-            tutor.school = school
-            tutor.schoolName = schoolName
-            tutor.course = course
-            tutor.courseCode = courseCode
-            tutor.classID = classID
-            tutor.role = 'Tutor/Lecturer'
-        }
-
-        var cp = carePerson
-        cp.school = school
-        cp.schoolName = schoolName
-        cp.course = course
-        cp.courseCode = courseCode
-        cp.classID = classID
-        cp.role = 'Care Person'
-
-        staffArray.push(tutors)
-        staffArray.push(cp)
-    }
-    return staffArray.flat()
-}
-
-// Get a list of all faculty members
-function getAllFaculty(jsonString) {
-    var sch = JSON.parse(jsonString)
-    return sch
-}
-
-// Search for a person
-function searchPerson(query, type, jsonString) {
-    var allStudents, allStaff, allPeople, res
-
-    allStudents = getAllStudents(jsonString)
-    allStaff = getAllStaff(jsonString)
-
-    allStudents = allStudents.map(i => JSON.stringify(i))
-    allStaff = allStaff.map(i => JSON.stringify(i))
-
-    all = [...allStudents, ...allStaff]
-
-    switch (type) {
-        case 'student':
-            res = allStudents.filter(i => i.includes(query))
-            break
-        case 'staff':
-            res = allStaff.filter(i => i.includes(query))
-            break
-        default:
-            res = all.filter(i => i.includes(query))
-    }
-
-    return res.map(i => JSON.parse(i))
-}
-
-//?? Matriculation ID and IC Number ??//
-// Generate a matriculation number checksum
-function matricChecksum(int, refs = 'ABCDEFGHIZJ') {
-    var intString = int.toString(),
-        l = intString.length,
-        weight = l <= 1 ? [l] : [...[2], ...[...Array(l - 1).keys()].map(i => l - i)],
-        totalSum = 0,
-        length = refs.length
-
-    for (var i = 0; i < l; i++)
-        totalSum = totalSum + parseInt(intString[i]) * weight[i]
-    index = length - 1 - totalSum % length
-    return refs[index]
-}
-
-// Convert a date object to an IC number
-function toICNo(dob) {
-    var year = dob.getFullYear()
-
-    var yearPrefix = year >= 2000 ? 'T' : 'S'
-    yearPrefix += year.toString().substr(2)
-
-    var doy = getDOY(dob),
-        nd = isLeapYear(dob) ? 366 : 365
-    var d5 = ~~(10 ** 5 / nd * doy) + randint(0, 10 ** 5 / nd)
-
-    return yearPrefix + pad(d5, 5) + matricChecksum(5)
 }
 
 //?? Generation functions ??//
@@ -353,7 +227,6 @@ function entryExitArray(str, sch) {
         entryExit = str.split('').map(i => i == 0 ? 'Entry' : 'Exit')
 
     var times = generateTimes(str.length + 1, 7, 16)
-
     var totals = []
     var arr = str.split('').map(i => i == 1 ? -1 : 1)
 
@@ -362,9 +235,10 @@ function entryExitArray(str, sch) {
         totals.push(total)
     }
 
-    var rand = randint(1, 5)
-    for (var i in totals) {
-        switch (totals[i]) {
+    for (var i of totals) {
+        var rand = randint(1, 5)
+
+        switch (i) {
             case 1:
                 checkPts.push(sch == 'ENG' ? 'WES' : 'BUSDES'.includes(sch) ? 'MAI' : 'EAS')
                 break
@@ -462,6 +336,176 @@ function recursiveShuffle(len) {
     return str
 }
 
+//?? Matriculation ID and IC Number ??//
+// Generate a matriculation number checksum
+function matricChecksum(int, refs = 'ABCDEFGHIZJ') {
+    var intString = int.toString(),
+        l = intString.length,
+        weight = l <= 1 ? [l] : [...[2], ...[...Array(l - 1).keys()].map(i => l - i)],
+        totalSum = 0,
+        length = refs.length
+
+    for (var i = 0; i < l; i++)
+        totalSum = totalSum + parseInt(intString[i]) * weight[i]
+    index = length - 1 - totalSum % length
+    return refs[index]
+}
+
+// Convert a date object to an IC number
+function toICNo(dob) {
+    var year = dob.getFullYear()
+
+    var yearPrefix = year >= 2000 ? 'T' : 'S'
+    yearPrefix += year.toString().substr(2)
+
+    var doy = getDOY(dob),
+        nd = isLeapYear(dob) ? 366 : 365
+    var d5 = ~~(10 ** 5 / nd * doy) + randint(0, 10 ** 5 / nd)
+
+    return yearPrefix + pad(d5, 5) + matricChecksum(5)
+}
+
+//?? Access functions ??//
+// Transferring data between each layer of objects
+
+// Get all entry and exit logs
+function getAllLogs(jsonString) {
+    var allMembers = [],
+        dailyLogs = [],
+        logRecords = []
+
+    var allStudents = getAllStudents(jsonString)
+    var allStaff = getAllStaff(jsonString)
+    allPeople = [...allStudents, ...allStaff]
+
+    for (var person of allPeople) {
+        var type = person.role === undefined ? 'Student' : 'Staff'
+        var id = type === 'Student' ? person.matricNo : person.staffID
+
+        var name = person.name,
+            clas = person.classID,
+            logs = person.logs
+
+        allMembers.push({
+            type: type,
+            id: id,
+            name: name,
+            classID: clas,
+            logs: logs
+        })
+    }
+
+    for (var person of allMembers) {
+        for (var logRecord of person.logs) {
+            logRecord.type = person.type
+            logRecord.id = person.id
+            logRecord.name = person.name
+            logRecord.classID = person.classID
+            dailyLogs.push(logRecord)
+        }
+    }
+
+    for (var record of dailyLogs) {
+        for (var logRecord of record.logs) {
+            logRecord.date = record.date
+            logRecord.type = record.type
+            logRecord.id = record.id
+            logRecord.name = record.name
+            logRecord.classID = record.classID
+            logRecords.push(logRecord)
+        }
+    }
+
+    return logRecords
+}
+
+// Get a list of all students
+function getAllStudents(jsonString) {
+    var classArray = getAllClasses(jsonString)
+
+    var studentArray = []
+    for (var cls of classArray) {
+        var students = cls.students
+
+        for (var student of students) {
+            student.school = cls.school
+            student.schoolName = cls.schoolName
+            student.course = cls.course
+            student.courseCode = cls.courseCode
+            student.classID = cls.classID
+        }
+
+        studentArray.push(students)
+    }
+
+    return studentArray.flat()
+}
+
+// Get a list of all staff members
+function getAllStaff(jsonString) {
+    var classArray = getAllClasses(jsonString)
+
+    var staffArray = []
+
+    for (var cls of classArray) {
+        var carePerson = cls.carePerson,
+            tutors = cls.tutors
+
+        for (var tutor of tutors) {
+            tutor.school = cls.school
+            tutor.schoolName = cls.schoolName
+            tutor.course = cls.course
+            tutor.courseCode = cls.courseCode
+            tutor.classID = cls.classID
+            tutor.role = 'Tutor/Lecturer'
+        }
+
+        var cp = carePerson
+        cp.school = cls.school
+        cp.schoolName = cls.schoolName
+        cp.course = cls.course
+        cp.courseCode = cls.courseCode
+        cp.classID = cls.classID
+        cp.role = 'Care Person'
+
+        staffArray.push(tutors)
+        staffArray.push(cp)
+    }
+    return staffArray.flat()
+}
+
+// Get a list of all faculty members
+function getAllFaculty(jsonString) {
+    var sch = JSON.parse(jsonString)
+    return sch
+}
+
+// Search for a person
+function searchPerson(query, type, jsonString) {
+    var allStudents, allStaff, allPeople, res
+
+    allStudents = getAllStudents(jsonString)
+    allStaff = getAllStaff(jsonString)
+
+    allStudents = allStudents.map(i => JSON.stringify(i))
+    allStaff = allStaff.map(i => JSON.stringify(i))
+
+    all = [...allStudents, ...allStaff]
+
+    switch (type) {
+        case 'student':
+            res = allStudents.filter(i => i.includes(query))
+            break
+        case 'staff':
+            res = allStaff.filter(i => i.includes(query))
+            break
+        default:
+            res = all.filter(i => i.includes(query))
+    }
+
+    return res.map(i => JSON.parse(i))
+}
+
 //?? Helper and Stack Overflow functions ??// 
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf())
@@ -525,10 +569,8 @@ function shuffle(str) {
         n = a.length
 
     for (var i = n - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1))
-        var tmp = a[i]
-        a[i] = a[j]
-        a[j] = tmp
+        var j = Math.floor(Math.random() * (i + 1));
+        a[j] = [a[i], a[i] = a[j]][0]
     }
     return a.join('')
 }
@@ -591,10 +633,18 @@ String.prototype.toTitleCase = function() {
 }
 
 //?? Important Contents ??//
+// Generate new dates
 const from = new Date(2020, 7, 24)
-const to = new Date(2020, 7, 24)
-var school = prepareSchool(6, 24, 7)
-
-console.log(JSON.stringify(school))
+const to = new Date(2020, 7, 31)
+var school = prepareSchool(2, 20, 5, 6) // Writes an 8MB file containing log data
 
 // console.log(util.inspect(school, { showHidden: false, depth: null }))
+
+// Writing to a file
+
+let jsonString = JSON.stringify(school)
+
+fs.writeFile(`C:\\Users\\noelc\\Documents\\GitHub\\axerian\\Sentry\\data\\sentry.json`,
+    jsonString, err => {
+        if (err) throw err
+    })
