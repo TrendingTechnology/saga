@@ -1,9 +1,7 @@
+// npm i this
 const faker = require('faker')
-const mth = require('mathjs')
-const util = require('util')
 const fs = require('fs')
-
-// http://playcode.io/618191/ //
+const path = require('path')
 
 // console.log(util.inspect(school, { showHidden: false, depth: null }))
 // console.log(searchPerson(`"course":"ITO"`, '', school))
@@ -170,29 +168,6 @@ function generateStudent(acadYear, regNo, numDailyLogs, sch) {
 
 //?? Access functions ??//
 // Sort JSON data by class
-function getAllClasses(jsonString) {
-    var sch = JSON.parse(jsonString)
-
-    var classes = []
-    for (var clazz of sch) {
-        var school = clazz.school,
-            schoolName = clazz.schoolName,
-            course = clazz.course,
-            courseCode = clazz.courseCode,
-            allClasses = clazz.classes
-
-        for (var clasz of allClasses) {
-            clasz.school = school
-            clasz.schoolName = schoolName
-            clasz.course = course
-            clasz.courseCode = courseCode
-        }
-
-        classes.push(allClasses)
-    }
-
-    return classes.flat()
-}
 
 //?? Generation functions ??//
 // Generate entry-exit logs for a student
@@ -365,148 +340,9 @@ function toICNo(dob) {
     return yearPrefix + pad(d5, 5) + matricChecksum(5)
 }
 
-//?? Access functions ??//
-// Transferring data between each layer of objects
+//?? Helper and Stack Overflow functions ??//
 
-// Get all entry and exit logs
-function getAllLogs(jsonString) {
-    var allMembers = [],
-        dailyLogs = [],
-        logRecords = []
-
-    var allStudents = getAllStudents(jsonString)
-    var allStaff = getAllStaff(jsonString)
-    allPeople = [...allStudents, ...allStaff]
-
-    for (var person of allPeople) {
-        var type = person.role === undefined ? 'Student' : 'Staff'
-        var id = type === 'Student' ? person.matricNo : person.staffID
-
-        var name = person.name,
-            clas = person.classID,
-            logs = person.logs
-
-        allMembers.push({
-            type: type,
-            id: id,
-            name: name,
-            classID: clas,
-            logs: logs
-        })
-    }
-
-    for (var person of allMembers) {
-        for (var logRecord of person.logs) {
-            logRecord.type = person.type
-            logRecord.id = person.id
-            logRecord.name = person.name
-            logRecord.classID = person.classID
-            dailyLogs.push(logRecord)
-        }
-    }
-
-    for (var record of dailyLogs) {
-        for (var logRecord of record.logs) {
-            logRecord.date = record.date
-            logRecord.type = record.type
-            logRecord.id = record.id
-            logRecord.name = record.name
-            logRecord.classID = record.classID
-            logRecords.push(logRecord)
-        }
-    }
-
-    return logRecords
-}
-
-// Get a list of all students
-function getAllStudents(jsonString) {
-    var classArray = getAllClasses(jsonString)
-
-    var studentArray = []
-    for (var cls of classArray) {
-        var students = cls.students
-
-        for (var student of students) {
-            student.school = cls.school
-            student.schoolName = cls.schoolName
-            student.course = cls.course
-            student.courseCode = cls.courseCode
-            student.classID = cls.classID
-        }
-
-        studentArray.push(students)
-    }
-
-    return studentArray.flat()
-}
-
-// Get a list of all staff members
-function getAllStaff(jsonString) {
-    var classArray = getAllClasses(jsonString)
-
-    var staffArray = []
-
-    for (var cls of classArray) {
-        var carePerson = cls.carePerson,
-            tutors = cls.tutors
-
-        for (var tutor of tutors) {
-            tutor.school = cls.school
-            tutor.schoolName = cls.schoolName
-            tutor.course = cls.course
-            tutor.courseCode = cls.courseCode
-            tutor.classID = cls.classID
-            tutor.role = 'Tutor/Lecturer'
-        }
-
-        var cp = carePerson
-        cp.school = cls.school
-        cp.schoolName = cls.schoolName
-        cp.course = cls.course
-        cp.courseCode = cls.courseCode
-        cp.classID = cls.classID
-        cp.role = 'Care Person'
-
-        staffArray.push(tutors)
-        staffArray.push(cp)
-    }
-    return staffArray.flat()
-}
-
-// Get a list of all faculty members
-function getAllFaculty(jsonString) {
-    var sch = JSON.parse(jsonString)
-    return sch
-}
-
-// Search for a person
-function searchPerson(query, type, jsonString) {
-    var allStudents, allStaff, allPeople, res
-
-    allStudents = getAllStudents(jsonString)
-    allStaff = getAllStaff(jsonString)
-
-    allStudents = allStudents.map(i => JSON.stringify(i))
-    allStaff = allStaff.map(i => JSON.stringify(i))
-
-    all = [...allStudents, ...allStaff]
-
-    switch (type) {
-        case 'student':
-            res = allStudents.filter(i => i.includes(query))
-            break
-        case 'staff':
-            res = allStaff.filter(i => i.includes(query))
-            break
-        default:
-            res = all.filter(i => i.includes(query))
-    }
-
-    return res.map(i => JSON.parse(i))
-}
-
-//?? Helper and Stack Overflow functions ??// 
+// Get a range of days between two dates
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf())
     date.setDate(date.getDate() + days)
@@ -523,11 +359,13 @@ function getDates(startDate, stopDate) {
     return dateArray
 }
 
+// Check if a year is leap
 function isLeapYear(date) {
     var year = date.getFullYear()
     return year & 3 != 0 ? false : year % 100 != 0 || year % 400 == 0
 }
 
+// Get the day of the year
 function getDOY(date) {
     var dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
     var mn = date.getMonth()
@@ -537,6 +375,7 @@ function getDOY(date) {
         return dayOfYear
 }
 
+// Get a random timestamp
 function randomTime(format, minh = 0, maxh = 24) {
     var h, m, s, fh, fm, fs, ampm
 
@@ -559,11 +398,13 @@ function randomTime(format, minh = 0, maxh = 24) {
     }
 }
 
+// Generate an array of random timestamps, sorted.
 function generateTimes(len, min = 0, max = 24) {
     var times = [...Array(len).keys()].map(i => randomTime('', min, max))
     return times.sort((a, b) => a.localeCompare(b))
 }
 
+// Shuffle a string
 function shuffle(str) {
     var a = str.split(''),
         n = a.length
@@ -575,6 +416,7 @@ function shuffle(str) {
     return a.join('')
 }
 
+// Sample an array
 function sample(array) {
     var currentIndex = array.length,
         temporaryValue, randomIndex
@@ -589,18 +431,21 @@ function sample(array) {
     return array
 }
 
+// Reverse a string
 function rev(s) {
     if (s === '') return ''
     else return rev(s.substr(1)) +
         s.charAt(0)
 }
 
-function pad(num, size, str = '0') {
-    var s = num + ""
-    while (s.length < size) s = str + s
-    return s
+// Pad strings with zeroes
+function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
+// Two digit padding
 function zeropad(number) {
     return ((number < 10) ? "0" : "") + number.toString()
 }
@@ -632,19 +477,14 @@ String.prototype.toTitleCase = function() {
     })
 }
 
-//?? Important Contents ??//
-// Generate new dates
-const from = new Date(2020, 7, 24)
-const to = new Date(2020, 7, 31)
-var school = prepareSchool(2, 20, 5, 6) // Writes an 8MB file containing log data
+//!! Generate logs! !!//
+// Term 2 is from 29 Jun to 30 Aug inclusive
+const from = new Date(2020, 5, 29)
+const to = new Date(2020, 7, 30)
+var school = prepareSchool(2, 20, 5, 6)
 
-// console.log(util.inspect(school, { showHidden: false, depth: null }))
+var dir = 'C:\\Users\\noelc\\Documents\\GitHub\\sentry\\data\\sentry.json'
+var json = JSON.stringify(school)
 
-// Writing to a file
-
-let jsonString = JSON.stringify(school)
-
-fs.writeFile(`C:\\Users\\noelc\\Documents\\GitHub\\axerian\\Sentry\\data\\sentry.json`,
-    jsonString, err => {
-        if (err) throw err
-    })
+// Writing to a file. Change the output directory to something else, but do not touch the file.
+fs.writeFile(dir, json, err => { if (err) throw err })
