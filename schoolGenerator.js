@@ -1,10 +1,6 @@
 // npm i this
 const faker = require('faker')
 const fs = require('fs')
-const path = require('path')
-
-// console.log(util.inspect(school, { showHidden: false, depth: null }))
-// console.log(searchPerson(`"course":"ITO"`, '', school))
 
 /*
  * =//=//=//=//=//=//=//=//=
@@ -196,6 +192,7 @@ function entryExitPattern(len) {
 function entryExitArray(str, sch) {
     var newArr = [],
         checkPts = [],
+        gate = sch == 'ENG' ? 'WES' : 'BUSDES'.includes(sch) ? 'MAI' : 'EAS',
         /* gates = ['MAI', 'EAS', 'WES'],
         checkpts = ['ASC', 'BUS', 'DES', 'ENG', 'HSS', 'IIT'], */
         facilities = ['LIB', 'AUD', 'SHG', 'CAN'],
@@ -210,12 +207,11 @@ function entryExitArray(str, sch) {
         totals.push(total)
     }
 
-    for (var i of totals) {
-        var rand = randint(1, 5)
-
-        switch (i) {
+    var rand = randint(1, 5)
+    for (var i in totals) {
+        switch (totals[i]) {
             case 1:
-                checkPts.push(sch == 'ENG' ? 'WES' : 'BUSDES'.includes(sch) ? 'MAI' : 'EAS')
+                checkPts.push(gate)
                 break
             case 2:
                 checkPts.push(sch)
@@ -229,10 +225,10 @@ function entryExitArray(str, sch) {
         }
     }
 
-    for (var i in totals) {
+    for (var i in str) {
         newArr.push({
-            entryExit: i == entryExit.length ? 'Exit' : entryExit[i],
-            checkpt: checkPts[i],
+            entryExit: entryExit[i],
+            checkpt: i == str.length - 1 ? gate : checkPts[i],
             // level: totals[i],
             time: times[i]
         })
@@ -245,7 +241,9 @@ function entryExitArray(str, sch) {
 function generateRoom(school) {
     schools = ['ASC', 'BUS', 'DES', 'ENG', 'HSS', 'IIT']
 
-    var minBlock, maxBlock, minLevel = 1,
+    var minBlock = 1,
+        maxBlock = 40,
+        minLevel = 1,
         maxLevel = 8,
         randBlock = '1A'
 
@@ -279,7 +277,7 @@ function generateRoom(school) {
             minLevel = 2
             break
         default:
-            minBlock = 0, maxBlock = 0,
+            minBlock = 1, maxBlock = 40,
                 randBlock = randint(minBlock, maxBlock),
                 maxLevel = 3
     }
@@ -481,10 +479,11 @@ String.prototype.toTitleCase = function() {
 // Term 2 is from 29 Jun to 30 Aug inclusive
 const from = new Date(2020, 5, 29)
 const to = new Date(2020, 7, 30)
-var school = prepareSchool(2, 20, 5, 6)
+var school = prepareSchool(2, 16, 5, 3)
 
 var dir = 'C:\\Users\\noelc\\Documents\\GitHub\\sentry\\data\\sentry.json'
 var json = JSON.stringify(school)
 
-// Writing to a file. Change the output directory to something else, but do not touch the file.
+// Writing to a file. 
+// Change the output directory to something else, but do not touch the file.
 fs.writeFile(dir, json, err => { if (err) throw err })
