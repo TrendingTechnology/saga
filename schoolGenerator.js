@@ -63,8 +63,11 @@ function prepareSchool(numClasses, numStudents, numTutors, numDailyLogs) {
             // At most six classes per course
             for (var c = 0; c++ < numClasses;) {
                 cls = [], tut = []
-                for (var d = 0; d++ < numStudents;) cls.push(generateStudent(b, d, numDailyLogs, sch))
-                for (var d = 0; d++ < numTutors;) tut.push(generateStaff(numDailyLogs, sch))
+                for (var d = 0; d++ < numStudents;)
+                    cls.push(generateStudent(b, d, numDailyLogs, sch))
+                for (var d = 0; d++ < numTutors;)
+                    tut.push(generateStaff(numDailyLogs, sch))
+
                 var classID = sch[0] + cour + b + zeropad(c)
                 var careGroup = {
                     classID: classID,
@@ -162,9 +165,6 @@ function generateStudent(acadYear, regNo, numDailyLogs, sch) {
     }
 }
 
-//?? Access functions ??//
-// Sort JSON data by class
-
 //?? Generation functions ??//
 // Generate entry-exit logs for a student
 function entryExitLogs(from, to, len, sch) {
@@ -184,7 +184,6 @@ function entryExitPattern(len) {
     var str = recursiveShuffle(k)
     str += rev(str.split('').map(i => i == 0 ? '1' : '0').join(''))
     str = '0' + str + '1'
-
     return str
 }
 
@@ -277,9 +276,9 @@ function generateRoom(school) {
             minLevel = 2
             break
         default:
-            minBlock = 1, maxBlock = 40,
-                randBlock = randint(minBlock, maxBlock),
-                maxLevel = 3
+            minBlock = 1, maxBlock = 40
+            randBlock = randint(minBlock, maxBlock)
+            maxLevel = 3
     }
 
     var levelNo = randint(minLevel, maxLevel)
@@ -339,14 +338,14 @@ function toICNo(dob) {
 }
 
 //?? Helper and Stack Overflow functions ??//
-
-// Get a range of days between two dates
+// Add a number of days to the current date
 Date.prototype.addDays = function(days) {
     var date = new Date(this.valueOf())
     date.setDate(date.getDate() + days)
     return date
 }
 
+// Get a range of days between two dates
 function getDates(startDate, stopDate) {
     var dateArray = new Array()
     var currentDate = startDate
@@ -408,7 +407,7 @@ function shuffle(str) {
         n = a.length
 
     for (var i = n - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
+        var j = Math.floor(Math.random() * (i + 1))
         a[j] = [a[i], a[i] = a[j]][0]
     }
     return a.join('')
@@ -438,9 +437,9 @@ function rev(s) {
 
 // Pad strings with zeroes
 function pad(n, width, z) {
-    z = z || '0';
-    n = n + '';
-    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    z = z || '0'
+    n = n + ''
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
 }
 
 // Two digit padding
@@ -448,34 +447,40 @@ function zeropad(number) {
     return ((number < 10) ? "0" : "") + number.toString()
 }
 
+// Get a random integer between a range of values (inclusive)
 function randint(min, max) {
     min = Math.ceil(min), max = Math.floor(max)
     return Math.floor(Math.random() * (max - min)) + min
 }
 
+// Pick a random element from an array
 function choice(arr) {
     return arr[randint(0, arr.length)]
 }
 
+// Pick a random date between two dates
 function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()))
 }
 
+// Reduce an array to the sum of its elements
 function sum(xs) {
     return xs.reduce((a, x) => a + x, 1)
 }
 
+// Reduce an array to the sum of its elements
 function product(xs) {
     return xs.reduce((a, x) => a * x, 1)
 }
 
+// Convert a string to title case
 String.prototype.toTitleCase = function() {
     return this.replace(/\w\S*/g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     })
 }
 
-//!! Generate logs! !!//
+//?? Generate logs! ??//
 // Term 2 is from 29 Jun to 30 Aug inclusive
 const from = new Date(2020, 5, 29)
 const to = new Date(2020, 7, 30)
