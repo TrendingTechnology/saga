@@ -6228,7 +6228,7 @@
             "name": "JS function",
             "scope": "entity.name.function.js, entity.name.function.method.js, entity.name.accessor.js, entity.name.class.js",
             "settings": {
-                "foreground": "#3888de"
+                "foreground": "#3498db"
             }
         },
         {
