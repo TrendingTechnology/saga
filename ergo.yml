@@ -125,7 +125,7 @@ repository:
         name: meta.function.json.js
         begin: >-
           (?<=^|{|,)\s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|proc|macro|sub|function)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
-        end: '\s*([:.]?=)|\s*(?<=})'
+        end: '\s*(=)|\s*(?<=})'
         beginCaptures:
           '1':
             name: entity.name.function.js
@@ -150,7 +150,7 @@ repository:
         name: meta.function.json.js
         begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(async)?\s*+((?<!\.)\b(?:def|func?|proc|macro|sub|function)\b)\s*(\*\s*)?(?=\s*(\(|<))
-        end: '\s*([:.]?=)|\s*(?<=})'
+        end: '\s*(=)|\s*(?<=})'
         beginCaptures:
           '1':
             name: string.quoted.js
