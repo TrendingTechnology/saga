@@ -5069,7 +5069,7 @@ repository:
         patterns:
           - include: '#regex-patterns'
       - name: constant.other.pcre.regexp
-        begin: \((\*)
+        begin: \(([*+])
         beginCaptures:
           '0':
             name: punctuation.definition.group.regexp
@@ -5080,20 +5080,7 @@ repository:
           '1':
             name: punctuation.definition.group.regexp
         patterns:
-          - include: source.js
-      - name: constant.other.pcre.regexp
-        begin: \((\+)
-        beginCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-          '1':
-            name: keyword.generator.regexp
-        end: \s*(\))
-        endCaptures:
-          '1':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - include: source.clojure
+          - include: $self
       - name: comment.line.number-sign.regexp
         begin: '(\()(\?#)'
         beginCaptures:
@@ -5213,6 +5200,8 @@ repository:
           '1':
             name: punctuation.definition.character-class.regexp
         patterns:
+          - match: '--'
+            name: keyword.operator.optional.regexp
           - include: '#regex-character-class'
           - include: '#regex-character-range'
           - include: '#regex-character-set'
@@ -5341,7 +5330,7 @@ repository:
                 name: punctuation.definition.character-class.regexp
             patterns:
               - match: '--'
-                name: keyword.operator.maybe.regexp
+                name: keyword.operator.optional.regexp
               - include: '#regex-character-range'
               - include: '#regex-character-class'
               - include: '#regex-character-set'
