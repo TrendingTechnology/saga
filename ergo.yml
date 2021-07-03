@@ -8,17 +8,17 @@ information_for_contributors: >
   https://github.com/michaelgmcd/vscode-language-babel.
 
 
-  Saga is designed for expressing common programming concepts and patterns 
-  in a concise, type-safe and elegant way, while also being malleable and 
-  flexible enough for you to apply your own language patterns.
+  Saga is designed for expressing common programming concepts and patterns  in a
+  concise, type-safe and elegant way, while also being malleable and  flexible
+  enough for you to apply your own language patterns.
 
 
   Saga is the language for folks who are interested in programming in both
-  JavaScript/Node.JS and Python and are looking for a programming language 
-  that could combine the best of both worlds.
+  JavaScript/Node.JS and Python and are looking for a programming language  that
+  could combine the best of both worlds.
 
 
-  Should you want to provide a fix or improvement, please create a pull request 
+  Should you want to provide a fix or improvement, please create a pull request
   against this repository: https://github.com/NoxUltima/vscode-language-saga/
   Once accepted, I am happy to receive your request and feedback. 
 
@@ -34,7 +34,7 @@ information_for_contributors: >
     - Function/method call generics `x<>()`
 
     - Type casting `(int)x; (float)x+1`
-    
+
 name: Saga + JavaScript + Python
 scopeName: source.js
 foldingStartMarker: '(/\*|{|\()'
@@ -172,7 +172,7 @@ repository:
           - include: '#flowtype'
           - include: '#expression'
           - include: '#curly-brackets'
-      - comment: 'e.g. ''play'': function(arg1, arg2) { }'
+      - comment: "e.g. 'play': function(arg1, arg2) { }"
         name: meta.function.json.js
         begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(async)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*(\*\s*)?(?=\s*(\(|<))
@@ -245,7 +245,7 @@ repository:
             name: variable.other.readwrite.js
           '6':
             name: storage.type.function.arrow.js
-      - comment: 'e.g. ''play'': (args) => { }'
+      - comment: "e.g. 'play': (args) => { }"
         name: meta.function.json.arrow.js
         begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
@@ -271,7 +271,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
-      - comment: 'e.g. ''play'': arg => { }'
+      - comment: "e.g. 'play': arg => { }"
         name: meta.function.json.arrow.js
         match: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))\s*(=>)
@@ -316,7 +316,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
-      - comment: 'e.g. ''play'': async <T>('
+      - comment: "e.g. 'play': async <T>("
         name: meta.function.json.arrow.js
         begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
@@ -456,7 +456,8 @@ repository:
         match: (?<!\.)\s*+\b(select)\b\s*
         name: keyword.query.js
   new-expression:
-    - comment: 'A new expression with no type params or arguments, like new Foo()'
+    - comment:
+        'A new expression with no type params or arguments, like new Foo()'
       name: meta.new-class.without-arguments.js
       match: >-
         (?<!\.)\s*+(\bnew\b)\s*+((\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\?\.)?(\()\s*+(\)))
@@ -742,7 +743,8 @@ repository:
               '1':
                 name: meta.brace.curly.switchStart.js
             patterns:
-              - begin: (?<!\.)\s*+\b(if|unless|els?if|ell?ess|else if|else unless)\b
+              - begin:
+                  (?<!\.)\s*+\b(if|unless|els?if|ell?ess|else if|else unless)\b
                 end: '\s*(:)((?=::)|(?!:))'
                 beginCaptures:
                   '1':
@@ -2600,7 +2602,8 @@ repository:
   function-call:
     patterns:
       - include: '#comments'
-      - comment: 'A new expression with no type params or arguments, like new Foo()'
+      - comment:
+          'A new expression with no type params or arguments, like new Foo()'
         name: meta.new-class.without-arguments.js
         match: >-
           (?<!\.)\s*+(\bnew\b)\s*+((\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
@@ -2682,7 +2685,8 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - include: '#operators'
-      - comment: 'A call expression with no type params or arguments, like foo()'
+      - comment:
+          'A call expression with no type params or arguments, like foo()'
         name: meta.function-call.without-arguments.js
         match: >-
           (?<!\.)\s*+(\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
@@ -4844,7 +4848,7 @@ repository:
           - include: '#curly-brackets'
           - include: '#class-content'
           - include: $self
-      - comment: 'e.g. ''play''<T,T>(arg1, arg2): Type<T> { }'
+      - comment: "e.g. 'play'<T,T>(arg1, arg2): Type<T> { }"
         begin: >-
           (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
         end: '\s*(=(?!=|>))|(?={)|(?=;|}|,)'
@@ -4914,7 +4918,7 @@ repository:
           - include: '#curly-brackets'
           - include: '#class-content'
           - include: $self
-      - comment: 'getter/setter set [expresion]() or get ''text''()'
+      - comment: "getter/setter set [expresion]() or get 'text'()"
         begin: >-
           (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(((')((?:[^']|\\')*)('))|\s*+((")((?:[^"]|\\")*)("))))\s*+(\())
         end: '\s*(=(?!=|>))|(?={)|(?=;|}|,)'
@@ -4935,12 +4939,27 @@ repository:
           - include: '#square-brackets'
           - include: '#class-content'
           - include: $self
-  regexp:
+  multiline-regexp:
+    comment: Updated to support Perl regex syntax
     patterns:
-      - name: string.regexp.js
-        begin: >-
-          (?<=^|\.|\(|,|{|}|\[|;|,|<|>|<=|>=|==|!=|===|!==|\+|-|\*|%|\+\+|--|<<|>>|>>>|&|\||\^|!|~|&&|\|\||\?|:|=|\+=|-=|\*=|%=|<<=|>>=|>>>=|&=|\|=|\^=|/|/=|\Wnew|\Wdelete|\Wvoid|\Wtypeof|\Winstanceof|\Win|\Wdo|\Wreturn|\Wcase|\Wthrow|^new|^delete|^void|^typeof|^instanceof|^in|^do|^return|^case|^throw)\s*+(/)(?!\*|/)(?=.*/[a-z]*\s*($|[,;)}\]]|\.[$_A-Za-z]))
-        end: '(?i)(/)([a-z]*)'
+      - begin: ([[:alpha:]]*)(/>)\s*\n?
+        end: '\s*(\n?</)([\da-zA-Z]*)'
+        name: string.regexp.multiline.js
+        beginCaptures:
+          '1':
+            name: keyword.modifier.js
+          '2':
+            name: punctuation.definition.string.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.definition.string.end.js
+          '2':
+            name: keyword.other.flag.js
+        patterns:
+          - include: '#heregexp'
+      - begin: (?<=</)(>)\s*\n?
+        end: '\s*\n?(</)([\da-zA-Z]*)'
+        name: string.regexp.js
         beginCaptures:
           '1':
             name: punctuation.definition.string.begin.js
@@ -4948,9 +4967,444 @@ repository:
           '1':
             name: punctuation.definition.string.end.js
           '2':
-            name: keyword.other.js
+            name: keyword.other.flag.js
+        contentName: string.quoted.js
+        patterns:
+          - include: '#string-content'
+  regexp:
+    comment: Updated to support Perl regex syntax
+    name: string.regexp.js
+    begin: >-
+      (?<=^|[^/\w\p{L}\p{N}\p{M}\p{Sc}])\s*+([\da-zA-Z]*)(/)(?![*/])(?=.*/[\da-zA-Z]*\s*($|[,;)}\]]|\.[\w\p{L}\p{N}\p{Sc}]))
+    end: '(/)(?:((?:\\/|.)*?)(/))?(\w*)'
+    beginCaptures:
+      '1':
+        name: keyword.modifier.js
+      '2':
+        name: punctuation.definition.string.begin.js
+    endCaptures:
+      '1':
+        name: punctuation.definition.string.end.js
+      '2':
+        name: string.quoted.js
+        patterns:
+          - include: '#string-content'
+      '3':
+        name: punctuation.definition.string.end.js
+      '4':
+        name: keyword.other.flag.js
+    patterns:
+      - include: '#regex-patterns'
+  heregexp:
+    patterns:
+      - include: '#regex-patterns'
+      - include: '#comments'
+  regex-patterns:
+    patterns:
+      - include: '#quasi-embedded'
+      - name: keyword.operator.or.regexp
+        match: \|
+      - name: keyword.control.anchor.regexp
+        match: '(?i)\\[abyz]|\^|\$'
+      - name: keyword.control.back-reference.regexp
+        match: '(?<=\()(\?([+-]?\d+?))'
+        captures:
+          '1':
+            name: keyword.other.back-reference.regexp
+          '2':
+            name: entity.name.function.method.regexp
+      - name: keyword.control.conditional.group.regexp
+        match: >-
+          (?<=\?\()(?:((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|([+-]?\d*))(?=\))
+        captures:
+          '1':
+            name: variable.other.regexp
+          '2':
+            name: keyword.other.back-reference.regexp
+      - match: '\\[1-9]\d*'
+        name: keyword.other.back-reference.regexp
+      - name: keyword.operator.quantifier.regexp
+        match: '[?+*]|\{(\d*\s*,?\s*\d*)\}\??'
+      - name: string.quoted.raw.regexp
+        begin: (\\Q)
+        beginCaptures:
+          '1':
+            name: punctuation.definition.string.begin.regexp
+        end: (\\E)
+        endCaptures:
+          '1':
+            name: punctuation.definition.string.end.regexp
+        contentName: string.quoted.double.regexp
+      - name: string.quoted.regexp
+        begin: (\\q)
+        beginCaptures:
+          '1':
+            name: punctuation.definition.string.begin.regexp
+        end: (\\e)
+        endCaptures:
+          '1':
+            name: punctuation.definition.string.end.regexp
+        contentName: string.quoted.single.regexp
+        patterns:
+          - include: '#string-content'
+      - name: meta.group.regexp
+        begin: >-
+          \((\?(?:&|P(=))(?:([+-]?\d+)|([\p{Sc}_\p{L}\p{Nl}][\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*)|([+-]?\d*)))(:)?
+        beginCaptures:
+          '0':
+            name: punctuation.definition.group.regexp
+          '1':
+            name: keyword.other.back-reference.regexp
+          '2':
+            name: keyword.operator.assignment.regexp
+          '3':
+            name: entity.name.function.method.regexp
+          '4':
+            name: variable.other.regexp
+          '5':
+            name: punctuation.separator.label.regexp
+        end: \s*(\))
+        endCaptures:
+          '01':
+            name: punctuation.definition.group.regexp
         patterns:
           - include: '#regex-patterns'
+      - name: constant.other.pcre.regexp
+        begin: \((\*)
+        beginCaptures:
+          '0':
+            name: punctuation.definition.group.regexp
+          '1':
+            name: keyword.generator.regexp
+        end: \s*(\))
+        endCaptures:
+          '1':
+            name: punctuation.definition.group.regexp
+        patterns:
+          - include: source.js
+      - name: constant.other.pcre.regexp
+        begin: \((\+)
+        beginCaptures:
+          '0':
+            name: punctuation.definition.group.regexp
+          '1':
+            name: keyword.generator.regexp
+        end: \s*(\))
+        endCaptures:
+          '1':
+            name: punctuation.definition.group.regexp
+        patterns:
+          - include: source.clojure
+      - name: comment.line.number-sign.regexp
+        begin: '(\()(\?#)'
+        beginCaptures:
+          '1':
+            name: punctuation.definition.group.regexp
+          '2':
+            name: punctuation.definition.comment.regexp
+        end: \s*(\))
+        endCaptures:
+          '1':
+            name: punctuation.definition.group.regexp
+        patterns:
+          - name: comment.line.number-sign.regexp
+            match: \\.
+        contentName: comment.line.number-sign.regexp
+      - name: meta.group.regexp
+        begin: '\((?:(\?[A-Z\d]+)|(\?[a-z]+))(:)?'
+        beginCaptures:
+          '0':
+            name: punctuation.definition.group.regexp
+          '1':
+            name: keyword.control.recursion.regexp
+          '2':
+            name: storage.type.regexp
+          '3':
+            name: punctuation.separator.label.regexp
+        end: \s*(\))
+        endCaptures:
+          '1':
+            name: punctuation.definition.group.regexp
+        patterns:
+          - include: '#regex-patterns'
+      - name: meta.group.regexp
+        begin: '(\()((\?=)|(\?!)|(\?<=)|(\?<!)|(\?>)|(?:(\?))(?=[(|])|(\?~))'
+        beginCaptures:
+          '1':
+            name: punctuation.definition.group.regexp
+          '2':
+            name: punctuation.definition.group.assertion.regexp
+          '3':
+            name: meta.assertion.look-ahead.regexp
+          '4':
+            name: meta.assertion.negative-look-ahead.regexp
+          '5':
+            name: meta.assertion.look-behind.regexp
+          '6':
+            name: meta.assertion.negative-look-behind.regexp
+          '7':
+            name: meta.group.atomic.regexp
+          '8':
+            name: meta.group.branch.regexp
+          '9':
+            name: meta.group.absent.regexp
+        end: \s*(\))
+        endCaptures:
+          '1':
+            name: punctuation.definition.group.regexp
+        content:
+          patterns:
+            - include: '#regex-patterns'
+        patterns:
+          - include: '#regex-patterns'
+      - match: '(\\k<)(.*?)(>)'
+        name: keyword.other.back-reference.regexp
+        captures:
+          '1':
+            name: keyword.other.back-reference.regexp
+          '2':
+            patterns:
+              - include: '#number'
+              - match: '[+-]'
+                name: keyword.operator.arithmetic.regexp
+              - include: '#variable'
+          '3':
+            name: keyword.other.back-reference.regexp
+      - match: '(\\g<)(.*?)(>)'
+        name: keyword.other.subroutine.regexp
+        captures:
+          '1':
+            name: keyword.other.subroutine.regexp
+          '2':
+            patterns:
+              - include: '#number'
+              - match: '[+-]'
+                name: keyword.operator.arithmetic.regexp
+              - include: '#variable'
+          '3':
+            name: keyword.other.subroutine.regexp
+      - name: meta.group.regexp
+        begin: '\((?:(\?:)|(?:\?P?<(.*?)>))?'
+        beginCaptures:
+          '0':
+            name: punctuation.definition.group.regexp
+          '1':
+            name: punctuation.definition.group.no-capture.regexp
+          '2':
+            patterns:
+              - include: '#number'
+              - match: '[+-]'
+                name: keyword.operator.arithmetic.regexp
+              - include: '#variable'
+        end: \s*(\))
+        endCaptures:
+          '0':
+            name: punctuation.definition.group.regexp
+        patterns:
+          - include: '#regex-patterns'
+      - name: constant.other.character-class.set.regexp
+        begin: '(\[)(\^)?'
+        beginCaptures:
+          '1':
+            name: punctuation.definition.character-class.regexp
+          '2':
+            name: keyword.operator.negation.regexp
+        end: '\s*(\])'
+        endCaptures:
+          '1':
+            name: punctuation.definition.character-class.regexp
+        patterns:
+          - include: '#regex-character-class'
+          - include: '#regex-character-range'
+          - include: '#regex-character-set'
+      - begin: '(?<=\((\?))(\{)'
+        beginCaptures:
+          '1':
+            name: keyword.operator.callout.regexp
+          '2':
+            name: keyword.operator.callout.regexp
+        end: '\s*(\})(?:([<*>])|(\[)(.*)(\]))?'
+        endCaptures:
+          '1':
+            name: keyword.operator.callout.regexp
+          '2':
+            name: keyword.operator.range.regexp
+          '3':
+            name: punctuation.definition.tag.regexp
+          '4':
+            patterns:
+              - include: '#expression'
+          '5':
+            name: punctuation.definition.tag.regexp
+        patterns:
+          - include: '#flowtype-parse-types'
+      - name: meta.brace.curly.litobj.regexp
+        begin: '(\{)'
+        end: '\s*(\})'
+        patterns:
+          - begin: '\s*(:)((?=::)|(?!:|=))'
+            beginCaptures:
+              '1':
+                name: punctuation.separator.label.regexp
+            end: '(?=[,;}])'
+            patterns:
+              - include: '#regex-patterns'
+          - include: '#expression'
+      - include: '#regex-character-class'
+      - comment: override \m first
+        name: keyword.control.anchor.regexp
+        match: '(?i)\\M'
+      - name: keyword.control.keepout.regexp
+        match: (?i)\\K
+      - name: keyword.control.search.regexp
+        match: (?i)\\G
+      - name: constant.character.unicode.regexp
+        match: '(?i)\\X'
+      - name: constant.character.escape.other.regexp
+        match: \\.
+    repository:
+      regex-character-range:
+        patterns:
+          - name: constant.other.character-class.range.regexp
+            match: >-
+              (?:.|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[A-Z])|(\\.))\-(?:[^\]\\]|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[A-Z])|(\\.))
+            captures:
+              '1':
+                name: constant.character.numeric.regexp
+              '2':
+                name: constant.character.control.regexp
+              '3':
+                name: constant.character.escape.backslash.regexp
+              '4':
+                name: constant.character.numeric.regexp
+              '5':
+                name: constant.character.control.regexp
+              '6':
+                name: constant.character.escape.backslash.regexp
+      regex-character-set:
+        patterns:
+          - match: '[|]{2}'
+            name: keyword.operator.union.regexp
+          - match: '&{2}'
+            name: keyword.operator.intersection.regexp
+          - match: '\^{2}'
+            name: keyword.operator.only.regexp
+          - match: '~{2}'
+            name: keyword.operator.maybe.regexp
+          - match: \.
+            name: constant.other.character-class.set.regexp
+          - name: constant.other.character-class.posix.regexp
+            begin: '(\[=)'
+            beginCaptures:
+              '1':
+                name: punctuation.definition.character-class.posix.regexp
+            end: '\s*(=\])'
+            endCaptures:
+              '1':
+                name: punctuation.definition.character-class.posix.regexp
+            patterns:
+              - include: '#variables'
+              - include: '#operators'
+          - name: constant.other.character-class.posix.regexp
+            begin: '(\[\.)'
+            beginCaptures:
+              '1':
+                name: punctuation.definition.character-class.posix.regexp
+            end: '\s*(\.\])'
+            endCaptures:
+              '1':
+                name: punctuation.definition.character-class.posix.regexp
+            patterns:
+              - include: '#variables'
+              - include: '#operators'
+          - name: constant.other.character-class.posix.regexp
+            begin: '(\[:)'
+            beginCaptures:
+              '1':
+                name: punctuation.definition.character-class.posix.regexp
+            end: '\s*(:\])'
+            endCaptures:
+              '1':
+                name: punctuation.definition.character-class.posix.regexp
+            patterns:
+              - include: '#variables'
+              - include: '#operators'
+          - name: constant.other.character-class.set.regexp
+            begin: '(\[)(\^)?'
+            beginCaptures:
+              '1':
+                name: punctuation.definition.character-class.regexp
+              '2':
+                name: keyword.operator.negation.regexp
+            end: '\s*(\])'
+            endCaptures:
+              '1':
+                name: punctuation.definition.character-class.regexp
+            patterns:
+              - match: '--'
+                name: keyword.operator.maybe.regexp
+              - include: '#regex-character-range'
+              - include: '#regex-character-class'
+              - include: '#regex-character-set'
+              - name: constant.character.escape.other.regexp
+                match: \\.
+          - name: constant.character.escape.other.regexp
+            match: \\.
+      regex-character-class:
+        patterns:
+          - name: constant.character.escape.newline.regexp
+            match: |
+              \\
+          - name: constant.other.character-class.unicode.regexp
+            begin: '(?i)(\\p{)'
+            end: '\s*(})'
+            beginCaptures:
+              '1':
+                name: constant.other.character-class.unicode.regexp
+            endCaptures:
+              '1':
+                name: constant.other.character-class.unicode.regexp
+            patterns:
+              - include: '#expression'
+          - name: constant.character.escape.hex.regexp
+            match: '\\x\h{2}|\\U\h{8}'
+          - name: constant.character.control.regexp
+            match: '\\[cCmM][[:alpha:]]|\R'
+          - name: constant.other.character-class.unicode.regexp
+            match: '\\[pP][[:alpha:]]|\\O'
+          - name: constant.other.character-class.xml.regexp
+            match: '(?i)\\[ci]'
+          - name: constant.character.escape.unicode.regexp
+            match: '\\[ux](({[\h\s]+\})|\h{4})'
+          - name: constant.character.entity.named.js
+            begin: '(?i)(\\f{)'
+            end: '\s*(})'
+            beginCaptures:
+              '1':
+                name: constant.character.entity.named.js
+            endCaptures:
+              '1':
+                name: constant.character.entity.named.js
+            patterns:
+              - begin: '\s*(:)((?=::)|(?!:|=))'
+                beginCaptures:
+                  '1':
+                    name: punctuation.separator.label.regexp
+                end: '(?=[,;}])'
+                contentName: string.regexp
+                patterns:
+                  - include: '#regex-patterns'
+              - include: '#expression'
+          - name: constant.other.character-class.regexp
+            match: '\.|\\[wsdvntluh]'
+          - name: constant.other.character-class.negated.regexp
+            match: '\\[WSDVNTLUH]'
+          - match: '\\N{[\w\s]+}'
+            name: constant.character.escape.unicode.name.regexp
+          - match: '\\o{[0-7]+}'
+            name: constant.character.escape.octal.regexp
+          - match: '\\[''"\\nrtfve0`]'
+            name: constant.character.escape.js
   string:
     patterns:
       - contentName: string.quoted.single.js
@@ -5042,7 +5496,8 @@ repository:
         captures:
           '1':
             name: keyword.control.module.js
-      - comment: 'export {  or  export * or export var or export type {} from module'
+      - comment:
+          'export {  or  export * or export var or export type {} from module'
         begin: >-
           (?<!\.)\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(\s++from\b|\s*,)))
         end: >-
@@ -5253,7 +5708,8 @@ repository:
           '4':
             name: variable.other.readwrite.decorator.js
         patterns:
-          - commnent: decorator .property or .method which may be on a different line
+          - commnent:
+              decorator .property or .method which may be on a different line
             begin: '\s*(?:(\?\.)|(\.))'
             end: >-
               \s*(\#?)(?:((?:[\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))
@@ -5567,7 +6023,7 @@ repository:
       jsx-entities:
         patterns:
           - name: constant.character.entity.js
-            match: '(&)([a-zA-Z0-9]+|#[0-9]+|#x[0-9a-fA-F]+)(;)'
+            match: '(&)([a-zA-Z0-9]+|#[0-9]+|#x\h+)(;)'
             captures:
               '1':
                 name: punctuation.definition.entity.js
@@ -5618,8 +6074,8 @@ repository:
           - include: '#jsx-entities'
       jsx-string-single-quoted:
         name: string.quoted.single.js
-        begin: ''''
-        end: ''''
+        begin: "'"
+        end: "'"
         beginCaptures:
           '0':
             name: punctuation.definition.string.begin.js
@@ -5746,7 +6202,7 @@ repository:
       - include: '#jsx-entities'
   jsx-string-single-quoted:
     name: string.quoted.single.js
-    begin: ''''
+    begin: "'"
     end: '''(?<!\\'')'
     beginCaptures:
       '0':
@@ -5847,7 +6303,8 @@ repository:
             name: storage.type.function.js
           '3':
             name: keyword.operator.optional.parameter.flowtype
-      - comment: 'name of variable spread var with optional ? and optional flowtype :'
+      - comment:
+          'name of variable spread var with optional ? and optional flowtype :'
         match: >-
           ((?<!\.)\.\.\.)?\s*+(\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\??)\s*+(?!::)(?=:|=>)
         captures:
@@ -6083,7 +6540,8 @@ repository:
           - include: '#flowtype-variable'
   flowtype-bracketed-parameters:
     patterns:
-      - comment: 'trap balanced parens which are NOT followed by . : => { or /*: '
+      - comment:
+          'trap balanced parens which are NOT followed by . : => { or /*: '
         begin: >-
           \s*+(?=(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(?!\.|:|=>|{|/\*\s*:))
         end: (?=.)
@@ -6204,7 +6662,8 @@ repository:
       - include: '#flowtype-variable'
   flowtype-type-aliases:
     patterns:
-      - comment: type aliases for export but avoid type instaceof or type in operators
+      - comment:
+          type aliases for export but avoid type instaceof or type in operators
         begin: >-
           (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type)\b\s+(?!(instanceof|in)\b)(?=[$_A-Za-z{\[])
         end: (?=.)
@@ -6684,7 +7143,8 @@ repository:
               '1':
                 name: keyword.operator.accessor.js
   flowtype-method:
-    comment: 'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
+    comment:
+      'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
     begin: '(?<!:)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())'
     end: \s*(?=.)
     applyEndPatternLast: 1
@@ -7330,447 +7790,5 @@ repository:
   graphql-skip-newlines:
     match: |
       \s*
-  string-brace-formatting:
-    patterns:
-      - name: meta.format.brace.js
-        match: |
-          (?x)
-            (
-              {{ | }}
-              | (?:
-                {
-                  \w* (\.[[:alpha:]_]\w* | \[[^\]'"]+\])*
-                  (![rsa])?
-                  ( : \w? [<>=^]? [-+ ]? \#?
-                    \d* ,? (\.\d+)? [bcdeEfFgGnosxX%]? )?
-                })
-            )
-        captures:
-          '1':
-            name: constant.character.format.placeholder.other.js
-          '3':
-            name: storage.type.format.js
-          '4':
-            name: storage.type.format.js
-      - name: meta.format.brace.js
-        match: |
-          (?x)
-            (
-              {
-                \w* (\.[[:alpha:]_]\w* | \[[^\]'"]+\])*
-                (![rsa])?
-                (:)
-                  [^'"{}\n]* (?:
-                    \{ [^'"}\n]*? \} [^'"{}\n]*
-                  )*
-              }
-            )
-        captures:
-          '1':
-            name: constant.character.format.placeholder.other.js
-          '3':
-            name: storage.type.format.js
-          '4':
-            name: storage.type.format.js
-  multiline-regexp:
-    patterns:
-      - begin: />\n?
-        end: '(?i)(\n?</)([a-z]*)'
-        name: string.regexp.multiline.js
-        beginCaptures:
-          '0':
-            name: punctuation.definition.string.begin.js
-        endCaptures:
-          '1':
-            name: punctuation.definition.string.end.js
-          '2':
-            name: keyword.other.js
-        patterns:
-          - include: '#heregexp'
-  heregexp:
-    patterns:
-      - include: '#regex-patterns'
-      - include: '#comments'
-  regex-patterns:
-    patterns:
-      - include: '#quasi-embedded'
-      - name: keyword.operator.or.regexp
-        match: \|
-      - name: constant.character.unicode.regexp
-        match: '\\[xX]'
-      - name: keyword.control.anchor.regexp
-        match: '(?i)\\[abmyz]|\^|\$'
-      - name: keyword.control.keepout.regexp
-        match: \\K
-      - name: keyword.control.search.regexp
-        match: \\G
-      - name: keyword.control.back-reference.regexp
-        match: '(?<=\()(\?([+-]?\d+?))'
-        captures:
-          '1':
-            name: keyword.other.back-reference.regexp
-          '2':
-            name: entity.name.function.method.regexp
-      - name: keyword.control.conditional.group.regexp
-        match: >-
-          (?<=\?\()(?:((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|([+-]?\d*))(?=\))
-        captures:
-          '1':
-            name: variable.other.regexp
-          '2':
-            name: keyword.other.back-reference.regexp
-      - match: '\\[1-9]\d*'
-        name: keyword.other.back-reference.regexp
-      - name: keyword.operator.quantifier.regexp
-        match: '[?+*]|\{(\d+,\d+|\d+,|,\d+|\d+)\}\??'
-      - name: string.quoted.raw.regexp
-        begin: (\\Q)
-        beginCaptures:
-          '1':
-            name: punctuation.definition.string.begin.regexp
-        end: (\\E)
-        endCaptures:
-          '1':
-            name: punctuation.definition.string.end.regexp
-        contentName: string.quoted.double.regexp
-      - name: string.quoted.regexp
-        begin: (\\q)
-        beginCaptures:
-          '1':
-            name: punctuation.definition.string.begin.regexp
-        end: (\\e)
-        endCaptures:
-          '1':
-            name: punctuation.definition.string.end.regexp
-        contentName: string.quoted.single.regexp
-        patterns:
-          - include: '#string-content'
-      - name: meta.group.regexp
-        begin: >-
-          \((\?(?:&|P(=))(?:([+-]?\d+)|([\p{Sc}_\p{L}\p{Nl}][\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*)|([+-]?\d*)))(:)?
-        beginCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-          '1':
-            name: keyword.other.back-reference.regexp
-          '2':
-            name: keyword.operator.assignment.regexp
-          '3':
-            name: entity.name.function.method.regexp
-          '4':
-            name: variable.other.regexp
-          '5':
-            name: punctuation.separator.label.regexp
-        end: \)
-        endCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - include: '#regex-patterns'
-      - name: constant.other.pcre.regexp
-        begin: \((\*)
-        beginCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-          '1':
-            name: keyword.generator.asterisk.regexp
-        end: \)
-        endCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - include: '#expression'
-      - name: constant.other.pcre.regexp
-        begin: \((\+)
-        beginCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-          '1':
-            name: keyword.generator.asterisk.regexp
-        end: \)
-        endCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - include: source.clojure
-      - name: comment.line.number-sign.regexp
-        begin: '(\()(\?#)'
-        beginCaptures:
-          '1':
-            name: punctuation.definition.group.regexp
-          '2':
-            name: punctuation.definition.comment.regexp
-        end: \)
-        endCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - name: comment.line.number-sign.regexp
-            match: \\.
-        contentName: comment.line.number-sign.regexp
-      - name: meta.group.regexp
-        begin: '\((?:(\?[A-Z\d]+)|(\?[a-z]+))(:)?'
-        beginCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-          '1':
-            name: keyword.control.recursion.regexp
-          '2':
-            name: storage.type.regexp
-          '3':
-            name: punctuation.separator.label.regexp
-        end: \)
-        endCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - include: '#regex-patterns'
-      - name: meta.group.regexp
-        begin: '(\()((\?=)|(\?!)|(\?<=)|(\?<!)|(\?>)|(?:(\?)|(\?~))(?=[(|]))'
-        beginCaptures:
-          '1':
-            name: punctuation.definition.group.regexp
-          '2':
-            name: punctuation.definition.group.assertion.regexp
-          '3':
-            name: meta.assertion.look-ahead.regexp
-          '4':
-            name: meta.assertion.negative-look-ahead.regexp
-          '5':
-            name: meta.assertion.look-behind.regexp
-          '6':
-            name: meta.assertion.negative-look-behind.regexp
-          '7':
-            name: meta.group.atomic.regexp
-          '8':
-            name: meta.group.branch.regexp
-          '9':
-            name: meta.group.absent.regexp
-        end: (\))
-        endCaptures:
-          '1':
-            name: punctuation.definition.group.regexp
-        content:
-          patterns:
-            - include: '#regex-patterns'
-        patterns:
-          - include: '#regex-patterns'
-      - match: '(\\[kg]<)(.*?)(>)'
-        captures:
-          '1':
-            name: keyword.other.back-reference.regexp
-          '2':
-            patterns:
-              - include: '#number'
-              - match: '[+-]'
-                name: keyword.operator.arithmetic.regexp
-              - include: '#variable'
-          '3':
-            name: keyword.other.back-reference.regexp
-      - name: meta.group.regexp
-        begin: '\((?:(\?:)|(?:\?P?<(.*?)>))?'
-        beginCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-          '1':
-            name: punctuation.definition.group.no-capture.regexp
-          '2':
-            patterns:
-              - include: '#number'
-              - match: '[+-]'
-                name: keyword.operator.arithmetic.regexp
-              - include: '#variable'
-        end: \)
-        endCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - include: '#regex-patterns'
-      - name: constant.other.character-class.set.regexp
-        begin: '(\[)(\^)?'
-        beginCaptures:
-          '1':
-            name: punctuation.definition.character-class.regexp
-          '2':
-            name: keyword.operator.negation.regexp
-        end: '(\])'
-        endCaptures:
-          '1':
-            name: punctuation.definition.character-class.regexp
-        patterns:
-          - include: '#regex-character-class'
-          - include: '#regex-character-range'
-          - include: '#regex-character-set'
-      - begin: '(?<=\((\?))(\{)'
-        beginCaptures:
-          '1':
-            name: keyword.operator.callout.regexp
-          '2':
-            name: keyword.operator.callout.regexp
-        end: '(\})(?:(\[)(.*)(\]))?'
-        endCaptures:
-          '1':
-            name: keyword.operator.callout.regexp
-          '2':
-            name: punctuation.definition.tag.regexp
-          '3':
-            patterns:
-              - include: '#expression'
-          '4':
-            name: punctuation.definition.tag.regexp
-        patterns:
-          - include: '#flowtype-parse-types'
-      - name: meta.brace.curly.litobj.regexp
-        begin: '(\{)'
-        end: '(\})'
-        patterns:
-          - begin: '\s*(:)((?=::)|(?!:|=))'
-            beginCaptures:
-              '1':
-                name: punctuation.separator.label.regexp
-            end: '(?=[,;}])'
-            patterns:
-              - include: '#regex-patterns'
-          - include: '#expression'
-      - include: '#regex-character-class'
-    repository:
-      regex-character-range:
-        patterns:
-          - name: constant.other.character-class.range.regexp
-            match: >-
-              (?:.|(\\(?:[0-7]{3}|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}))|(\\c[A-Z])|(\\.))\-(?:[^\]\\]|(\\(?:[0-7]{3}|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}))|(\\c[A-Z])|(\\.))
-            captures:
-              '1':
-                name: constant.character.numeric.regexp
-              '2':
-                name: constant.character.control.regexp
-              '3':
-                name: constant.character.escape.backslash.regexp
-              '4':
-                name: constant.character.numeric.regexp
-              '5':
-                name: constant.character.control.regexp
-              '6':
-                name: constant.character.escape.backslash.regexp
-      regex-character-set:
-        patterns:
-          - match: '[|]{2}'
-            name: keyword.operator.union.regexp
-          - match: '&{2}'
-            name: keyword.operator.intersection.regexp
-          - match: '\^{2}'
-            name: keyword.operator.only.regexp
-          - match: '-{2}|~{2}'
-            name: keyword.operator.arithmetic.regexp
-          - match: \.
-            name: constant.other.character-class.set.regexp
-          - name: constant.other.character-class.posix.regexp
-            begin: '(\[=)'
-            beginCaptures:
-              '1':
-                name: punctuation.definition.character-class.posix.regexp
-            end: '(=\])'
-            endCaptures:
-              '1':
-                name: punctuation.definition.character-class.posix.regexp
-            patterns:
-              - include: '#variables'
-              - include: '#operators'
-          - name: constant.other.character-class.posix.regexp
-            begin: '(\[\.)'
-            beginCaptures:
-              '1':
-                name: punctuation.definition.character-class.posix.regexp
-            end: '(\.\])'
-            endCaptures:
-              '1':
-                name: punctuation.definition.character-class.posix.regexp
-            patterns:
-              - include: '#variables'
-              - include: '#operators'
-          - name: constant.other.character-class.posix.regexp
-            begin: '(\[:)'
-            beginCaptures:
-              '1':
-                name: punctuation.definition.character-class.posix.regexp
-            end: '(:\])'
-            endCaptures:
-              '1':
-                name: punctuation.definition.character-class.posix.regexp
-            patterns:
-              - include: '#variables'
-              - include: '#operators'
-          - name: constant.other.character-class.set.regexp
-            begin: '(\[)(\^)?'
-            beginCaptures:
-              '1':
-                name: punctuation.definition.character-class.regexp
-              '2':
-                name: keyword.operator.negation.regexp
-            end: '(\])'
-            endCaptures:
-              '1':
-                name: punctuation.definition.character-class.regexp
-            patterns:
-              - include: '#regex-character-range'
-              - include: '#regex-character-class'
-              - include: '#regex-character-set'
-      regex-character-class:
-        patterns:
-          - name: constant.character.escape.newline.js
-            match: |
-              \\
-          - match: '\\[''"\\nrtfve0`]'
-            name: constant.character.escape.js
-          - name: constant.other.character-class.unicode.regexp
-            begin: '(?i)(\\p{)'
-            end: '(})'
-            beginCaptures:
-              '1':
-                name: constant.other.character-class.unicode.regexp
-            endCaptures:
-              '1':
-                name: constant.other.character-class.unicode.regexp
-            patterns:
-              - include: '#expression'
-          - name: constant.character.escape.hex.regexp
-            match: '\\x\h{2}'
-          - name: constant.character.control.regexp
-            match: '\\[cC][A-Za-z]|\R'
-          - name: constant.other.character-class.unicode.regexp
-            match: '\\[pP][LMNPSZC]|\\[O]'
-          - name: constant.other.character-class.xml.regexp
-            match: '(?i)\\[ci]'
-          - name: constant.character.escape.unicode.regexp
-            match: '\\[ux](({\h+\})|\h{4})'
-          - name: constant.character.entity.named.js
-            begin: '\\[fF]{'
-            end: '}'
-            beginCaptures:
-              '1':
-                name: constant.character.entity.named.js
-            endCaptures:
-              '1':
-                name: constant.character.entity.named.js
-            patterns:
-              - begin: '\s*(:)((?=::)|(?!:|=))'
-                beginCaptures:
-                  '1':
-                    name: punctuation.separator.label.regexp
-                end: '(?=[,;}])'
-                contentName: string.regexp
-                patterns:
-                  - include: '#regex-patterns'
-              - include: '#expression'
-          - name: constant.other.character-class.regexp
-            match: '\.|\\[wsdvnluh]'
-          - name: constant.other.character-class.negated.regexp
-            match: '\\[WSDVLUH]'
-          - match: '\\N{[\w\s]+}'
-            name: constant.character.escape.unicode.name.regexp
-          - match: '\\o{[0-7]+}'
-            name: constant.character.escape.octal.regexp
-          - name: constant.character.escape.other.regexp
-            match: \\.
 comment: >-
   ((?:[\p{Sc}_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
