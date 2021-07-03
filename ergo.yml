@@ -34,7 +34,6 @@ information_for_contributors: >
     - Function/method call generics `x<>()`
 
     - Type casting `(int)x; (float)x+1`
-
 name: Saga + JavaScript + Python
 scopeName: source.js
 foldingStartMarker: '(/\*|{|\()'
@@ -4918,7 +4917,7 @@ repository:
           - include: '#curly-brackets'
           - include: '#class-content'
           - include: $self
-      - comment: "getter/setter set [expresion]() or get 'text'()"
+      - comment: "getter/setter set [expression]() or get 'text'()"
         begin: >-
           (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(((')((?:[^']|\\')*)('))|\s*+((")((?:[^"]|\\")*)("))))\s*+(\())
         end: '\s*(=(?!=|>))|(?={)|(?=;|}|,)'
@@ -4942,7 +4941,7 @@ repository:
   multiline-regexp:
     comment: Updated to support Perl regex syntax
     patterns:
-      - begin: ([[:alpha:]]*)(/>)\s*\n?
+      - begin: '([[:alpha:]]*)(/>)\s*\n?'
         end: '\s*(\n?</)([\da-zA-Z]*)'
         name: string.regexp.multiline.js
         beginCaptures:
@@ -4957,7 +4956,7 @@ repository:
             name: keyword.other.flag.js
         patterns:
           - include: '#heregexp'
-      - begin: (?<=</)(>)\s*\n?
+      - begin: (?!\\)(?<=</)(>)\s*\n?
         end: '\s*\n?(</)([\da-zA-Z]*)'
         name: string.regexp.js
         beginCaptures:
@@ -4976,7 +4975,7 @@ repository:
     name: string.regexp.js
     begin: >-
       (?<=^|[^/\w\p{L}\p{N}\p{M}\p{Sc}])\s*+([\da-zA-Z]*)(/)(?![*/])(?=.*/[\da-zA-Z]*\s*($|[,;)}\]]|\.[\w\p{L}\p{N}\p{Sc}]))
-    end: '(/)(?:((?:\\/|.)*?)(/))?(\w*)'
+    end: '(/)(?:((?:\\.|.)*?)(/))?(\w*)'
     beginCaptures:
       '1':
         name: keyword.modifier.js
@@ -5111,7 +5110,7 @@ repository:
             match: \\.
         contentName: comment.line.number-sign.regexp
       - name: meta.group.regexp
-        begin: '\((?:(\?[A-Z\d]+)|(\?[a-z]+))(:)?'
+        begin: '\((?:(\?[A-Z\d](?:-[A-Z\d])+)|(\?[a-z\d](?:-[a-z\d])+))(:)?'
         beginCaptures:
           '0':
             name: punctuation.definition.group.regexp
@@ -5157,7 +5156,7 @@ repository:
             - include: '#regex-patterns'
         patterns:
           - include: '#regex-patterns'
-      - match: '(\\k<)(.*?)(>)'
+      - match: (\\k<)(.*?)(>)
         name: keyword.other.back-reference.regexp
         captures:
           '1':
@@ -5170,7 +5169,7 @@ repository:
               - include: '#variable'
           '3':
             name: keyword.other.back-reference.regexp
-      - match: '(\\g<)(.*?)(>)'
+      - match: (\\g<)(.*?)(>)
         name: keyword.other.subroutine.regexp
         captures:
           '1':
@@ -5253,13 +5252,13 @@ repository:
       - include: '#regex-character-class'
       - comment: override \m first
         name: keyword.control.anchor.regexp
-        match: '(?i)\\M'
+        match: (?i)\\M
       - name: keyword.control.keepout.regexp
         match: (?i)\\K
       - name: keyword.control.search.regexp
         match: (?i)\\G
       - name: constant.character.unicode.regexp
-        match: '(?i)\\X'
+        match: (?i)\\X
       - name: constant.character.escape.other.regexp
         match: \\.
     repository:
