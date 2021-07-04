@@ -2246,7 +2246,7 @@ repository:
     patterns:
       - name: entity.quasi.element.js
         begin: '(?<!\\)(\#\()\s*'
-        end: '\s*())((:)[-\w/.%#<^>+*=!]+)?'
+        end: '\s*(\))((:)[-\w/.%#<^>+*=!]+)?'
         beginCaptures:
           '1':
             name: punctuation.quasi.element.begin.js
