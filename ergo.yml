@@ -9,12 +9,12 @@ information_for_contributors: >
 
 
   Saga is designed for expressing common programming concepts and patterns  in a
-  concise, type-safe and elegant way, while also being malleable and  flexible
+  concise, type-safe and elegant way, while also being malleable and flexible
   enough for you to apply your own language patterns.
 
 
   Saga is the language for folks who are interested in programming in both
-  JavaScript/Node.JS and Python and are looking for a programming language  that
+  JavaScript/Node.JS and Python and are looking for a programming language that
   could combine the best of both worlds.
 
 
@@ -2245,8 +2245,38 @@ repository:
   quasi-embedded:
     patterns:
       - name: entity.quasi.element.js
-        begin: '(?<!\\)(\#{)\s*'
-        end: '\s*(})((:)[-\w/.%#<^>+*=!]+)?'
+        begin: '(?<!\\)(\#\()\s*'
+        end: '\s*())((:)[-\w/.%#<^>+*=!]+)?'
+        beginCaptures:
+          '1':
+            name: punctuation.quasi.element.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.quasi.element.end.js
+          '2':
+            name: storage.type.format.js
+          '3':
+            name: punctuation.separator.label.regexp
+        patterns:
+          - include: '#expression'
+      - name: entity.quasi.element.js
+        begin: '(?<!\\)(\#\[)\s*'
+        end: '\s*(\])((:)[-\w/.%#<^>+*=!]+)?'
+        beginCaptures:
+          '1':
+            name: punctuation.quasi.element.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.quasi.element.end.js
+          '2':
+            name: storage.type.format.js
+          '3':
+            name: punctuation.separator.label.regexp
+        patterns:
+          - include: '#expression'
+      - name: entity.quasi.element.js
+        begin: '(?<!\\)(\#\{)\s*'
+        end: '\s*(\})((:)[-\w/.%#<^>+*=!]+)?'
         beginCaptures:
           '1':
             name: punctuation.quasi.element.begin.js
@@ -2261,7 +2291,7 @@ repository:
           - include: '#expression'
       - comment: Accepts arbitrary expressions
         match: >-
-          (?<!\\)(\#)((?:[?!:]:|::+|\(.*?\)|\[.*?\]|\{.*?\}|<.*?>|[^:'"`(){}\[\]\s])*)((:)[-\w/.%#<^>+*=!]+)?
+          (?<!\\)(\#)((?:[?!:]:|::+|\(.*?\)|\[.*?\]|\{.*?\}|<.*?>|[^,:;'"`(){}\[\]\s])*)((:)[-\w/.%#<^>+*=!]+)?
         captures:
           '1':
             name: punctuation.quasi.element.js
@@ -2584,19 +2614,19 @@ repository:
         name: keyword.operator.private.js
       - match: '@'
         name: keyword.operator.decorator.js
-      - match: '((?![_@#:.;,''"`\\\p{Sc}(){}\[\]])[\p{S}\p{P}])+='
+      - match: '[\p{S}\p{P}&&[^_@#:.;,''"`\\\p{Sc}\p{Ps}\p{Pe}]]+='
         name: keyword.operator.assignment.augmented.js
-      - match: '[-+*/%]((?![_@#;,''"`\\\p{Sc}(){}\[\]])[\p{S}\p{P}])*'
+      - match: '[-+*/%][\p{S}\p{P}&&[^_@#:.;,''"`\\\p{Sc}\p{Ps}\p{Pe}]]+'
         name: keyword.operator.arithmetic.js
-      - match: '[:.]((?![_@#;,''"`\\\p{Sc}(){}\[\]])[\p{S}\p{P}}])+'
+      - match: '[:.][\p{S}\p{P}&&[^_@#:.;,''"`\\\p{Sc}\p{Ps}\p{Pe}]]+'
         name: keyword.operator.accessor.js
-      - match: '[!=]((?![_@#;,''"`\\\p{Sc}(){}\[\]])[\p{S}\p{P}])*'
+      - match: '[!=][\p{S}\p{P}&&[^_@#:.;,''"`\\\p{Sc}\p{Ps}\p{Pe}]]*'
         name: keyword.operator.comparison.js
-      - match: '[<>]((?![_@#;,''"`\\\p{Sc}(){}\[\]])[\p{S}\p{P}])*'
+      - match: '[<>][\p{S}\p{P}&&[^_@#:.;,''"`\\\p{Sc}\p{Ps}\p{Pe}]]*'
         name: keyword.operator.relational.js
-      - match: '[&^|~]((?![_@#;,''"`\\\p{Sc}(){}\[\]])[\p{S}\p{P}])*'
+      - match: '[&^|~][\p{S}\p{P}&&[^_@#:.;,''"`\\\p{Sc}\p{Ps}\p{Pe}]]*'
         name: keyword.operator.bitwise.js
-      - match: '((?![_@#:.;,''"`\\\p{Sc}(){}\[\]])[\p{S}\p{P}])+'
+      - match: '[\p{S}\p{P}&&[^_@#:.;,''"`\\\p{Sc}\p{Ps}\p{Pe}]]+'
         name: keyword.operator.js
   function-call:
     patterns:
@@ -5005,13 +5035,48 @@ repository:
         match: \|
       - name: keyword.control.anchor.regexp
         match: '(?i)\\[abyz]|\^|\$'
+      - comment: Suppress ? in (? sequence
+        match: '(\\\()(\?)'
+        captures:
+          '1':
+            name: constant.character.escape.other.regexp
+          '2':
+            name: keyword.operator.quantifier.regexp
+      - comment: Embedded code callouts
+        begin: '(?<=\()(\?\{)'
+        beginCaptures:
+          '1':
+            name: keyword.operator.callout.regexp
+          '2':
+            name: keyword.operator.callout.regexp
+        end: '\s*(\})([<*>])?(?:(\[)(.*)(\]))?'
+        endCaptures:
+          '1':
+            name: keyword.operator.callout.regexp
+          '2':
+            name: keyword.operator.range.regexp
+          '3':
+            name: punctuation.definition.tag.regexp
+          '4':
+            patterns:
+              - include: $self
+          '5':
+            name: punctuation.definition.tag.regexp
+        patterns:
+          - include: $self
       - name: keyword.control.back-reference.regexp
-        match: '(?<=\()(\?([+-]?\d+?))'
+        match: '(?<=\()(\?(?:([+-]?\d+?)|([A-Z\d]+(?:-[A-Z\d]+)?)|([a-z\d]+(?:-[a-z\d]+)?)))\s*(:)?'
         captures:
           '1':
             name: keyword.other.back-reference.regexp
           '2':
             name: entity.name.function.method.regexp
+          '3':
+            name: keyword.control.recursion.regexp
+          '4':
+            name: storage.type.regexp
+          '5':
+            name: punctuation.separator.label.regexp
       - name: keyword.control.conditional.group.regexp
         match: >-
           (?<=\?\()(?:((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|([+-]?\d*))(?=\))
@@ -5023,7 +5088,7 @@ repository:
       - match: '\\[1-9]\d*'
         name: keyword.other.back-reference.regexp
       - name: keyword.operator.quantifier.regexp
-        match: '[?+*]|\{(\d*\s*,?\s*\d*)\}\??'
+        match: '[?+*]|\{(\s*\d*\s*(?:,?\s*\d*\s*)*)\}\??'
       - name: string.quoted.raw.regexp
         begin: (\\Q)
         beginCaptures:
@@ -5096,23 +5161,6 @@ repository:
           - name: comment.line.number-sign.regexp
             match: \\.
         contentName: comment.line.number-sign.regexp
-      - name: meta.group.regexp
-        begin: '\((?:(\?[A-Z\d](?:-[A-Z\d])+)|(\?[a-z\d](?:-[a-z\d])+))(:)?'
-        beginCaptures:
-          '0':
-            name: punctuation.definition.group.regexp
-          '1':
-            name: keyword.control.recursion.regexp
-          '2':
-            name: storage.type.regexp
-          '3':
-            name: punctuation.separator.label.regexp
-        end: \s*(\))
-        endCaptures:
-          '1':
-            name: punctuation.definition.group.regexp
-        patterns:
-          - include: '#regex-patterns'
       - name: meta.group.regexp
         begin: '(\()((\?=)|(\?!)|(\?<=)|(\?<!)|(\?>)|(?:(\?))(?=[(|])|(\?~))'
         beginCaptures:
@@ -5205,27 +5253,6 @@ repository:
           - include: '#regex-character-class'
           - include: '#regex-character-range'
           - include: '#regex-character-set'
-      - begin: '(?<=\((\?))(\{)'
-        beginCaptures:
-          '1':
-            name: keyword.operator.callout.regexp
-          '2':
-            name: keyword.operator.callout.regexp
-        end: '\s*(\})(?:([<*>])|(\[)(.*)(\]))?'
-        endCaptures:
-          '1':
-            name: keyword.operator.callout.regexp
-          '2':
-            name: keyword.operator.range.regexp
-          '3':
-            name: punctuation.definition.tag.regexp
-          '4':
-            patterns:
-              - include: '#expression'
-          '5':
-            name: punctuation.definition.tag.regexp
-        patterns:
-          - include: '#flowtype-parse-types'
       - name: meta.brace.curly.litobj.regexp
         begin: '(\{)'
         end: '\s*(\})'
