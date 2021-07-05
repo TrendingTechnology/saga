@@ -1590,7 +1590,7 @@ repository:
     patterns:
       - include: '#support-methods'
       - match: >-
-          ((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+          (?<=\.)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: support.function.js
   implicit-call:
     patterns:
@@ -5038,7 +5038,7 @@ repository:
       - name: keyword.control.anchor.regexp
         match: '(?i)\\[abyz]|\^|\$'
       - comment: Suppress ? in (? sequence
-        match: '(\\\()(\?)'
+        match: (\\\()(\?)
         captures:
           '1':
             name: constant.character.escape.other.regexp
@@ -5046,6 +5046,7 @@ repository:
             name: keyword.operator.quantifier.regexp
       - comment: Embedded code callouts
         begin: '(?<=\()(\?\{)'
+        name: keyword.operator.callout.regexp
         beginCaptures:
           '1':
             name: keyword.operator.callout.regexp
@@ -5066,8 +5067,25 @@ repository:
             name: punctuation.definition.tag.regexp
         patterns:
           - include: $self
+      - comment: Named groups
+        begin: (?<=\()(\?<)
+        name: punctuation.definition.group.named.regexp
+        beginCaptures:
+          '1':
+            name: punctuation.definition.group.named.regexp
+        end: \s*(>)
+        endCaptures:
+          '1':
+            name: punctuation.definition.group.named.regexp
+        patterns:
+          - include: '#jsx-tag-attributes'
+          - include: '#method-name'
+          - include: '#function-name'
+          - include: '#operators-1'
+          - include: '#operators'
       - name: keyword.control.back-reference.regexp
-        match: '(?<=\()(\?(?:([+-]?\d+?)|([A-Z\d]+(?:-[A-Z\d]+)?)|([a-z\d]+(?:-[a-z\d]+)?)))\s*(:)?'
+        match: >-
+          (?<=\()(\?(?:([+-]?\d+?)|([A-Z\d]+(?:-[A-Z\d]+)?)|([a-z\d]+(?:-[a-z\d]+)?)))\s*(:)?
         captures:
           '1':
             name: keyword.other.back-reference.regexp
@@ -5081,7 +5099,7 @@ repository:
             name: punctuation.separator.label.regexp
       - name: keyword.control.conditional.group.regexp
         match: >-
-          (?<=\?\()(?:((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|([+-]?\d*))(?=\))
+          (?<=\?\()(?:([$_\p{L}\p{Nl}][$_\d\p{L}\p{M}\p{N}\p{Pc}\u200C\u200D])|([+-]?\d*))(?=\))
         captures:
           '1':
             name: variable.other.regexp
@@ -5090,7 +5108,7 @@ repository:
       - match: '\\[1-9]\d*'
         name: keyword.other.back-reference.regexp
       - name: keyword.operator.quantifier.regexp
-        match: '[?+*]|\{(\s*\d*\s*(?:,?\s*\d*\s*)*)\}\??'
+        match: '\{(\s*\d*\s*(?:,?\s*\d*\s*)*)\}\??'
       - name: string.quoted.raw.regexp
         begin: (\\Q)
         beginCaptures:
@@ -5115,7 +5133,7 @@ repository:
           - include: '#string-content'
       - name: meta.group.regexp
         begin: >-
-          \((\?(?:&|P(=))(?:([+-]?\d+)|([\p{Sc}_\p{L}\p{Nl}][\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*)|([+-]?\d*)))(:)?
+          \((\?(?:&|P(=))(?:([+-]?\d+)|([$_\p{L}\p{Nl}][$_\d\p{L}\p{M}\p{N}\p{Pc}\u200C\u200D]*)|([+-]?\d*)))(:)?
         beginCaptures:
           '0':
             name: punctuation.definition.group.regexp
@@ -5136,7 +5154,7 @@ repository:
         patterns:
           - include: '#regex-patterns'
       - name: constant.other.pcre.regexp
-        begin: \(([*+])
+        begin: '\(([*+])'
         beginCaptures:
           '0':
             name: punctuation.definition.group.regexp
@@ -5188,39 +5206,10 @@ repository:
         endCaptures:
           '1':
             name: punctuation.definition.group.regexp
-        content:
-          patterns:
-            - include: '#regex-patterns'
         patterns:
           - include: '#regex-patterns'
-      - match: (\\k<)(.*?)(>)
-        name: keyword.other.back-reference.regexp
-        captures:
-          '1':
-            name: keyword.other.back-reference.regexp
-          '2':
-            patterns:
-              - include: '#number'
-              - match: '[+-]'
-                name: keyword.operator.arithmetic.regexp
-              - include: '#variable'
-          '3':
-            name: keyword.other.back-reference.regexp
-      - match: (\\g<)(.*?)(>)
-        name: keyword.other.subroutine.regexp
-        captures:
-          '1':
-            name: keyword.other.subroutine.regexp
-          '2':
-            patterns:
-              - include: '#number'
-              - match: '[+-]'
-                name: keyword.operator.arithmetic.regexp
-              - include: '#variable'
-          '3':
-            name: keyword.other.subroutine.regexp
       - name: meta.group.regexp
-        begin: '\((?:(\?:)|(?:\?P?<(.*?)>))?'
+        begin: '\((?:(\?:)|(?:\?<(.*?)>))?'
         beginCaptures:
           '0':
             name: punctuation.definition.group.regexp
@@ -5228,16 +5217,47 @@ repository:
             name: punctuation.definition.group.no-capture.regexp
           '2':
             patterns:
-              - include: '#number'
-              - match: '[+-]'
-                name: keyword.operator.arithmetic.regexp
-              - include: '#variable'
+              - include: '#jsx-tag-attributes'
+              - include: '#method-name'
+              - include: '#function-name'
+              - include: '#operators-1'
+              - include: '#operators'
         end: \s*(\))
         endCaptures:
           '0':
             name: punctuation.definition.group.regexp
         patterns:
           - include: '#regex-patterns'
+      - begin: (\\k<)
+        end: \s*(>)
+        name: keyword.other.back-reference.regexp
+        beginCaptures:
+          '1':
+            name: keyword.other.back-reference.regexp
+        endCaptures:
+          '1':
+            name: keyword.other.back-reference.regexp
+        patterns:
+          - include: '#jsx-tag-attributes'
+          - include: '#method-name'
+          - include: '#function-name'
+          - include: '#operators-1'
+          - include: '#operators'
+      - begin: (\\g<)
+        end: \s*(>)
+        name: keyword.other.subroutine.regexp
+        beginCaptures:
+          '1':
+            name: keyword.other.subroutine.regexp
+        endCaptures:
+          '1':
+            name: keyword.other.subroutine.regexp
+        patterns:
+          - include: '#jsx-tag-attributes'
+          - include: '#method-name'
+          - include: '#function-name'
+          - include: '#operators-1'
+          - include: '#operators'
       - name: constant.other.character-class.set.regexp
         begin: '(\[)(\^)?'
         beginCaptures:
@@ -5250,6 +5270,7 @@ repository:
           '1':
             name: punctuation.definition.character-class.regexp
         patterns:
+          - include: '#comments'
           - match: '--'
             name: keyword.operator.optional.regexp
           - include: '#regex-character-class'
@@ -5279,12 +5300,46 @@ repository:
         match: (?i)\\X
       - name: constant.character.escape.other.regexp
         match: \\.
+      - match: '(?<=[*+?}])(?:(\?)|(\+)|(\*))'
+        captures:
+          '1':
+            name: keyword.operator.modifier.lazy.regexp
+          '2':
+            name: keyword.operator.modifier.eager.regexp
+          '3':
+            name: keyword.operator.modifier.greedy.regexp
+      - match: '(\?)|(\+)|(\*)|(;)|(,)|(:)(?!:)|(=+>|~+>)|([''"])|(`)'
+        captures:
+          '1':
+            name: keyword.operator.quantifier.lazy.regexp
+          '2':
+            name: keyword.operator.quantifier.eager.regexp
+          '3':
+            name: keyword.operator.quantifier.greedy.regexp
+          '4':
+            name: punctuation.terminator.statement.js
+          '5':
+            name: meta.delimiter.comma.js
+          '6':
+            name: meta.switch.js keyword.operator.js
+          '7':
+            name: storage.type.function.arrow.js
+          '8':
+            name: punctuation.definition.string.begin.js
+          '9':
+            name: punctuation.definition.quasi.begin.js
+      - include: '#operators-1'
+      - include: '#operators'
+      - include: '#support-properties'
+      - include: '#number'
+      - include: '#variable'
+      - include: '#comments'
     repository:
       regex-character-range:
         patterns:
           - name: constant.other.character-class.range.regexp
             match: >-
-              (?:.|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[A-Z])|(\\.))\-(?:[^\]\\]|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[A-Z])|(\\.))
+              (?:.|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[a-zA-Z])|(\\.))\-(?:[^\]\\]|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[a-zA-Z])|(\\.))
             captures:
               '1':
                 name: constant.character.numeric.regexp
@@ -5320,6 +5375,7 @@ repository:
               '1':
                 name: punctuation.definition.character-class.posix.regexp
             patterns:
+              - include: '#comments'
               - include: '#variables'
               - include: '#operators'
           - name: constant.other.character-class.posix.regexp
@@ -5332,6 +5388,7 @@ repository:
               '1':
                 name: punctuation.definition.character-class.posix.regexp
             patterns:
+              - include: '#comments'
               - include: '#variables'
               - include: '#operators'
           - name: constant.other.character-class.posix.regexp
@@ -5344,6 +5401,7 @@ repository:
               '1':
                 name: punctuation.definition.character-class.posix.regexp
             patterns:
+              - include: '#comments'
               - include: '#variables'
               - include: '#operators'
           - name: constant.other.character-class.set.regexp
@@ -5358,6 +5416,7 @@ repository:
               '1':
                 name: punctuation.definition.character-class.regexp
             patterns:
+              - include: '#comments'
               - match: '--'
                 name: keyword.operator.optional.regexp
               - include: '#regex-character-range'
@@ -5599,13 +5658,6 @@ repository:
             name: keyword.operator.private.js
           '2':
             name: variable.other.constant.js
-      - comment: e.g. backslash vars
-        match: '\s*+(\#?)(\\[$\w]*)'
-        captures:
-          '1':
-            name: keyword.operator.private.js
-          '2':
-            name: variable.other.dollar.js
       - comment: e.g. dollar vars
         match: >-
           \s*+(\#?)(\p{Sc}[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*)
@@ -5917,196 +5969,6 @@ repository:
               - include: '#language-constant'
               - include: '#expression'
           - include: '#comma'
-  jsx-2:
-    repository:
-      jsx-tag-without-attributes-in-expression:
-        begin: >-
-          (?<!\+\+|--)(?<=[({\[,?=>:*]|&&|\|\||\?|\*\/|^await|[^\._$[:alnum:]]await|^return|[^\._$[:alnum:]]return|^default|[^\._$[:alnum:]]default|^yield|[^\._$[:alnum:]]yield|^)\s*(?=(<)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))?\s*(>))
-        end: >-
-          (?!(<)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))?\s*(>))
-        patterns:
-          - include: '#jsx-tag-without-attributes'
-      jsx-tag-without-attributes:
-        name: meta.tag.without-attributes.js
-        begin: >-
-          (<)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))?\s*(>)
-        end: >-
-          (</)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))?\s*(>)
-        beginCaptures:
-          '1':
-            name: punctuation.definition.tag.begin.js
-          '2':
-            name: entity.name.tag.namespace.js
-          '3':
-            name: punctuation.separator.namespace.js
-          '4':
-            name: entity.name.tag.js
-          '5':
-            name: support.class.component.js
-          '6':
-            name: punctuation.definition.tag.end.js
-        endCaptures:
-          '1':
-            name: punctuation.definition.tag.begin.js
-          '2':
-            name: entity.name.tag.namespace.js
-          '3':
-            name: punctuation.separator.namespace.js
-          '4':
-            name: entity.name.tag.js
-          '5':
-            name: support.class.component.js
-          '6':
-            name: punctuation.definition.tag.end.js
-        contentName: meta.jsx.children.js
-        patterns:
-          - include: '#jsx-children'
-      jsx-tag-in-expression:
-        begin: |-
-          (?x)
-            (?<!\+\+|--)(?<=[({\[,?=>:*]|&&|\|\||\?|\*\/|^await|[^\._$[:alnum:]]await|^return|[^\._$[:alnum:]]return|^default|[^\._$[:alnum:]]default|^yield|[^\._$[:alnum:]]yield|^)\s*
-            (?!<\s*[_$[:alpha:]][_$[:alnum:]]*((\s+extends\s+[^=>])|,)) # look ahead is not type parameter of arrow
-            (?=(<)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))(?=((<\s*)|(\s+))(?!\?)|\/?>))
-        end: >-
-          (?!(<)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))(?=((<\s*)|(\s+))(?!\?)|\/?>))
-        patterns:
-          - include: '#jsx-tag'
-      jsx-tag:
-        name: meta.tag.js
-        begin: >-
-          (?=(<)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))(?=((<\s*)|(\s+))(?!\?)|\/?>))
-        end: >-
-          (/>)|(?:(</)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))?\s*(>))
-        endCaptures:
-          '1':
-            name: punctuation.definition.tag.end.js
-          '2':
-            name: punctuation.definition.tag.begin.js
-          '3':
-            name: entity.name.tag.namespace.js
-          '4':
-            name: punctuation.separator.namespace.js
-          '5':
-            name: entity.name.tag.js
-          '6':
-            name: support.class.component.js
-          '7':
-            name: punctuation.definition.tag.end.js
-        patterns:
-          - begin: >-
-              (<)\s*(?:([_$[:alpha:]][-_$[:alnum:].]*)(?<!\.|-)(:))?((?:[a-z][a-z0-9]*|([_$[:alpha:]][-_$[:alnum:].]*))(?<!\.|-))(?=((<\s*)|(\s+))(?!\?)|\/?>)
-            beginCaptures:
-              '1':
-                name: punctuation.definition.tag.begin.js
-              '2':
-                name: entity.name.tag.namespace.js
-              '3':
-                name: punctuation.separator.namespace.js
-              '4':
-                name: entity.name.tag.js
-              '5':
-                name: support.class.component.js
-            end: '(?=[/]?>)'
-            patterns:
-              - include: '#comment'
-              - include: '#type-arguments'
-              - include: '#jsx-tag-attributes'
-          - begin: (>)
-            beginCaptures:
-              '1':
-                name: punctuation.definition.tag.end.js
-            end: (?=</)
-            contentName: meta.jsx.children.js
-            patterns:
-              - include: '#jsx-children'
-      jsx-children:
-        patterns:
-          - include: '#jsx-tag-without-attributes'
-          - include: '#jsx-tag'
-          - include: '#jsx-evaluated-code'
-          - include: '#jsx-entities'
-      jsx-evaluated-code:
-        contentName: meta.embedded.expression.js
-        begin: '\{'
-        end: '\}'
-        beginCaptures:
-          '0':
-            name: punctuation.section.embedded.begin.js
-        endCaptures:
-          '0':
-            name: punctuation.section.embedded.end.js
-        patterns:
-          - include: '#expression'
-      jsx-entities:
-        patterns:
-          - name: constant.character.entity.js
-            match: '(&)([a-zA-Z0-9]+|#[0-9]+|#x\h+)(;)'
-            captures:
-              '1':
-                name: punctuation.definition.entity.js
-              '3':
-                name: punctuation.definition.entity.js
-          - name: invalid.illegal.bad-ampersand.js
-            match: '&'
-      jsx-tag-attributes:
-        name: meta.tag.attributes.js
-        begin: \s+
-        end: '(?=[/]?>)'
-        patterns:
-          - include: '#comment'
-          - include: '#jsx-tag-attribute-name'
-          - include: '#jsx-tag-attribute-assignment'
-          - include: '#jsx-string-double-quoted'
-          - include: '#jsx-string-single-quoted'
-          - include: '#jsx-evaluated-code'
-          - include: '#jsx-tag-attributes-illegal'
-      jsx-tag-attribute-name:
-        match: |-
-          (?x)
-            \s*
-            (?:([_$[:alpha:]][-_$[:alnum:].]*)(:))?
-            ([_$[:alpha:]][-_$[:alnum:]]*)
-            (?=\s|=|/?>|/\*|//)
-        captures:
-          '1':
-            name: entity.other.attribute-name.namespace.js
-          '2':
-            name: punctuation.separator.namespace.js
-          '3':
-            name: entity.other.attribute-name.js
-      jsx-tag-attribute-assignment:
-        name: keyword.operator.assignment.js
-        match: '=(?=\s*(?:''|"|{|/\*|//|\n))'
-      jsx-string-double-quoted:
-        name: string.quoted.double.js
-        begin: '"'
-        end: '"'
-        beginCaptures:
-          '0':
-            name: punctuation.definition.string.begin.js
-        endCaptures:
-          '0':
-            name: punctuation.definition.string.end.js
-        patterns:
-          - include: '#jsx-entities'
-      jsx-string-single-quoted:
-        name: string.quoted.single.js
-        begin: "'"
-        end: "'"
-        beginCaptures:
-          '0':
-            name: punctuation.definition.string.begin.js
-        endCaptures:
-          '0':
-            name: punctuation.definition.string.end.js
-        patterns:
-          - include: '#jsx-entities'
-      jsx-tag-attributes-illegal:
-        name: invalid.illegal.attribute.js
-        match: \S+
-    patterns:
-      - include: '#jsx-tag-without-attributes-in-expression'
-      - include: '#jsx-tag-in-expression'
   jsx:
     comment: Avoid < operator expressions as best we can using Zertosh's regex
     patterns:
