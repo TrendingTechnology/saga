@@ -565,7 +565,8 @@ repository:
             (record) | # 24
             (extend) | # 25
             (declare|object|trait|interface|namespace|enum|module) | # 26
-            (only) # 27 
+            (only) | # 27
+            (infer|keyof) # 28
           )\b
         captures:
           '1':
@@ -619,9 +620,11 @@ repository:
           '25':
             name: keyword.other.extension.flowtype
           '26':
-            name: keyword.other.$26.js
+            name: keyword.other.$26.flowtype
           '27':
-            name: keyword.other.expression.$27.js
+            name: keyword.operator.expression.$27.js
+          '28':
+            name: keyword.operator.$28.flowtype
   if:
     patterns:
       - name: meta.if.js
@@ -2323,6 +2326,21 @@ repository:
             name: punctuation.separator.label.regexp
   quasi-embedded:
     patterns:
+      - name: entity.quasi.element.js
+        begin: '(?<!\\)(\$\{)\s*'
+        end: '\s*(\})((:)[-\w/.%#<^>+*=!]+)?'
+        beginCaptures:
+          '1':
+            name: punctuation.quasi.element.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.quasi.element.end.js
+          '2':
+            name: storage.type.format.js
+          '3':
+            name: punctuation.separator.label.regexp
+        patterns:
+          - include: '#expression'
       - captures:
           '1':
             name: punctuation.quasi.element.js
@@ -5956,6 +5974,1868 @@ repository:
               '2':
                 name: storage.type.js
               '3':
+                name: keyword.generator.asterisk.js
+              '4':
+                name: keyword.operator.private.js
+              '5':
+                name: entity.name.function.method.js
+            patterns:
+              - include: '#flowtype'
+              - include: '#curly-brackets'
+              - include: '#class-content'
+              - include: $self
+          - include: '#comments'
+          - match: |
+              \s*
+  es7-function-bind:
+    patterns:
+      - comment: 'https://github.com/zenparsing/es-function-bind#examples'
+        match: '\s*(::)'
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+  esnext-pipeline:
+    patterns:
+      - begin: >-
+          \s*(\+>)(?=\s*(\#?)(((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\??\.?\#?)++\s*([^(]|$|;))
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: keyword.operator.pipeline.js
+        patterns:
+          - match: >-
+              (?<=\+>)\s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))(?!\?|\.)
+            captures:
+              '2':
+                name: keyword.operator.private.js
+              '3':
+                name: meta.function-call.without-arguments.js
+              '4':
+                patterns:
+                  - include: '#function-name'
+          - match: >-
+              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))(?!\?|\.)
+            captures:
+              '2':
+                name: keyword.operator.private.js
+              '3':
+                name: meta.method-call.without-arguments.js
+              '4':
+                patterns:
+                  - include: '#method-name'
+          - match: >-
+              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(\??)(\.?)
+            captures:
+              '2':
+                name: keyword.operator.private.js
+              '3':
+                name: variable.other.object.js
+              '4':
+                name: keyword.operator.existential.js
+              '5':
+                name: keyword.operator.accessor.js
+          - include: '#comments'
+      - begin: >-
+          \s*(\|>)(?=\s*(\#?)(((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\??\.?\#?)++\s*([^(]|$|;))
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: keyword.operator.pipeline.js
+        patterns:
+          - match: >-
+              (?<=\|>)\s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))(?!\?|\.)
+            captures:
+              '2':
+                name: keyword.operator.private.js
+              '3':
+                name: meta.function-call.without-arguments.js
+              '4':
+                patterns:
+                  - include: '#function-name'
+          - match: >-
+              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))(?!\?|\.)
+            captures:
+              '2':
+                name: keyword.operator.private.js
+              '3':
+                name: meta.method-call.without-arguments.js
+              '4':
+                patterns:
+                  - include: '#method-name'
+          - match: >-
+              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(\??)(\.?)
+            captures:
+              '2':
+                name: keyword.operator.private.js
+              '3':
+                name: variable.other.object.js
+              '4':
+                name: keyword.operator.existential.js
+              '5':
+                name: keyword.operator.accessor.js
+          - include: '#comments'
+      - match: \s*(\|>|\+>)
+        captures:
+          '1':
+            name: keyword.operator.pipeline.js
+  of-clause:
+    begin: \s*+\b(of)
+    beginCaptures:
+      '1':
+        name: meta.enum.of.flowtype
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#flowtype-parse-types'
+  enum-declaration:
+    name: meta.enum.declaration.flowtype
+    begin: >-
+      (?<!\.)\s*+\b(enum)\s+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)?
+    beginCaptures:
+      '1':
+        name: storage.type.enum.flowtype
+      '2':
+        name: entity.name.type.enum.flowtype
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#of-clause'
+      - include: '#comments'
+      - include: '#flowtype-polymorphs'
+      - include: '#expression'
+      - begin: '\{'
+        beginCaptures:
+          '0':
+            name: meta.brace.curly.js
+        end: '\}'
+        endCaptures:
+          '0':
+            name: meta.brace.curly.js
+        patterns:
+          - include: '#comments'
+          - begin: '([_$[:alpha:]][_$[:alnum:]]*)(?:\s*(=(?!=|>)))?\s*'
+            beginCaptures:
+              '1':
+                name: variable.other.enummember.flowtype
+              '2':
+                name: keyword.operator.assignment.js
+            end: '(?=,|\}|$)'
+            patterns:
+              - include: '#comments'
+              - include: '#string'
+              - include: '#number'
+              - include: '#language-constant'
+              - include: '#expression'
+          - include: '#comma'
+  jsx:
+    comment: Avoid < operator expressions as best we can using Zertosh's regex
+    patterns:
+      - begin: >-
+          (?<=\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void|^)\s*+(?=<[\p{Sc}_\p{L}]|<\s*>)
+        end: (?=.)
+        applyEndPatternLast: 1
+        patterns:
+          - include: '#jsx-tag-element-name'
+  jsx-tag-element-name:
+    patterns:
+      - comment: JSX Fragment
+        name: meta.tag.jsx
+        contentName: JSXAttrs
+        begin: \s*+(<)\s*(?=>)
+        end: (?<=</)(>)
+        beginCaptures:
+          '1':
+            name: punctuation.definition.tag.jsx
+        endCaptures:
+          '1':
+            name: punctuation.definition.tag.jsx
+        patterns:
+          - include: '#jsx-tag-termination'
+      - comment: 'Tags that end > are trapped in #jsx-tag-termination'
+        name: meta.tag.jsx
+        contentName: JSXAttrs
+        begin: >-
+          \s*+(<)((\p{Ll}[\p{Ll}\d]*)|((?:[\p{Sc}_\p{L}\p{Nl}][\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}-]*?:)?+(?:[\p{Sc}_\p{L}\p{Nl}](?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\.-](?<!\.\.))*+)+))(?=[/>\s])(?![:])(?<!\.|:)
+        end: '\s*(?<=</)((\4)|\2)(>)|(/>)|((?<=</)[\S ]*?)>'
+        beginCaptures:
+          '1':
+            name: punctuation.definition.tag.jsx
+          '2':
+            name: entity.name.tag.open.jsx
+          '4':
+            name: support.class.component.open.jsx
+        endCaptures:
+          '1':
+            name: entity.name.tag.close.jsx
+          '2':
+            name: support.class.component.close.jsx
+          '3':
+            name: punctuation.definition.tag.jsx
+          '4':
+            name: punctuation.definition.tag.jsx
+          '5':
+            name: invalid.illegal.termination.jsx
+        patterns:
+          - include: '#jsx-tag-termination'
+          - include: '#jsx-tag-attributes'
+  jsx-tag-termination:
+    patterns:
+      - comment: uses non consuming search for </ in </tag>
+        contentName: JSXNested
+        begin: (>)
+        end: (</)
+        beginCaptures:
+          '0':
+            name: punctuation.definition.tag.jsx
+          '1':
+            name: JSXStartTagEnd
+        endCaptures:
+          '0':
+            name: punctuation.definition.tag.jsx
+          '1':
+            name: JSXEndTagStart
+        patterns:
+          - include: '#jsx-evaluated-code'
+          - include: '#jsx-entities'
+          - include: '#jsx-tag-element-name'
+  jsx-tag-attributes:
+    patterns:
+      - include: '#jsx-attribute-name'
+      - include: '#jsx-assignment'
+      - include: '#jsx-string-double-quoted'
+      - include: '#jsx-string-single-quoted'
+      - include: '#jsx-evaluated-code'
+      - include: '#jsx-tag-element-name'
+      - include: '#comments'
+  jsx-spread-attribute:
+    patterns:
+      - comment: 'Spread attribute { ... AssignmentExpression }'
+        match: (?<!\.)\.\.\.
+        name: keyword.operator.spread.jsx
+  jsx-attribute-name:
+    patterns:
+      - comment: look for attribute name
+        match: >-
+          (?<!\S)([\p{Sc}_\p{L}](?:[$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}-](?<!\.\.))*+)(?<!\.)(?=//|/\*|=|\s|>|/>)
+        captures:
+          '0':
+            name: entity.other.attribute-name.jsx
+  jsx-assignment:
+    patterns:
+      - comment: look for attribute assignment
+        name: keyword.operator.assignment.jsx
+        match: '=(?=\s*(?:''|"|{|/\*|<|//|\n))'
+  jsx-string-double-quoted:
+    name: string.quoted.double.js
+    begin: '"'
+    end: '"(?<!\\")'
+    beginCaptures:
+      '0':
+        name: punctuation.definition.string.begin.jsx
+    endCaptures:
+      '0':
+        name: punctuation.definition.string.end.jsx
+    patterns:
+      - include: '#jsx-entities'
+  jsx-string-single-quoted:
+    name: string.quoted.single.js
+    begin: "'"
+    end: '''(?<!\\'')'
+    beginCaptures:
+      '0':
+        name: punctuation.definition.string.begin.jsx
+    endCaptures:
+      '0':
+        name: punctuation.definition.string.end.jsx
+    patterns:
+      - include: '#jsx-entities'
+  jsx-evaluated-code:
+    patterns:
+      - name: meta.embedded.expression.js
+        contentName: source.js
+        begin: '{'
+        end: '}'
+        beginCaptures:
+          '0':
+            name: punctuation.section.embedded.begin.jsx
+        endCaptures:
+          '0':
+            name: punctuation.section.embedded.end.jsx
+        patterns:
+          - include: '#jsx-string-double-quoted'
+          - include: '#jsx-string-single-quoted'
+          - include: '#jsx-spread-attribute'
+          - include: '#core'
+  jsx-entities:
+    patterns:
+      - comment: Embeded HTML entities &blah
+        match: '(&)([a-zA-Z\d]+|#[\d]+|#x\h+)(;)'
+        captures:
+          '0':
+            name: constant.character.entity.jsx
+          '1':
+            name: punctuation.definition.entity.jsx
+          '2':
+            name: entity.name.tag.html.jsx
+          '3':
+            name: punctuation.definition.entity.jsx
+      - comment: Entity with & and invalid name
+        match: '&\s*+;'
+        name: invalid.illegal.bad-ampersand.jsx
+  flowtype:
+    patterns:
+      - include: '#comments'
+      - include: '#flowtype-return'
+      - include: '#flowtype-polymorphs'
+      - include: '#flowtype-bracketed-args'
+  flowtype-trap:
+    comment: >-
+      traps flowtype vars that aren't caught normally - e.g. multi-line arrow
+      funcs
+    patterns:
+      - begin: '(?<=\))\s*(?=:)'
+        end: (?=.)
+        applyEndPatternLast: 1
+        patterns:
+          - include: '#flowtype-return'
+      - begin: '\s*:(?!:)'
+        end: (?=.)
+        applyEndPatternLast: 1
+        patterns:
+          - include: '#flowtype-parse-types'
+  flowtype-return:
+    patterns:
+      - comment: >-
+          maybe an issue if a object literal is returned and the start of func
+          block isn't on same line!
+        begin: '(?<=\))\s*+(:)((?=::)|(?!:))'
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: punctuation.type.flowtype
+        patterns:
+          - include: '#flowtype-predicate'
+          - include: '#flowtype-parse-types'
+      - include: '#flowtype-predicate'
+  flowtype-predicate:
+    comment: flow predicate checks
+    begin: \s*+(?<=\s)(%checks)\b
+    end: (?=.)
+    applyEndPatternLast: 1
+    beginCaptures:
+      '1':
+        name: entity.name.function.predicate.flowtype
+    patterns:
+      - include: '#round-brackets'
+  flowtype-variable:
+    patterns:
+      - comment: 'e.g. let a: ()=>null  =  function() {return null}'
+        match: >-
+          (?<!\.)\s*+(\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\??)\s*+(?=:\s*([\p{Sc}_\p{L}](?:[$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\bFunction\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
+        captures:
+          '1':
+            name: keyword.operator.private.js
+          '2':
+            name: storage.type.function.js
+          '3':
+            name: keyword.operator.optional.parameter.flowtype
+      - comment:
+          'name of variable spread var with optional ? and optional flowtype :'
+        match: >-
+          ((?<!\.)\.\.\.)?\s*+(\#?)((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\??)\s*+(?!::)(?=:|=>)
+        captures:
+          '1':
+            name: keyword.operator.spread.js
+          '2':
+            name: keyword.operator.private.js
+          '3':
+            name: variable.other.readwrite.js
+          '4':
+            name: keyword.operator.optional.parameter.flowtype
+      - include: '#flowtype-vars-and-props'
+  flowtype-vars-and-props:
+    patterns:
+      - comment: 'flowtype optional arg/parameter e.g. protocol? : string'
+        match: \s*+(\?)
+        captures:
+          '1':
+            name: punctuation.type.flowtype
+      - comment: Type Unions |
+        match: '\s*+(\|)(?<!{\|)(?!}|>)'
+        captures:
+          '1':
+            name: keyword.operator.union.flowtype
+      - comment: intersection of types &
+        match: \s*+(\&)
+        captures:
+          '1':
+            name: keyword.operator.intersection.flowtype
+      - comment: 'typed entity :'
+        begin: '\s*+(:)((?=::)|(?!:))'
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: punctuation.type.flowtype
+        patterns:
+          - include: '#flowtype-parse-types'
+      - include: '#comma'
+      - comment: An Iterator prefix?
+        match: \s*+(@@)
+      - begin: \s*+(=>)
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: storage.type.function.arrow.js
+        patterns:
+          - include: '#flowtype-parse-types'
+      - comment: 'varname of|in '
+        begin: >-
+          (?<!let|const|con|va[lr])(?<=[$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}])\s+(?=\b(?:of|in)\b)
+        end: >-
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+        patterns:
+          - include: '#expression'
+      - comment: 'assignment var = or = '
+        begin: >-
+          (?<!:)\s*+(?=((?:(\#?)[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)?\s*=)(?!=>|==)
+        end: >-
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+        patterns:
+          - include: '#expression'
+      - include: '#flowtype-bracketed-parameters'
+      - include: '#flowtype-parse-array'
+      - include: '#expression'
+  flowtype-parse-types:
+    patterns:
+      - include: '#modifiers'
+      - comment: Immutable modifier
+        match: '\s*#(?![(\[{])\s*'
+        name: keyword.operator.private.js
+      - comment: There is no = in flowtype
+        begin: '(?![!=]==?|=<|=[:!]=)(?==>|=|{)\s*'
+        end: $
+        patterns:
+          - include: '#expression'
+      - match: '\s*([<>]:+|:+[<>])\s*'
+        name: keyword.operator.class.js
+      - include: '#number'
+      - include: '#string'
+      - include: '#language-constant'
+      - include: '#regexp'
+      - include: '#multiline-regexp'
+      - match: (?<==>)\*
+        name: keyword.generator.asterisk.js
+      - comment: 'sometypename of|in '
+        begin: '(?<=[>$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}])\s+(?=\b(?:of|in)\b)'
+        end: >-
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+        patterns:
+          - include: '#expression'
+      - comment: Maybe types
+        match: \s*+(\?)
+        captures:
+          '1':
+            name: keyword.operator.maybe.flowtype
+      - match: (?<!\.)\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+
+        captures:
+          '1':
+            name: keyword.operator.$1.flowtype
+      - begin: (?<!\.)\s*+\b(for\s*all)\b\s*
+        beginCaptures:
+          '1':
+            name: keyword.operator.forall.js
+        end: '^\s*|\s*(?=;|/[/*]|$)'
+        patterns:
+          - begin: (?<!\.)\s*+\b(where)\b
+            beginCaptures:
+              '1':
+                name: keyword.operator.forall.js
+            end: '^\s*|\s*(?=;|/[/*]|$)'
+            patterns:
+              - include: '#comments'
+              - include: '#expression'
+          - match: '(?<!\.)\s*+\b(va[rl]|const|con|let)\b\s*+'
+            name: storage.type.js
+          - begin: (?<!\.)\s*+\b(as)\b
+            end: '(?=$|;|/[/*]|\s*where)'
+            beginCaptures:
+              '1':
+                name: keyword.operator.forall.js
+            patterns:
+              - include: '#flowtype-parse-types'
+      - comment: primitive flowtypes
+        match: >-
+          (?!^)\s*+\b((?>any|boolean|bool|mixed|string|number|str|num|bigint|s?byte|u?short|u?inte?|u?long|u?cent|[ci]?half|[ci]?float|[ci]?double|[ci]?decimal|ratio|real|imag|complex|symbol|sym|regexp?|nu?int|sint|rune|nat|frac|char|re|rat))\b
+        captures:
+          '1':
+            name: support.type.builtin.primitive.flowtype
+      - comment: primitive flowtypes
+        match: >-
+          (?!^)\s*+\b((?>this|any|void|unknown|never|empty|object|list|dict|set|map|array|arr|object|obj|stack|seq|tuple|record|gene?))\b
+        captures:
+          '1':
+            name: support.type.builtin.flowtype
+      - comment: Built-in Class Types
+        match: >-
+          (?!^)\s*+\b((?>WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array))\b
+        captures:
+          '1':
+            name: support.type.builtin.class.flowtype
+      - match: >-
+          \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
+        captures:
+          '2':
+            name: support.type.builtin.class.flowtype
+          '4':
+            name: keyword.operator.accessor.js
+          '5':
+            name: support.type.builtin.class.flowtype
+      - match: \s*+\b((Intl)((\.)(NumberFormat|DateTimeFormat|Collator))?)\b
+        captures:
+          '2':
+            name: support.type.builtin.class.flowtype
+          '4':
+            name: keyword.operator.accessor.js
+          '5':
+            name: support.type.builtin.class.flowtype
+      - comment: custom Class Types e.g. Abc avoid Abc(
+        match: >-
+          \s*+([$_[\p{Lu}\p{Lt}\p{Lm}\p{Lo}]][$.\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}]*+)
+        captures:
+          '1':
+            name: support.type.class.flowtype
+      - comment: custom primitive/var Types e.g. abc avoid abc(
+        match: >-
+          (?!\s*\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b)(?!^)\s*(?<=\s|:|&|\||<)([$_\p{L}][$.\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}]*+)
+        captures:
+          '2':
+            name: support.type.primitive.flowtype
+      - comment: symmetric difference of types &
+        match: \s*+(\^)
+        captures:
+          '1':
+            name: keyword.operator.bitwise.flowtype
+      - comment: complement of types ~
+        match: \s*+(\~)
+        captures:
+          '1':
+            name: keyword.operator.logical.flowtype
+      - comment: Type Unions |
+        match: '\s*+(\|)(?<!{\|)(?!}|>)'
+        captures:
+          '1':
+            name: keyword.operator.union.flowtype
+      - comment: intersection of types &
+        match: \s*+(\&)
+        captures:
+          '1':
+            name: keyword.operator.intersection.flowtype
+      - comment: as per React declares in flowtype github
+        match: '\s*+(\*)(?!/([^\*]|$))'
+        captures:
+          '1':
+            name: keyword.operator.existential.flowtype
+      - comment: 'types of type marker e.g. <T: number | string>'
+        name: punctuation.type.flowtype
+        match: '\s*+(:)((?=::)|(?!:))'
+        captures:
+          '1':
+            name: support.type.builtin.primitive.flowtype
+      - comment: call back with a form  ) => type
+        match: (?<=\))\s*+(=>)
+        captures:
+          '1':
+            name: storage.type.function.arrow.js
+      - include: '#flowtype-polymorphs'
+      - include: '#flowtype-bracketed-parameters'
+      - include: '#flowtype-parse-objects'
+      - include: '#flowtype-parse-array'
+      - include: '#comments'
+  flowtype-bracketed-args:
+    patterns:
+      - comment: Get parameters within a function/method call
+        contentName: meta.function.parameters.js
+        begin: >-
+          (?<!}|return|await|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
+        end: \s*((\)))
+        beginCaptures:
+          '1':
+            name: punctuation.definition.parameters.begin.js
+          '2':
+            name: meta.brace.round.js
+        endCaptures:
+          '1':
+            name: punctuation.definition.parameters.end.js
+          '2':
+            name: meta.brace.round.js
+        patterns:
+          - include: '#modifiers'
+          - include: '#flowtype-polymorphs'
+          - include: '#flowtype-variable'
+  flowtype-bracketed-parameters:
+    patterns:
+      - comment:
+          'trap balanced parens which are NOT followed by . : => { or /*: '
+        begin: >-
+          \s*+(?=(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(?!\.|:|=>|{|/\*\s*:))
+        end: (?=.)
+        applyEndPatternLast: 1
+        patterns:
+          - begin: \s*(\()
+            end: \s*(\))
+            beginCaptures:
+              '1':
+                name: meta.brace.round.js
+            endCaptures:
+              '1':
+                name: meta.brace.round.js
+            patterns:
+              - include: '#flowtype-parse-types'
+      - comment: Get parameters within a function/method call
+        contentName: meta.function.parameters.js
+        begin: >-
+          (?<!}|return|await|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
+        end: \s*((\)))
+        beginCaptures:
+          '1':
+            name: punctuation.definition.parameters.begin.js
+          '2':
+            name: meta.brace.round.js
+        endCaptures:
+          '1':
+            name: punctuation.definition.parameters.end.js
+          '2':
+            name: meta.brace.round.js
+        patterns:
+          - include: '#flowtype-polymorphs'
+          - include: '#flowtype-variable'
+  flowtype-polymorphs:
+    comment: >-
+      Support Bounded Polymorphism
+      http://flowtype.org/blog/2015/03/12/Bounded-Polymorphism.html
+    patterns:
+      - comment: Built-in Class Types with elements of type <T>
+        begin: \s*+\b((?>Array|Class|Map|Promise|Set|WeakMap|WeakSet))\s*+(<)
+        end: \s*(>)
+        beginCaptures:
+          '1':
+            name: support.type.builtin.class.flowtype
+          '2':
+            name: punctuation.flowtype
+        endCaptures:
+          '1':
+            name: punctuation.flowtype
+        patterns:
+          - include: '#comma'
+          - match: \s*+(\+|-)
+            captures:
+              '1':
+                name: support.type.variant.flowtype
+          - include: '#flowtype-parse-types'
+      - comment: 'just the polymorph bit like this <K,V>(arg,arg)'
+        begin: \s*+(<)
+        end: \s*(>)
+        beginCaptures:
+          '1':
+            name: punctuation.flowtype
+        endCaptures:
+          '1':
+            name: punctuation.flowtype
+        patterns:
+          - include: '#comma'
+          - match: \s*+(\+|-)
+            captures:
+              '1':
+                name: support.type.variant.flowtype
+          - include: '#flowtype-parse-types'
+  flowtype-parse-objects:
+    name: meta.object.flowtype
+    comment: 'object literal flowtype  preceded by either => : | & ? symbols'
+    begin: '(?<=:|\||&|\?|=>|<|\()\s*+(#?{)'
+    end: '\s*(\})'
+    applyEndPatternLast: 1
+    beginCaptures:
+      '1':
+        name: meta.brace.curly.open.flowtype
+    endCaptures:
+      '1':
+        name: meta.brace.curly.close.flowtype
+    patterns:
+      - include: '#flowtype-object-property'
+  flowtype-object-property:
+    patterns:
+      - comment: 'Only these props syntax {| |}'
+        match: '((\|)(?={|))|(\s*(\|)(?=}))'
+        captures:
+          '1':
+            name: keyword.operator.only.flowtype
+          '4':
+            name: keyword.operator.only.flowtype
+      - include: '#method'
+      - include: '#comments'
+      - include: '#flowtype-variable'
+  flowtype-parse-array:
+    comment: 'arrays such as [name: string, dob: Date]'
+    begin: '(?<!=|[$_A-Za-z\d])\s*+(#?\[)'
+    end: '\s*(\])'
+    beginCaptures:
+      '1':
+        name: meta.brace.square.open.flowtype
+    endCaptures:
+      '1':
+        name: meta.brace.square.end.flowtype
+    patterns:
+      - comment: destructring in arrays requires vars parse before types
+        begin: '\s*(?=[_$[:alpha:]][_$[:alnum:]]*\s*[=:])'
+        end: (?=.)
+        applyEndPatternLast: 1
+        patterns:
+          - include: '#flowtype-variable'
+          - include: '#flowtype-parse-types'
+      - include: '#flowtype-parse-types'
+      - include: '#flowtype-variable'
+  flowtype-type-aliases:
+    patterns:
+      - comment:
+          type aliases for export but avoid type instaceof or type in operators
+        begin: >-
+          (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type)\b\s+(?!(instanceof|in)\b)(?=[$_A-Za-z{\[])
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: keyword.other.typedef.flowtype
+          '2':
+            name: keyword.other.typedef.flowtype
+        patterns:
+          - name: meta.object.flowtype
+            begin: '\s*+({)'
+            end: '\s*(})'
+            captures:
+              '1':
+                name: meta.brace.curly.js
+            patterns:
+              - include: '#flowtype-object-property'
+          - include: '#flowtype'
+          - include: '#flowtype-parse-types'
+          - include: '#comments'
+          - include: '#flowtype-function-name'
+          - match: \s*+(=)(?!=|>)
+            captures:
+              '1':
+                name: keyword.operator.assignment.js
+  flowtype-given:
+    begin: (?<!\.)\s*+\b(given)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.given.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.given.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#flowtype-method'
+          - include: '#class-content'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+      - include: '#expression'
+  flowtype-struct:
+    begin: (?<!\.)\s*+\b(struct)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.struct.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.struct.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#flowtype-method'
+          - include: '#class-content'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+      - include: '#expression'
+  flowtype-module:
+    begin: (?<!\.)\s*+\b(module|package)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.module.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.module.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#core'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+      - include: '#expression'
+  flowtype-extension:
+    begin: (?<!\.)\s*+\b(extend)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.extension.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.extension.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#core'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+      - include: '#expression'
+  flowtype-namespace:
+    begin: (?<!\.)\s*+\b(namespace)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.namespace.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.namespace.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#core'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+      - include: '#expression'
+  flowtype-trait:
+    begin: (?<!\.)\s*+\b(trait)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.trait.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.trait.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#class-content'
+          - include: '#flowtype-method'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+      - include: '#expression'
+  flowtype-interface:
+    begin: (?<!\.)\s*+\b(interface)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.interface.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.interface.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#flowtype-method'
+          - include: '#class-content'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+      - include: '#expression'
+  flowtype-object:
+    begin: (?<!\.)\s*+\b(object|record)(\s+|$)
+    end: '\s*(=(?!=|>))|\s*(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.other.object.flowtype
+    endCaptures:
+      '1':
+        name: keyword.operator.assignment.js
+    patterns:
+      - include: '#round-brackets'
+      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+        captures:
+          '1':
+            name: meta.class.extends.js
+          '2':
+            name: storage.type.extends.js
+          '3':
+            name: storage.type.implements.js
+          '4':
+            name: keyword.operator.expression.only.js
+      - comment: look for interface names but don't assume uppercase start char
+        match: >-
+          \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+        name: entity.name.type.object.js
+      - include: '#flowtype-polymorphs'
+      - begin: '\s*+({)'
+        end: '\s*(})'
+        contentName: meta.class.body.js
+        beginCaptures:
+          '1':
+            name: punctuation.section.class.begin.js
+        endCaptures:
+          '1':
+            name: punctuation.section.class.end.js
+        patterns:
+          - include: '#flowtype-method'
+          - include: '#class-content'
+      - match: \s*(\.)
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+  flowtype-declare:
+    patterns:
+      - match: >-
+          \s*+(?<!\.)\b(declare)\s*+
+        captures:
+          '1':
+            name: keyword.other.declare.flowtype
+      - comment: 'declare module.exports:'
+        begin: '\s*+(?<!\.)\b(declare)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?!:))'
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: keyword.other.declare.flowtype
+          '2':
+            name: storage.type.module.flowtype
+          '3':
+            name: keyword.operator.accessor.flowtype
+          '4':
+            name: storage.type.module.flowtype
+          '5':
+            name: punctuation.type.flowtype
+        patterns:
+          - include: '#flowtype-parse-objects'
+          - include: '#flowtype-parse-types'
+      - comment: declare modules
+        begin: (?<!\.)\s*+\b(declare)\b\s*+\b(module)(\s|$)
+        end: '\s*(?<=})'
+        beginCaptures:
+          '1':
+            name: keyword.other.declare.flowtype
+          '2':
+            name: storage.type.module.flowtype
+        patterns:
+          - include: '#flowtype-polymorphs'
+          - comment: look for module names but don't assume uppercase start char
+            match: >-
+              \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+            captures:
+              '1':
+                name: entity.name.class.js
+          - comment: look for module names in quoted string forms
+            include: '#string'
+          - begin: '\s*+({)'
+            end: '\s*(})'
+            contentName: meta.class.body.js
+            beginCaptures:
+              '1':
+                name: punctuation.section.class.begin.js
+            endCaptures:
+              '1':
+                name: punctuation.section.class.end.js
+            patterns:
+              - include: '#flowtype-keywords'
+              - include: '#flowtype-method'
+              - include: '#class-content'
+      - comment: declare classes
+        begin: \s*+(?<!\.)\b(declare)\b\s*+(\bexport\b)?\s*+\b(class)\b
+        end: '\s*(?<=})'
+        beginCaptures:
+          '1':
+            name: keyword.other.declare.flowtype
+          '2':
+            name: keyword.constrol.module.flowtype
+          '3':
+            name: storage.type.class.flowtype
+        patterns:
+          - comment: look for extends keyword
+            match: \s*+\b((ext|extends))\b\s*+
+            captures:
+              '1':
+                name: meta.class.extends.js
+              '2':
+                name: storage.type.extends.js
+          - comment: look for implements keyword
+            match: \s*+\b((impl|implements))\b\s*+
+            captures:
+              '1':
+                name: meta.class.implements.js
+              '2':
+                name: storage.type.implements.js
+          - comment: look for mixins keyword
+            match: \s*+\b((mix|mixins))\b\s*+
+            captures:
+              '1':
+                name: meta.class.extends.js
+              '2':
+                name: storage.type.extends.js
+          - comment: look for class names but don't assume uppercase start char
+            match: >-
+              \s*+((?:[\p{Sc}_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+            captures:
+              '1':
+                name: entity.name.class.js
+          - begin: '\s*+({)'
+            end: '\s*(})'
+            contentName: meta.class.body.js
+            beginCaptures:
+              '1':
+                name: punctuation.section.class.begin.js
+            endCaptures:
+              '1':
+                name: punctuation.section.class.end.js
+            patterns:
+              - include: '#flowtype-method'
+              - include: '#class-content'
+          - include: '#flowtype-polymorphs'
+          - include: '#comma'
+          - match: \s*(\.)
+            captures:
+              '1':
+                name: keyword.operator.accessor.js
+  flowtype-method:
+    comment:
+      'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
+    begin: '(?<!:)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())'
+    end: \s*(?=.)
+    applyEndPatternLast: 1
+    beginCaptures:
+      '1':
+        name: storage.modifier.js
+      '2':
+        name: storage.type.js
+      '3':
+        name: keyword.generator.asterisk.js
+    patterns:
+      - include: '#flowtype'
+  flowtype-keywords:
+    patterns:
+      - include: '#flowtype-declare'
+      - include: '#flowtype-type-aliases'
+      - include: '#flowtype-interface'
+      - include: '#flowtype-trait'
+      - include: '#flowtype-struct'
+      - include: '#flowtype-module'
+      - include: '#flowtype-namespace'
+      - include: '#flowtype-object'
+      - include: '#flowtype-given'
+      - include: '#flowtype-extension'
+      - include: '#enum-declaration'
+  flowtype-comments:
+    patterns:
+      - name: meta.comments.flowtype
+        begin: '\s*+(/\*)\s*(::)'
+        end: \s*(\*/)
+        beginCaptures:
+          '1':
+            name: punctuation.definition.comment.js
+          '2':
+            name: punctuation.type.flowtype
+        endCaptures:
+          '1':
+            name: punctuation.definition.comment.js
+        patterns:
+          - include: '#flowtype-comments-optional-parameter'
+          - include: '#module'
+          - include: '#flowtype-keywords'
+          - include: '#flowtype-predicate'
+          - include: '#flowtype-parse-types'
+          - include: '#function'
+          - include: '#keyword-storage'
+      - name: meta.comments.flowtype
+        begin: \s*+(/\*)\s*(flow-include)\b
+        end: \s*(\*/)
+        beginCaptures:
+          '1':
+            name: punctuation.definition.comment.js
+          '2':
+            name: keyword.other.flow-include.flowtype
+        endCaptures:
+          '1':
+            name: punctuation.definition.comment.js
+        patterns:
+          - include: '#flowtype-comments-optional-parameter'
+          - include: '#module'
+          - include: '#flowtype-keywords'
+          - include: '#flowtype-predicate'
+          - include: '#flowtype-parse-types'
+          - include: '#function'
+          - include: '#keyword-storage'
+      - name: meta.comments.flowtype
+        begin: '\s*+(/\*)\s*(:)((?=::)|(?!:))'
+        end: \s*(\*/)
+        beginCaptures:
+          '1':
+            name: punctuation.definition.comment.js
+          '2':
+            name: punctuation.type.flowtype
+        endCaptures:
+          '1':
+            name: punctuation.definition.comment.js
+        patterns:
+          - include: '#flowtype-predicate'
+          - include: '#flowtype-parse-types'
+  flowtype-comments-optional-parameter:
+    patterns:
+      - match: '(?<=::|flow-include)\s*(\?)'
+        captures:
+          '1':
+            name: keyword.operator.optional.parameter.flowtype
+  fat-arrow:
+    comment: trap fat-arrow
+    patterns:
+      - comment: match arrow func symbol
+        begin: \s*(=>)
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          '1':
+            name: storage.type.function.arrow.js
+        patterns:
+          - include: $self
+  fat-arrow-braced-body:
+    comment: ' => {'
+    begin: '\s*(=>)\s*({)'
+    end: '\s*(})'
+    beginCaptures:
+      '1':
+        name: storage.type.function.arrow.js
+      '2':
+        name: meta.brace.curly.js
+    endCaptures:
+      '1':
+        name: meta.brace.curly.js
+    patterns:
+      - include: $self
+  html-template:
+    comment: 'Assume object properties of template: `some html` contain html'
+    begin: '(?:(?:^|(?<=,|{))\s*\b((template))\b\s*(:)\s*(`))'
+    end: \s*(`)
+    beginCaptures:
+      '1':
+        name: constant.other.object.key.js
+      '2':
+        name: string.unquoted.js
+      '3':
+        name: punctuation.separator.key-value.js
+      '4':
+        name: punctuation.definition.quasi.begin.js
+    endCaptures:
+      '1':
+        name: punctuation.definition.quasi.end.js
+    patterns:
+      - name: entity.quasi.element.js
+        begin: '(?<!\\)\${'
+        end: '\s*}'
+        beginCaptures:
+          '0':
+            name: punctuation.quasi.element.begin.js
+        endCaptures:
+          '0':
+            name: punctuation.quasi.element.end.js
+        patterns:
+          - include: '#expression'
+      - include: text.html.mustache
+  graphql:
+    patterns:
+      - include: '#graphql-fragment-definition'
+      - include: '#graphql-type-interface'
+      - include: '#graphql-enum'
+      - include: '#graphql-scalar'
+      - include: '#graphql-union'
+      - include: '#graphql-schema'
+      - include: '#graphql-operation-def'
+      - include: '#graphql-comment'
+      - include: '#quasi-embedded'
+  graphql-operation-def:
+    patterns:
+      - include: '#graphql-query-mutation'
+      - include: '#graphql-name'
+      - include: '#graphql-variable-definitions'
+      - include: '#graphql-directive'
+      - include: '#graphql-selection-set'
+  graphql-fragment-definition:
+    name: meta.fragment.graphql
+    begin: >-
+      \s*(?:(\bfragment\b)\s*(?!\bon\b)([_A-Za-z][_\dA-Za-z]*)\s*(?:(\bon\b)\s*([_A-Za-z][_\dA-Za-z]*)))
+    end: '(?<=})'
+    captures:
+      '1':
+        name: keyword.fragment.graphql
+      '2':
+        name: entity.name.fragment.graphql
+      '3':
+        name: keyword.on.graphql
+      '4':
+        name: support.type.graphql
+    patterns:
+      - include: '#graphql-comment'
+      - include: '#graphql-selection-set'
+      - include: '#graphql-directive'
+      - include: '#graphql-skip-newlines'
+      - include: '#quasi-embedded'
+  graphql-query-mutation:
+    match: \s*\b(query|mutation)\b
+    captures:
+      '1':
+        name: keyword.operation.graphql
+  graphql-type-interface:
+    name: meta.type.interface.graphql
+    begin: >-
+      \s*\b(?:(extends?)?\b\s*\b(type)|(interface)|(input))\b\s*([_A-Za-z][_\dA-Za-z]*)?
+    end: (?=.)
+    applyEndPatternLast: 1
+    beginCaptures:
+      '1':
+        name: keyword.type.graphql
+      '2':
+        name: keyword.type.graphql
+      '3':
+        name: keyword.interface.graphql
+      '4':
+        name: keyword.input.graphql
+      '5':
+        name: support.type.graphql
+    patterns:
+      - match: '\s*\b(implements)\b\s*([_A-Za-z][_\dA-Za-z]*)'
+        captures:
+          '1':
+            name: keyword.implements.grapahql
+          '2':
+            name: support.type.graphql
+      - include: '#graphql-comment'
+      - include: '#graphql-type-object'
+      - include: '#quasi-embedded'
+      - include: '#graphql-ignore-spaces'
+  graphql-ignore-spaces:
+    match: \s*
+  graphql-type-object:
+    name: meta.type.object.graphql
+    begin: '\s*({)'
+    end: '\s*(})'
+    beginCaptures:
+      '1':
+        name: punctuation.operation.graphql
+    endCaptures:
+      '1':
+        name: punctuation.operation.graphql
+    patterns:
+      - include: '#graphql-object-type'
+      - include: '#graphql-comment'
+      - include: '#graphql-type-definition'
+      - include: '#quasi-embedded'
+  graphql-type-definition:
+    comment: 'key (optionalArgs): Type'
+    begin: '\s*([_A-Za-z][_\dA-Za-z]*)(?=\s*\(|:)'
+    end: '(?=\s*(([_A-Za-z][_\dA-Za-z]*)\s*(\(|:)|(})))|\s*(,)'
+    beginCaptures:
+      '1':
+        name: variable.graphql
+    endCaptures:
+      '5':
+        name: punctuation.comma.graphql
+    patterns:
+      - include: '#graphql-comment'
+      - include: '#graphql-variable-definitions'
+      - include: '#graphql-type-object'
+      - include: '#graphql-colon'
+      - include: '#graphql-input-types'
+      - include: '#quasi-embedded'
+  graphql-schema:
+    begin: \s*\b(schema)\b
+    end: '(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.schema.graphql
+    patterns:
+      - begin: '\s*({)'
+        end: '\s*(})'
+        beginCaptures:
+          '1':
+            name: punctuation.operation.graphql
+        endCaptures:
+          '1':
+            name: punctuation.operation.graphql
+        patterns:
+          - begin: '\s*([_A-Za-z][_\dA-Za-z]*)(?=\s*\(|:)'
+            end: '(?=\s*(([_A-Za-z][_\dA-Za-z]*)\s*(\(|:)|(})))|\s*(,)'
+            beginCaptures:
+              '1':
+                name: variable.arguments.graphql
+            endCaptures:
+              '5':
+                name: punctuation.comma.graphql
+            patterns:
+              - match: '\s*([_A-Za-z][_\dA-Za-z]*)'
+                captures:
+                  '1':
+                    name: support.type.graphql
+              - include: '#graphql-colon'
+              - include: '#graphql-comment'
+              - include: '#graphql-skip-newlines'
+          - include: '#graphql-comment'
+          - include: '#graphql-skip-newlines'
+      - include: '#graphql-comment'
+      - include: '#graphql-skip-newlines'
+  graphql-comment:
+    patterns:
+      - name: comment.block.graphql.js
+        begin: \s*+"""
+        end: \s*"""
+      - name: comment.line.graphql.js
+        match: '(\s*)((\#.*)|(".*"))'
+        captures:
+          '1':
+            name: punctuation.whitespace.comment.leading.graphql
+  graphql-variable-definitions:
+    begin: \s*(\()
+    end: \s*(\))
+    captures:
+      '1':
+        name: meta.brace.round.graphql
+    patterns:
+      - include: '#graphql-comment'
+      - include: '#graphql-variable-definition'
+      - include: '#quasi-embedded'
+  graphql-variable-definition:
+    comment: 'variable: type = value,.... which may be a list'
+    name: meta.variables.graphql
+    begin: '\s*(\$?[_A-Za-z][_\dA-Za-z]*)(?=\s*\(|:)'
+    end: '(?=\s*((\$?[_A-Za-z][_\dA-Za-z]*)\s*(\(|:)|(}|\))))|\s*(,)'
+    beginCaptures:
+      '1':
+        name: variable.graphql
+    endCaptures:
+      '5':
+        name: punctuation.comma.graphql
+    patterns:
+      - include: '#graphql-comment'
+      - include: '#graphql-colon'
+      - include: '#graphql-input-types'
+      - include: '#graphql-variable-assignment'
+      - include: '#quasi-embedded'
+      - include: '#graphql-skip-newlines'
+  graphql-input-types:
+    patterns:
+      - include: '#graphql-scalar-type'
+      - match: '\s*([_A-Za-z][_\dA-Za-z]*)(?:\s*(!))?'
+        captures:
+          '1':
+            name: support.type.graphql
+          '2':
+            name: keyword.operator.nulltype.graphql
+      - name: meta.type.list.graphql
+        begin: '\s*(\[)'
+        end: '\s*(\])(?:\s*(!))?'
+        captures:
+          '1':
+            name: meta.brace.squart.graphql
+          '2':
+            name: keyword.operator.nulltype.graphql
+        patterns:
+          - include: '#graphql-input-types'
+          - include: '#graphql-comment'
+          - include: '#graphql-comma'
+          - include: '#quasi-embedded'
+  graphql-scalar:
+    match: '\s*\b(scalar)\b\s*([_A-Za-z][_\dA-Za-z]*)'
+    captures:
+      '1':
+        name: keyword.scalar.graphql
+      '2':
+        name: entity.scalar.graphql
+  graphql-scalar-type:
+    match: '\s*\b(Int|Float|String|Boolean|ID)\b(?:\s*(!))?'
+    captures:
+      '1':
+        name: support.type.builtin.graphql
+      '2':
+        name: keyword.operator.nulltype.graphql
+  graphql-variable-assignment:
+    begin: \s(=)
+    end: (?=.)
+    applyEndPatternLast: 1
+    beginCaptures:
+      '1':
+        name: punctuation.assignment.graphql
+    patterns:
+      - include: '#graphql-value'
+  graphql-comma:
+    match: '\s*(,)'
+    captures:
+      '1':
+        name: punctuation.comma.graphql
+  graphql-colon:
+    match: '\s*(:)'
+    captures:
+      '1':
+        name: punctuation.colon.graphql
+  graphql-union-mark:
+    match: \s*(\|)
+    captures:
+      '1':
+        name: punctuation.union.graphql
+  graphql-name:
+    match: '\s*([_A-Za-z][_\dA-Za-z]*)'
+    captures:
+      '1':
+        name: entity.name.function.graphql
+  graphql-directive:
+    begin: '\s*((@)\s*([_A-Za-z][_\dA-Za-z]*))'
+    end: (?=.)
+    applyEndPatternLast: 1
+    beginCaptures:
+      '1':
+        name: entity.name.function.directive.graphql
+    patterns:
+      - include: '#graphql-arguments'
+      - include: '#graphql-comment'
+      - include: '#quasi-embedded'
+      - include: '#graphql-skip-newlines'
+  graphql-selection-set:
+    name: meta.selectionset.graphql
+    begin: '\s*({)'
+    end: '\s*(})'
+    beginCaptures:
+      '1':
+        name: punctuation.operation.graphql
+    endCaptures:
+      '1':
+        name: punctuation.operation.graphql
+    patterns:
+      - include: '#graphql-field'
+      - include: '#graphql-fragment-spread'
+      - include: '#graphql-inline-fragment'
+      - include: '#graphql-comma'
+      - include: '#graphql-comment'
+      - include: '#quasi-embedded'
+  graphql-field:
+    patterns:
+      - match: '\s*([_A-Za-z][_\dA-Za-z]*)\s*(:)'
+        captures:
+          '1':
+            name: string.unquoted.alias.graphql
+          '2':
+            name: punctuation.colon.graphql
+      - match: '\s*([_A-Za-z][_\dA-Za-z]*)'
+        captures:
+          '1':
+            name: variable.graphql
+      - include: '#graphql-arguments'
+      - include: '#graphql-directive'
+      - include: '#graphql-selection-set'
+      - include: '#quasi-embedded'
+      - include: '#graphql-skip-newlines'
+  graphql-fragment-spread:
+    begin: '\s*(\.\.\.)\s*(?!\bon\b)([_A-Za-z][_\dA-Za-z]*)'
+    end: (?=.)
+    applyEndPatternLast: 1
+    captures:
+      '1':
+        name: keyword.operator.spread.graphql
+      '2':
+        name: variable.fragment.graphql
+    patterns:
+      - include: '#graphql-comment'
+      - include: '#graphql-selection-set'
+      - include: '#graphql-directive'
+      - include: '#quasi-embedded'
+      - include: '#graphql-skip-newlines'
+  graphql-inline-fragment:
+    begin: '\s*(\.\.\.)\s*(?:(\bon\b)\s*([_A-Za-z][_\dA-Za-z]*))?'
+    end: (?=.)
+    applyEndPatternLast: 1
+    captures:
+      '1':
+        name: keyword.operator.spread.graphql
+      '2':
+        name: keyword.on.graphql
+      '3':
+        name: support.type.graphql
+    patterns:
+      - include: '#graphql-comment'
+      - include: '#graphql-selection-set'
+      - include: '#graphql-directive'
+      - include: '#graphql-skip-newlines'
+      - include: '#quasi-embedded'
+  graphql-arguments:
+    name: meta.arguments.graphql
+    begin: \s*(\()
+    end: \s*(\))
+    beginCaptures:
+      '1':
+        name: meta.brace.round.directive.graphql
+    endCaptures:
+      '1':
+        name: meta.brace.round.directive.graphql
+    patterns:
+      - include: '#graphql-comment'
+      - begin: '\s*([_A-Za-z][_\dA-Za-z]*)(?:\s*(:))?'
+        end: '(?=\s*(?:(?:([_A-Za-z][_\dA-Za-z]*)\s*(:))|\)))|\s*(,)'
+        beginCaptures:
+          '1':
+            name: variable.arguments.graphql
+          '2':
+            name: punctuation.colon.graphql
+        endCaptures:
+          '3':
+            name: punctuation.comma.graphql
+        patterns:
+          - include: '#graphql-value'
+          - include: '#graphql-comment'
+          - include: '#graphql-skip-newlines'
+      - include: '#quasi-embedded'
+  graphql-variable-name:
+    match: '\s*(\$[_A-Za-z][_\dA-Za-z]*)'
+    captures:
+      '1':
+        name: variable.graphql
+  graphql-int-value:
+    match: '\s*((-)?(0|[1-9][\d]*))'
+    captures:
+      '1':
+        name: constant.int.graphql
+  graphql-float-value:
+    match: '\s*((-)?(0|([1-9]\d*)(\.\d*)?((e|E)(\+|-)?\d*)?))'
+    captures:
+      '1':
+        name: constant.float.graphql
+  graphql-boolean-value:
+    match: \s*\b(true|false)\b
+    captures:
+      '1':
+        name: constant.boolean.graphql
+  graphql-string-value:
+    contentName: string.quoted.double.graphql
+    begin: \s*+(("))
+    end: |-
+      \s*+(?:(("))|(
+      ))
+    beginCaptures:
+      '1':
+        name: string.quoted.double.graphql
+      '2':
+        name: punctuation.definition.string.begin.graphql
+    endCaptures:
+      '1':
+        name: string.quoted.double.graphql
+      '2':
+        name: punctuation.definition.string.end.graphql
+      '3':
+        name: invalid.illegal.newline.graphql
+    patterns:
+      - include: '#graphql-string-content'
+      - include: '#quasi-embedded'
+  graphql-string-content:
+    patterns:
+      - name: constant.character.escape.graphql
+        match: '\\[/''"\\nrtbf]'
+      - name: constant.character.escape.graphql
+        match: '\\u(\h{4})'
+  graphql-enum:
+    name: meta.enum.graphql
+    begin: '\s*+\b(enum)\b\s*([_A-Za-z][_\dA-Za-z]*)'
+    end: '(?<=})'
+    beginCaptures:
+      '1':
+        name: keyword.enum.graphql
+      '2':
+        name: support.type.enum.graphql
+    patterns:
+      - name: meta.type.object.graphql
+        begin: '\s*({)'
+        end: '\s*(})'
+        beginCaptures:
+          '1':
+            name: punctuation.operation.graphql
+        endCaptures:
+          '1':
+            name: punctuation.operation.graphql
+        patterns:
+          - include: '#graphql-object-type'
+          - include: '#graphql-comment'
+          - include: '#graphql-enum-value'
+          - include: '#quasi-embedded'
+  graphql-enum-value:
+    name: constant.character.enum.graphql
+    match: '\s*(?!=\b(true|false|null)\b)([_A-Za-z][_\dA-Za-z]*)'
+  graphql-value:
+    patterns:
+      - include: '#graphql-variable-name'
+      - include: '#graphql-float-value'
+      - include: '#graphql-int-value'
+      - include: '#graphql-string-value'
+      - include: '#graphql-boolean-value'
+      - include: '#graphql-enum-value'
+      - include: '#graphql-list-value'
+      - include: '#graphql-object-value'
+      - include: '#graphql-comment'
+      - include: '#quasi-embedded'
+  graphql-list-value:
+    patterns:
+      - name: meta.listvalues.graphql
+        begin: '\s*+(\[)'
+        end: '\s*(\])'
+        endCaptures:
+          '1':
+            name: meta.brace.square.graphql
+        beginCaptures:
+          '1':
+            name: meta.brace.square.graphql
+        patterns:
+          - include: '#graphql-value'
+  graphql-object-value:
+    patterns:
+      - name: meta.objectvalues.graphql
+        begin: '\s*+({)'
+        end: '\s*(})'
+        endCaptures:
+          '1':
+            name: meta.brace.curly.graphql
+        beginCaptures:
+          '1':
+            name: meta.brace.curly.graphql
+        patterns:
+          - include: '#graphql-object-field'
+          - include: '#graphql-value'
+  graphql-object-field:
+    match: '\s*(([_A-Za-z][_\dA-Za-z]*))\s*(:)'
+    captures:
+      '1':
+        name: constant.object.key.graphql
+      '2':
+        name: string.unquoted.graphql
+      '3':
+        name: punctuation.graphql
+  graphql-union:
+    begin: '\s*\b(union)\b\s*([_A-Za-z][_\dA-Za-z]*)'
+    end: (?=.)
+    applyEndPatternLast: 1
+    captures:
+      '1':
+        name: keyword.union.graphql
+      '2':
+        name: support.type.graphql
+    patterns:
+      - begin: '\s*(=(?!=|>))\s*([_A-Za-z][_\dA-Za-z]*)'
+        end: (?=.)
+        applyEndPatternLast: 1
+        captures:
+          '1':
+            name: punctuation.assignment.graphql
+          '2':
+            name: support.type.graphql
+        patterns:
+          - include: '#graphql-skip-newlines'
+          - include: '#graphql-comment'
+          - include: '#quasi-embedded'
+          - match: '\s*(\|)\s*([_A-Za-z][_\dA-Za-z]*)'
+            captures:
+              '1':
+                name: punctuation.or.graphql
+              '2':
+                name: support.type.graphql
+      - include: '#graphql-skip-newlines'
+      - include: '#graphql-comment'
+      - include: '#quasi-embedded'
+  graphql-skip-newlines:
+    match: |
+      \s*
+comment: >-
+  ((?:[\p{Sc}_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[\p{Sc}_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
+       '3':
                 name: keyword.generator.asterisk.js
               '4':
                 name: keyword.operator.private.js
