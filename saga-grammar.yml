@@ -534,7 +534,7 @@ repository:
             captures:
               '1':
                 name: constant.other.label.js
-      - comment: null
+      - comment: All language keywords
         match: |
           (?x)(?<!\.)\s*+\b(?:
             (new|in|of|[ai]s|length|void|delete|(?:typ|nam|siz|instanc)eof) | # 1
