@@ -6484,6 +6484,7 @@ repository:
       - include: '#expression'
   flowtype-parse-types:
     patterns:
+      - include: '#keywords'
       - include: '#modifiers'
       - comment: Immutable modifier
         match: '\s*#(?![(\[{])\s*'
