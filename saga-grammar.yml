@@ -38,7 +38,7 @@ repository:
     comment: 'or inside a class def on a ; or braced block } end of line or ;'
     end: '(?=\s*([,;}]|$))|(?<=})'
     patterns:
-      - include: '#expression'
+      - include: '#core'
   arrow-function:
     patterns:
       - begin: '\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"'']|("(\\.|[^"])*+")++|(''(\\.|[^''])*+'')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["'']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)'
@@ -300,7 +300,7 @@ repository:
               patterns:
                 [
                   { include: '#keyword-storage' },
-                  { include: '#expression' },
+                  { include: '#core' },
                   { include: '#punctuation' },
                 ],
             }
@@ -350,10 +350,10 @@ repository:
               match: '\s*(\.)',
               captures: { '1': { name: keyword.operator.accessor.js } },
             }
-          - { include: '#expression' }
+          - { include: '#core' }
   class-body:
     patterns:
-      - include: '#expression'
+      - include: '#core'
       - include: '#attributes'
       - include: '#modifiers'
       - include: '#flowtype-keywords'
@@ -378,7 +378,7 @@ repository:
           '9': { name: punctuation.terminator.statement.js }
         patterns:
           - { include: '#method' }
-          - { include: '#expression' }
+          - { include: '#core' }
       - match: '(?<!\.)\s*+\b(static)\b(?!\.)'
         captures:
           '1': { name: storage.modifier.js }
@@ -386,7 +386,7 @@ repository:
       - include: '#semi-colon'
   class-content:
     patterns:
-      - include: '#expression'
+      - include: '#core'
   comma:
     patterns:
       - match: '\s*+(,)'
@@ -458,8 +458,17 @@ repository:
         endCaptures:
           '1': { name: meta.brace.curly.litobj.js }
         patterns:
+          - { include: '#flowtype-keywords' }
+          - { include: languagebabel.ttlextension }
+          - { include: '#html-template' }
+          - { include: '#object-brace-property' }
+          - { include: '#function-labels' }
+          - { include: '#arrow-function-labels' }
+          - { include: '#arrow-function' }
+          - { include: '#method' }
+          - { include: '#arrow-expression' }
+          - { include: '#object-prop-shorthand' }
           - { include: '#labels' }
-          - { include: '#js-label' }
           - { include: '#core' }
       - begin: '\s*+({)'
         end: '\s*(\})'
@@ -468,8 +477,17 @@ repository:
         endCaptures:
           '1': { name: meta.brace.curly.js }
         patterns:
+          - { include: '#flowtype-keywords' }
+          - { include: languagebabel.ttlextension }
+          - { include: '#html-template' }
+          - { include: '#object-brace-property' }
+          - { include: '#function-labels' }
+          - { include: '#arrow-function-labels' }
+          - { include: '#arrow-function' }
+          - { include: '#method' }
+          - { include: '#arrow-expression' }
+          - { include: '#object-prop-shorthand' }
           - { include: '#labels' }
-          - { include: '#js-label' }
           - { include: '#core' }
   enum-declaration:
     begin: '(?<!\.)\s*+\b(enum)\s+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)?'
@@ -487,7 +505,7 @@ repository:
       - include: '#of-clause'
       - include: '#comments'
       - include: '#flowtype-polymorphs'
-      - include: '#expression'
+      - include: '#core'
       - begin: '\{'
         end: '\}'
         beginCaptures:
@@ -510,7 +528,7 @@ repository:
                   { include: '#string' },
                   { include: '#number' },
                   { include: '#language-constant' },
-                  { include: '#expression' },
+                  { include: '#core' },
                 ],
             }
           - { include: '#comma' }
@@ -977,7 +995,7 @@ repository:
       - match: '\s*(\.)'
         captures:
           '1': { name: keyword.operator.accessor.js }
-      - include: '#expression'
+      - include: '#core'
   flowtype-given:
     begin: '(?<!\.)\s*+\b(given)(\s+|$)'
     end: '\s*(=(?!=|>))|\s*(?<=})'
@@ -1013,7 +1031,7 @@ repository:
       - match: '\s*(\.)'
         captures:
           '1': { name: keyword.operator.accessor.js }
-      - include: '#expression'
+      - include: '#core'
   flowtype-interface:
     begin: '(?<!\.)\s*+\b(interface)(\s+|$)'
     end: '\s*(=(?!=|>))|\s*(?<=})'
@@ -1049,7 +1067,7 @@ repository:
       - match: '\s*(\.)'
         captures:
           '1': { name: keyword.operator.accessor.js }
-      - include: '#expression'
+      - include: '#core'
   flowtype-keywords:
     patterns:
       - include: '#flowtype-declare'
@@ -1112,7 +1130,7 @@ repository:
       - match: '\s*(\.)'
         captures:
           '1': { name: keyword.operator.accessor.js }
-      - include: '#expression'
+      - include: '#core'
   flowtype-namespace:
     begin: '(?<!\.)\s*+\b(namespace)(\s+|$)'
     end: '\s*(=(?!=|>))|\s*(?<=})'
@@ -1147,7 +1165,7 @@ repository:
       - match: '\s*(\.)'
         captures:
           '1': { name: keyword.operator.accessor.js }
-      - include: '#expression'
+      - include: '#core'
   flowtype-object:
     begin: '(?<!\.)\s*+\b(object|record)(\s+|$)'
     end: '\s*(=(?!=|>))|\s*(?<=})'
@@ -1238,7 +1256,7 @@ repository:
         comment: 'There is no = in flowtype'
         end: $
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - match: '\s*([<>]:+|:+[<>])\s*'
         name: keyword.operator.class.js
       - include: '#number'
@@ -1252,7 +1270,7 @@ repository:
         comment: 'sometypename of|in '
         end: '\s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)'
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - comment: 'Maybe types'
         match: '\s*+(\?)'
         captures:
@@ -1269,7 +1287,7 @@ repository:
               begin: '(?<!\.)\s*+\b(where)\b',
               end: '^\s*|\s*(?=;|/[/*]|$)',
               beginCaptures: { '1': { name: keyword.operator.forall.js } },
-              patterns: [{ include: '#comments' }, { include: '#expression' }],
+              patterns: [{ include: '#comments' }, { include: '#core' }],
             }
           - {
               match: '(?<!\.)\s*+\b(va[rl]|const|con|let)\b\s*+',
@@ -1438,7 +1456,7 @@ repository:
       - match: '\s*(\.)'
         captures:
           '1': { name: keyword.operator.accessor.js }
-      - include: '#expression'
+      - include: '#core'
   flowtype-trait:
     begin: '(?<!\.)\s*+\b(trait)(\s+|$)'
     end: '\s*(=(?!=|>))|\s*(?<=})'
@@ -1474,7 +1492,7 @@ repository:
       - match: '\s*(\.)'
         captures:
           '1': { name: keyword.operator.accessor.js }
-      - include: '#expression'
+      - include: '#core'
   flowtype-trap:
     comment:
       "traps flowtype vars that aren't caught normally - e.g. multi-line arrow
@@ -1569,15 +1587,15 @@ repository:
         comment: 'varname of|in '
         end: '\s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)'
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '(?<!:)\s*+(?=((?:(\#?)[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)?\s*=)(?!=>|==)'
         comment: 'assignment var = or = '
         end: '\s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)'
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - include: '#flowtype-bracketed-parameters'
       - include: '#flowtype-parse-array'
-      - include: '#expression'
+      - include: '#core'
   for:
     patterns:
       - begin: '(?<!\.)\s*+\b(for|while|until)\b\s*(await)?\b'
@@ -1596,7 +1614,7 @@ repository:
               patterns:
                 [
                   { include: '#keyword-storage' },
-                  { include: '#expression' },
+                  { include: '#core' },
                   { include: '#punctuation' },
                 ],
             }
@@ -1619,7 +1637,7 @@ repository:
           '1': { name: keyword.operator.assignment.js }
         patterns:
           - { include: '#flowtype' }
-          - { include: '#expression' }
+          - { include: '#core' }
           - { include: '#curly-brackets' }
       - applyEndPatternLast: 1
         begin: '\s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|''.*?''|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|''.*?''|".*?"|\[.*?\])?(?=\s*+(\(|<))'
@@ -1641,7 +1659,7 @@ repository:
           '1': { name: keyword.operator.assignment.js }
         patterns:
           - { include: '#flowtype' }
-          - { include: '#expression' }
+          - { include: '#core' }
           - { include: '#curly-brackets' }
       - applyEndPatternLast: 1
         begin: '\s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|''.*?''|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|''.*?''|".*?"|\[.*?\])?(?=\s*+(\(|<))'
@@ -1674,7 +1692,7 @@ repository:
           '1': { name: keyword.operator.assignment.js }
         patterns:
           - { include: '#flowtype' }
-          - { include: '#expression' }
+          - { include: '#core' }
           - { include: '#curly-brackets' }
       - applyEndPatternLast: 1
         begin: '\s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|''.*?''|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|''.*?''|".*?"|\[.*?\])?(?=\s*+(\(|<))'
@@ -1705,7 +1723,7 @@ repository:
           '1': { name: keyword.operator.assignment.js }
         patterns:
           - { include: '#flowtype' }
-          - { include: '#expression' }
+          - { include: '#core' }
           - { include: '#curly-brackets' }
   function-call:
     patterns:
@@ -1858,7 +1876,7 @@ repository:
           '1': { name: keyword.operator.assignment.js }
         patterns:
           - { include: '#flowtype' }
-          - { include: '#expression' }
+          - { include: '#core' }
           - { include: '#curly-brackets' }
       - begin: '(?<=^|{|,)\s*+((''|")([^"'']*)(\k<-3>))\s*+(:)\s*+(async)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*(\*\s*)?(?=\s*(\(|<))'
         comment: "e.g. 'play': function(arg1, arg2) { }"
@@ -1881,7 +1899,7 @@ repository:
           '1': { name: keyword.operator.assignment.js }
         patterns:
           - { include: '#flowtype' }
-          - { include: '#expression' }
+          - { include: '#core' }
           - { include: '#curly-brackets' }
   function-method:
     patterns:
@@ -1897,7 +1915,7 @@ repository:
           '6': { name: keyword.operator.accessor.js }
           '7': { patterns: [{ include: '#flowtype-polymorphs' }] }
           '8': { name: meta.brace.round.js }
-          '9': { patterns: [{ include: '#expression' }] }
+          '9': { patterns: [{ include: '#core' }] }
       - begin: '(?<!\.)\s*(#)?([$_\p{L}\p{Nl}][$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()'
         end: '(\))(.*)'
         name: meta.function-call.with-arguments.js
@@ -1912,9 +1930,9 @@ repository:
           '8': { name: meta.brace.round.js }
         endCaptures:
           '1': { name: meta.brace.round.js }
-          '2': { patterns: [{ include: '#expression' }] }
+          '2': { patterns: [{ include: '#core' }] }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - match: '(?<=\.)\s*(#)?([$_\p{L}\p{Nl}][$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\(.*\))(.*)'
         name: meta.method-call.without-arguments.js
         captures:
@@ -1926,7 +1944,7 @@ repository:
           '6': { name: keyword.operator.accessor.js }
           '7': { patterns: [{ include: '#flowtype-polymorphs' }] }
           '8': { name: meta.brace.round.js }
-          '9': { patterns: [{ include: '#expression' }] }
+          '9': { patterns: [{ include: '#core' }] }
       - begin: '(?<=\.)\s*(#)?([$_\p{L}\p{Nl}][$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()'
         end: '(\))(.*)'
         name: meta.method-call.with-arguments.js
@@ -1941,9 +1959,9 @@ repository:
           '8': { name: meta.brace.round.js }
         endCaptures:
           '1': { name: meta.brace.round.js }
-          '2': { patterns: [{ include: '#expression' }] }
+          '2': { patterns: [{ include: '#core' }] }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
   function-name:
     patterns:
       - include: '#support-functions'
@@ -2465,7 +2483,7 @@ repository:
         endCaptures:
           '0': { name: punctuation.quasi.element.end.js }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - include: text.html.mustache
   if:
     patterns:
@@ -2485,7 +2503,7 @@ repository:
               patterns:
                 [
                   { include: '#keyword-storage' },
-                  { include: '#expression' },
+                  { include: '#core' },
                   { include: '#punctuation' },
                 ],
             }
@@ -2927,7 +2945,7 @@ repository:
         endCaptures:
           '1': { name: punctuation.separator.key-value.js }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - include: '#js-label'
       - match: '(?<!\.|\?)\s*+(((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))\s*+(:)((?=::)|(?!:))'
         name: 'meta.object.member.js meta.object-literal.key.js'
@@ -2992,7 +3010,7 @@ repository:
                     end: '\s*(:)((?=::)|(?!:))',
                     beginCaptures: { '1': { name: keyword.control.match.js } },
                     endCaptures: { '1': { name: keyword.operator.js } },
-                    patterns: [{ include: '#expression' }],
+                    patterns: [{ include: '#core' }],
                   },
                   {
                     begin: '(?<!\.)\s*+\b(else|otherwise|default)\b',
@@ -3026,7 +3044,7 @@ repository:
         endCaptures:
           '1': { name: keyword.operator.js }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       with-clause:
         begin: '\s*+\b(as|with)'
         comment: 'when clause precedes with'
@@ -3037,7 +3055,7 @@ repository:
           '1': { name: keyword.operator.js }
         patterns:
           - { include: '#if-clause' }
-          - { include: '#expression' }
+          - { include: '#core' }
   method:
     patterns:
       - begin: '(?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(\#?)(?!\bstatic\b)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())'
@@ -3823,8 +3841,6 @@ repository:
   object-body:
     patterns:
       - include: '#flowtype-keywords'
-      - include: '#keywords'
-      - include: '#modifiers'
       - include: languagebabel.ttlextension
       - include: '#html-template'
       - include: '#object-brace-property'
@@ -3835,7 +3851,9 @@ repository:
       - include: '#arrow-expression'
       - include: '#object-prop-shorthand'
       - include: '#labels'
-      - include: '#expression'
+      - include: '#keywords'
+      - include: '#modifiers'
+      - include: '#core'
       - include: '#punctuation'
   object-brace:
     begin: '\s*({)'
@@ -3900,7 +3918,7 @@ repository:
           #1, augmented assignment\n(\\+\\+|--)| #2, increment,
           decrement\n([+%]|%%|-(?!>)|(?<!\\*)~?/(?![\\/*])|(?<!/)\\*[\\*>]|<?\\*(?<!/\\*)(?!/(?:[^*]|$)))|
           #3, arithmetic\n(&&|\\|\\||\\^\\^|\\B!(?![?:.=]))| #34
-          logical\n([&^]|\\|(?!>)|~(?![!./=]))| #5,
+          logical\n([&^]|\\|(?!>)|~(?![!.<=/=>]))| #5,
           bitwise\n(=\\.\\.|\\.\\.=|=\\.=|\\.\\.(?!\\.))| #6,
           range\n(<\\||<\\+|\\+>|\\|>)| #7, pipeline\n(<<<?|>>>?)| #8, bitwise
           shift\n([<>]:|:[<>])| #9, class
@@ -4041,7 +4059,7 @@ repository:
         beginCaptures:
           '1': { name: keyword.operator.type.js }
         endCaptures:
-          '1': { patterns: [{ include: '#expression' }] }
+          '1': { patterns: [{ include: '#core' }] }
         patterns:
           - { include: '#flowtype-parse-types' }
       - match: '\s*:=\s*'
@@ -4096,7 +4114,7 @@ repository:
         name: keyword.preprocessor.endregion.js
   preprocessor-expression:
     patterns:
-      - include: '#expression'
+      - include: '#core'
   preprocessor-if-or-elif:
     begin: '\b(?:(if)|(elif))\b'
     end: '(?=$)'
@@ -4405,12 +4423,12 @@ repository:
           '2': { name: storage.type.format.js }
           '3': { name: punctuation.separator.label.regexp }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - match: '(\$)(#)?((?:[$_\p{L}\p{Nl}][$\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}]*+)(?:[?!~]?\.[$_\p{L}\p{Nl}][$\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}]*+|\[.*\]|\(.*\))*)((:)[-\w/.%#<^>+*=!]+)?'
         captures:
           '1': { name: punctuation.quasi.element.js }
           '2': { name: keyword.operator.private.js }
-          '3': { patterns: [{ include: '#expression' }] }
+          '3': { patterns: [{ include: '#core' }] }
           '4': { name: storage.type.format.js }
           '5': { name: punctuation.separator.label.regexp }
   quasi-embedded-regexp:
@@ -4425,7 +4443,7 @@ repository:
           '2': { name: storage.type.format.js }
           '3': { name: punctuation.separator.label.regexp }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '(?<!\\)(\#\[)\s*'
         end: '\s*(\])((:)[-\w/.%#<^>+*=!]+)?'
         name: entity.quasi.element.js
@@ -4436,7 +4454,7 @@ repository:
           '2': { name: storage.type.format.js }
           '3': { name: punctuation.separator.label.regexp }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '(?<!\\)(\#\{)\s*'
         end: '\s*(\})((:)[-\w/.%#<^>+*=!]+)?'
         name: entity.quasi.element.js
@@ -4447,12 +4465,12 @@ repository:
           '2': { name: storage.type.format.js }
           '3': { name: punctuation.separator.label.regexp }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - comment: 'Accepts arbitrary expressions'
         match: '(?<!\\)(\#)((?:[?!:]:|::+|\(.*?\)|\[.*?\]|\{.*?\}|<.*?>|".*?"|''.*?''|`.*?`|[^,:;''"`(){}\[\]\s])*)((:)[-\w/.%#<^>+*=!]+)?'
         captures:
           '1': { name: punctuation.quasi.element.js }
-          '2': { patterns: [{ include: '#expression' }] }
+          '2': { patterns: [{ include: '#core' }] }
           '3': { name: storage.type.format.js }
           '4': { name: punctuation.separator.label.regexp }
   query-expression:
@@ -4466,7 +4484,7 @@ repository:
           '1': { name: keyword.query.js }
         patterns:
           - { include: '#let-clause' }
-          - { include: '#expression' }
+          - { include: '#core' }
       - include: '#where-clause'
       - include: '#join-clause'
       - include: '#join-keywords'
@@ -4486,7 +4504,7 @@ repository:
           '1': { name: keyword.query.js }
         patterns:
           - { include: '#let-clause' }
-          - { include: '#expression' }
+          - { include: '#core' }
       join-clause:
         begin: '(?<!\.)\s*+\b(join)\b\s*'
         comment: 'group ... by'
@@ -4497,7 +4515,7 @@ repository:
           '1': { name: keyword.query.js }
         patterns:
           - { include: '#let-clause' }
-          - { include: '#expression' }
+          - { include: '#core' }
       join-keywords:
         match: '(?<!\.)\s*+\b(equals?|[io]nto)\b\s*'
         name: keyword.query.js
@@ -4773,7 +4791,7 @@ repository:
                 { '1': { name: punctuation.separator.label.regexp } },
               patterns: [{ include: '#regexp-patterns' }],
             }
-          - { include: '#expression' }
+          - { include: '#core' }
       - include: '#regex-character-class'
       - comment: 'Remaining backslash tokens'
         match: '(?i)\\(?:(M)|(K)|(G)|(X))'
@@ -4822,7 +4840,7 @@ repository:
                 {
                   '1': { name: constant.other.character-class.unicode.regexp },
                 },
-              patterns: [{ include: '#expression' }],
+              patterns: [{ include: '#core' }],
             }
           - {
               match: '\\x\h{2}|\\U\h{8}',
@@ -4862,7 +4880,7 @@ repository:
                       { '1': { name: punctuation.separator.label.regexp } },
                     patterns: [{ include: '#regexp-patterns' }],
                   },
-                  { include: '#expression' },
+                  { include: '#core' },
                 ],
             }
           - {
@@ -5012,7 +5030,7 @@ repository:
         endCaptures:
           '1': { name: meta.brace.round.js }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '\s*+(\()'
         end: '\s*(\))'
         beginCaptures:
@@ -5020,7 +5038,7 @@ repository:
         endCaptures:
           '1': { name: meta.brace.round.js }
         patterns:
-          - { include: '#expression' }
+          - { include: '#core' }
   semi-colon:
     patterns:
       - match: '\s*+(;)'
@@ -5057,7 +5075,7 @@ repository:
         beginCaptures:
           '1': { name: keyword.operator.type.js }
         endCaptures:
-          '1': { patterns: [{ include: '#expression' }] }
+          '1': { patterns: [{ include: '#core' }] }
         patterns:
           - { include: '#flowtype-parse-types' }
       - begin: '\s*+(\?)(?!\.[^\d]|[?=])'
@@ -5076,7 +5094,7 @@ repository:
               patterns:
                 [{ include: '#language-constant' }, { include: '#variable' }],
             }
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '\s*+(\?)(?!\.[^\d]|[?=])'
         comment:
           'ternary operator - make sure end : is consumed to avoid mistake as
@@ -5093,7 +5111,7 @@ repository:
               patterns:
                 [{ include: '#language-constant' }, { include: '#variable' }],
             }
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '\s*+(\\)\s*+'
         end: '\s*+(\\=)\s*+'
         name: keyword.operator.function.js
@@ -5104,7 +5122,7 @@ repository:
         patterns:
           - { include: '#function-name' }
           - { include: '#method-name' }
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '\s*+(\\)\s*+'
         end: '\s*+(\\)(?!=)\s*+'
         name: keyword.operator.function.js
@@ -5115,7 +5133,7 @@ repository:
         patterns:
           - { include: '#function-name' }
           - { include: '#method-name' }
-          - { include: '#expression' }
+          - { include: '#core' }
   square-brackets:
     patterns:
       - begin: '\s*+(#\[)'
@@ -5126,7 +5144,7 @@ repository:
           '1': { name: meta.brace.square.js }
         patterns:
           - { include: '#object' }
-          - { include: '#expression' }
+          - { include: '#core' }
       - begin: '\s*+(\[)'
         end: '\s*(\])'
         beginCaptures:
@@ -5135,7 +5153,7 @@ repository:
           '1': { name: meta.brace.square.js }
         patterns:
           - { include: '#object' }
-          - { include: '#expression' }
+          - { include: '#core' }
   string:
     patterns:
       - begin: '\s*+((''))'
@@ -5183,7 +5201,7 @@ repository:
                 { '1': { name: punctuation.separator.label.regexp } },
               patterns: [{ include: '#regexp-patterns' }],
             }
-          - { include: '#expression' }
+          - { include: '#core' }
       - match: '\\[0-7]{1,3}|\\o{[0-7\s.,:;]*?}'
         name: constant.character.escape.octal.js
       - match: '\\[''"\\anrtbfve0$%#`]'
@@ -6004,7 +6022,7 @@ repository:
                     end: '\s*(:)((?=::)|(?!:))',
                     beginCaptures: { '1': { name: keyword.control.switch.js } },
                     endCaptures: { '1': { name: keyword.operator.js } },
-                    patterns: [{ include: '#expression' }],
+                    patterns: [{ include: '#core' }],
                   },
                   { include: $self },
                 ],
@@ -6019,7 +6037,7 @@ repository:
       '1':
         name: keyword.operator.ternary.js
     patterns:
-      - include: '#expression'
+      - include: '#core'
   type-argument-brackets:
     patterns:
       - begin: '\s*+(<)(?=((?:(?>[^<>]+)|<\g<-1>>)*)>)'
@@ -6122,7 +6140,7 @@ repository:
                     name: keyword.control.with.js,
                   },
                   { include: '#keyword-storage' },
-                  { include: '#expression' },
+                  { include: '#core' },
                   { include: '#punctuation' },
                 ],
             }
