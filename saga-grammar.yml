@@ -168,7 +168,7 @@ repository:
           - include: '#flowtype'
           - include: '#expression'
           - include: '#curly-brackets'
-      - comment: "e.g. 'play': function(arg1, arg2) { }"
+      - comment: 'e.g. ''play'': function(arg1, arg2) { }'
         name: meta.function.json.js
         begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(async)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*(\*\s*)?(?=\s*(\(|<))
@@ -241,7 +241,7 @@ repository:
             name: variable.other.readwrite.js
           '6':
             name: storage.type.function.arrow.js
-      - comment: "e.g. 'play': (args) => { }"
+      - comment: 'e.g. ''play'': (args) => { }'
         name: meta.function.json.arrow.js
         begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
@@ -267,7 +267,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
-      - comment: "e.g. 'play': arg => { }"
+      - comment: 'e.g. ''play'': arg => { }'
         name: meta.function.json.arrow.js
         match: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))\s*(=>)
@@ -312,7 +312,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
-      - comment: "e.g. 'play': async <T>("
+      - comment: 'e.g. ''play'': async <T>('
         name: meta.function.json.arrow.js
         begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
@@ -452,8 +452,7 @@ repository:
         match: (?<!\.)\s*+\b(select)\b\s*
         name: keyword.query.js
   new-expression:
-    - comment:
-        'A new expression with no type params or arguments, like new Foo()'
+    - comment: 'A new expression with no type params or arguments, like new Foo()'
       name: meta.new-class.without-arguments.js
       match: >-
         (?<!\.)\s*+(\bnew\b)\s*+((\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\?\.)?(\()\s*+(\)))
@@ -761,8 +760,7 @@ repository:
               '1':
                 name: meta.brace.curly.switchStart.js
             patterns:
-              - begin:
-                  (?<!\.)\s*+\b(if|unless|els?if|ell?ess|else if|else unless)\b
+              - begin: (?<!\.)\s*+\b(if|unless|els?if|ell?ess|else if|else unless)\b
                 end: '\s*(:)((?=::)|(?!:))'
                 beginCaptures:
                   '1':
@@ -1599,8 +1597,7 @@ repository:
       - match: >-
           \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
         name: support.type.builtin.class.flowtype
-      - match: >-
-          \b[$_[\p{Lu}\p{Lt}\p{Lm}\p{Lo}]][$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}]*\b
+      - match: '\b[$_[\p{Lu}\p{Lt}\p{Lm}\p{Lo}]][$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}]*\b'
         name: support.type.class.flowtype
       - match: >-
           \b[$_\p{L}\p{Nl}][$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*+\b
@@ -2482,49 +2479,80 @@ repository:
             name: keyword.operator.accessor.js
   operators:
     patterns:
-      - match: '\*\*?(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\*\*?'
+      - match: >-
+          \*\*?(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\*\*?
         name: keyword.generator.asterisk.js
-      - match: '\|(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\|'
+      - match: >-
+          \|(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\|
         name: keyword.generator.union.js
-      - match: '\&(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\&'
+      - match: >-
+          \&(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\&
         name: keyword.operator.intersection.js
-      - match: '\^(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\^'
+      - match: >-
+          \^(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\^
         name: keyword.operator.only.js
-      - match: '\?(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\?'
+      - match: >-
+          \?(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\?
         name: keyword.operator.existential.js
       - comment: Mostly non-unary operations here
         name: keyword.operator.js
-        match: |
+        match: >
           (?x)
-          ([\p{S}\p{P}&&[^_@#$:.;,'"`\\\p{Ps}\p{Pe}]]+(?<![!~<=>])=)| #1, augmented assignment
+
+          ([\p{S}\p{P}&&[^_@#$:.;,'"`\\\p{Ps}\p{Pe}]]+(?<![!~<=>])=)| #1,
+          augmented assignment
+
           (\+\+|--)| #2, increment, decrement
-          ([+%]|%%|-(?!>)|(?<!\*)~?/(?![\/*])|(?<!/)\*[\*>]|<?\*(?<!/\*)(?!/(?:[^*]|$)))| #3, arithmetic
+
+          ([+%]|%%|-(?!>)|(?<!\*)~?/(?![\/*])|(?<!/)\*[\*>]|<?\*(?<!/\*)(?!/(?:[^*]|$)))|
+          #3, arithmetic
+
           (&&|\|\||\^\^|\B!(?![?:.=]))| #34 logical
+
           ([&^]|\|(?!>)|~(?![!./=]))| #5, bitwise
+
           (=\.\.|\.\.=|=\.=|\.\.(?!\.))| #6, range
+
           (<\||<\+|\+>|\|>)| #7, pipeline
+
           (<<<?|>>>?)| #8, bitwise shift
+
           ([<>]:|:[<>])| #9, class inheritance
+
           (=<|<>|[!=]~+|~+[!=]|[<>]~+|~+[<>])| #10, similarity
+
           (->|<-)| #11, function bind
+
           ([<>][=<>]+|[<>]=?)| #11, comparison (relational)
+
           ([!=]==?)| #13, equality (comparison)
+
           (\?\?)| #14, null coalescing
+
           (!\?)| #15, non-null coalescing
+
           (\?:)| #16, falsy coalescing
+
           (!:)| #17, truthy coalescing
+
           (\.\.\.)| #18, spread
-          (\?\.|(?<=[\w$\p{L}\p{N}\p{Pe}])\?(?![.:])(?=\B))| #19, optional chaining
+
+          (\?\.|(?<=[\w$\p{L}\p{N}\p{Pe}])\?(?![.:])(?=\B))| #19, optional
+          chaining
+
           (!\.|(?<=[\w$\p{L}\p{N}\p{Pe}])\!(?![.:])(?=\B))| #20, assertion
+
           (~\.)| #21, cascade
+
           ((?<!\.)\.(?!=)|::+)| #22, accessor
+
           ((?:\.|::?)?=) #23, assignment
         captures:
           '1':
             comment: Augmented assignment operators -> <= >=
             name: keyword.operator.assignment.augmented.js
           '2':
-            comment: increment ++, decrement --
+            comment: 'increment ++, decrement --'
             name: keyword.operator.crement.js
           '3':
             comment: arithmetic + - * / % ** ~/ %%
@@ -2700,8 +2728,7 @@ repository:
   function-call:
     patterns:
       - include: '#comments'
-      - comment:
-          'A new expression with no type params or arguments, like new Foo()'
+      - comment: 'A new expression with no type params or arguments, like new Foo()'
         name: meta.new-class.without-arguments.js
         match: >-
           (?<!\.)\s*+(\bnew\b)\s*+((\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
@@ -2783,8 +2810,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - include: '#operators'
-      - comment:
-          'A call expression with no type params or arguments, like foo()'
+      - comment: 'A call expression with no type params or arguments, like foo()'
         name: meta.function-call.without-arguments.js
         match: >-
           (?<!\.)\s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
@@ -4947,7 +4973,7 @@ repository:
           - include: '#curly-brackets'
           - include: '#class-content'
           - include: $self
-      - comment: "e.g. 'play'<T,T>(arg1, arg2): Type<T> { }"
+      - comment: 'e.g. ''play''<T,T>(arg1, arg2): Type<T> { }'
         begin: >-
           (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
         end: '\s*(=(?!=|>))|(?={)|(?=;|}|,)'
@@ -5017,7 +5043,7 @@ repository:
           - include: '#curly-brackets'
           - include: '#class-content'
           - include: $self
-      - comment: "getter/setter set [expression]() or get 'text'()"
+      - comment: 'getter/setter set [expression]() or get ''text''()'
         begin: >-
           (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(((')((?:[^']|\\')*)('))|\s*+((")((?:[^"]|\\")*)("))))\s*+(\())
         end: '\s*(=(?!=|>))|(?={)|(?=;|}|,)'
@@ -5039,7 +5065,7 @@ repository:
           - include: '#class-content'
           - include: $self
   mini-expression:
-    comment:
+    comment: >-
       A mini-language supporting most language features (the other syntax comes
       from Python)
     repository:
@@ -5056,8 +5082,8 @@ repository:
         patterns:
           - include: '#mini-expression'
       square-brackets:
-        begin: \s*+(\[)
-        end: \s*(\])
+        begin: '\s*+(\[)'
+        end: '\s*(\])'
         endCaptures:
           '1':
             name: meta.brace.square.js
@@ -5067,8 +5093,8 @@ repository:
         patterns:
           - include: '#mini-expression'
       curly-brackets:
-        begin: \s*+(\{)
-        end: \s*(\})
+        begin: '\s*+(\{)'
+        end: '\s*(\})'
         endCaptures:
           '1':
             name: meta.brace.curly.js
@@ -5230,7 +5256,7 @@ repository:
       - name: keyword.control.anchor.regexp
         match: '(?i)\\[abyz]|\^|\$'
       - comment: Suppress ? in (? sequence
-        match: (\\\()(?:(\?)|(\+)|(\*))
+        match: '(\\\()(?:(\?)|(\+)|(\*))'
         captures:
           '1':
             name: constant.character.escape.other.regexp
@@ -5498,7 +5524,7 @@ repository:
           - include: '#expression'
       - include: '#regex-character-class'
       - comment: Remaining backslash tokens
-        match: (?i)\\(?:(M)|(K)|(G)|(X))
+        match: '(?i)\\(?:(M)|(K)|(G)|(X))'
         captures:
           '1':
             name: keyword.control.anchor.regexp
@@ -5782,8 +5808,7 @@ repository:
         captures:
           '1':
             name: keyword.control.module.js
-      - comment:
-          'export {  or  export * or export var or export type {} from module'
+      - comment: 'export {  or  export * or export var or export type {} from module'
         begin: >-
           (?<!\.)\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(\s++from\b|\s*,)))
         end: >-
@@ -5861,16 +5886,14 @@ repository:
   variable:
     patterns:
       - comment: e.g. CONSTANT
-        match: >-
-          \s*+(\#?)(_++[$_\p{Lu}\p{N}]++|[\p{Lu}][$_\p{Lu}\p{N}]*+)(?!\p{Ll})
+        match: '\s*+(\#?)(_++[$_\p{Lu}\p{N}]++|[\p{Lu}][$_\p{Lu}\p{N}]*+)(?!\p{Ll})'
         captures:
           '1':
             name: keyword.operator.private.js
           '2':
             name: variable.other.constant.js
       - comment: e.g. dollar vars
-        match: >-
-          \s*+(\#?)(\p{Sc}[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*)
+        match: '\s*+(\#?)(\p{Sc}[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*)'
         captures:
           '1':
             name: keyword.operator.private.js
@@ -5987,8 +6010,7 @@ repository:
           '4':
             name: variable.other.readwrite.decorator.js
         patterns:
-          - commnent:
-              decorator .property or .method which may be on a different line
+          - commnent: decorator .property or .method which may be on a different line
             begin: '\s*(?:(\?\.)|(\.))'
             end: >-
               \s*(\#?)(?:((?:[\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))
@@ -6292,7 +6314,7 @@ repository:
       - include: '#jsx-entities'
   jsx-string-single-quoted:
     name: string.quoted.single.js
-    begin: "'"
+    begin: ''''
     end: '''(?<!\\'')'
     beginCaptures:
       '0':
@@ -6393,8 +6415,7 @@ repository:
             name: storage.type.function.js
           '3':
             name: keyword.operator.optional.parameter.flowtype
-      - comment:
-          'name of variable spread var with optional ? and optional flowtype :'
+      - comment: 'name of variable spread var with optional ? and optional flowtype :'
         match: >-
           ((?<!\.)\.\.\.)?\s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\??)\s*+(?!::)(?=:|=>)
         captures:
@@ -6630,8 +6651,7 @@ repository:
           - include: '#flowtype-variable'
   flowtype-bracketed-parameters:
     patterns:
-      - comment:
-          'trap balanced parens which are NOT followed by . : => { or /*: '
+      - comment: 'trap balanced parens which are NOT followed by . : => { or /*: '
         begin: >-
           \s*+(?=(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(?!\.|:|=>|{|/\*\s*:))
         end: (?=.)
@@ -6752,8 +6772,7 @@ repository:
       - include: '#flowtype-variable'
   flowtype-type-aliases:
     patterns:
-      - comment:
-          type aliases for export but avoid type instaceof or type in operators
+      - comment: type aliases for export but avoid type instaceof or type in operators
         begin: >-
           (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type)\b\s+(?!(instanceof|in)\b)(?=[$_A-Za-z{\[])
         end: (?=.)
@@ -7122,8 +7141,7 @@ repository:
             name: keyword.operator.accessor.js
   flowtype-declare:
     patterns:
-      - match: >-
-          \s*+(?<!\.)\b(declare)\s*+
+      - match: \s*+(?<!\.)\b(declare)\s*+
         captures:
           '1':
             name: keyword.other.declare.flowtype
@@ -7233,8 +7251,7 @@ repository:
               '1':
                 name: keyword.operator.accessor.js
   flowtype-method:
-    comment:
-      'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
+    comment: 'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
     begin: '(?<!:)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())'
     end: \s*(?=.)
     applyEndPatternLast: 1
