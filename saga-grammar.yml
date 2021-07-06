@@ -357,7 +357,6 @@ repository:
       - include: '#attributes'
       - include: '#modifiers'
       - include: '#flowtype-keywords'
-      - include: '#method'
       - include: '#arrow-expression'
       - include: '#arrow-function-simple-assignments'
       - include: '#arrow-function'
@@ -458,6 +457,13 @@ repository:
         endCaptures:
           '1': { name: meta.brace.curly.litobj.js }
         patterns:
+          - { include: '#for' }
+          - { include: '#if' }
+          - { include: '#switch' }
+          - { include: '#match' }
+          - { include: '#with' }
+          - { include: '#keywords' }
+          - { include: '#modifiers' }
           - { include: '#flowtype-keywords' }
           - { include: languagebabel.ttlextension }
           - { include: '#html-template' }
@@ -465,7 +471,6 @@ repository:
           - { include: '#function-labels' }
           - { include: '#arrow-function-labels' }
           - { include: '#arrow-function' }
-          - { include: '#method' }
           - { include: '#arrow-expression' }
           - { include: '#object-prop-shorthand' }
           - { include: '#labels' }
@@ -477,6 +482,13 @@ repository:
         endCaptures:
           '1': { name: meta.brace.curly.js }
         patterns:
+          - { include: '#for' }
+          - { include: '#if' }
+          - { include: '#switch' }
+          - { include: '#match' }
+          - { include: '#with' }
+          - { include: '#keywords' }
+          - { include: '#modifiers' }
           - { include: '#flowtype-keywords' }
           - { include: languagebabel.ttlextension }
           - { include: '#html-template' }
@@ -484,7 +496,6 @@ repository:
           - { include: '#function-labels' }
           - { include: '#arrow-function-labels' }
           - { include: '#arrow-function' }
-          - { include: '#method' }
           - { include: '#arrow-expression' }
           - { include: '#object-prop-shorthand' }
           - { include: '#labels' }
