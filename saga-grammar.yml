@@ -994,6 +994,17 @@ repository:
       - include: '#flowtype-object-property'
   flowtype-parse-types:
     patterns:
+      - match: '(?<!\.)\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+'
+        captures:
+          '1': {name: keyword.operator.$1.flowtype}
+      - begin: '(?<!\.)\s*+\b(for\s*all)\b\s*'
+        end: '^\s*|\s*(?=;|/[/*]|$)'
+        beginCaptures:
+          '1': {name: keyword.operator.forall.js}
+        patterns:
+          - {begin: '(?<!\.)\s*+\b(where)\b', end: '^\s*|\s*(?=;|/[/*]|$)', beginCaptures: {'1': {name: keyword.operator.forall.js}}, patterns: [{include: '#comments'}, {include: '#core'}]}
+          - {match: '(?<!\.)\s*+\b(va[rl]|const|con|let)\b\s*+', name: storage.type.js}
+          - {begin: '(?<!\.)\s*+\b(as)\b', end: '(?=$|;|/[/*]|\s*where)', beginCaptures: {'1': {name: keyword.operator.forall.js}}, patterns: [{include: '#flowtype-parse-types'}]}
       - include: '#keywords'
       - include: '#modifiers'
       - comment: 'Immutable modifier'
@@ -1022,17 +1033,6 @@ repository:
         match: '\s*+(\?)'
         captures:
           '1': {name: keyword.operator.maybe.flowtype}
-      - match: '(?<!\.)\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+'
-        captures:
-          '1': {name: keyword.operator.$1.flowtype}
-      - begin: '(?<!\.)\s*+\b(for\s*all)\b\s*'
-        end: '^\s*|\s*(?=;|/[/*]|$)'
-        beginCaptures:
-          '1': {name: keyword.operator.forall.js}
-        patterns:
-          - {begin: '(?<!\.)\s*+\b(where)\b', end: '^\s*|\s*(?=;|/[/*]|$)', beginCaptures: {'1': {name: keyword.operator.forall.js}}, patterns: [{include: '#comments'}, {include: '#core'}]}
-          - {match: '(?<!\.)\s*+\b(va[rl]|const|con|let)\b\s*+', name: storage.type.js}
-          - {begin: '(?<!\.)\s*+\b(as)\b', end: '(?=$|;|/[/*]|\s*where)', beginCaptures: {'1': {name: keyword.operator.forall.js}}, patterns: [{include: '#flowtype-parse-types'}]}
       - comment: 'primitive flowtypes'
         match: '(?!^)\s*+\b((?>any|boolean|bool|mixed|string|number|str|num|bigint|s?byte|u?short|u?inte?|u?long|u?cent|[ci]?half|[ci]?float|[ci]?double|[ci]?decimal|ratio|real|imag|complex|symbol|sym|regexp?|nu?int|sint|rune|nat|frac|char|re|rat))\b'
         captures:
@@ -2482,7 +2482,7 @@ repository:
           - {include: '#modifiers'}
           - {match: '\s*((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*', captures: {'1': {name: constant.other.label.js}}}
       - comment: 'All language keywords'
-        match: "(?x)(?<!\\.)\\s*+\\b(?:\n  (new|in|of|[ai]s|length|void|delete|(?:typ|nam|siz|instanc)eof) | # 1\n  (size) | # 2\n  (len) | # 3\n  (del) | # 4\n  (is) | # 5\n  (to|til|by) | # 6\n  (then) | # 7\n  (and|x?or|not) | # 8\n  (not(of|in)|(is)no?t) | # 9-11\n  (if|else|els?if|ell?ess?|unless|else?if) | # 12\n  (for|while|until|repeat) | # 13\n  (do|goto|label|await|return|fallthr(?:u|ough)|yield(?:\\s*from)?) | # 14\n  (switch|case|default) | # 15\n  (match|when|other(?:wise)?|pass) | # 16\n  (try|throw|raise|catch|rescue|finally) | # 17\n  (def|func?|fn|function|macro|sub|proc) | # 18\n  (const|con|let|var|val) | # 19\n  (use|using|ref|open|close|out|union|move|crate|begin|end) | # 20\n  (from|in|of|by|where|join|equals|[io]nto|order|(?:as|des)cending|group) | # 21\n  (class|extends|implements) | # 22\n  (only) | # 23\n  (decl) # 24\n  (nspace) | # 25\n  (inter|iface) | # 26\n  (package|pack) | # 27\n  (record) | # 28\n  (extend) | # 29\n  (declare|object|trait|interface|namespace|enum|module) # 30\n)\\b\n"
+        match: "(?x)(?<!\\.)\\s*+\\b(?:\n  (new|in|of|as|length|void|delete|(?:typ|nam|siz|instanc)eof) | # 1\n  (size) | # 2\n  (len) | # 3\n  (del) | # 4\n  (is) | # 5\n  (to|til|by) | # 6\n  (then) | # 7\n  (and|x?or|not) | # 8\n  (not(of|in)|(is)no?t) | # 9-11\n  (if|else|els?if|ell?ess?|unless|else?if) | # 12\n  (for|while|until|repeat) | # 13\n  (do|goto|label|await|return|fallthr(?:u|ough)|yield(?:\\s*from)?) | # 14\n  (switch|case|default) | # 15\n  (match|when|other(?:wise)?|pass) | # 16\n  (try|throw|raise|catch|rescue|finally) | # 17\n  (def|func?|fn|function|macro|sub|proc) | # 18\n  (const|con|let|var|val) | # 19\n  (use|using|ref|open|close|out|union|move|crate|begin|end) | # 20\n  (from|in|of|by|where|join|equals|[io]nto|order|(?:as|des)cending|group) | # 21\n  (class|extends|implements) | # 22\n  (only) | # 23\n  (decl) # 24\n  (nspace) | # 25\n  (inter|iface) | # 26\n  (package|pack) | # 27\n  (record) | # 28\n  (extend) | # 29\n  (declare|object|trait|interface|namespace|enum|module|given) # 30\n)\\b\n"
         captures:
           '1': {name: keyword.operator.$1.js}
           '2': {name: keyword.operator.sizeof.js}
@@ -3190,7 +3190,7 @@ repository:
   operators:
     patterns:
       - match: '\*\*?(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\*\*?'
-        name: keyword.generator.asterisk.js
+        name: keyword.operator.module.all.js
       - match: '\|(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\|'
         name: keyword.generator.union.js
       - match: '\&(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\&'
