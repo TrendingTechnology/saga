@@ -419,9 +419,9 @@ repository:
       - include: '#curly-brackets'
   catch:
     patterns:
-      - begin: (?<!\.)\s*+\b(catch|rescue)\b\s*(await)?\b
+      - begin: (?<!\.)\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
         end: '\s*(\})'
-        name: meta.match.js
+        name: meta.catch.js
         beginCaptures:
           '1':
             name: keyword.control.trycatch.js
