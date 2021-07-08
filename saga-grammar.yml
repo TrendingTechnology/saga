@@ -5,7 +5,7 @@ foldingEndMarker: '(\*/|\}|\))'
 foldingStartMarker: '(/\*|{|\()'
 information_for_contributors: >
   This file has been edited from the official Babel grammar file at this
-  repository, featuring syntax customizations for the Saga/Script programming
+  repository, featuring syntax customizations for the Saga programming
   language.
 
 
@@ -1268,7 +1268,7 @@ repository:
             name: keyword.operator.accessor.js
       - include: '#core'
   flowtype-interface:
-    begin: (?<!\.)\s*+\b(interface|inter|iface)(\s+|$)
+    begin: (?<!\.)\s*+\b(interface|inter|schema|iface)(\s+|$)
     end: '\s*(=(?!=|>))|\s*(?<=})'
     beginCaptures:
       '1':
@@ -3489,7 +3489,7 @@ repository:
             (only) | # 23
             (decl) # 24
             (nspace) | # 25
-            (inter|iface) | # 26
+            (inter|schema|iface) | # 26
             (package|pack) | # 27
             (record) | # 28
             (extend) | # 29
@@ -4101,10 +4101,12 @@ repository:
       mutable|partial|sealed|final|transient|transparent|delegate|
       extension|implementation|(?:un)?(?:safe|check(?:ed)?|sized?)|
       (?:im|ex)plicit|(?:im)?mutable|
-      over|abs|stat|dyn|vol|sync|(?:im)?mut|part|seal|trans|(?:im|ex)pl|dele|ext|impl)
+      over|abs|stat|dyn|vol|sync|(?:im)?mut|part|seal|trans|
+      (?:im|ex)pl|dele|ext|impl)
       | # 2
 
-      (async|rec|gen|inline|(?:pre|in|suf)fix|(?:u|bi|ter)nary|[gs]et|[dr]efer|prev|next)
+      (async|rec|gen|inline|(?:pre|in|suf)fix|(?:u|bi|ter)nary|
+      [gs]et|[dr]efer|prev|next) # 3
 
       )\b\s*+
     captures:
