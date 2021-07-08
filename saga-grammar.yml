@@ -5,8 +5,7 @@ foldingEndMarker: '(\*/|\}|\))'
 foldingStartMarker: '(/\*|{|\()'
 information_for_contributors: >
   This file has been edited from the official Babel grammar file at this
-  repository, featuring syntax customizations for the Saga programming
-  language.
+  repository, featuring syntax customizations for the Saga programming language.
 
 
   This grammar is edited from
@@ -421,26 +420,22 @@ repository:
   catch:
     patterns:
       - begin: (?<!\.)\s*+\b(catch|rescue)\b\s*(await)?\b
-        end: \s*(\))
-        name: meta.catch.js
+        end: '\s*(\})'
+        name: meta.match.js
         beginCaptures:
           '1':
             name: keyword.control.trycatch.js
-          '2':
-            name: keyword.control.flow.js
         endCaptures:
           '1':
-            name: meta.brace.round.js
+            name: meta.brace.curly.catchEnd.js
         patterns:
-          - begin: \s*+(\()
-            end: \s*(?=\))
+          - include: '#round-brackets'
+          - begin: '\s*+({)'
+            end: '\s*(?=})'
             beginCaptures:
               '1':
-                name: meta.brace.round.js
-            patterns:
-              - include: '#keyword-storage'
-              - include: '#core'
-              - include: '#punctuation'
+                name: meta.brace.curly.catchStart.js
+          - include: '$self'
   class:
     patterns:
       - begin: (?<!\.)\s*+\b((class))\s+
@@ -871,6 +866,7 @@ repository:
       - include: '#if'
       - include: '#switch'
       - include: '#match'
+      - include: '#catch'
       - include: '#with'
       - include: '#operators-1'
       - include: '#function-method'
@@ -893,7 +889,7 @@ repository:
       - comment: 'after function, which includes some prototype strings'
         include: '#prototype'
       - include: '#multiline-regexp'
-      - comment: before operators to avoid abiguities
+      - comment: before operators to avoid ambiguities
         include: '#regexp'
       - include: '#number'
       - include: '#quasi'
@@ -3663,14 +3659,14 @@ repository:
             name: keyword.control.match.js
         endCaptures:
           '1':
-            name: meta.brace.curly.switchEnd.js
+            name: meta.brace.curly.matchEnd.js
         patterns:
           - include: '#round-brackets'
           - begin: '\s*+({)'
             end: '\s*(?=})'
             beginCaptures:
               '1':
-                name: meta.brace.curly.switchStart.js
+                name: meta.brace.curly.matchStart.js
             patterns:
               - begin:
                   (?<!\.)\s*+\b(if|unless|els?if|ell?ess|else if|else unless)\b
@@ -4102,8 +4098,7 @@ repository:
       extension|implementation|(?:un)?(?:safe|check(?:ed)?|sized?)|
       (?:im|ex)plicit|(?:im)?mutable|
       over|abs|stat|dyn|vol|sync|(?:im)?mut|part|seal|trans|
-      (?:im|ex)pl|dele|ext|impl)
-      | # 2
+      (?:im|ex)pl|dele|ext|impl) | # 2
 
       (async|rec|gen|inline|(?:pre|in|suf)fix|(?:u|bi|ter)nary|
       [gs]et|[dr]efer|prev|next) # 3
@@ -7937,7 +7932,7 @@ repository:
     patterns:
       - begin: (?<!\.)\s*+\b(with)\b\s*(await)?\b
         end: \s*(\))
-        name: meta.for.js
+        name: meta.with.js
         beginCaptures:
           '1':
             name: keyword.control.with.js
