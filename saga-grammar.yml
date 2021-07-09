@@ -34,14 +34,12 @@ information_for_contributors: >
   - Add comments
 
   - Fix errors in:
-
     - Function/method call generics: `x<>()`
 
     - Type casting: `(int)x; (float)x+1`
 
     - Rework custom operator precedence (catch as many
   symbols as possible before falling back to the basic operators)
-
     - Add support for radix notation up to base 64, and date/time notation
 name: Saga + JavaScript + Python
 scopeName: source.js
@@ -419,21 +417,19 @@ repository:
   catch:
     patterns:
       - begin: (?<!\.)\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
-        end: '\s*(\})'
+        end: '\s*((?<=[});])|(?=\b(try|catch|rescue|finally)\b))'
         name: meta.catch.js
         beginCaptures:
           '1':
             name: keyword.control.trycatch.js
+          '2':
+            name: keyword.control.flow.js
         endCaptures:
           '1':
-            name: meta.brace.curly.catchEnd.js
+            name: meta.brace.round.js
         patterns:
+          - include: '#curly-brackets'
           - include: '#round-brackets'
-          - begin: '\s*+({)'
-            end: '\s*(?=})'
-            beginCaptures:
-              '1':
-                name: meta.brace.curly.catchStart.js
           - include: $self
   class:
     patterns:
@@ -450,7 +446,7 @@ repository:
             name: keyword.operator.assignment.js
         patterns:
           - include: '#round-brackets'
-          - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+          - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
             captures:
               '1':
                 name: meta.class.extends.js
@@ -464,7 +460,7 @@ repository:
             match: >-
               \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
             name: entity.name.class.js
-          - include: '#flowtype-polymorphs'
+          - include: '#flowtype'
           - begin: '\s*+({)'
             contentName: meta.class.body.js
             end: '\s*(})'
@@ -612,24 +608,7 @@ repository:
           '1':
             name: meta.brace.curly.litobj.js
         patterns:
-          - include: '#for'
-          - include: '#if'
-          - include: '#switch'
-          - include: '#match'
-          - include: '#with'
-          - include: '#keywords'
-          - include: '#modifiers'
-          - include: '#flowtype-keywords'
-          - include: languagebabel.ttlextension
-          - include: '#html-template'
-          - include: '#object-brace-property'
-          - include: '#function-labels'
-          - include: '#arrow-function-labels'
-          - include: '#arrow-function'
-          - include: '#arrow-expression'
-          - include: '#object-prop-shorthand'
-          - include: '#labels'
-          - include: '#core'
+          - include: '#object-body'
       - begin: '\s*+({)'
         end: '\s*(\})'
         beginCaptures:
@@ -639,23 +618,7 @@ repository:
           '1':
             name: meta.brace.curly.js
         patterns:
-          - include: '#for'
-          - include: '#if'
-          - include: '#switch'
-          - include: '#match'
-          - include: '#with'
-          - include: '#keywords'
-          - include: '#modifiers'
-          - include: '#flowtype-keywords'
-          - include: languagebabel.ttlextension
-          - include: '#html-template'
-          - include: '#object-brace-property'
-          - include: '#function-labels'
-          - include: '#arrow-function-labels'
-          - include: '#arrow-function'
-          - include: '#arrow-expression'
-          - include: '#object-prop-shorthand'
-          - include: '#labels'
+          - include: '#js-label'
           - include: '#core'
   do:
     patterns:
@@ -688,34 +651,35 @@ repository:
       '1':
         name: keyword.operator.assignment.js
     patterns:
-      - include: '#of-clause'
-      - include: '#comments'
-      - include: '#flowtype-polymorphs'
-      - include: '#core'
-      - begin: '\{'
-        end: '\}'
+      - begin: '\s*+({)'
+        contentName: meta.class.body.js
+        end: '\s*(})'
         beginCaptures:
-          '0':
-            name: meta.brace.curly.js
+          '1':
+            name: punctuation.section.class.begin.js
         endCaptures:
-          '0':
-            name: meta.brace.curly.js
+          '1':
+            name: punctuation.section.class.end.js
         patterns:
           - include: '#comments'
           - begin: '([_$[:alpha:]][_$[:alnum:]]*)(?:\s*(=(?!=|>)))?\s*'
-            end: '(?=,|\}|$)'
+            end: '(?=([,;}])|$)'
             beginCaptures:
               '1':
                 name: variable.other.enummember.flowtype
               '2':
                 name: keyword.operator.assignment.js
+            endCaptures:
+              '1':
+                patterns:
+                  - include: '#expression'
             patterns:
-              - include: '#comments'
-              - include: '#string'
-              - include: '#number'
-              - include: '#language-constant'
-              - include: '#core'
-          - include: '#comma'
+              - include: '#expression'
+      - include: '#of-clause'
+      - include: '#comments'
+      - include: '#flowtype-polymorphs'
+      - include: '#round-brackets'
+      - include: '#core'
   es7-decorators:
     patterns:
       - applyEndPatternLast: 1
@@ -883,7 +847,7 @@ repository:
       - include: '#catch'
       - include: '#with'
       - include: '#do'
-      - include: '#operators-1'
+      - include: '#operator'
       - include: '#function'
       - include: '#method'
       - include: '#flowtype-keywords'
@@ -1204,7 +1168,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1218,7 +1182,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.extension.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1246,7 +1210,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1260,7 +1224,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.given.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1289,7 +1253,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1303,7 +1267,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.interface.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1359,7 +1323,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1373,7 +1337,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.module.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1401,7 +1365,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1415,7 +1379,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.namespace.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1443,7 +1407,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1457,7 +1421,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.object.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1742,7 +1706,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1756,7 +1720,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.struct.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1785,7 +1749,7 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#round-brackets'
-      - match: \s*+\b((extends|derives)|(implements)|(only))\b\s*+
+      - match: \s*+\b((extends|derives|\|)|(impl|implements|&)|(only|\^))\b\s*+
         captures:
           '1':
             name: meta.class.extends.js
@@ -1799,7 +1763,7 @@ repository:
         match: >-
           \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
         name: entity.name.type.trait.js
-      - include: '#flowtype-polymorphs'
+      - include: '#flowtype'
       - begin: '\s*+({)'
         contentName: meta.class.body.js
         end: '\s*(})'
@@ -1964,7 +1928,7 @@ repository:
           \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.))(\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: 'e.g. function play<T>(arg1, arg2) { }'
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
         beginCaptures:
           '1':
             name: storage.type.js
@@ -1988,7 +1952,7 @@ repository:
           \s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: 'e.g. play = function(arg1, arg2) { }'
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
         beginCaptures:
           '1':
             name: keyword.operator.private.js
@@ -2018,7 +1982,7 @@ repository:
           \s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: 'e.g. Sound.prototype.play = function(arg1, arg2) { }'
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
         beginCaptures:
           '1':
             name: keyword.operator.private.js
@@ -2064,7 +2028,7 @@ repository:
           \s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: 'e.g. Sound.play = function(arg1, arg2) { }'
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
         name: meta.function.static.js
         beginCaptures:
           '1':
@@ -3047,7 +3011,7 @@ repository:
         match: >-
           (?x)(?<=\.)\s*
           ((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
-          \s*(?=['"`(])
+          \s*(?=['"`(]|::|<[+|])
         captures:
           '1':
             patterns:
@@ -3056,7 +3020,7 @@ repository:
         match: >-
           (?x)\s*
           ((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
-          \s*(?=['"`(])
+          \s*(?=['"`(]|::|<[+|])
         captures:
           '1':
             patterns:
@@ -3666,32 +3630,38 @@ repository:
               '1':
                 name: meta.brace.curly.matchStart.js
             patterns:
-              - begin: (?<!\.)\s*+\b(if|unless|els?if|ell?ess|else if|else unless)\b
-                end: '\s*(:)((?=::)|(?!:))'
+              - begin: (?<!\.)\s*+\b(if|unless|els?if|ell?ess|else\s*if|else\s*unless)\b
+                end: '\s*(=>)|\s*(:)((?=::)|(?!:))'
                 beginCaptures:
                   '1':
                     name: keyword.control.match.js
                 endCaptures:
                   '1':
+                    name: storage.type.function.arrow.js
+                  '2':
                     name: keyword.operator.js
                 patterns:
                   - include: '#core'
               - begin: (?<!\.)\s*+\b(else|otherwise|default)\b
                 contentName: meta.match.js
-                end: '\s*(:)((?=::)|(?!:))'
+                end: '\s*(=>)|\s*(:)((?=::)|(?!:))'
                 beginCaptures:
                   '1':
                     name: keyword.control.match.js
                 endCaptures:
                   '1':
+                    name: storage.type.function.arrow.js
+                  '2':
                     name: keyword.operator.js
               - begin: (?<!\.)\s*+\b(when|case)\b
-                end: '\s*(:)((?=::)|(?!:))'
+                end: '\s*(=>)|\s*(:)((?=::)|(?!:))'
                 beginCaptures:
                   '1':
                     name: keyword.control.match.js
                 endCaptures:
                   '1':
+                    name: storage.type.function.arrow.js
+                  '2':
                     name: keyword.operator.js
                 patterns:
                   - include: '#with-clause'
@@ -3703,7 +3673,7 @@ repository:
       if-clause:
         begin: \s*+\b(if|where)
         comment: with clause precedes with
-        end: '\s*((?=:))'
+        end: '\s*((?=:)|=>)'
         beginCaptures:
           '1':
             name: keyword.control.match.js
@@ -3715,7 +3685,7 @@ repository:
       with-clause:
         begin: \s*+\b(as|with)
         comment: when clause precedes with
-        end: '\s*(?=([:;])|(where|if))'
+        end: '\s*(?=([:;]|=>)|\b(where|if)\b)'
         beginCaptures:
           '1':
             name: keyword.control.match.js
@@ -4023,7 +3993,7 @@ repository:
       - include: '#quasi'
       - include: '#support.properties'
       - include: '#variable'
-      - include: '#operators-1'
+      - include: '#operator'
       - include: '#operators'
       - include: '#punctuation'
       - include: '#round-brackets'
@@ -4087,7 +4057,7 @@ repository:
               - include: '#variable'
           - include: '#mini-expression'
   modifiers:
-    comment: 'Modifier keywords from C#, Rust and Go'
+    comment: Modifier keywords from C#, Rust and Go
     match: >-
       (?x)(?<!\.)\s*+\b(?:
 
@@ -4102,7 +4072,7 @@ repository:
       (?:im|ex)pl|dele|ext|impl) | # 2
 
       (async|rec|gen|inline|(?:pre|in|suf)fix|(?:u|bi|ter)nary|
-      [gs]et|[dr]efer|prev|next) # 3
+      [gs]et|[dr]efer|prev|next|fixed|lock) # 3
 
       )\b\s*+
     captures:
@@ -4310,7 +4280,7 @@ repository:
               - include: '#support'
               - include: '#method-name'
               - include: '#function-name'
-              - include: '#operators-1'
+              - include: '#operator'
               - include: '#operators'
           - include: '#string-content'
   new-expression:
@@ -4477,7 +4447,7 @@ repository:
               '8':
                 name: constant.numeric.octal.js
           - match: >-
-              (?i)\s*\b0z(?:[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B][\dabetx\u03B4\u03B5\u03C4\u03C7\u025B_]*[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B]?)?(\.)(?:[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B][\dabetx\u03B4\u03B5\u03C4\u03C7\u025B_]*[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B]?)?(?:(r)([\dabetx\u03B4\u03B5\u03C4\u03C7\u025B][\dabetx\u03B4\u03B5\u03C4\u03C7\u025B_]*[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)?(\.)(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
             name: constant.numeric.duodecimal.js
             captures:
               '0':
@@ -4633,7 +4603,7 @@ repository:
               '8':
                 name: constant.numeric.octal.js
           - match: >-
-              (?i)\s*\b0z(?:[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B][\dabetx\u03B4\u03B5\u03C4\u03C7\u025B_]*[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B]?)(\.)?(?:[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B][\dabetx\u03B4\u03B5\u03C4\u03C7\u025B_]*[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B]?)?(?:(r)([\dabetx\u03B4\u03B5\u03C4\u03C7\u025B][\dabetx\u03B4\u03B5\u03C4\u03C7\u025B_]*[\dabetx\u03B4\u03B5\u03C4\u03C7\u025B]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)(\.)?(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
             name: constant.numeric.duodecimal.js
             captures:
               '0':
@@ -4785,6 +4755,32 @@ repository:
         name: keyword.operator.assignment.js
     patterns:
       - include: '#flowtype-parse-types'
+  operator:
+    patterns:
+      - begin: '\s*((:\?[<=>]?))\s*'
+        comment: Type assertion/conversion/coercion/casting operator
+        end: '(?=[^&|^~<>!?\p{L}\p{N}\p{Sc}\[\]{}_])'
+        beginCaptures:
+          '1':
+            name: keyword.operator.type.js
+        endCaptures:
+          '1':
+            patterns:
+              - include: '#core'
+        patterns:
+          - include: '#flowtype-parse-types'
+      - match: '\s*:=\s*'
+        name: keyword.operator.assignment.js
+      - match: '\s*\\\s*($|(?=/[/*]))'
+        name: constant.character.escape.newline.js
+      - match: '\s*(?:(::+)|([<>]:+|:+[<>])|(:))\s*'
+        captures:
+          '1':
+            name: keyword.operator.accessor.js
+          '2':
+            name: keyword.operator.class.js
+          '3':
+            name: keyword.operator.accessor.js
   operators:
     patterns:
       - match: >-
@@ -4842,9 +4838,9 @@ repository:
 
           (\.\.\.)| #18
 
-          (\?\.|(?<=[\w$\p{L}\p{N}\p{Pe}])\?(?![.:])(?=\B))| #19
+          (\?\.|(?<=[\w$\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B))| #19
 
-          (!\.|(?<=[\w$\p{L}\p{N}\p{Pe}])\!(?![.:])(?=\B))| #20
+          (!\.|(?<=[\w$\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B))| #20
 
           (~\.)| #21
 
@@ -4951,32 +4947,6 @@ repository:
           '6':
             comment: shift >> << >>> <<<
             name: keyword.operator.js
-  operators-1:
-    patterns:
-      - begin: '\s*((:\?[<=>]?))\s*'
-        comment: Type assertion/conversion/coercion/casting operator
-        end: '(?=[^&|^~<>!?\p{L}\p{N}\p{Sc}\[\]{}_])'
-        beginCaptures:
-          '1':
-            name: keyword.operator.type.js
-        endCaptures:
-          '1':
-            patterns:
-              - include: '#core'
-        patterns:
-          - include: '#flowtype-parse-types'
-      - match: '\s*:=\s*'
-        name: keyword.operator.assignment.js
-      - match: '\s*\\\s*($|(?=/[/*]))'
-        name: constant.character.escape.newline.js
-      - match: '\s*(?:(::+)|([<>]:+|:+[<>])|(:))\s*'
-        captures:
-          '1':
-            name: keyword.operator.accessor.js
-          '2':
-            name: keyword.operator.class.js
-          '3':
-            name: keyword.operator.accessor.js
   preprocessor:
     begin: '^\s*(\#)\s*'
     end: (?<=$)
@@ -5572,7 +5542,7 @@ repository:
               - include: '#support'
               - include: '#method-name'
               - include: '#function-name'
-              - include: '#operators-1'
+              - include: '#operator'
               - include: '#operators'
           - include: '#string-content'
       '3':
@@ -5639,7 +5609,7 @@ repository:
           - include: '#modifiers'
           - include: '#method-name'
           - include: '#function-name'
-          - include: '#operators-1'
+          - include: '#operator'
           - include: '#operators'
       - match: >-
           (?<=\()(\?(?:([+-]?\d+?)|([A-Z\d]+(?:-[A-Z\d]+)?)|([a-z\d]+(?:-[a-z\d]+)?)))\s*(:)?
@@ -5782,7 +5752,7 @@ repository:
               - include: '#modifiers'
               - include: '#method-name'
               - include: '#function-name'
-              - include: '#operators-1'
+              - include: '#operator'
               - include: '#operators'
         endCaptures:
           '0':
@@ -5805,7 +5775,7 @@ repository:
           - include: '#modifiers'
           - include: '#method-name'
           - include: '#function-name'
-          - include: '#operators-1'
+          - include: '#operator'
           - include: '#operators'
       - begin: (\\g<)
         end: \s*(>)
@@ -5823,7 +5793,7 @@ repository:
           - include: '#modifiers'
           - include: '#method-name'
           - include: '#function-name'
-          - include: '#operators-1'
+          - include: '#operator'
           - include: '#operators'
       - begin: '(\[)(\^)?'
         end: '\s*(\])'
@@ -5897,7 +5867,7 @@ repository:
             name: punctuation.definition.string.begin.js
           '9':
             name: punctuation.definition.quasi.begin.js
-      - include: '#operators-1'
+      - include: '#operator'
       - include: '#operators'
       - include: '#support-properties'
       - include: '#number'
@@ -7590,8 +7560,8 @@ repository:
 
           |INUSE_ATTRIBUTE_ERR|INVALID_CHARACTER_ERR|NO_DATA_ALLOWED_ERR|NO_MODIFICATION_ALLOWED_ERR|NOT_FOUND_ERR
 
-          |NOT_SUPPORTED_ERR|NOTATION_NODE|PROCESSING_INSTRUCTION_NODE|TEXT_NODE|WRONG_DOCUMENT_ERR)
-            
+          |NOT_SUPPORTED_ERR|NOTATION_NODE|PROCESSING_INSTRUCTION_NODE|TEXT_NODE|WRONG_DOCUMENT_ERR)  
+
           \b\s*
         name: support.variable.property.dom.js
       - match: >-
@@ -7600,8 +7570,8 @@ repository:
           (_content|[xyz]|abbr|above|accept|acceptCharset|accessKey|action|align|[av]Link(?:color)?|all|alt|anchors|appCodeName   
           |appCore|applets|appMinorVersion|appName|appVersion|archive|areas|arguments|attributes|availHeight|availLeft|availTop   
           |availWidth|axis|background|backgroundColor|backgroundImage|below|bgColor|body|border|borderBottomWidth|borderColor   
-          |borderLeftWidth|borderRightWidth|borderStyle|borderTopWidth|borderWidth|bottom|bufferDepth|callee|caller|caption
-              |cellPadding|cells|cellSpacing|ch|characterSet|charset|checked|childNodes|chOff|cite|classes|className|clear
+          |borderLeftWidth|borderRightWidth|borderStyle|borderTopWidth|borderWidth|bottom|bufferDepth|callee|caller|caption   
+          |cellPadding|cells|cellSpacing|ch|characterSet|charset|checked|childNodes|chOff|cite|classes|className|clear
               |clientInformation|clip|clipBoardData|closed|code|codeBase|codeType|color|colorDepth|cols|colSpan|compact|complete
               |components|content|controllers|cookie|cookieEnabled|cords|cpuClass|crypto|current|data|dateTime|declare|defaultCharset
               |defaultChecked|defaultSelected|defaultStatus|defaultValue|defaultView|defer|description|dialogArguments|dialogHeight
@@ -7943,6 +7913,12 @@ repository:
             name: meta.brace.round.js
         patterns:
           - include: '#curly-brackets'
+          - begin: \s*
+            end: '\s*(?=[{,])'
+            patterns:
+              - match: (?<!\.)\s*+\b(as)\b
+                name: keyword.control.with.js
+              - include: '#core'
           - begin: \s*+(\()
             end: \s*(?=\))
             beginCaptures:
@@ -7951,8 +7927,6 @@ repository:
             patterns:
               - match: (?<!\.)\s*+\b(as)\b
                 name: keyword.control.with.js
-              - include: '#keyword-storage'
               - include: '#core'
-              - include: '#punctuation'
           - include: $self
 limitLineLength: false
