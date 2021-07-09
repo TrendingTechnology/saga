@@ -252,7 +252,7 @@ repository:
             name: storage.type.function.arrow.js
       - begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
-        comment: 'e.g. ''play'': (args) => { }'
+        comment: "e.g. 'play': (args) => { }"
         end: '((?<=})|(?:\s*(=>)(?!\s*{)))'
         name: meta.function.json.arrow.js
         beginCaptures:
@@ -276,7 +276,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
-      - comment: 'e.g. ''play'': arg => { }'
+      - comment: "e.g. 'play': arg => { }"
         match: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))\s*(=>)
         name: meta.function.json.arrow.js
@@ -365,7 +365,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
-        comment: 'e.g. ''play'': async <T>('
+        comment: "e.g. 'play': async <T>("
         end: '((?<=})|(?:\s*(=>)(?!\s*{)))'
         name: meta.function.json.arrow.js
         beginCaptures:
@@ -456,7 +456,8 @@ repository:
                 name: storage.type.implements.js
               '4':
                 name: keyword.operator.expression.only.js
-          - comment: look for interface names but don't assume uppercase start char
+          - comment:
+              look for interface names but don't assume uppercase start char
             match: >-
               \s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)
             name: entity.name.class.js
@@ -700,7 +701,8 @@ repository:
             name: variable.other.readwrite.decorator.js
         patterns:
           - begin: '\s*(?:(\?\.)|(\.))'
-            commnent: decorator .property or .method which may be on a different line
+            commnent:
+              decorator .property or .method which may be on a different line
             end: >-
               \s*(\#?)(?:((?:[\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)|((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+))
             beginCaptures:
@@ -954,7 +956,8 @@ repository:
       - applyEndPatternLast: 1
         begin: >-
           \s*+(?=(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(?!\.|:|=>|{|/\*\s*:))
-        comment: 'trap balanced parens which are NOT followed by . : => { or /*: '
+        comment:
+          'trap balanced parens which are NOT followed by . : => { or /*: '
         end: (?=.)
         patterns:
           - begin: \s*(\()
@@ -1047,13 +1050,13 @@ repository:
             name: keyword.operator.optional.parameter.flowtype
   flowtype-declare:
     patterns:
-      - match: \s*+(?<!\.)\b(declare|decl)\s*+
+      - match: (?<!\.)\s*+\b(declare|decl)\b\s*+
         captures:
           '1':
             name: keyword.other.declare.flowtype
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(?<!\.)\b(declare|decl)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?!:))
+          (?<!\.)\s*+\b(declare|decl)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?!:))
         comment: 'declare module.exports:'
         end: (?=.)
         beginCaptures:
@@ -1101,7 +1104,7 @@ repository:
               - include: '#flowtype-keywords'
               - include: '#flowtype-method'
               - include: '#class-content'
-      - begin: \s*+(?<!\.)\b(decl|declare)\b\s*+(\bexport\b)?\s*+\b(class)\b
+      - begin: (?<!\.)\s*+\b(decl|declare)\b\s*+(\bexport\b)?\s*+\b(class)\b
         comment: declare classes
         end: '\s*(?<=})'
         beginCaptures:
@@ -1301,7 +1304,8 @@ repository:
   flowtype-method:
     applyEndPatternLast: 1
     begin: '(?<!:)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())'
-    comment: 'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
+    comment:
+      'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
     end: \s*(?=.)
     beginCaptures:
       '1':
@@ -1545,13 +1549,13 @@ repository:
             name: keyword.operator.maybe.flowtype
       - comment: primitive flowtypes
         match: >-
-          (?i)(?!^)\s*+\b((?>any|boolean|bool|mixed|string|number|str|num|bigint|s?byte|u?short|u?inte?|u?long|u?cent|[ci]?half|[ci]?float|[ci]?double|[ci]?decimal|ratio|real|imag|complex|symbol|sym|regexp?|nu?int|sint|rune|nat|frac|char|re|rat))\b
+          (?i)(?!^)\s*+\b((?>boolean|bool|mixed|string|number|str|num|bigint|s?byte|u?short|u?inte?|u?long|u?cent|[ci]?half|[ci]?float|[ci]?double|[ci]?decimal|ratio|real|imag|complex|symbol|sym|regexp?|nu?int|sint|rune|nat|frac|char|re|rat))\b
         captures:
           '1':
             name: support.type.builtin.primitive.flowtype
       - comment: primitive flowtypes
         match: >-
-          (?i)(?!^)\s*+\b((?>this|any|void|unknown|never|empty|object|list|dict|set|map|array|arr|object|obj|stack|seq|tuple|record|gene?|unit))\b
+          (?i)(?!^)\s*+\b((?>this|any|void|unknown|never|empty|object|list|dict|set|map|array|arr|object|obj|stack|seq|tuple|record|gene?|unit|buffer|buff?))\b
         captures:
           '1':
             name: support.type.builtin.flowtype
@@ -1801,7 +1805,8 @@ repository:
       - applyEndPatternLast: 1
         begin: >-
           (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type)\b\s+(?!(instanceof|in)\b)(?=[$_A-Za-z{\[])
-        comment: type aliases for export but avoid type instaceof or type in operators
+        comment:
+          type aliases for export but avoid type instaceof or type in operators
         end: (?=.)
         beginCaptures:
           '1':
@@ -1837,7 +1842,8 @@ repository:
             name: storage.type.function.js
           '3':
             name: keyword.operator.optional.parameter.flowtype
-      - comment: 'name of variable spread var with optional ? and optional flowtype :'
+      - comment:
+          'name of variable spread var with optional ? and optional flowtype :'
         match: >-
           ((?<!\.)\.\.\.)?\s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\??)\s*+(?!::)(?=:|=>)
         captures:
@@ -2067,7 +2073,8 @@ repository:
   function-call:
     patterns:
       - include: '#comments'
-      - comment: 'A new expression with no type params or arguments, like new Foo()'
+      - comment:
+          'A new expression with no type params or arguments, like new Foo()'
         match: >-
           (?<!\.)\s*+(\bnew\b)\s*+((\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
         name: meta.new-class.without-arguments.js
@@ -2149,7 +2156,8 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - include: '#operators'
-      - comment: 'A call expression with no type params or arguments, like foo()'
+      - comment:
+          'A call expression with no type params or arguments, like foo()'
         match: >-
           (?<!\.)\s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
         name: meta.function-call.without-arguments.js
@@ -2285,7 +2293,7 @@ repository:
           - include: '#curly-brackets'
       - begin: >-
           (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(async)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*(\*\s*)?(?=\s*(\(|<))
-        comment: 'e.g. ''play'': function(arg1, arg2) { }'
+        comment: "e.g. 'play': function(arg1, arg2) { }"
         end: '\s*(=)|\s*(?<=})'
         name: meta.function.json.js
         beginCaptures:
@@ -2432,11 +2440,13 @@ repository:
   function-name:
     patterns:
       - include: '#support-functions'
-      - match: >-
-          (?i)\b(any|boolean|bool|mixed|string|number|str|num|bigint|s?byte|u?short|u?inte?|u?long|u?cent|[ci]?half|[ci]?float|[ci]?double|[ci]?decimal|ratio|real|imag|complex|symbol|sym|regexp?|nu?int|rune|nat|frac|char|re|rat)\b
+      - comment: primitive flowtypes
+        match: >-
+          (?i)\b((?>boolean|bool|mixed|string|number|str|num|bigint|s?byte|u?short|u?inte?|u?long|u?cent|[ci]?half|[ci]?float|[ci]?double|[ci]?decimal|ratio|real|imag|complex|symbol|sym|regexp?|nu?int|sint|rune|nat|frac|char|re|rat))\b
         name: support.type.builtin.primitive.flowtype
-      - match: >-
-          (?i)\b(this|any|void|unknown|never|empty|object|list|dict|set|map|array|arr|object|obj|stack|seq|tuple|record|gene?|unit)\b
+      - comment: primitive flowtypes
+        match: >-
+          (?i)\b((?>this|any|void|unknown|never|empty|object|list|dict|set|map|array|arr|object|obj|stack|seq|tuple|record|gene?|unit|buffer|buff?))\b
         name: support.type.builtin.flowtype
       - match: >-
           \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
@@ -2839,7 +2849,7 @@ repository:
       - match: '\s*\b(implements)\b\s*([_A-Za-z][_\dA-Za-z]*)'
         captures:
           '1':
-            name: keyword.implements.grapahql
+            name: keyword.implements.graphql
           '2':
             name: support.type.graphql
       - include: '#graphql-comment'
@@ -3047,12 +3057,12 @@ repository:
       - comment: additional jsdoc V2 keywords
         match: >-
           (?<!\w)@(add|api|body|codeend|codestart|demo|download|group|hide|iframe|image|inherits|option|outline|page|parent|signature|tag)\b
-        name: storage.type.class.jsduck
-      - comment: additional jsduck keywords
+        name: storage.type.class.jsdoc
+      - comment: additional jsdoc keywords
         match: >-
           (?<!\w)@(accessor|alternateClassName|aside|cfg|chainable|docauthor|evented|experimental|ftype|hide|inheritable|localdoc|markdown|mixins|new|override|preventable|ptype|removed|scss
           mixin|singleton|template|uses|xtype)\b
-        name: storage.type.class.jsduck
+        name: storage.type.class.jsdoc
   jsdoc-access:
     comment: '@tag protected....'
     match: '(?:^[\s*]*|(?<=/\*\*)\s*)(@(access))\s*(private|protected|public)?(?=\s|$)'
@@ -3310,7 +3320,7 @@ repository:
     patterns:
       - include: '#jsx-entities'
   jsx-string-single-quoted:
-    begin: ''''
+    begin: "'"
     end: '''(?<!\\'')'
     name: string.quoted.single.js
     beginCaptures:
@@ -3727,7 +3737,7 @@ repository:
           - include: $self
       - begin: >-
           (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
-        comment: 'e.g. ''play''<T,T>(arg1, arg2): Type<T> { }'
+        comment: "e.g. 'play'<T,T>(arg1, arg2): Type<T> { }"
         end: '\s*(=(?!=|>))|(?={)|(?=;|}|,)'
         beginCaptures:
           '1':
@@ -3797,7 +3807,7 @@ repository:
           - include: $self
       - begin: >-
           (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(((')((?:[^']|\\')*)('))|\s*+((")((?:[^"]|\\")*)("))))\s*+(\())
-        comment: 'getter/setter set [expression]() or get ''text''()'
+        comment: "getter/setter set [expression]() or get 'text'()"
         end: '\s*(=(?!=|>))|(?={)|(?=;|}|,)'
         beginCaptures:
           '1':
@@ -4133,7 +4143,8 @@ repository:
             name: keyword.control.module.js
       - begin: >-
           (?<!\.)\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(\s++from\b|\s*,)))
-        comment: 'export {  or  export * or export var or export type {} from module'
+        comment:
+          'export {  or  export * or export var or export type {} from module'
         end: >-
           \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b|\)|}))
         beginCaptures:
@@ -4284,7 +4295,8 @@ repository:
               - include: '#operators'
           - include: '#string-content'
   new-expression:
-    - comment: 'A new expression with no type params or arguments, like new Foo()'
+    - comment:
+        'A new expression with no type params or arguments, like new Foo()'
       match: >-
         (?<!\.)\s*+(\bnew\b)\s*+((\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\?\.)?(\()\s*+(\)))
       name: meta.new-class.without-arguments.js
@@ -4359,7 +4371,7 @@ repository:
       with-decimal-point:
         patterns:
           - match: >-
-              (?i)\s*\b0b(?:[01][01_]*[01]?)?(\.)(?:[01][01_]*[01]?)?(?:(r)([01][01_]*[01]))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0b(?:[01][01_]*[01]?)?(\.)(?:[01][01_]*[01]?)?(?:(r)([01][01_]*[01]))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.binary.js
             captures:
               '0':
@@ -4381,7 +4393,7 @@ repository:
               '8':
                 name: constant.numeric.binary.js
           - match: >-
-              (?i)\s*\b0q(?:[0-3][0-3_]*[0-3]?)?(\.)(?:[0-3][0-3_]*[0-3]?)?(?:(r)([0-3][0-3_]*[0-3]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0q(?:[0-3][0-3_]*[0-3]?)?(\.)(?:[0-3][0-3_]*[0-3]?)?(?:(r)([0-3][0-3_]*[0-3]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.quaternary.js
             captures:
               '0':
@@ -4403,7 +4415,7 @@ repository:
               '8':
                 name: constant.numeric.quaternary.js
           - match: >-
-              (?i)\s*\b0s(?:[0-5][0-5_]*[0-5]?)?(\.)(?:[0-5][0-5_]*[0-5]?)?(?:(r)([0-5][0-5_]*[0-5]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0s(?:[0-5][0-5_]*[0-5]?)?(\.)(?:[0-5][0-5_]*[0-5]?)?(?:(r)([0-5][0-5_]*[0-5]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.senary.js
             captures:
               '0':
@@ -4425,7 +4437,7 @@ repository:
               '8':
                 name: constant.numeric.senary.js
           - match: >-
-              (?i)\s*\b0o(?:[0-7][0-7_]*[0-7]?)?(\.)(?:[0-7][0-7_]*[0-7]?)?(?:(r)([0-7][0-7_]*[0-7]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0o(?:[0-7][0-7_]*[0-7]?)?(\.)(?:[0-7][0-7_]*[0-7]?)?(?:(r)([0-7][0-7_]*[0-7]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.octal.js
             captures:
               '0':
@@ -4447,7 +4459,7 @@ repository:
               '8':
                 name: constant.numeric.octal.js
           - match: >-
-              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)?(\.)(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)?(\.)(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.duodecimal.js
             captures:
               '0':
@@ -4469,7 +4481,7 @@ repository:
               '8':
                 name: constant.numeric.duodecimal.js
           - match: >-
-              (?i)\s*\b0x(?:\h[\h_]*\h?)?(\.)(?:\h[\h_]*\h?)?(?:(r)(\h[\h_]*\h?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0x(?:\h[\h_]*\h?)?(\.)(?:\h[\h_]*\h?)?(?:(r)(\h[\h_]*\h?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.hexadecimal.js
             captures:
               '0':
@@ -4491,7 +4503,7 @@ repository:
               '8':
                 name: constant.numeric.hexadecimal.js
           - match: >-
-              (?i)\s*\b(?:\d[\d_]*\d?)(\.)(?:\d[\d_]*\d?)?(?:(r)(\d[\d_]*\d?))?(?:([ep])([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b(?:\d[\d_]*\d?)(\.)(?:\d[\d_]*\d?)?(?:(r)(\d[\d_]*\d?))?(?:([ep])([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.decimal.js
             captures:
               '0':
@@ -4515,7 +4527,7 @@ repository:
       without-decimal-point:
         patterns:
           - match: >-
-              (?i)\s*\b0b(?:[01][01_]*[01]?)(\.)?(?:[01][01_]*[01]?)?(?:(r)([01][01_]*[01]))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0b(?:[01][01_]*[01]?)(\.)?(?:[01][01_]*[01]?)?(?:(r)([01][01_]*[01]))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.binary.js
             captures:
               '0':
@@ -4537,7 +4549,7 @@ repository:
               '8':
                 name: constant.numeric.binary.js
           - match: >-
-              (?i)\s*\b0q(?:[0-3][0-3_]*[0-3]?)(\.)?(?:[0-3][0-3_]*[0-3]?)?(?:(r)([0-3][0-3_]*[0-3]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0q(?:[0-3][0-3_]*[0-3]?)(\.)?(?:[0-3][0-3_]*[0-3]?)?(?:(r)([0-3][0-3_]*[0-3]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.quaternary.js
             captures:
               '0':
@@ -4559,7 +4571,7 @@ repository:
               '8':
                 name: constant.numeric.quaternary.js
           - match: >-
-              (?i)\s*\b0s(?:[0-5][0-5_]*[0-5]?)(\.)?(?:[0-5][0-5_]*[0-5]?)?(?:(r)([0-5][0-5_]*[0-5]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0s(?:[0-5][0-5_]*[0-5]?)(\.)?(?:[0-5][0-5_]*[0-5]?)?(?:(r)([0-5][0-5_]*[0-5]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.senary.js
             captures:
               '0':
@@ -4581,7 +4593,7 @@ repository:
               '8':
                 name: constant.numeric.senary.js
           - match: >-
-              (?i)\s*\b0o(?:[0-7][0-7_]*[0-7]?)(\.)?(?:[0-7][0-7_]*[0-7]?)?(?:(r)([0-7][0-7_]*[0-7]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0o(?:[0-7][0-7_]*[0-7]?)(\.)?(?:[0-7][0-7_]*[0-7]?)?(?:(r)([0-7][0-7_]*[0-7]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.octal.js
             captures:
               '0':
@@ -4603,7 +4615,7 @@ repository:
               '8':
                 name: constant.numeric.octal.js
           - match: >-
-              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)(\.)?(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)(\.)?(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.duodecimal.js
             captures:
               '0':
@@ -4625,7 +4637,7 @@ repository:
               '8':
                 name: constant.numeric.duodecimal.js
           - match: >-
-              (?i)\s*\b0x(?:\h[\h_]*\h?)(\.)?(?:\h[\h_]*\h?)?(?:(r)(\h[\h_]*\h?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b0x(?:\h[\h_]*\h?)(\.)?(?:\h[\h_]*\h?)?(?:(r)(\h[\h_]*\h?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.hexadecimal.js
             captures:
               '0':
@@ -4647,7 +4659,7 @@ repository:
               '8':
                 name: constant.numeric.hexadecimal.js
           - match: >-
-              (?i)\s*\b(?:\d[\d_]*\d?)(\.)?(?:\d[\d_]*\d?)?(?:(r)(\d[\d_]*\d?))?(?:([ep])([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?j?|[iumn]?j?|[iumn]([1-9]\d*)j?))?\b
+              (?i)\s*\b(?:\d[\d_]*\d?)(\.)?(?:\d[\d_]*\d?)?(?:(r)(\d[\d_]*\d?))?(?:([ep])([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.decimal.js
             captures:
               '0':
@@ -4784,7 +4796,7 @@ repository:
   operators:
     patterns:
       - match: >-
-          \*\*?(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\*\*?
+          \*+(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\*+
         name: keyword.operator.module.all.js
       - match: >-
           \|(?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])|(?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}$_])\|
@@ -4826,7 +4838,7 @@ repository:
 
           ([<>][=<>]+|[<>]=?)| #12
 
-          ([!=]==?)| #13
+          ([!=]==?|=[!:]=)| #13
 
           (\?\?)| #14
 
@@ -5313,11 +5325,11 @@ repository:
           '4':
             name: keyword.operator.accessor.js
           '5':
-            name: entity.name.tag.grapahql.js
+            name: entity.name.tag.graphql.js
           '6':
-            name: entity.name.tag.grapahql.js
+            name: entity.name.tag.graphql.js
           '7':
-            name: entity.name.tag.grapahql.js
+            name: entity.name.tag.graphql.js
           '8':
             name: string.quoted.template.js
           '9':
@@ -5817,14 +5829,7 @@ repository:
         end: '\s*(\})'
         name: meta.brace.curly.litobj.regexp
         patterns:
-          - begin: '\s*(:)((?=::)|(?!:|=))'
-            end: '(?=[,;}])'
-            beginCaptures:
-              '1':
-                name: punctuation.separator.label.regexp
-            patterns:
-              - include: '#regexp-patterns'
-          - include: '#core'
+          - include: '#regexp-patterns'
       - include: '#regex-character-class'
       - comment: Remaining backslash tokens
         match: '(?i)\\(?:(M)|(K)|(G)|(X))'
@@ -5889,7 +5894,8 @@ repository:
               '1':
                 name: constant.other.character-class.unicode.regexp
             patterns:
-              - include: '#core'
+              - include: '#implicit-call'
+              - include: '#regexp-patterns'
           - match: '\\x\h{2}|\\U\h{8}'
             name: constant.character.escape.hex.regexp
           - match: '\\[cCmM][[:alpha:]]|\R'
@@ -5910,15 +5916,8 @@ repository:
               '1':
                 name: constant.character.entity.named.js
             patterns:
-              - begin: '\s*(:)((?=::)|(?!:|=))'
-                contentName: string.regexp
-                end: '(?=[,;}])'
-                beginCaptures:
-                  '1':
-                    name: punctuation.separator.label.regexp
-                patterns:
-                  - include: '#regexp-patterns'
-              - include: '#core'
+              - include: '#implicit-call'
+              - include: '#regexp-patterns'
           - match: '\.|\\[wsdvntluh]'
             name: constant.other.character-class.regexp
           - match: '\\[WSDVNTLUH]'
@@ -6237,15 +6236,8 @@ repository:
           '1':
             name: constant.character.entity.named.js
         patterns:
-          - begin: '\s*(:)((?=::)|(?!:|=))'
-            contentName: string.regexp
-            end: '(?=[,;}])'
-            beginCaptures:
-              '1':
-                name: punctuation.separator.label.regexp
-            patterns:
-              - include: '#regexp-patterns'
-          - include: '#core'
+          - include: '#implicit-call'
+          - include: '#regexp-patterns'
       - match: '\\[0-7]{1,3}|\\o{[0-7\s.,:;]*?}'
         name: constant.character.escape.octal.js
       - match: '\\[''"\\anrtbfve0$%#`]'
