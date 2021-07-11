@@ -851,7 +851,6 @@ repository:
       - include: '#do'
       - include: '#operator'
       - include: '#function'
-      - include: '#method'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
       - include: '#class'
@@ -1490,6 +1489,7 @@ repository:
       - include: '#flowtype-object-property'
   flowtype-parse-types:
     patterns:
+      - include: '#operator'
       - match: (?<!\.)\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+
         captures:
           '1':
@@ -1517,8 +1517,6 @@ repository:
                 name: keyword.operator.forall.js
             patterns:
               - include: '#flowtype-parse-types'
-      - include: '#keywords'
-      - include: '#modifiers'
       - comment: Immutable modifier
         match: '\s*#(?![(\[{])\s*'
         name: keyword.operator.private.js
@@ -1527,8 +1525,6 @@ repository:
         end: $
         patterns:
           - include: '#core'
-      - match: '\s*([<>]:+|:+[<>])\s*'
-        name: keyword.operator.class.js
       - include: '#number'
       - include: '#string'
       - include: '#language-constant'
@@ -1536,6 +1532,8 @@ repository:
       - include: '#multiline-regexp'
       - match: (?<==>)\*
         name: keyword.generator.asterisk.js
+      - include: '#keywords'
+      - include: '#modifiers'
       - begin: '(?<=[>$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}])\s+(?=\b(?:of|in)\b)'
         comment: 'sometypename of|in '
         end: >-
@@ -4081,8 +4079,8 @@ repository:
       over|abs|stat|dyn|vol|sync|(?:im)?mut|part|seal|trans|
       (?:im|ex)pl|dele|ext|impl) | # 2
 
-      (async|rec|gen|inline|(?:pre|in|suf)fix|(?:u|bi|ter)nary|
-      [gs]et|[dr]efer|prev|next|fixed|lock) # 3
+      (async|rec|gen|inline|(?:pre|in|suf)fix|(?:u|bi|ter|)nary|
+      [gs]etter|[dr]efer|prev|next|fixed|lock) # 3
 
       )\b\s*+
     captures:
@@ -4459,7 +4457,7 @@ repository:
               '8':
                 name: constant.numeric.octal.js
           - match: >-
-              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)?(\.)(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
+              (?i)\s*\b0z(?:[\dabetxz][\dabetx_]*[\dabetxz]?)?(\.)(?:[\dabetxz][\dabetx_]*[\dabetxz]?)?(?:(r)([\dabetxz][\dabetx_]*[\dabetxz]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.duodecimal.js
             captures:
               '0':
@@ -4615,7 +4613,7 @@ repository:
               '8':
                 name: constant.numeric.octal.js
           - match: >-
-              (?i)\s*\b0z(?:[\dabetx][\dabetx_]*[\dabetx]?)(\.)?(?:[\dabetx][\dabetx_]*[\dabetx]?)?(?:(r)([\dabetx][\dabetx_]*[\dabetx]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
+              (?i)\s*\b0z(?:[\dabetxz][\dabetx_]*[\dabetxz]?)(\.)?(?:[\dabetxz][\dabetx_]*[\dabetxz]?)?(?:(r)([\dabetxz][\dabetx_]*[\dabetxz]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             name: constant.numeric.duodecimal.js
             captures:
               '0':
@@ -4785,7 +4783,7 @@ repository:
         name: keyword.operator.assignment.js
       - match: '\s*\\\s*($|(?=/[/*]))'
         name: constant.character.escape.newline.js
-      - match: '\s*(?:(::+)|([<>]:+|:+[<>])|(:))\s*'
+      - match: '\s*(?:(::+)|([<>]:+|:+[<>]|[<>]:+[<>])|(:))\s*'
         captures:
           '1':
             name: keyword.operator.accessor.js
@@ -4818,7 +4816,7 @@ repository:
 
           (\+\+|--)| #2
 
-          ([+%]|%%|-(?!>)|(?<!\*)~?/(?![\/*])|(?<!/)\*[\*>]|<?\*(?<!/\*)(?!/(?:[^*]|$)))|
+          ([+%]|%%|-(?!>)|(?<!\*)~?/(?![\/*])|(?<!/)\*{3}|(?<!/)\*[\*>]|<?\*(?<!/\*)(?!/(?:[^*]|$)))|
 
           (&&|\|\||\^\^|\B!(?![?:.=]))| #4
 
@@ -4830,7 +4828,7 @@ repository:
 
           (<<<?|>>>?)| #8
 
-          ([<>]:|:[<>])| #9
+          ([<>]:+|:+[<>]|[<>]:+[<>])| #9
 
           (=<|<>|[!=]~+|~+[!=]|[<>]~+|~+[<>])| #10
 
@@ -6131,20 +6129,7 @@ repository:
               - include: '#variable'
           - include: '#core'
       - begin: \s*+(\\)\s*+
-        end: \s*+(\\=)\s*+
-        name: keyword.operator.function.js
-        beginCaptures:
-          '1':
-            name: keyword.operator.assignment.augmented.js
-        endCaptures:
-          '1':
-            name: keyword.operator.assignment.augmented.js
-        patterns:
-          - include: '#function-name'
-          - include: '#method-name'
-          - include: '#core'
-      - begin: \s*+(\\)\s*+
-        end: \s*+(\\)(?!=)\s*+
+        end: \s*+(\\)\s*+
         name: keyword.operator.function.js
         beginCaptures:
           '1':
