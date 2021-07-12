@@ -15,7 +15,7 @@ information_for_contributors: |
   - Support variables, constants, fnuctions, classes and modules
   - Types (built-in types, custom types, type operators, generics, etc)
   - Regular expressions
-  - Arrow (inline) and named functions 
+  - Arrow (inline) and named functions
   - Classes, methods and attributes
   - JSX
   - (maybe more, this language is still under construction)
