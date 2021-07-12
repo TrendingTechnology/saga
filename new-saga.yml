@@ -142,7 +142,7 @@ repository:
               5: { name: keyword.operator.comparison.saga }
               6: { name: keyword.operator.infix.saga }
 
-    patterns: #
+    patterns:
       - include: '#unary-ops'
       - include: '#binary-ops'
 
@@ -478,7 +478,7 @@ repository:
               7: { name: constant.numeric.octal.saga }
               8: { name: constant.numeric.octal.saga }
           - match: >-
-              (?i)\s*\b0z(?:[\dabetxz][\dabetx_]*[\dabetxz]?)?(\.)(?:[\dabetxz][\dabetx_]*[\dabetxz]?)?(?:(r)([\dabetxz][\dabetx_]*[\dabetxz]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
+              (?i)\s*\b0z(?:[\dabetxz][\dabetxz_]*[\dabetxz]?)?(\.)(?:[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(r)([\dabetxz][\dabetxz_]*[\dabetxz]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             captures:
               0: { name: constant.numeric.duodecimal.saga }
               1: { name: meta.delimiter.decimal.period.saga }
@@ -565,7 +565,7 @@ repository:
               7: { name: constant.numeric.octal.saga }
               8: { name: constant.numeric.octal.saga }
           - match: >-
-              (?i)\s*\b0z(?:[\dabetxz][\dabetx_]*[\dabetxz]?)(\.)?(?:[\dabetxz][\dabetx_]*[\dabetxz]?)?(?:(r)([\dabetxz][\dabetx_]*[\dabetxz]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
+              (?i)\s*\b0z(?:[\dabetxz][\dabetxz_]*[\dabetxz]?)(\.)?(?:[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(r)([\dabetxz][\dabetxz_]*[\dabetxz]?))?(?:(p)([+-]?\d[\d_]*\d?))?(?:(s(\d[\d_]*\d?)[iumn]?[ij]?|[iumn]?[ij]?|[iumn]([1-9]\d*)[ij]?))?\b
             captures:
               0: { name: constant.numeric.duodecimal.saga }
               1: { name: meta.delimiter.decimal.period.saga }
