@@ -378,22 +378,23 @@ repository:
     patterns: ~
 
   constants:
-    comment: Language constants
-    match: |
-      (?x)(?<!\.)\s*+\b(?:
-        ([Tt]rue|[Yy]es|[Oo]n)| #true
-        ([Ff]alse|[Nn]o|[Oo]ff)| #false
-        ([Nn]ull|[Nn]il|[Nn]one)| #null
-        ([Uu]ndef)|(nan|NaN)| #nan
-        ([Ii]nf|[Ii]nfin) #infinity
-      )\b
-    captures:
-      1: { name: constant.language.boolean.true.saga }
-      2: { name: constant.language.boolean.false.saga }
-      3: { name: constant.language.null.saga }
-      4: { name: constant.language.undefined.saga }
-      5: { name: constant.language.nan.saga }
-      6: { name: constant.language.infinity.saga }
+    comment: Language constants and variables
+    patterns:
+      - match: |
+          (?x)(?<!\.)\s*+\b(?:
+            ([Tt]rue|[Yy]es|[Oo]n)| #true
+            ([Ff]alse|[Nn]o|[Oo]ff)| #false
+            ([Nn]ull|[Nn]il|[Nn]one)| #null
+            ([Uu]ndef)|(nan|NaN)| #nan
+            ([Ii]nf|[Ii]nfin) #infinity
+          )\b
+        captures:
+          1: { name: constant.language.boolean.true.saga }
+          2: { name: constant.language.boolean.false.saga }
+          3: { name: constant.language.null.saga }
+          4: { name: constant.language.undefined.saga }
+          5: { name: constant.language.nan.saga }
+          6: { name: constant.language.infinity.saga }
 
   identifiers:
     comment: Identifiers (backslashes strop variables)
