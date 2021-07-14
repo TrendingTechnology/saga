@@ -9,13 +9,10 @@ information_for_contributors: |
   This grammar is edited from
   https://github.com/michaelgmcd/vscode-language-babel. 
 
-  Saga is designed for expressing common programming concepts and patterns in 
-  a concise, type-safe and elegant way, while also being malleable and flexible 
-  enough for you to apply your own language patterns to.
-
-  Saga is the language for folks who are interested in programming in both 
-  JavaScript/Node.JS and Python and are looking for a programming language 
-  that could combine the best of both worlds.
+  Saga is a programming language syntactically influenced by ReasonML, Swift, Scala,
+  Go, Kotlin and JavaScript, and is designed to work well with the **JavaScript** and 
+  **Python** ecosystems in one. It has all the features you crave from many paradigms
+  and languages.
 
   Should you want to provide a fix or improvement, please create a pull request
   against this repository: https://github.com/NoxUltima/vscode-language-saga/
@@ -24,10 +21,11 @@ information_for_contributors: |
   TODOs/Unresolved:
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
-    - Fix keyword matches
-    - As of the moment, binary operators do not capture combinations of [</>],
-      due to avoid confusion with JSX <></> and multiline regex syntax /></></.
-      Will be fixed in the next release.
+    - Fix keywords matches, we do not need long ones like `function`.
+    - As of the moment, custom binary operators do not capture combinations of [</>],
+      except those leading in either characters, such as <!, >* and /%.
+      This is done to avoid confusion with JSX <></> and multiline regex syntax.
+      /></></ Might need some help here (scroll to section `operators`.)
 
 name: Saga + JavaScript + Python
 scopeName: source.nearley
