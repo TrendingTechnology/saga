@@ -481,7 +481,7 @@ repository:
           1: {name: punctuation.section.class.end.js}
         patterns:
           - include: '#comments'
-          - begin: ([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)(?:\s*(=(?!=|>)))?\s*
+          - begin: ([_$[:alpha:]][_$[:alnum:]]*)(?:\s*(=(?!=|>)))?\s*
             end: (?=([,;}])|$)
             beginCaptures:
               1: {name: variable.other.enummember.flowtype}
@@ -614,17 +614,17 @@ repository:
       - include: '#catch'
       - include: '#with'
       - include: '#do'
+      - include: '#keyword-storage'
+      - include: '#new-expression'
+      - include: '#query-expression'
+      - include: '#enum-declaration'
       - include: '#operator'
       - include: '#function'
       - include: '#method-call'
       - include: '#function-call'
+      - include: '#class'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
-      - include: '#class'
-      - include: '#new-expression'
-      - include: '#query-expression'
-      - include: '#enum-declaration'
-      - include: '#keyword-storage'
       - include: '#keywords'
       - include: '#modifiers'
       - include: '#multiline-arrow-function-generics'
