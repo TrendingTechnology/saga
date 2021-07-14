@@ -25,7 +25,9 @@ information_for_contributors: |
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
     - Fix keyword matches
-    - As of the moment, binary operators
+    - As of the moment, binary operators do not capture combinations of [</>],
+      due to avoid confusion with JSX <></> and multiline regex syntax /></></.
+      Will be fixed in the next release.
 
 name: Saga + JavaScript + Python
 scopeName: source.nearley
