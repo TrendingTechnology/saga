@@ -6,25 +6,20 @@ information_for_contributors: |
   This file has been edited from the official Babel grammar file at this
   repository, featuring syntax customizations for the Saga programming language.
 
-
   This grammar is edited from
   https://github.com/michaelgmcd/vscode-language-babel. 
-
 
   Saga is designed for expressing common programming concepts and patterns in 
   a concise, type-safe and elegant way, while also being malleable and flexible 
   enough for you to apply your own language patterns to.
 
-
   Saga is the language for folks who are interested in programming in both 
   JavaScript/Node.JS and Python and are looking for a programming language 
   that could combine the best of both worlds.
 
-
   Should you want to provide a fix or improvement, please create a pull request
   against this repository: https://github.com/NoxUltima/vscode-language-saga/
   Once accepted, I am happy to receive your request and feedback. 
-
 
   TODOs/Unresolved:
     - Fix generics in function/method calls 
