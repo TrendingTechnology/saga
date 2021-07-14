@@ -27,10 +27,10 @@ information_for_contributors: |
       /></></ Might need some help here (scroll to section `operators`.)
 
 name: Saga + JavaScript + Python
-scopeName: source.nearley
+scopeName: source.nearley # for testing only, this would be removed
 fileTypes:
   - saga
-  - ne
+  - ne # for testing only, this would be replaced
 patterns:
   - include: '#core'
 repository:
@@ -2832,7 +2832,7 @@ repository:
       with-clause:
         begin: \s*+\b(as|with)
         comment: when clause precedes with
-        end: \s*(:)((?=::)|(?!:))|\s*(?=(;)|\b(where|if|unless)\b)
+        end: \s*(:)((?=::)|(?!:))|\s*(?=(:|;|=>)|\b(where|if|unless)\b)
         beginCaptures:
           1: { name: keyword.control.match.js }
         endCaptures:
@@ -3815,10 +3815,10 @@ repository:
               2: { name: keyword.operator.cascade.js }
               3: { name: keyword.operator.assertion.js }
               4: { name: keyword.operator.accessor.js }
-          - comment: |  
+          - comment: |
               custom operators
               (#7) /(<//+>|<//+|//+>|<{2,}|(?<!</)>{2,}|/+)(?!=)/ does not work
-              so we will leave it here for now (please help) 
+              so we will leave it here for now (please help)
             name: keyword.operator.infix.saga
             match: |
               (?x)
