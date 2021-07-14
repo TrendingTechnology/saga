@@ -3369,10 +3369,10 @@ repository:
   number:
     comments: Generated numeric literals
     patterns:
-      - match: (?<=[\htxz])\.(?!\.)
-        name: meta.delimiter.decimal.period.saga
-      - match: (?<!\.)\.(?=\d)
-        name: meta.delimiter.decimal.period.saga
+      # - match: (?<=[\htxz])\.(?!\.)
+      #   name: meta.delimiter.decimal.period.saga
+      # - match: (?<!\.)\.(?=\d)
+      #   name: meta.delimiter.decimal.period.saga
       - match: |-
           (?xi)\s*\b
           0b
@@ -3750,7 +3750,7 @@ repository:
             match: |
               (?x)
               (?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
-              (?:(\*+)|(\++)|(\-+)|(\&+)|(\|+)|(\^+)|(\!+)|(\#+)|(\@+)|(\~+)|(\?+)| #1-11
+              (?:(\*+)|(\++)|(\-+)|(\&+)|(\|+)|(\^+)|(\!+\.?)|(\#+)|(\@+)|(\~+\.?)|(\?+\.?)| #1-11
               [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #12
             captures:
               1: { name: keyword.operator.module.all.saga }
@@ -3762,7 +3762,7 @@ repository:
               7: { name: keyword.operator.assertion.saga }
               8: { name: keyword.operator.private.saga }
               9: { name: keyword.operator.decorator.saga }
-              10: { name: keyword.operator.bitwise.saga }
+              10: { name: keyword.operator.cascade.saga }
               11: { name: keyword.operator.existential.saga }
               12: { name: keyword.operator.suffix.saga }
       binary-ops:
@@ -3810,6 +3810,12 @@ repository:
               21: { name: keyword.operator.cascade.saga }
               22: { name: keyword.operator.accessor.saga }
               23: { name: keyword.operator.assignment.saga }
+          - match: '(?:(\?\.)|(~\.)|(!\.)|(\.))'
+            captures:
+              1: { name: keyword.operator.existential.js }
+              2: { name: keyword.operator.cascade.js }
+              3: { name: keyword.operator.assertion.js }
+              4: { name: keyword.operator.accessor.js }
           - comment: custom operators
             name: keyword.operator.infix.saga
             match: |
