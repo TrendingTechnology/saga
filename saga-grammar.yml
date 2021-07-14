@@ -35,10 +35,10 @@ information_for_contributors: |
           var increment: number => number = # + 1
 
 name: Saga + JavaScript + Python
-scopeName: source.nearley
+scopeName: source.nearley # for testing only
 fileTypes:
   - saga
-  - ne
+  - ne # for testing only
 patterns:
   - include: '#core'
 repository:
