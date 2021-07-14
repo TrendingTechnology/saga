@@ -25,6 +25,7 @@ information_for_contributors: |
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
     - Fix keyword matches
+    - As of the moment, binary operators
 
 name: Saga + JavaScript + Python
 scopeName: source.nearley
@@ -2500,7 +2501,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void|^)\s*+(?=<[_\\\p{L}]|<\s*>)
+          (?<=^|\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void)\s*+(?=<[_\\\p{L}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
@@ -3819,7 +3820,7 @@ repository:
               ([<>][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #4
               ([!=][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #5
               ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #6
-              (<//+>|<//+|//+>|<<+|(?<!</)>>+) #7
+              (<//+>|<//+|//+>|<{2,}|(?<!</)>{2,}|/+)(?!=) #7
             captures:
               1: { name: keyword.operator.logical.saga }
               2: { name: keyword.operator.arithmetic.saga }
