@@ -1,34 +1,44 @@
-comment: ([_\\\p{Lu}][_\\\p{L}\p{N}\p{M}]*)
+comment: ([_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{L}\p{N}\p{M}]*)
 firstLineMatch: ^#!\s*/.*\b(node|js)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 information_for_contributors: |
   This file has been edited from the official Babel grammar file at this
   repository, featuring syntax customizations for the Saga programming language.
+
+
   This grammar is edited from
   https://github.com/michaelgmcd/vscode-language-babel. 
+
+
   Saga is designed for expressing common programming concepts and patterns in 
   a concise, type-safe and elegant way, while also being malleable and flexible 
   enough for you to apply your own language patterns to.
+
+
   Saga is the language for folks who are interested in programming in both 
   JavaScript/Node.JS and Python and are looking for a programming language 
   that could combine the best of both worlds.
+
+
   Should you want to provide a fix or improvement, please create a pull request
   against this repository: https://github.com/NoxUltima/vscode-language-saga/
   Once accepted, I am happy to receive your request and feedback. 
-  TODOs:
-    - Revamp regex syntax
+
+
+  TODOs/Unresolved:
+    - Fix generics in function/method calls 
+    - Revamp regex syntax (more syntax scopes for constructs)
+    - Fix all instances of backslash variables
+      - Backslash variables break on:
+        - Function type definitions 
+          var increment: number => number = # + 1
+
 name: Saga + JavaScript + Python
 scopeName: source.nearley
 fileTypes:
+  - saga
   - ne
-  - js
-  - es6
-  - es
-  - babel
-  - jsx
-  - flow
-  - mjs
 patterns:
   - include: '#core'
 repository:
@@ -62,7 +72,7 @@ repository:
           4: {name: storage.type.function.arrow.js}
       - include: '#arrow-function-simple-assignments'
       - begin: >-
-          \s*+(\#?)(\b[_\\\p{Lu}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: Sound.prototype.play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.prototype.function.arrow.js
@@ -85,7 +95,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: e.g. Sound.prototype.play = arg => { }
         match: >-
-          \s*+(\#?)(\b[_\\\p{Lu}][_\\\p{L}\p{N}\p{M}]*)?\s*(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*(=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{L}\p{N}\p{M}]*)?\s*(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*(=>)
         name: meta.prototype.function.arrow.js
         captures:
           1: {name: keyword.operator.private.js}
@@ -102,7 +112,7 @@ repository:
           12: {name: variable.other.readwrite.js}
           13: {name: storage.type.function.arrow.js}
       - begin: >-
-          \s*+(\#?)(\b[_\\\p{Lu}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. Sound.play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.static.arrow.js
@@ -122,7 +132,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: e.g. Sound.play = arg => { }
         match: >-
-          \s*+(\#?)(\b[_\\\p{Lu}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*(=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*(=>)
         name: meta.function.static.arrow.js
         captures:
           1: {name: keyword.operator.private.js}
@@ -144,7 +154,7 @@ repository:
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.js
         beginCaptures:
-          1: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          1: {name: entity.name.function.js}
           2: {name: punctuation.separator.key-value.js}
           3: {name: storage.type.js}
         endCaptures:
@@ -157,7 +167,7 @@ repository:
           (?<=^|{|,)\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
         name: meta.function.json.arrow.js
         captures:
-          1: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          1: {name: entity.name.function.js}
           2: {name: keyword.operator.assignment.js}
           3: {name: storage.type.js}
           4: {name: meta.function.parameters.js}
@@ -171,7 +181,7 @@ repository:
         beginCaptures:
           1: {name: string.quoted.js}
           2: {name: punctuation.definition.string.begin.js}
-          3: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          3: {name: entity.name.function.js}
           4: {name: punctuation.definition.string.end.js}
           5: {name: punctuation.separator.key-value.js}
           6: {name: storage.type.js}
@@ -186,7 +196,7 @@ repository:
         captures:
           1: {name: string.quoted.js}
           2: {name: punctuation.definition.string.begin.js}
-          3: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          3: {name: entity.name.function.js}
           4: {name: punctuation.definition.string.end.js}
           5: {name: keyword.operator.assignment.js}
           6: {name: storage.type.js}
@@ -197,7 +207,7 @@ repository:
     patterns:
       - include: '#async-arrow-function-simple-assignments'
       - begin: >-
-          \s*+(\#?)(\b(?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          \s*+(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.js
@@ -213,7 +223,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: e.g. play = arg => { }
         match: >-
-          \s*+(\#?)(\b(?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(=)\s*+\s*+(\basync\b)?\s*+(([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
+          \s*+(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+\s*+(\basync\b)?\s*+(([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
         name: meta.function.arrow.js
         captures:
           1: {name: keyword.operator.private.js}
@@ -258,7 +268,7 @@ repository:
   async-arrow-function-simple-assignments:
     patterns:
       - begin: >-
-          \s*+(\#?)(\b(?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(=)\s*+(?:(\basync)\s+)(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
+          \s*+(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(?:(\basync)\s+)(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g. play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.js
@@ -611,7 +621,6 @@ repository:
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
       - include: '#class'
-      - include: '#module'
       - include: '#new-expression'
       - include: '#query-expression'
       - include: '#enum-declaration'
@@ -1160,7 +1169,7 @@ repository:
         name: keyword.generator.asterisk.js
       - include: '#keywords'
       - include: '#modifiers'
-      - begin: (?<=[>$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}])\s+(?=\b(?:of|in)\b)
+      - begin: (?<=[>_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'sometypename of|in '
         end: >-
           \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
@@ -1197,12 +1206,12 @@ repository:
           4: {name: keyword.operator.accessor.js}
           5: {name: support.type.builtin.class.flowtype}
       - comment: custom Class Types e.g. Abc avoid Abc(
-        match: \s*+([$_[\p{Lu}\p{Lt}\p{Lm}\p{Lo}]][$.\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}]*+)
+        match: \s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)
         captures:
           1: {name: support.type.class.flowtype}
       - comment: custom primitive/var Types e.g. abc avoid abc(
         match: >-
-          (?!\s*\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b)(?!^)\s*(?<=\s|:|&|\||<)([$_\p{L}][$.\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}]*+)
+          (?!\s*\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b)(?!^)\s*(?<=\s|:|&|\||<)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)
         captures:
           2: {name: support.type.primitive.flowtype}
       - comment: symmetric difference of types &
@@ -1397,7 +1406,7 @@ repository:
     patterns:
       - comment: 'e.g. let a: ()=>null  =  function() {return null}'
         match: >-
-          (?<!\.)\s*+(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(\??)\s*+(?=:\s*([$_\p{L}](?:[$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\bFunction\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
+          (?<!\.)\s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)\s*+(\??)\s*+(?=:\s*([$_\p{L}](?:[$.\p{L}\p{Mn}\p{Mc}\p{Nd}\p{Nl}\p{Pc}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\bFunction\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
         captures:
           1: {name: keyword.operator.private.js}
           2: {name: storage.type.function.js}
@@ -1476,7 +1485,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.))(\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.))(\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. function play<T>(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
@@ -1484,7 +1493,7 @@ repository:
           1: {name: storage.type.js}
           2: {name: storage.type.function.js}
           3: {name: keyword.generator.asterisk.js}
-          4: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          4: {name: entity.name.function.js}
         endCaptures:
           1: {name: keyword.operator.assignment.js}
         patterns:
@@ -1493,7 +1502,7 @@ repository:
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. play = function(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
@@ -1504,7 +1513,7 @@ repository:
           4: {name: storage.type.js}
           5: {name: storage.type.function.js}
           6: {name: keyword.generator.asterisk.js}
-          7: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          7: {name: entity.name.function.js}
         endCaptures:
           1: {name: keyword.operator.assignment.js}
         patterns:
@@ -1513,7 +1522,7 @@ repository:
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(prototype)(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
@@ -1526,12 +1535,12 @@ repository:
           6: {name: keyword.operator.existential.js}
           7: {name: keyword.operator.accessor.js}
           8: {name: keyword.operator.private.js}
-          9: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          9: {name: entity.name.function.js}
           10: {name: keyword.operator.assignment.js}
           11: {name: storage.type.js}
           12: {name: storage.type.function.js}
           13: {name: keyword.generator.asterisk.js}
-          14: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          14: {name: entity.name.function.js}
         endCaptures:
           1: {name: keyword.operator.assignment.js}
         patterns:
@@ -1540,7 +1549,7 @@ repository:
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(\#?)((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+((?:[$_\p{L}\p{Nl}]|\\u\h{4}|\\u\{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u\{\h+})*+|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(\#?)((?:[_\p{Lu}\p{Nl}]|\\u\h{4}|\\u{\h+})(?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]|\\u\h{4}|\\u{\h+})*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:def|func?|fn|proc|macro|sub|function)\b)\s*+(\*?)\s*+([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
@@ -1551,12 +1560,12 @@ repository:
           3: {name: keyword.operator.existential.js}
           4: {name: keyword.operator.accessor.js}
           5: {name: keyword.operator.private.js}
-          6: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          6: {name: entity.name.function.js}
           7: {name: keyword.operator.assignment.js}
           8: {name: storage.type.js}
           9: {name: storage.type.function.js}
           10: {name: keyword.generator.asterisk.js}
-          11: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          11: {name: entity.name.function.js}
         endCaptures:
           1: {name: keyword.operator.assignment.js}
         patterns:
@@ -1718,7 +1727,7 @@ repository:
         beginCaptures:
           1: {name: string.quoted.js}
           2: {name: punctuation.definition.string.begin.js}
-          3: {name: entity.name.function.js, patterns: [{include: '#string-content'}]}
+          3: {name: entity.name.function.js}
           4: {name: punctuation.definition.string.end.js}
           5: {name: punctuation.separator.key-value.js}
           6: {name: storage.type.js}
@@ -1809,9 +1818,9 @@ repository:
       - match: >-
           \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
         name: support.type.builtin.class.flowtype
-      - match: \b[$_[\p{Lu}\p{Lt}\p{Lm}\p{Lo}]][$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}]*\b
+      - match: '[_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{L}\p{N}\p{M}]*'
         name: support.type.class.flowtype
-      - match: \b[$_\p{L}\p{Nl}][$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\x{200C}\x{200D}]*+\b
+      - match: '[_\\\p{L}][_\\\p{L}\p{N}\p{M}]*'
         name: entity.name.function.js
   graphql:
     patterns:
@@ -3231,6 +3240,17 @@ repository:
   multiline-regexp:
     comment: Updated to support Perl regex syntax
     patterns:
+      - begin: ([[:alpha:]]*)(/>)\s*\n?
+        end: \s*(\n?</)([[:alnum:]]*)
+        name: string.regexp.multiline.js
+        beginCaptures:
+          1: {name: keyword.modifier.js}
+          2: {name: punctuation.definition.string.begin.js}
+        endCaptures:
+          1: {name: punctuation.definition.string.end.js}
+          2: {name: keyword.other.flag.js}
+        patterns:
+          - include: '#heregexp'
       - begin: (?!\\)(?<=</)(>)\s*\n?
         contentName: string.quoted.js
         end: \s*\n?(</)([\da-zA-Z]*)
@@ -3253,17 +3273,6 @@ repository:
             patterns:
               - include: '#regex-group-name'
           - include: '#string-content'
-      - begin: ([a-zA-Z]*)(/>)\s*\n?
-        end: \s*(\n?</)([\da-zA-Z]*)
-        name: string.regexp.multiline.js
-        beginCaptures:
-          1: {name: keyword.modifier.js}
-          2: {name: punctuation.definition.string.begin.js}
-        endCaptures:
-          1: {name: punctuation.definition.string.end.js}
-          2: {name: keyword.other.flag.js}
-        patterns:
-          - include: '#heregexp'
   new-expression:
     - comment: A new expression with no type params or arguments, like new Foo()
       match: (?<!\.)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)\s*+(\?\.)?(\()\s*+(\)))
@@ -3671,7 +3680,7 @@ repository:
             match: |
               (?x)
               (?:(\*+)|(\++)|(\-+)|(\&+)|(\|+)|(\^+)|(\!+)|(\#+)|(\@+)|(\~+)|(\?+)| #1-11
-              [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #12
+              [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+) #12
               (?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
             captures:
               1: {name: keyword.operator.module.all.saga}
@@ -3692,7 +3701,7 @@ repository:
               (?x)
               (?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
               (?:(\*+)|(\++)|(\-+)|(\&+)|(\|+)|(\^+)|(\!+)|(\#+)|(\@+)|(\~+)|(\?+)| #1-11
-              [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #12
+              [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+) #12
             captures:
               1: {name: keyword.operator.module.all.saga}
               2: {name: keyword.operator.increment.saga}
@@ -3714,7 +3723,7 @@ repository:
               (?x)(?<=^|\s)(?:
                 ([\p{S}\p{P}&&[^_@:.;,'"`\\\p{Ps}\p{Pe}]]+(?<![!~<=>])=)| #1
                 (\+\+|--)| #2
-                (\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|%%?|\*>|<\*)| #3
+                (\+|-(?!>)|\*{1,3}|(?<!<)~?/(?!>)|%%?|\*>|<\*)| #3
                 (&&|\|\||\^\^|\\/|/\\)| #4
                 ([&^]|\|(?!>)|~(?![!=<>]))| #5
                 (=\.\.|\.\.=|=\.=|\.\.(?!\.))| #6
@@ -3754,14 +3763,14 @@ repository:
           - comment: custom operators
             name: keyword.operator.infix.saga
             match: |
-              (?x)
-              ([&|^~][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #1
-              ([-+*/%\#][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #2
-              ([:.][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #3
-              ([<>][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #4
-              ([!=][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #5
-              ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #6
-              (<//+>|<//+|//+>|<+|(?<!</)>+) #7
+              (?x)(?<=^|\s)
+              ([&|^~][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #1
+              ([-+*/%][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #2
+              ([:.][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #3
+              ([<>][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #4
+              ([!=][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #5
+              ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+) #6
+              (?=$|\s)
             captures:
               1: {name: keyword.operator.logical.saga}
               2: {name: keyword.operator.arithmetic.saga}
@@ -3769,7 +3778,6 @@ repository:
               4: {name: keyword.operator.relational.saga}
               5: {name: keyword.operator.comparison.saga}
               6: {name: keyword.operator.infix.saga}
-              7: {name: keyword.operator.bitwise.shift.saga}
   preprocessor:
     begin: ^\s*(\#)\s*
     end: (?<=$)
@@ -4193,9 +4201,9 @@ repository:
       - include: '#operators'
   regexp:
     begin: >-
-      (?<=^|[^/\w\p{L}\p{N}\p{M}\p{Sc}])\s*+([a-zA-Z]*)(/)(?![*/])(?=.*/[a-zA-Z]*\s*($|[,;)}\]]|\.[\w\p{L}\p{N}\p{Sc}]))
+      (?<=^|[^/\w\p{L}\p{N}\p{M}\p{Sc}])\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;)}\]]|\.[\w\p{L}\p{N}\p{Sc}]))
     comment: Updated to support Perl regex syntax
-    end: (/)(?:((?:\\.|.)*?)(/))?([\da-zA-Z]*)
+    end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
     name: string.regexp.js
     beginCaptures:
       1: {name: keyword.modifier.js}
@@ -4428,6 +4436,9 @@ repository:
           9: {name: punctuation.definition.quasi.begin.js}
       - include: '#operator'
       - include: '#operators'
+      - include: '#support-properties'
+      - include: '#number'
+      - include: '#variable'
       - include: '#comments'
     repository:
       regex-character-class:
@@ -4758,39 +4769,45 @@ repository:
             | KeyboardInterrupt
             | GeneratorExit | (Base)?Error
           )\b
-        name: support.class.error.js
+        name: support.class.error.saga
       - applyEndPatternLast: 1
-        begin: >-
-          \s*+\b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|Math|Map|JSON|InternalError|Int8Array|Int32Array|Int16Array|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
+        begin: \s*+\b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|Math|Map|JSON|InternalError|Int8Array|Int32Array|Int16Array|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
         end: (?=.)
         beginCaptures:
-          1: {name: support.class.builtin.js}
+          '1':
+            name: support.class.builtin.saga
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: >-
-          \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
+        begin: \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
         end: (?=.)
         beginCaptures:
-          2: {name: support.class.builtin.js}
-          4: {name: keyword.operator.accessor.js}
-          5: {name: support.class.builtin.js}
+          '2':
+            name: support.class.builtin.saga
+          '4':
+            name: keyword.operator.accessor.saga
+          '5':
+            name: support.class.builtin.saga
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: \s*+\b((Intl)((\.)(NumberFormat|DateTimeFormat|Collator))?)\b
         end: (?=.)
         beginCaptures:
-          2: {name: support.class.builtin.js}
-          4: {name: keyword.operator.accessor.js}
-          5: {name: support.class.builtin.js}
+          '2':
+            name: support.class.builtin.saga
+          '4':
+            name: keyword.operator.accessor.saga
+          '5':
+            name: support.class.builtin.saga
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: (?<!\.)\s*+\b((Eval|Range|Reference|Syntax|Type|URI)?Error)\b
         end: (?=.)
         beginCaptures:
-          1: {name: support.class.error.js}
+          '1':
+            name: support.class.error.saga
         patterns:
           - include: '#round-brackets'
       - match: (?<!\.)\s*+\b(debugger)\b
@@ -5953,8 +5970,8 @@ repository:
           |borderLeftWidth|borderRightWidth|borderStyle|borderTopWidth|borderWidth|bottom|bufferDepth|callee|caller|caption   
           |cellPadding|cells|cellSpacing|ch|characterSet|charset|checked|childNodes|chOff|cite|classes|className|clear   
           |clientInformation|clip|clipBoardData|closed|code|codeBase|codeType|color|colorDepth|cols|colSpan|compact|complete   
-          |components|content|controllers|cookie|cookieEnabled|cords|cpuClass|crypto|current|data|dateTime|declare|defaultCharset
-              |defaultChecked|defaultSelected|defaultStatus|defaultValue|defaultView|defer|description|dialogArguments|dialogHeight
+          |components|content|controllers|cookie|cookieEnabled|cords|cpuClass|crypto|current|data|dateTime|declare|defaultCharset   
+          |defaultChecked|defaultSelected|defaultStatus|defaultValue|defaultView|defer|description|dialogArguments|dialogHeight
               |dialogLeft|dialogTop|dialogWidth|dir|directories|disabled|display|docmain|doctype|documentElement|elements|embeds
               |enabledPlugin|encoding|enctype|entities|event|expando|external|face|fgColor|filename|firstChild|fontFamily|fontSize
               |fontWeight|form|formName|forms|frame|frameBorder|frameElement|frames|hasFocus|hash|headers|height|history|host
@@ -6174,7 +6191,7 @@ repository:
   variable:
     patterns:
       - comment: e.g. CONSTANT
-        match: \s*+(\#?)([_\\\p{Lu}][_\\\p{Lu}\p{N}\p{M}]*)(?!\p{Ll})
+        match: \s*+(\#?)([_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{Lu}\p{Lt}\p{Lo}\p{N}\p{M}]*)(?!\p{Ll})
         captures:
           1: {name: keyword.operator.private.js}
           2: {name: variable.other.constant.js}
@@ -6184,7 +6201,7 @@ repository:
           1: {name: keyword.operator.private.js}
           2: {name: variable.other.dollar.js}
       - comment: e.g. Class.property
-        match: \s*+(\#?)\b([_\\\p{Lu}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(\.))\s*+(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(\.))\s*+(\#?)([_\\\p{L}][_\\\p{L}\p{N}\p{M}]*)
         name: meta.property.class.js
         captures:
           1: {name: keyword.operator.private.js}
