@@ -6,8 +6,7 @@ information_for_contributors: |
   This file has been edited from the official Babel grammar file at this
   repository, featuring syntax customizations for the Saga programming language.
 
-  This grammar is edited from
-  https://github.com/michaelgmcd/vscode-language-babel. 
+  This grammar is edited from https://github.com/michaelgmcd/vscode-language-babel. 
 
   Saga is a programming language syntactically influenced by ReasonML, Swift, Scala,
   Go, Kotlin and JavaScript, and is designed to work well with the **JavaScript** and 
