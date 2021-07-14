@@ -3818,7 +3818,10 @@ repository:
               2: { name: keyword.operator.cascade.js }
               3: { name: keyword.operator.assertion.js }
               4: { name: keyword.operator.accessor.js }
-          - comment: custom operators
+          - comment: |  
+              custom operators
+              (#7) /(<//+>|<//+|//+>|<{2,}|(?<!</)>{2,}|/+)(?!=)/ does not work
+              so we will leave it here for now (please help) 
             name: keyword.operator.infix.saga
             match: |
               (?x)
@@ -3827,8 +3830,7 @@ repository:
               ([:.][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #3
               ([<>][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #4
               ([!=][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #5
-              ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #6
-              (<//+>|<//+|//+>|<{2,}|(?<!</)>{2,}|/+)(?!=) #7
+              ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #6
             captures:
               1: { name: keyword.operator.logical.saga }
               2: { name: keyword.operator.arithmetic.saga }
@@ -3836,7 +3838,7 @@ repository:
               4: { name: keyword.operator.relational.saga }
               5: { name: keyword.operator.comparison.saga }
               6: { name: keyword.operator.infix.saga }
-              7: { name: keyword.operator.bitwise.shift.saga }
+              7: { name: keyword.operator.bitwise.saga }
   preprocessor:
     begin: ^\s*(\#)\s*
     end: (?<=$)
@@ -4731,7 +4733,7 @@ repository:
         comment:
           'ternary operator - make sure end : is consumed to avoid mistake as
           flow type'
-        end: \s*(:=)(?!=)
+        end: \s*(:=)(?!=)|$|;
         beginCaptures:
           1: { name: keyword.operator.assignment.augmented.js }
         endCaptures:
