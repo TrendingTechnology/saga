@@ -24,13 +24,13 @@ information_for_contributors: |
   TODOs/Unresolved:
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
-    - Fix all remaining instances of backslash variables
+    - Fix keyword matches
 
 name: Saga + JavaScript + Python
-scopeName: source.nearley # for testing only
+scopeName: source.nearley
 fileTypes:
   - saga
-  - ne # for testing only
+  - ne
 patterns:
   - include: '#core'
 repository:
@@ -183,7 +183,8 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: "e.g. 'play': arg => { }"
-        match: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
+        match: >-
+          (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
         name: meta.function.json.arrow.js
         captures:
           1: { name: string.quoted.js }
@@ -498,46 +499,46 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          (?<!@)\s*+(?:(@)(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)|([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)))
+          (?<!@)\s*+(?:(@)(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)))
         comment:
           Look for a @identifier start If unicode start uppercase e.g. @A class
           it as a class
         end: (?=.)
         beginCaptures:
-          1: { name: keyword.operator.decorator.js }
-          2: { name: keyword.operator.private.js }
-          3: { name: entity.name.class.decorator.js }
-          4: { name: variable.other.readwrite.decorator.js }
+          1: { name: keyword.operator.decorator.saga }
+          2: { name: keyword.operator.private.saga }
+          3: { name: entity.name.class.decorator.saga }
+          4: { name: variable.other.readwrite.decorator.saga }
         patterns:
           - begin: \s*(?:(\?\.)|(\.))
             commnent:
               decorator .property or .method which may be on a different line
             end: >-
-              \s*(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)|([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))
+              \s*(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+))
             beginCaptures:
-              1: { name: keyword.operator.existential.js }
-              2: { name: keyword.operator.accessor.js }
+              1: { name: keyword.operator.existential.saga }
+              2: { name: keyword.operator.accessor.saga }
             endCaptures:
-              1: { name: keyword.operator.private.js }
-              2: { name: entity.name.class.decorator.js }
-              3: { name: variable.other.property.decorator.js }
+              1: { name: keyword.operator.private.saga }
+              2: { name: entity.name.class.decorator.saga }
+              3: { name: variable.other.property.decorator.saga }
             patterns:
               - include: '#comments'
           - comment: arguments for decorators
             include: '#round-brackets'
           - begin: >-
-              (?:(?<=^|;)|(?=\s))\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
+              (?:(?<=^|;)|(?=\s))\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
             comment:
               'method that always follow decorators such as play<T,T>(arg1,
               arg2): Type<T> { }'
             end: (?<=:|})|(?=;|}|,)
-            name: meta.function.method.js
+            name: meta.function.method.saga
             beginCaptures:
-              1: { name: storage.modifier.js }
-              2: { name: storage.type.js }
-              3: { name: keyword.generator.asterisk.js }
-              4: { name: keyword.operator.private.js }
-              5: { name: entity.name.function.method.js }
+              1: { name: storage.modifier.saga }
+              2: { name: storage.type.saga }
+              3: { name: keyword.generator.asterisk.saga }
+              4: { name: keyword.operator.private.saga }
+              5: { name: entity.name.function.method.saga }
             patterns:
               - include: '#flowtype'
               - include: '#curly-brackets'
@@ -1466,8 +1467,7 @@ repository:
           \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
         patterns:
           - include: '#core'
-      - begin: >-
-          (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
+      - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
         comment: 'assignment var = or = '
         end: >-
           \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debugger|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
@@ -1764,8 +1764,7 @@ repository:
   function-method:
     patterns:
       - include: '#function'
-      - match: >-
-          (?<!\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\(.*\))(.*)
+      - match: (?<!\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\(.*\))(.*)
         name: meta.function-call.without-arguments.js
         captures:
           1: { name: keyword.operator.private.js }
@@ -1777,8 +1776,7 @@ repository:
           7: { patterns: [{ include: '#flowtype-polymorphs' }] }
           8: { name: meta.brace.round.js }
           9: { patterns: [{ include: '#core' }] }
-      - begin: >-
-          (?<!\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()
+      - begin: (?<!\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()
         end: (\))(.*)
         name: meta.function-call.with-arguments.js
         beginCaptures:
@@ -1795,8 +1793,7 @@ repository:
           2: { patterns: [{ include: '#core' }] }
         patterns:
           - include: '#core'
-      - match: >-
-          (?<=\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\(.*\))(.*)
+      - match: (?<=\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\(.*\))(.*)
         name: meta.method-call.without-arguments.js
         captures:
           1: { name: keyword.operator.private.js }
@@ -1808,8 +1805,7 @@ repository:
           7: { patterns: [{ include: '#flowtype-polymorphs' }] }
           8: { name: meta.brace.round.js }
           9: { patterns: [{ include: '#core' }] }
-      - begin: >-
-          (?<=\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()
+      - begin: (?<=\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()
         end: (\))(.*)
         name: meta.method-call.with-arguments.js
         beginCaptures:
@@ -2319,7 +2315,8 @@ repository:
         captures:
           1: { patterns: [{ include: '#method-name' }] }
       - comment: Avoid all language keywords as much as possible
-        match: (?x)\s* ([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*) \s*(?=['"`(]|::|<[+|])
+        match:
+          (?x)\s* ([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*) \s*(?=['"`(]|::|<[+|])
         captures:
           1: { patterns: [{ include: '#function-name' }] }
   js-label:
@@ -2502,37 +2499,33 @@ repository:
     comment: Avoid < operator expressions as best we can using Zertosh's regex
     patterns:
       - applyEndPatternLast: 1
-        begin: (?<=\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void|^)\s*+(?=<[$_\p{L}]|<\s*>)
+        begin: >-
+          (?<=\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void|^)\s*+(?=<[_\\\p{L}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
   jsx-assignment:
     patterns:
       - comment: look for attribute assignment
-        match: =(?=\s*(?:'|"|{|/\*|<|//|\n))
+        match: '=(?=\s*(?:''|"|{|/\*|<|//|\n))'
         name: keyword.operator.assignment.sagax
   jsx-attribute-name:
     patterns:
       - comment: look for attribute name
-        match: (?<!\S)([$_\p{L}](?:[$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}-](?<!\.\.))*+)(?<!\.)(?=//|/\*|=|\s|>|/>)
+        match: (?<!\S)([_\\\p{L}](?:[$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}-](?<!\.\.))*+)(?<!\.)(?=//|/\*|=|\s|>|/>)
         captures:
-          '0':
-            name: entity.other.attribute-name.sagax
+          0: { name: entity.other.attribute-name.sagax }
   jsx-entities:
     patterns:
       - comment: Embeded HTML entities &blah
         match: (&)([a-zA-Z\d]+|#[\d]+|#x\h+)(;)
         captures:
-          '0':
-            name: constant.character.entity.sagax
-          '1':
-            name: punctuation.definition.entity.sagax
-          '2':
-            name: entity.name.tag.html.sagax
-          '3':
-            name: punctuation.definition.entity.sagax
+          0: { name: constant.character.entity.sagax }
+          1: { name: punctuation.definition.entity.sagax }
+          2: { name: entity.name.tag.html.sagax }
+          3: { name: punctuation.definition.entity.sagax }
       - comment: Entity with & and invalid name
-        match: "&\\s*+;"
+        match: '&\s*+;'
         name: invalid.illegal.bad-ampersand.sagax
   jsx-evaluated-code:
     patterns:
@@ -2541,11 +2534,9 @@ repository:
         end: '}'
         name: meta.embedded.expression.saga
         beginCaptures:
-          '0':
-            name: punctuation.section.embedded.begin.sagax
+          0: { name: punctuation.section.embedded.begin.sagax }
         endCaptures:
-          '0':
-            name: punctuation.section.embedded.end.sagax
+          0: { name: punctuation.section.embedded.end.sagax }
         patterns:
           - include: '#jsx-string-double-quoted'
           - include: '#jsx-string-single-quoted'
@@ -2561,23 +2552,19 @@ repository:
     end: '"(?<!\\")'
     name: string.quoted.double.saga
     beginCaptures:
-      '0':
-        name: punctuation.definition.string.begin.sagax
+      0: { name: punctuation.definition.string.begin.sagax }
     endCaptures:
-      '0':
-        name: punctuation.definition.string.end.sagax
+      0: { name: punctuation.definition.string.end.sagax }
     patterns:
       - include: '#jsx-entities'
   jsx-string-single-quoted:
     begin: "'"
-    end: "'(?<!\\\\')"
+    end: '''(?<!\\'')'
     name: string.quoted.single.saga
     beginCaptures:
-      '0':
-        name: punctuation.definition.string.begin.sagax
+      0: { name: punctuation.definition.string.begin.sagax }
     endCaptures:
-      '0':
-        name: punctuation.definition.string.end.sagax
+      0: { name: punctuation.definition.string.end.sagax }
     patterns:
       - include: '#jsx-entities'
   jsx-tag-attributes:
@@ -2597,36 +2584,27 @@ repository:
         end: (?<=</)(>)
         name: meta.tag.sagax
         beginCaptures:
-          '1':
-            name: punctuation.definition.tag.sagax
+          1: { name: punctuation.definition.tag.sagax }
         endCaptures:
-          '1':
-            name: punctuation.definition.tag.sagax
+          1: { name: punctuation.definition.tag.sagax }
         patterns:
           - include: '#jsx-tag-termination'
-      - begin: \s*+(<)((\p{Ll}[\p{Ll}\d]*)|((?:[$_\p{L}\p{Nl}][$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}-]*?:)?+(?:[$_\p{L}\p{Nl}](?:[$_\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}\.-](?<!\.\.))*+)+))(?=[/>\s])(?![:])(?<!\.|:)
+      - begin: >-
+          \s*+(<)((\p{Ll}[\p{Ll}\d]*)|((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}-]*?:)?+(?:[_\\\p{L}\p{Nl}](?:[_\\\p{L}\p{N}\p{M}\.-](?<!\.\.))*+)+))(?=[/>\s])(?![:])(?<!\.|:)
         comment: 'Tags that end > are trapped in #jsx-tag-termination'
         contentName: JSXAttrs
         end: \s*(?<=</)((\4)|\2)(>)|(/>)|((?<=</)[\S ]*?)>
         name: meta.tag.sagax
         beginCaptures:
-          '1':
-            name: punctuation.definition.tag.sagax
-          '2':
-            name: entity.name.tag.open.sagax
-          '4':
-            name: support.class.component.open.sagax
+          1: { name: punctuation.definition.tag.sagax }
+          2: { name: entity.name.tag.open.sagax }
+          4: { name: support.class.component.open.sagax }
         endCaptures:
-          '1':
-            name: entity.name.tag.close.sagax
-          '2':
-            name: support.class.component.close.sagax
-          '3':
-            name: punctuation.definition.tag.sagax
-          '4':
-            name: punctuation.definition.tag.sagax
-          '5':
-            name: invalid.illegal.termination.sagax
+          1: { name: entity.name.tag.close.sagax }
+          2: { name: support.class.component.close.sagax }
+          3: { name: punctuation.definition.tag.sagax }
+          4: { name: punctuation.definition.tag.sagax }
+          5: { name: invalid.illegal.termination.sagax }
         patterns:
           - include: '#jsx-tag-termination'
           - include: '#jsx-tag-attributes'
@@ -2637,15 +2615,11 @@ repository:
         contentName: JSXNested
         end: (</)
         beginCaptures:
-          '0':
-            name: punctuation.definition.tag.sagax
-          '1':
-            name: JSXStartTagEnd
+          0: { name: punctuation.definition.tag.sagax }
+          1: { name: JSXStartTagEnd }
         endCaptures:
-          '0':
-            name: punctuation.definition.tag.sagax
-          '1':
-            name: JSXEndTagStart
+          0: { name: punctuation.definition.tag.sagax }
+          1: { name: JSXEndTagStart }
         patterns:
           - include: '#jsx-evaluated-code'
           - include: '#jsx-entities'
@@ -2846,7 +2820,7 @@ repository:
           - include: $self
     repository:
       if-clause:
-        begin: \s*+\b(if|where)
+        begin: \s*+\b(if|unless|where)
         comment: with clause precedes with
         end: \s*((?=:(?!:))|=>)
         beginCaptures:
@@ -2858,13 +2832,14 @@ repository:
       with-clause:
         begin: \s*+\b(as|with)
         comment: when clause precedes with
-        end: \s*(:)((?=::)|(?!:))|\s*(?=(;)|\b(where|if)\b)
+        end: \s*(:)((?=::)|(?!:))|\s*(?=(;)|\b(where|if|unless)\b)
         beginCaptures:
           1: { name: keyword.control.match.js }
         endCaptures:
           1: { name: keyword.operator.js }
           2: { patterns: [{ include: '#expression' }] }
-          3: { name: keyword.operator.js }
+          3: { patterns: [{ include: '#expression' }] }
+          4: { name: keyword.control.match.js }
         patterns:
           - include: '#if-clause'
           - include: '#core'
@@ -3221,8 +3196,7 @@ repository:
   module-export:
     patterns:
       - comment: e.g. export let variable =, export type a=
-        match: >-
-          (?<!\.)\s*+\b(export)(?!\s*:)\b(?=\s++(const|con|let|opaque|var|type|typeof)\s++(?:[_\\p{L}\p{Nl}]))
+        match: (?<!\.)\s*+\b(export)(?!\s*:)\b(?=\s++(const|con|let|opaque|var|type|typeof)\s++(?:[_\\p{L}\p{Nl}]))
         captures:
           1: { name: keyword.control.module.js }
       - begin: >-
@@ -3706,8 +3680,7 @@ repository:
   object-prop-shorthand:
     comment: give an alternate scope name to shorthand object literals
     patterns:
-      - match: >-
-          (?<=^|,|{)(?<!:|\.)\s*+(((?:[_\\p{Lu}\p{Nl}])(?:[_\\p{Lu}\p{Nl}])*+))\s*+(?=$|,|})
+      - match: (?<=^|,|{)(?<!:|\.)\s*+(((?:[_\\p{Lu}\p{Nl}])(?:[_\\p{Lu}\p{Nl}])*+))\s*+(?=$|,|})
         captures:
           1: { name: constant.other.object.key.js }
           2: { name: variable.other.constant.shorthandpropertyname.js }
@@ -3759,18 +3732,18 @@ repository:
               [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #12
               (?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
             captures:
-              1: {name: keyword.operator.module.all.saga}
-              2: {name: keyword.operator.increment.saga}
-              3: {name: keyword.operator.decrement.saga}
-              4: {name: keyword.operator.intersection.saga}
-              5: {name: keyword.operator.union.saga}
-              6: {name: keyword.operator.symdiff.saga}
-              7: {name: keyword.operator.logical.saga}
-              8: {name: keyword.operator.private.saga}
-              9: {name: keyword.operator.decorator.saga}
-              10: {name: keyword.operator.bitwise.saga}
-              11: {name: keyword.operator.existential.saga}
-              12: {name: keyword.operator.prefix.saga}
+              1: { name: keyword.operator.module.all.saga }
+              2: { name: keyword.operator.increment.saga }
+              3: { name: keyword.operator.decrement.saga }
+              4: { name: keyword.operator.intersection.saga }
+              5: { name: keyword.operator.union.saga }
+              6: { name: keyword.operator.symdiff.saga }
+              7: { name: keyword.operator.logical.saga }
+              8: { name: keyword.operator.private.saga }
+              9: { name: keyword.operator.decorator.saga }
+              10: { name: keyword.operator.bitwise.saga }
+              11: { name: keyword.operator.existential.saga }
+              12: { name: keyword.operator.prefix.saga }
           - comment: Unary suffix operators
             name: keyword.operator.suffix.saga
             match: |
@@ -3779,18 +3752,18 @@ repository:
               (?:(\*+)|(\++)|(\-+)|(\&+)|(\|+)|(\^+)|(\!+)|(\#+)|(\@+)|(\~+)|(\?+)| #1-11
               [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #12
             captures:
-              1: {name: keyword.operator.module.all.saga}
-              2: {name: keyword.operator.increment.saga}
-              3: {name: keyword.operator.decrement.saga}
-              4: {name: keyword.operator.intersection.saga}
-              5: {name: keyword.operator.union.saga}
-              6: {name: keyword.operator.symdiff.saga}
-              7: {name: keyword.operator.assertion.saga}
-              8: {name: keyword.operator.private.saga}
-              9: {name: keyword.operator.decorator.saga}
-              10: {name: keyword.operator.bitwise.saga}
-              11: {name: keyword.operator.existential.saga}
-              12: {name: keyword.operator.suffix.saga}
+              1: { name: keyword.operator.module.all.saga }
+              2: { name: keyword.operator.increment.saga }
+              3: { name: keyword.operator.decrement.saga }
+              4: { name: keyword.operator.intersection.saga }
+              5: { name: keyword.operator.union.saga }
+              6: { name: keyword.operator.symdiff.saga }
+              7: { name: keyword.operator.assertion.saga }
+              8: { name: keyword.operator.private.saga }
+              9: { name: keyword.operator.decorator.saga }
+              10: { name: keyword.operator.bitwise.saga }
+              11: { name: keyword.operator.existential.saga }
+              12: { name: keyword.operator.suffix.saga }
       binary-ops:
         patterns:
           - comment: built-in operators need to be surrounded with spaces
@@ -3813,29 +3786,29 @@ repository:
                 (~\.)|((?<!\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
               )(?=$|\s)
             captures:
-              1: {name: keyword.operator.assignment.augmented.saga}
-              2: {name: keyword.operator.crement.saga}
-              3: {name: keyword.operator.arithmetic.saga}
-              4: {name: keyword.operator.logical.saga}
-              5: {name: keyword.operator.bitwise.saga}
-              6: {name: keyword.operator.range.saga}
-              7: {name: keyword.operator.pipeline.saga}
-              8: {name: keyword.operator.bitwise.shift.saga}
-              9: {name: keyword.operator.class.saga}
-              10: {name: keyword.operator.similarity.saga}
-              11: {name: keyword.operator.then.saga}
-              12: {name: keyword.operator.relational.saga}
-              13: {name: keyword.operator.comparison.saga}
-              14: {name: keyword.operator.nonnull.saga}
-              15: {name: keyword.operator.nullcoalesce.saga}
-              16: {name: keyword.operator.ternary.saga}
-              17: {name: keyword.operator.quasiternary.saga}
-              18: {name: keyword.operator.spread.saga}
-              19: {name: keyword.operator.existential.saga}
-              20: {name: keyword.operator.assertion.saga}
-              21: {name: keyword.operator.cascade.saga}
-              22: {name: keyword.operator.accessor.saga}
-              23: {name: keyword.operator.assignment.saga}
+              1: { name: keyword.operator.assignment.augmented.saga }
+              2: { name: keyword.operator.crement.saga }
+              3: { name: keyword.operator.arithmetic.saga }
+              4: { name: keyword.operator.logical.saga }
+              5: { name: keyword.operator.bitwise.saga }
+              6: { name: keyword.operator.range.saga }
+              7: { name: keyword.operator.pipeline.saga }
+              8: { name: keyword.operator.bitwise.shift.saga }
+              9: { name: keyword.operator.class.saga }
+              10: { name: keyword.operator.similarity.saga }
+              11: { name: keyword.operator.then.saga }
+              12: { name: keyword.operator.relational.saga }
+              13: { name: keyword.operator.comparison.saga }
+              14: { name: keyword.operator.nonnull.saga }
+              15: { name: keyword.operator.nullcoalesce.saga }
+              16: { name: keyword.operator.ternary.saga }
+              17: { name: keyword.operator.quasiternary.saga }
+              18: { name: keyword.operator.spread.saga }
+              19: { name: keyword.operator.existential.saga }
+              20: { name: keyword.operator.assertion.saga }
+              21: { name: keyword.operator.cascade.saga }
+              22: { name: keyword.operator.accessor.saga }
+              23: { name: keyword.operator.assignment.saga }
           - comment: custom operators
             name: keyword.operator.infix.saga
             match: |
@@ -3848,13 +3821,13 @@ repository:
               ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+)| #6
               (<//+>|<//+|//+>|<<+|(?<!</)>>+) #7
             captures:
-              1: {name: keyword.operator.logical.saga}
-              2: {name: keyword.operator.arithmetic.saga}
-              3: {name: keyword.operator.accessor.saga}
-              4: {name: keyword.operator.relational.saga}
-              5: {name: keyword.operator.comparison.saga}
-              6: {name: keyword.operator.infix.saga}
-              7: {name: keyword.operator.bitwise.shift.saga}
+              1: { name: keyword.operator.logical.saga }
+              2: { name: keyword.operator.arithmetic.saga }
+              3: { name: keyword.operator.accessor.saga }
+              4: { name: keyword.operator.relational.saga }
+              5: { name: keyword.operator.comparison.saga }
+              6: { name: keyword.operator.infix.saga }
+              7: { name: keyword.operator.bitwise.shift.saga }
   preprocessor:
     begin: ^\s*(\#)\s*
     end: (?<=$)
@@ -4883,43 +4856,37 @@ repository:
           )\b
         name: support.class.error.saga
       - applyEndPatternLast: 1
-        begin: \s*+\b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|Math|Map|JSON|InternalError|Int8Array|Int32Array|Int16Array|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
+        begin: >-
+          \s*+\b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|Math|Map|JSON|InternalError|Int8Array|Int32Array|Int16Array|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
         end: (?=.)
         beginCaptures:
-          '1':
-            name: support.class.builtin.saga
+          1: { name: support.class.builtin.saga }
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
+        begin: >-
+          \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
         end: (?=.)
         beginCaptures:
-          '2':
-            name: support.class.builtin.saga
-          '4':
-            name: keyword.operator.accessor.saga
-          '5':
-            name: support.class.builtin.saga
+          2: { name: support.class.builtin.saga }
+          4: { name: keyword.operator.accessor.saga }
+          5: { name: support.class.builtin.saga }
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: \s*+\b((Intl)((\.)(NumberFormat|DateTimeFormat|Collator))?)\b
         end: (?=.)
         beginCaptures:
-          '2':
-            name: support.class.builtin.saga
-          '4':
-            name: keyword.operator.accessor.saga
-          '5':
-            name: support.class.builtin.saga
+          2: { name: support.class.builtin.saga }
+          4: { name: keyword.operator.accessor.saga }
+          5: { name: support.class.builtin.saga }
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: (?<!\.)\s*+\b((Eval|Range|Reference|Syntax|Type|URI)?Error)\b
         end: (?=.)
         beginCaptures:
-          '1':
-            name: support.class.error.saga
+          1: { name: support.class.error.saga }
         patterns:
           - include: '#round-brackets'
       - match: (?<!\.)\s*+\b(debugger)\b
@@ -6317,7 +6284,8 @@ repository:
           1: { name: keyword.operator.private.js }
           2: { name: variable.other.dollar.js }
       - comment: e.g. Class.property
-        match: \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: >-
+          \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
         name: meta.property.class.js
         captures:
           1: { name: keyword.operator.private.js }
