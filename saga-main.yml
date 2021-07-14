@@ -4138,26 +4138,17 @@ repository:
           - include: '#quasi-embedded'
           - include: '#string-content'
   quasi-embedded:
+    begin: (?<!\\)(\$\{)\s*
+    end: \s*(\})((:)[-\w/.%#<^>+*=!]+)?
+    name: entity.quasi.element.js
+    beginCaptures:
+      1: { name: punctuation.quasi.element.begin.js }
+    endCaptures:
+      1: { name: punctuation.quasi.element.end.js }
+      2: { name: storage.type.format.js }
+      3: { name: punctuation.separator.label.regexp }
     patterns:
-      - begin: (?<!\\)(\$\{)\s*
-        end: \s*(\})((:)[-\w/.%#<^>+*=!]+)?
-        name: entity.quasi.element.js
-        beginCaptures:
-          1: { name: punctuation.quasi.element.begin.js }
-        endCaptures:
-          1: { name: punctuation.quasi.element.end.js }
-          2: { name: storage.type.format.js }
-          3: { name: punctuation.separator.label.regexp }
-        patterns:
-          - include: '#core'
-      - match: >-
-          (\$)(#)?((?:[_\\p{L}\p{Nl}][$\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}]*+)(?:[?!~]?\.[_\\p{L}\p{Nl}][$\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}]*+|\[.*\]|\(.*\))*)((:)[-\w/.%#<^>+*=!]+)?
-        captures:
-          1: { name: punctuation.quasi.element.js }
-          2: { name: keyword.operator.private.js }
-          3: { patterns: [{ include: '#core' }] }
-          4: { name: storage.type.format.js }
-          5: { name: punctuation.separator.label.regexp }
+      - include: '#core'
   quasi-embedded-regexp:
     patterns:
       - begin: (?<!\\)(\#\()\s*
