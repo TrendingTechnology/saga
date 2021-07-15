@@ -1,4 +1,5 @@
 type: dark
+name: Saga
 colors:
   activityBar.activeBackground: '#e2424a'
   activityBar.activeFocusBorder: '#512730'
