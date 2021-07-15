@@ -647,7 +647,7 @@ repository:
       - include: '#support'
       - include: '#implicit-call'
       - include: '#cast-expression'
-      - include: '#variable-flowtype'
+      # - include: '#variable-flowtype'
       - include: '#support-properties'
       - include: '#variable'
       - include: '#brackets'
@@ -1174,7 +1174,7 @@ repository:
         captures:
           1: {name: keyword.operator.maybe.flowtype}
       - comment: primitive flowtypes
-        match: (?i)(?!^)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|re|func))\b
+        match: (?i)(?!^)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
         captures:
           1: {name: support.type.builtin.primitive.flowtype}
       - comment: primitive flowtypes
@@ -1798,7 +1798,7 @@ repository:
     patterns:
       - include: '#support-functions'
       - comment: primitive flowtypes
-        match: (?i)\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|re|func))\b
+        match: (?i)\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
         name: support.type.builtin.primitive.flowtype
       - comment: primitive flowtypes
         match: (?i)\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
@@ -2483,7 +2483,7 @@ repository:
         patterns:
           - comment: look for attribute name
             match: >-
-              (?<!\S)([_\\\p{L}](?:[$.\p{L}\p{Mn}\p{Mc}\d\p{Nl}\p{Pc}-](?<!\.\.))*+)(?<!(?<!\.\.)\.|\#)(?=//|/\*|=|\s|>|/>)
+              (?<!\S)([_\\\p{L}](?:[._\\p{L}\p{M}\d\p{Nl}-](?<!\.\.))*+)(?<!(?<!\.\.)\.|\#)(?=//|/\*|=|\s|>|/>)
             captures:
               0: {name: entity.other.attribute-name.sagax}
       jsx-entities:
@@ -3085,7 +3085,7 @@ repository:
         match: |
           (?x)(?<!(?<!\.\.)\.|\#)\s*+\b(?:
             (pub|prot|pvt|ro|(?:in|ex)tl)| #1
-            (over|abs|stat|dyn|vol|a?sync|(?:im)mut|part|seal|final|dele|[dr]ef
+            (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
             trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size|set))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
             prev|next|lock|fixed) #3
@@ -4067,41 +4067,15 @@ repository:
           - include: '#quasi-embedded'
           - include: '#string-content'
   quasi-embedded:
-    begin: (?<!\\)(\$\{)\s*
-    end: \s*(\})((:)[-\w/.%#<^>+*=!]+)?
-    name: entity.quasi.element.saga
-    beginCaptures:
-      1: {name: punctuation.quasi.element.begin.saga}
-    endCaptures:
-      1: {name: punctuation.quasi.element.end.saga}
-      2: {name: storage.type.format.saga}
-      3: {name: punctuation.separator.label.regexp}
     patterns:
-      - include: '#core'
-  quasi-embedded-regexp:
-    patterns:
-      - begin: (?<!\\)(\#\()\s*
-        end: \s*(\))((:)[-\w/.%#<^>+*=!]+)?
-        name: entity.quasi.element.saga
-        beginCaptures:
-          1: {name: punctuation.quasi.element.begin.saga}
-        endCaptures:
-          1: {name: punctuation.quasi.element.end.saga}
-          2: {name: storage.type.format.saga}
-          3: {name: punctuation.separator.label.regexp}
-        patterns:
-          - include: '#core'
-      - begin: (?<!\\)(\#\[)\s*
-        end: \s*(\])((:)[-\w/.%#<^>+*=!]+)?
-        name: entity.quasi.element.saga
-        beginCaptures:
-          1: {name: punctuation.quasi.element.begin.saga}
-        endCaptures:
-          1: {name: punctuation.quasi.element.end.saga}
-          2: {name: storage.type.format.saga}
-          3: {name: punctuation.separator.label.regexp}
-        patterns:
-          - include: '#core'
+      - comment: Accepts arbitrary expressions
+        match: >-
+          (?<!\\)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)((:)[-\w/.%#<^>+*=!]+)?
+        captures:
+          1: {name: punctuation.quasi.element.saga}
+          2: {patterns: [{include: '#core'}]}
+          3: {name: storage.type.format.saga}
+          4: {name: punctuation.separator.label.regexp}
       - begin: (?<!\\)(\#\{)\s*
         end: \s*(\})((:)[-\w/.%#<^>+*=!]+)?
         name: entity.quasi.element.saga
@@ -4113,14 +4087,27 @@ repository:
           3: {name: punctuation.separator.label.regexp}
         patterns:
           - include: '#core'
+  quasi-embedded-regexp:
+    patterns:
       - comment: Accepts arbitrary expressions
         match: >-
-          (?<!\\)(\#)((?:[?!:]:|::+|\(.*?\)|\[.*?\]|\{.*?\}|<.*?>|".*?"|'.*?'|`.*?`|[^,:;'"`(){}\[\]\p{Z}])*)((:)[-\w/.%#<^>+*=!]+)?
+          (?<!\\)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)((:)[-\w/.%#<^>+*=!]+)?
         captures:
           1: {name: punctuation.quasi.element.saga}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.saga}
           4: {name: punctuation.separator.label.regexp}
+      - begin: (?<!\\)(\#\{)\s*
+        end: \s*(\})((:)[-\w/.%#<^>+*=!]+)?
+        name: entity.quasi.element.saga
+        beginCaptures:
+          1: {name: punctuation.quasi.element.begin.saga}
+        endCaptures:
+          1: {name: punctuation.quasi.element.end.saga}
+          2: {name: storage.type.format.saga}
+          3: {name: punctuation.separator.label.regexp}
+        patterns:
+          - include: '#core'
   query-expression:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(from)\b\s*
@@ -4286,7 +4273,7 @@ repository:
           1: {name: punctuation.definition.string.end.regexp}
         patterns:
           - include: '#string-content'
-      - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\p{L}\p{Nl}][_\\d\p{L}\p{M}\p{N}\p{Pc}\u200C\u200D]*)|([+-]?\d*)))(:)?
+      - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\p{L}\p{Nl}][_\\d\p{L}\p{M}\p{N}]*)|([+-]?\d*)))(:)?
         end: \s*(\))
         name: meta.group.regexp
         beginCaptures:
