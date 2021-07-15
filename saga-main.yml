@@ -2410,7 +2410,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          (?<=^|\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void)\s*+(?=<[_\\\p{L}]|<\s*>)
+          (?<=^|\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
@@ -2419,26 +2419,26 @@ repository:
         patterns:
           - comment: look for attribute assignment
             match: '=(?=\s*(?:''|"|{|/\*|<|//|\n))'
-            name: keyword.operator.assignment.sagax
+            name: keyword.operator.assignment.jsx
       jsx-attribute-name:
         patterns:
           - comment: look for attribute name
             match: >-
-              (?<!\S)([_\\\p{L}](?:[._\\p{L}\p{M}\d\p{Nl}-](?<!\.\.))*+)(?<!(?<!\.\.)\.|\#)(?=//|/\*|=|\s|>|/>)
+              (?<!\S)([_\\\p{L}\p{Nl}](?:[._\\p{L}\p{M}\d\p{Nl}-](?<!\.\.))*+)(?<!(?<!\.\.)\.|\#)(?=//|/\*|=|\s|>|/>)
             captures:
-              0: { name: entity.other.attribute-name.sagax }
+              0: { name: entity.other.attribute-name.jsx }
       jsx-entities:
         patterns:
           - comment: Embeded HTML entities &blah
             match: (&)([a-zA-Z\d]+|#[\d]+|#x\h+)(;)
             captures:
-              0: { name: constant.character.entity.sagax }
-              1: { name: punctuation.definition.entity.sagax }
-              2: { name: entity.name.tag.html.sagax }
-              3: { name: punctuation.definition.entity.sagax }
+              0: { name: constant.character.entity.jsx }
+              1: { name: punctuation.definition.entity.jsx }
+              2: { name: entity.name.tag.html.jsx }
+              3: { name: punctuation.definition.entity.jsx }
           - comment: Entity with & and invalid name
             match: '&\s*+;'
-            name: invalid.illegal.bad-ampersand.sagax
+            name: invalid.illegal.bad-ampersand.jsx
       jsx-evaluated-code:
         patterns:
           - begin: '{'
@@ -2446,9 +2446,9 @@ repository:
             end: '}'
             name: meta.embedded.expression.saga
             beginCaptures:
-              0: { name: punctuation.section.embedded.begin.sagax }
+              0: { name: punctuation.section.embedded.begin.jsx }
             endCaptures:
-              0: { name: punctuation.section.embedded.end.sagax }
+              0: { name: punctuation.section.embedded.end.jsx }
             patterns:
               - include: '#jsx-string-double-quoted'
               - include: '#jsx-string-single-quoted'
@@ -2458,15 +2458,15 @@ repository:
         patterns:
           - comment: Spread attribute { ... AssignmentExpression }
             match: (?<!(?<!\.\.)\.|\#)\.\.\.
-            name: keyword.operator.spread.sagax
+            name: keyword.operator.spread.jsx
       jsx-string-double-quoted:
         begin: '"'
         end: '"(?<!\\")'
         name: string.quoted.double.saga
         beginCaptures:
-          0: { name: punctuation.definition.string.begin.sagax }
+          0: { name: punctuation.definition.string.begin.jsx }
         endCaptures:
-          0: { name: punctuation.definition.string.end.sagax }
+          0: { name: punctuation.definition.string.end.jsx }
         patterns:
           - include: '#jsx-entities'
       jsx-string-single-quoted:
@@ -2474,9 +2474,9 @@ repository:
         end: '''(?<!\\'')'
         name: string.quoted.single.saga
         beginCaptures:
-          0: { name: punctuation.definition.string.begin.sagax }
+          0: { name: punctuation.definition.string.begin.jsx }
         endCaptures:
-          0: { name: punctuation.definition.string.end.sagax }
+          0: { name: punctuation.definition.string.end.jsx }
         patterns:
           - include: '#jsx-entities'
       jsx-tag-attributes:
@@ -2494,11 +2494,11 @@ repository:
             comment: JSX Fragment
             contentName: JSXAttrs
             end: (?<=</)(>)
-            name: meta.tag.sagax
+            name: meta.tag.jsx
             beginCaptures:
-              1: { name: punctuation.definition.tag.sagax }
+              1: { name: punctuation.definition.tag.jsx }
             endCaptures:
-              1: { name: punctuation.definition.tag.sagax }
+              1: { name: punctuation.definition.tag.jsx }
             patterns:
               - include: '#jsx-tag-termination'
           - begin: >-
@@ -2506,17 +2506,17 @@ repository:
             comment: 'Tags that end > are trapped in #jsx-tag-termination'
             contentName: JSXAttrs
             end: \s*(?<=</)((\4)|\2)(>)|(/>)|((?<=</)[\S ]*?)>
-            name: meta.tag.sagax
+            name: meta.tag.jsx
             beginCaptures:
-              1: { name: punctuation.definition.tag.sagax }
-              2: { name: entity.name.tag.open.sagax }
-              4: { name: support.class.component.open.sagax }
+              1: { name: punctuation.definition.tag.jsx }
+              2: { name: entity.name.tag.open.jsx }
+              4: { name: support.class.component.open.jsx }
             endCaptures:
-              1: { name: entity.name.tag.close.sagax }
-              2: { name: support.class.component.close.sagax }
-              3: { name: punctuation.definition.tag.sagax }
-              4: { name: punctuation.definition.tag.sagax }
-              5: { name: invalid.illegal.termination.sagax }
+              1: { name: entity.name.tag.close.jsx }
+              2: { name: support.class.component.close.jsx }
+              3: { name: punctuation.definition.tag.jsx }
+              4: { name: punctuation.definition.tag.jsx }
+              5: { name: invalid.illegal.termination.jsx }
             patterns:
               - include: '#jsx-tag-termination'
               - include: '#jsx-tag-attributes'
@@ -2527,10 +2527,10 @@ repository:
             contentName: JSXNested
             end: (</)
             beginCaptures:
-              0: { name: punctuation.definition.tag.sagax }
+              0: { name: punctuation.definition.tag.jsx }
               1: { name: JSXStartTagEnd }
             endCaptures:
-              0: { name: punctuation.definition.tag.sagax }
+              0: { name: punctuation.definition.tag.jsx }
               1: { name: JSXEndTagStart }
             patterns:
               - include: '#jsx-evaluated-code'
@@ -4080,38 +4080,17 @@ repository:
   regexp:
     begin: >-
       (?<=^|[^/\w\p{L}\p{M}\p{N}\p{Sc}])\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;)}\]]|\.[\w\p{L}\p{N}\p{Sc}]))
-    comment: Updated to support Perl regex syntax
-    end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
+    comment: |
+      Use multiline regex syntax /></></ for substitution patterns
+      (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
+    end: (/)([[:alnum:]]*)
     name: string.regexp.saga
     beginCaptures:
       1: { name: keyword.modifier.saga }
       2: { name: punctuation.definition.string.begin.saga }
     endCaptures:
       1: { name: punctuation.definition.string.end.saga }
-      2:
-        {
-          name: string.quoted.saga,
-          patterns:
-            [
-              {
-                match: '\\[1-9]\d*',
-                name: keyword.other.back-reference.regexp,
-              },
-              {
-                begin: (\\<),
-                end: \s*(>),
-                name: keyword.other.back-reference.regexp,
-                beginCaptures:
-                  { 1: { name: keyword.other.back-reference.regexp } },
-                endCaptures:
-                  { 1: { name: keyword.other.back-reference.regexp } },
-                patterns: [{ include: '#regex-group-name' }],
-              },
-              { include: '#string-content' },
-            ],
-        }
-      3: { name: punctuation.definition.string.end.saga }
-      4: { name: keyword.other.flag.saga }
+      2: { name: keyword.other.flag.saga }
     patterns:
       - include: '#regexp-patterns'
   regexp-patterns:
