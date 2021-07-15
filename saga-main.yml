@@ -636,11 +636,11 @@ repository:
       - include: '#catch'
       - include: '#with'
       - include: '#do'
-      - include: '#method-call'
-      - include: '#function-call'
       - comment: before module as it traps default {
         include: '#object'
       - include: '#module'
+      - include: '#method-call'
+      - include: '#function-call'
       - include: '#keyword-storage'
       - include: '#new-expression'
       - include: '#query-expression'
