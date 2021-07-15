@@ -20,10 +20,12 @@ information_for_contributors: |
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
     - Fix keywords matches, we do not need long ones like `function`.
+    - Block comments and JSDoc can now support Markdown
+  
     - As of the moment, custom binary operators do not capture combinations of [</>],
       except those leading in either characters, such as <!, >* and /%.
-      This is done to avoid confusion with JSX <></> and multiline regex syntax.
-      /></></ Might need some help here (scroll to section `operators`.)
+      This is done to avoid confusion with JSX <></> and multiline regex syntax. /></></
+      Might need some help here (scroll to section `operators`.)
 name: Saga + JavaScript + Python
 scopeName: source.nearley
 fileTypes:
@@ -4079,11 +4081,9 @@ repository:
       - include: '#operators'
   regexp:
     begin: >-
-      (?<=^|[^/\w\p{L}\p{M}\p{N}\p{Sc}])\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;)}\]]|\.[\w\p{L}\p{N}\p{Sc}]))
-    comment: |
-      Use multiline regex syntax /></></ for substitution patterns
-      (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
-    end: (/)([[:alnum:]]*)
+      (?<=^|[^/\-_\\\p{L}\p{M}\p{N}])\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;)}\]]|\.[-_\\\p{L}\p{M}\p{N}]))
+    comment: Updated to support Perl regex syntax
+    end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
     name: string.regexp.saga
     beginCaptures:
       1: { name: keyword.modifier.saga }
