@@ -13,8 +13,8 @@ information_for_contributors: |
   and languages.
 
   Should you want to provide a fix or improvement, please create a pull request
-  against this repository: https://github.com/NoxUltima/vscode-language-saga/
-  Once accepted, I am happy to receive your request and feedback. 
+  against this repo: https://github.com/NoxUltima/saga, and I will be very happy to 
+  accept them.
 
   TODOs/Unresolved:
     - Fix generics in function/method calls 
