@@ -4,7 +4,8 @@ foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 information_for_contributors: |
   This file is a fork of the Babel JavaScript grammar file and features many syntax
-  edits for the Saga programming language. 
+  edits for Saga, a programming I am working on (sometime in the near future).
+  This syntax is experimental and is still in the works.
 
   Saga is a programming language that is basically JavaScript on steroids, or 
   ReScript but running on Python. It has (almost) all the features you crave
