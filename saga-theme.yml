@@ -333,7 +333,7 @@ tokenColors:
       - entity.name.function.Q
       - entity.name.function.method.Q
     settings:
-      foreground: '#57EAF1'
+      foreground: '#53A5B9'
   - scope:
       - entity.name.function.R
       - entity.name.function.method.R
