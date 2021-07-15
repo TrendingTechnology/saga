@@ -554,19 +554,19 @@ repository:
           1: {name: keyword.operator.pipeline.saga}
         patterns:
           - match: >-
-              (?<=\+>)\s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.function-call.without-arguments.saga}
               4: {patterns: [{include: '#function-name'}]}
           - match: >-
-              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.method-call.without-arguments.saga}
               4: {patterns: [{include: '#method-name'}]}
           - match: >-
-              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(\??)(\.?)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: variable.other.object.saga}
@@ -580,19 +580,19 @@ repository:
           1: {name: keyword.operator.pipeline.saga}
         patterns:
           - match: >-
-              (?<=\|>)\s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.function-call.without-arguments.saga}
               4: {patterns: [{include: '#function-name'}]}
           - match: >-
-              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.method-call.without-arguments.saga}
               4: {patterns: [{include: '#method-name'}]}
           - match: >-
-              \s*(?!\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(\??)(\.?)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: variable.other.object.saga}
@@ -819,7 +819,7 @@ repository:
               - include: '#flowtype-keywords'
               - include: '#flowtype-method'
               - include: '#class-content'
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl|declare)\b\s*+(\bexport\b)?\s*+\b(class)\b
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl)\b\s*+(\bexport\b)?\s*+\b(class)\b
         comment: declare classes
         end: \s*(?<=})
         beginCaptures:
@@ -1165,7 +1165,7 @@ repository:
       - begin: (?<=[>_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'sometypename of|in '
         end: >-
-          \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
         patterns:
           - include: '#core'
       - comment: Maybe types
@@ -1202,7 +1202,7 @@ repository:
           1: {name: support.type.class.flowtype}
       - comment: custom primitive/var Types e.g. abc avoid abc(
         match: >-
-          (?!\s*\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b)(?!^)\s*(?<=\s|:|&|\||<)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+          (?!\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(?!^)\s*(?<=\s|:|&|\||<)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
         captures:
           2: {name: support.type.primitive.flowtype}
       - comment: symmetric difference of types &
@@ -1445,13 +1445,13 @@ repository:
       - begin: (?<!let|const|con|va[lr])(?<=[_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'varname of|in '
         end: >-
-          \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
         patterns:
           - include: '#core'
       - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
         comment: 'assignment var = or = '
         end: >-
-          \s*(?=,|;|\)|}|\]|\*/|\b(?:if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|enum)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
         patterns:
           - include: '#core'
       - include: '#flowtype-bracketed-parameters'
@@ -1478,7 +1478,7 @@ repository:
           \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!(?<!\.\.)\.|\#))(\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. function play<T>(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
         beginCaptures:
           1: {name: storage.type.saga}
           2: {name: storage.type.function.saga}
@@ -1495,7 +1495,7 @@ repository:
           \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. play = function(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
         beginCaptures:
           1: {name: keyword.operator.private.saga}
           2: {patterns: [{include: '#function-name'}]}
@@ -1515,7 +1515,7 @@ repository:
           \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
         beginCaptures:
           1: {name: keyword.operator.private.saga}
           2: {name: entity.name.class.saga}
@@ -1542,7 +1542,7 @@ repository:
           \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
         name: meta.function.static.saga
         beginCaptures:
           1: {name: keyword.operator.private.saga}
@@ -2598,7 +2598,7 @@ repository:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(const|con|let|var|val)\b
         end: >-
-          (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|async|await|enum|new|in|of|then)\b|\)|})
+          (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
         beginCaptures:
           1: {name: storage.type.saga}
         patterns:
@@ -2607,9 +2607,9 @@ repository:
     patterns:
       - include: '#new-expression'
       - include: '#query-expression'
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(halt|skip|goto|label)\b
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(halt|skip|break|continue|goto|label)\b
         end: >-
-          ^\s*|\s*(?=,|;|:|//|$|\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b)
+          ^\s*|\s*(?=,|;|:|//|$|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)
         beginCaptures:
           1: {name: keyword.control.loop.saga}
         patterns:
@@ -2644,10 +2644,10 @@ repository:
             (if|else|els?if|ell?ess?|unless?|guard)|(for|while|until|repeat)| #1,2
             (switch|case|def)|(match|when|pass)| #3,4
             (try|throw|raise|catch|rescue|finally)|(with|as)| #5,6
-            (func?|fn|macro|proc)|(let|va[rl]|con)| #7,8
+            (func?|fn|macro|proc)|(let|va[rl]|con|const)| #7,8
             (use|using|ref|open|close|out|union|move|crate|box|begin|end)| #9
             (do|goto|label|await|return|fallthru|yield|halt|skip)| #10
-            (from|in|of|by|where|join|equals|[io]nto|order|(?:a|de)sc|group)| #11
+            (from|where|join|equals|[io]nto|order|(?:a|de)sc|group)| #11
             ((?:im|ex)pt|from|as|def)#12
           )\b
         captures:
@@ -2753,7 +2753,7 @@ repository:
             beginCaptures:
               1: {name: meta.brace.curly.matchStart.saga}
             patterns:
-              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(if|unless|els?if|ell?ess|else\s*if|else\s*unless)\b
+              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(if|unless?|els?if|ell?ess?|else\s+if|else\s+unless?)\b
                 end: \s*(=>)|\s*(:)((?=::)|(?!:))
                 beginCaptures:
                   1: {name: keyword.control.match.saga}
@@ -2762,7 +2762,7 @@ repository:
                   2: {name: keyword.operator.saga}
                 patterns:
                   - include: '#core'
-              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(else|otherwise|default)\b
+              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(else|def)\b
                 contentName: meta.match.saga
                 end: \s*(=>)|\s*(:)((?=::)|(?!:))
                 beginCaptures:
@@ -3154,7 +3154,7 @@ repository:
           (?<!(?<!\.\.)\.|\#)\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\p{L}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
         comment: export {  or  export * or export var or export type {} from module
         end: >-
-          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b|\)|}))
+          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|}))
         beginCaptures:
           1: {name: keyword.control.module.saga}
           2: {name: keyword.control.module.saga}
@@ -3187,7 +3187,7 @@ repository:
           - include: '#round-brackets'
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(import)(?!\s*:)\b
         end: >-
-          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(if|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|break|continue|default|try|var|let|const|con|val|static|function|func?|fn|return|class|do|for|while|debug|export|import|yield|module|namespace|struct|type|declare|interface|enum|extend|trait|object|record)\b|\)|}))
+          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|}))
         beginCaptures:
           1: {name: keyword.control.module.saga}
         endCaptures:
