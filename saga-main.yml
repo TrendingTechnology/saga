@@ -638,13 +638,13 @@ repository:
       - include: '#do'
       - include: '#method-call'
       - include: '#function-call'
+      - comment: before module as it traps default {
+        include: '#object'
+      - include: '#module'
       - include: '#keyword-storage'
       - include: '#new-expression'
       - include: '#query-expression'
       - include: '#enum-declaration'
-      - comment: before module as it traps default {
-        include: '#object'
-      - include: '#module'
       - include: '#operator'
       - include: '#function'
       - include: '#class'
