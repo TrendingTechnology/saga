@@ -1,5 +1,5 @@
 comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
-firstLineMatch: ^#!\s*/.*\b(node|js)$\n?
+firstLineMatch: ^#!\s*/.*\b(saga|sa)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 information_for_contributors: |
@@ -25,10 +25,11 @@ information_for_contributors: |
       This is done to avoid confusion with JSX <></> and multiline regex syntax.
       /></></ Might need some help here (scroll to section `operators`.)
 name: Saga + JavaScript + Python
-scopeName: source.nearley
+scopeName: source.nearley # for testing only
 fileTypes:
   - saga
-  - ne
+  - sa
+  - ne # for testing only
 patterns:
   - include: '#core'
 repository:
@@ -2648,7 +2649,7 @@ repository:
             (use|using|ref|open|close|out|union|move|crate|box|begin|end)| #9
             (do|goto|label|await|return|fallthru|yield|halt|skip)| #10
             (from|where|join|equals|[io]nto|order|(?:a|de)sc|group)| #11
-            ((?:im|ex)pt|from|as|def)#12
+            ((?:im|ex)port|from|as|def) #12
           )\b
         captures:
           1: {name: keyword.control.conditional.saga}
