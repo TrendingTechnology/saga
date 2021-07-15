@@ -1,5 +1,5 @@
 comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
-firstLineMatch: ^#!\s*/.*\b(saga|sa)$\n?
+firstLineMatch: ^#!\s*/.*\b(node|js)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 information_for_contributors: |
@@ -25,11 +25,10 @@ information_for_contributors: |
       This is done to avoid confusion with JSX <></> and multiline regex syntax.
       /></></ Might need some help here (scroll to section `operators`.)
 name: Saga + JavaScript + Python
-scopeName: source.nearley # for testing only
+scopeName: source.nearley
 fileTypes:
   - saga
-  - sa
-  - ne # for testing only
+  - ne
 patterns:
   - include: '#core'
 repository:
@@ -3250,7 +3249,7 @@ repository:
           - include: '#heregexp'
       - begin: (?!\\)(?<=</)(>)\s*\n?
         contentName: string.quoted.saga
-        end: \s*\n?(</)([\da-zA-Z]*)
+        end: \s*\n?(</)([[:alnum:]]*)
         name: string.regexp.saga
         beginCaptures:
           1: {name: punctuation.definition.string.begin.saga}
