@@ -2706,7 +2706,7 @@ repository:
           7: {name: constant.language.infinity.saga}
   language-variable:
     patterns:
-      - match: (?<!(?<!\.\.)\.)\s*+\b(params|arguments)\b
+      - match: (?<!(?<!\.\.)\.)\s*+\b(params|args)\b
         captures:
           1: {name: variable.language.arguments.saga}
       - match: (?<!(?<!\.\.)\.)\s*+\b(super)\b\s*+(?!\()
@@ -6107,7 +6107,7 @@ repository:
             beginCaptures:
               1: {name: meta.brace.curly.switchStart.saga}
             patterns:
-              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(case|default)\b
+              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(case|def)\b
                 end: \s*(:)((?=::)|(?!:))
                 beginCaptures:
                   1: {name: keyword.control.switch.saga}
