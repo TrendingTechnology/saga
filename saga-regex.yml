@@ -1,29 +1,40 @@
-comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
 firstLineMatch: ^#!\s*/.*\b(saga|sa)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 information_for_contributors: |
-  This file has been edited from the official Babel grammar file at this
-  repository, featuring syntax customizations for the Saga programming language.
-  This grammar is edited from https://github.com/michaelgmcd/vscode-language-babel. 
+  This file is a fork of the Babel JavaScript grammar file and features many syntax
+  edits for the Saga programming language. 
 
-  Saga is a programming language syntactically influenced by ReasonML, Swift, Scala,
-  Go, Kotlin and JavaScript, and is designed to work well with the **JavaScript** and 
-  **Python** ecosystems in one. It has all the features you crave from many paradigms
-  and languages.
+  Saga is a programming language that is basically JavaScript on steroids, or 
+  ReScript but running on Python. It has (almost) all the features you crave
+  from many paradigms and languages.
 
-  Should you want to provide a fix or improvement, please create a pull request
-  against this repository: https://github.com/NoxUltima/vscode-language-saga/
-  Once accepted, I am happy to receive your request and feedback. 
+  Should you want to provide a fix or improvement, or even a new feature,
+  please create a pull request against this repo: 
+  https://github.com/NoxUltima/saga,
+  and I will be very happy to acknowledge and even them.
 
-  TODOs/Unresolved:
+  TODOs:
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
-    - Fix keywords matches, we do not need long ones like `function`.
-    - As of the moment, custom binary operators do not capture combinations of [</>],
-      except those leading in either characters, such as <!, >* and /%.
-      This is done to avoid confusion with JSX <></> and multiline regex syntax.
-      /></></ Might need some help here (scroll to section `operators`.)
+    - Functions, classes and methods are grouped by their initial starting letter. 
+      Saga has no standard library yet, and uses Python built-in functions and methods.
+
+  Unresolved:
+    - As of the moment, custom binary operators do not capture combinations of /[</>]+/,
+      except those leading in either characters, such as <!, >* and /%. Several of 
+      those can be captured within a single string: <!>*
+      This is done to avoid confusion with JSX <></> and multiline regex syntax. /></></
+      Might need some help here (scroll to section `operators`.)
+
+  Fixed: 
+    - (JSDoc/SagaDoc) block comments can now support Markdown.
+    - \ is the new $. $ has been repurposed as the binary function operator.
+    - New numeric literals for bases 2 to 64. Higher bases use special Latin 
+      and Greek letters.
+    - Old JavaScript keywords now removed, and long keywords such as `protected`
+      are shortened.
 name: Saga + JavaScript + Python
 scopeName: source.nearley
 fileTypes:
@@ -42,7 +53,7 @@ repository:
   arrow-function:
     patterns:
       - begin: >-
-          \s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          \s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.saga
@@ -54,7 +65,7 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: e.g. arg => { }
-        match: \s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
+        match: \s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.arrow.saga
         captures:
           1: {name: storage.type.saga}
@@ -63,7 +74,7 @@ repository:
           4: {name: storage.type.function.arrow.saga}
       - include: '#arrow-function-simple-assignments'
       - begin: >-
-          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: Sound.prototype.play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.prototype.function.arrow.saga
@@ -86,7 +97,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: e.g. Sound.prototype.play = arg => { }
         match: >-
-          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)?\s*(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*(=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?\s*(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(=>)
         name: meta.prototype.function.arrow.saga
         captures:
           1: {name: keyword.operator.private.saga}
@@ -103,7 +114,7 @@ repository:
           12: {name: variable.other.readwrite.saga}
           13: {name: storage.type.function.arrow.saga}
       - begin: >-
-          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. Sound.play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.static.arrow.saga
@@ -123,7 +134,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: e.g. Sound.play = arg => { }
         match: >-
-          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*(=>)
+          \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(=>)
         name: meta.function.static.arrow.saga
         captures:
           1: {name: keyword.operator.private.saga}
@@ -140,7 +151,7 @@ repository:
     patterns:
       - include: '#async-arrow-function-labels'
       - begin: >-
-          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: 'e.g. play: async <T>(args) => { }'
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.saga
@@ -155,7 +166,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: 'e.g. play: arg => { }'
         match: >-
-          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
+          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.json.arrow.saga
         captures:
           1: {patterns: [{include: '#function-name'}]}
@@ -165,7 +176,7 @@ repository:
           5: {name: variable.other.readwrite.saga}
           6: {name: storage.type.function.arrow.saga}
       - begin: >-
-          (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: 'e.g. ''play'': (args) => { }'
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.saga
@@ -183,7 +194,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: 'e.g. ''play'': arg => { }'
         match: >-
-          (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
+          (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.json.arrow.saga
         captures:
           1: {name: string.quoted.saga}
@@ -199,7 +210,7 @@ repository:
     patterns:
       - include: '#async-arrow-function-simple-assignments'
       - begin: >-
-          \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+          \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.saga
@@ -215,7 +226,7 @@ repository:
           - include: '#fat-arrow-braced-body'
       - comment: e.g. play = arg => { }
         match: >-
-          \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))\s*(=>)
+          \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.arrow.saga
         captures:
           1: {name: keyword.operator.private.saga}
@@ -228,7 +239,7 @@ repository:
   async-arrow-function-labels:
     patterns:
       - begin: >-
-          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(:)\s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
+          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: 'e.g. play: async <T>('
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.saga
@@ -260,7 +271,7 @@ repository:
   async-arrow-function-simple-assignments:
     patterns:
       - begin: >-
-          \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(=)\s*+(?:(\basync)\s+)(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
+          \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(?:(\basync)\s+)(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g. play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.saga
@@ -280,7 +291,7 @@ repository:
       - include: '#square-brackets'
       - include: '#curly-brackets'
   cast-expression:
-    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]*?[_\\\p{L}\p{N}\p{M}\p{Ps}\p{Pe}])
+    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]*?[-_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
     captures:
       1: {name: punctuation.definition.cast.begin.saga}
       2: {patterns: [{include: '#flowtype-parse-types'}]}
@@ -318,7 +329,7 @@ repository:
               3: {name: storage.type.implements.saga}
               4: {name: keyword.operator.expression.only.saga}
           - comment: look for interface names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.class.saga
           - include: '#flowtype'
           - begin: \s*+({)
@@ -348,14 +359,14 @@ repository:
       - include: '#es7-decorators'
       - include: '#comments'
       - comment: 'handle class fields with no flow types like var = '
-        match: (?<!:)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*(?==)(?!=>|==)
+        match: (?<!:)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?==)(?!=>|==)
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: variable.other.readwrite.saga}
       - begin: \s*+(?==[^=>])
         comment: a line starts with a static, [, name(, name:, name=, } or a semi-colon anywhere
         end: >-
-          ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\p{L}\p{Nl}])(?:[(\#?)_\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
+          ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\p{L}\p{Nl}])(?:[(\#?)_\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
         endCaptures:
           9: {name: punctuation.terminator.statement.saga}
         patterns:
@@ -375,8 +386,15 @@ repository:
         captures:
           1: {name: meta.delimiter.comma.saga}
   comments:
+    repository:
+      nested:
+        begin: /\*
+        end: \*/
+        patterns:
+          - include: '#jsdoc'
+          - include: text.html.markdown#inline
+          - include: '#nested'
     patterns:
-      - include: '#swift-comments'
       - include: '#flowtype-comments'
       - include: '#special-comments-conditional-compilation'
       - begin: \s*+((/\*\*))(?!/|\*)
@@ -387,12 +405,17 @@ repository:
           2: {name: punctuation.definition.comment.saga}
         patterns:
           - include: '#jsdoc'
+          - include: text.html.markdown#inline
+          - include: '#nested'
       - begin: \s*+((/\*))
         contentName: comment.block.saga
         end: (\s*(\*/))
         captures:
           1: {name: comment.block.saga}
           2: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: text.html.markdown#inline
+          - include: '#nested'
       - begin: \s*+(<!--)
         contentName: comment.block.html.saga
         end: \s*+(-->)
@@ -461,7 +484,7 @@ repository:
           - include: '#curly-brackets'
           - include: $self
   enum-declaration:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)?
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?
     end: \s*(=(?!=|>))|\s*(?<=})
     name: meta.enum.declaration.flowtype
     beginCaptures:
@@ -497,7 +520,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          (?<!@)\s*+(?:(@)(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)))
+          (?<!@)\s*+(?:(@)(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)))
         comment: Look for a @identifier start If unicode start uppercase e.g. @A class it as a class
         end: (?=.)
         beginCaptures:
@@ -509,7 +532,7 @@ repository:
           - begin: \s*(?:(\?\.)|(\.))
             commnent: decorator .property or .method which may be on a different line
             end: >-
-              \s*(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+))
+              \s*(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+))
             beginCaptures:
               1: {name: keyword.operator.existential.saga}
               2: {name: keyword.operator.accessor.saga}
@@ -522,7 +545,7 @@ repository:
           - comment: arguments for decorators
             include: '#round-brackets'
           - begin: >-
-              (?:(?<=^|;)|(?=\s))\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{N}\p{M}])*+)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
+              (?:(?<=^|;)|(?=\s))\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
             comment: 'method that always follow decorators such as play<T,T>(arg1, arg2): Type<T> { }'
             end: (?<=:|})|(?=;|}|,)
             name: meta.function.method.saga
@@ -549,25 +572,25 @@ repository:
   esnext-pipeline:
     patterns:
       - applyEndPatternLast: 1
-        begin: \s*(\+>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\??\.?\#?)++\s*([^(]|$|;))
+        begin: \s*(\+>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\??\.?\#?)++\s*([^(]|$|;))
         end: (?=.)
         beginCaptures:
           1: {name: keyword.operator.pipeline.saga}
         patterns:
           - match: >-
-              (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.function-call.without-arguments.saga}
               4: {patterns: [{include: '#function-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.method-call.without-arguments.saga}
               4: {patterns: [{include: '#method-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(\??)(\.?)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: variable.other.object.saga}
@@ -575,25 +598,25 @@ repository:
               5: {name: keyword.operator.accessor.saga}
           - include: '#comments'
       - applyEndPatternLast: 1
-        begin: \s*(\|>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\??\.?\#?)++\s*([^(]|$|;))
+        begin: \s*(\|>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\??\.?\#?)++\s*([^(]|$|;))
         end: (?=.)
         beginCaptures:
           1: {name: keyword.operator.pipeline.saga}
         patterns:
           - match: >-
-              (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.function-call.without-arguments.saga}
               4: {patterns: [{include: '#function-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))(?!\?|\.)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: meta.method-call.without-arguments.saga}
               4: {patterns: [{include: '#method-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(\??)(\.?)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.saga}
               3: {name: variable.other.object.saga}
@@ -612,6 +635,8 @@ repository:
       - include: '#catch'
       - include: '#with'
       - include: '#do'
+      - include: '#method-call'
+      - include: '#function-call'
       - include: '#keyword-storage'
       - include: '#new-expression'
       - include: '#query-expression'
@@ -621,8 +646,6 @@ repository:
       - include: '#module'
       - include: '#operator'
       - include: '#function'
-      - include: '#method-call'
-      - include: '#function-call'
       - include: '#class'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
@@ -647,7 +670,6 @@ repository:
       - include: '#support'
       - include: '#implicit-call'
       - include: '#cast-expression'
-      # - include: '#variable-flowtype'
       - include: '#support-properties'
       - include: '#variable'
       - include: '#brackets'
@@ -804,7 +826,7 @@ repository:
         patterns:
           - include: '#flowtype-polymorphs'
           - comment: look for module names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
             captures:
               1: {name: entity.name.class.saga}
           - comment: look for module names in quoted string forms
@@ -844,7 +866,7 @@ repository:
               1: {name: meta.class.extends.saga}
               2: {name: storage.type.extends.saga}
           - comment: look for class names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
             captures:
               1: {name: entity.name.class.saga}
           - begin: \s*+({)
@@ -878,7 +900,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.extension.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -910,7 +932,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.given.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -943,7 +965,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.interface.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -1000,7 +1022,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.module.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -1032,7 +1054,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.namespace.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -1064,7 +1086,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.object.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -1163,7 +1185,7 @@ repository:
         name: keyword.generator.asterisk.saga
       - include: '#keywords'
       - include: '#modifiers'
-      - begin: (?<=[>_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
+      - begin: (?<=[>-_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'sometypename of|in '
         end: >-
           \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
@@ -1198,12 +1220,12 @@ repository:
           4: {name: keyword.operator.accessor.saga}
           5: {name: support.type.builtin.class.flowtype}
       - comment: custom Class Types e.g. Abc avoid Abc(
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         captures:
           1: {name: support.type.class.flowtype}
       - comment: custom primitive/var Types e.g. abc avoid abc(
         match: >-
-          (?!\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(?!^)\s*(?<=\s|:|&|\||<)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+          (?!\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(?!^)\s*(?<=\s|:|&|\||<)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         captures:
           2: {name: support.type.primitive.flowtype}
       - comment: symmetric difference of types &
@@ -1307,7 +1329,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.struct.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -1340,7 +1362,7 @@ repository:
           3: {name: storage.type.implements.saga}
           4: {name: keyword.operator.expression.only.saga}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.trait.saga
       - include: '#flowtype'
       - begin: \s*+({)
@@ -1398,13 +1420,13 @@ repository:
     patterns:
       - comment: 'e.g. let a: ()=>null  =  function() {return null}'
         match: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
+          (?<!(?<!\.\.)\.|\#)\s*+(\#?)((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: storage.type.function.saga}
           3: {name: keyword.operator.optional.parameter.flowtype}
       - comment: 'name of variable spread var with optional ? and optional flowtype :'
-        match: ((?<!(?<!\.\.)\.|\#)\.\.\.)?\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
+        match: ((?<!(?<!\.\.)\.|\#)\.\.\.)?\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
         captures:
           1: {name: keyword.operator.spread.saga}
           2: {name: keyword.operator.private.saga}
@@ -1443,13 +1465,13 @@ repository:
           1: {name: storage.type.function.arrow.saga}
         patterns:
           - include: '#flowtype-parse-types'
-      - begin: (?<!let|const|con|va[lr])(?<=[_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
+      - begin: (?<!let|const|con|va[lr])(?<=[-_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'varname of|in '
         end: >-
           \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
         patterns:
           - include: '#core'
-      - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
+      - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
         comment: 'assignment var = or = '
         end: >-
           \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
@@ -1476,7 +1498,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!(?<!\.\.)\.|\#))(\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!(?<!\.\.)\.|\#))(\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. function play<T>(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
@@ -1493,7 +1515,7 @@ repository:
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. play = function(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
@@ -1513,7 +1535,7 @@ repository:
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
@@ -1540,7 +1562,7 @@ repository:
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+          \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
         end: >-
           \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
@@ -1568,7 +1590,7 @@ repository:
       - include: '#comments'
       - comment: A new expression with no type params or arguments, like new Foo()
         match: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
+          (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
         name: meta.new-class.without-arguments.saga
         captures:
           1: {name: keyword.operator.new.saga}
@@ -1583,7 +1605,7 @@ repository:
           10: {name: meta.brace.round.saga}
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
+          (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
         comment: A new expression with type params and no arguments, like new Foo<string>()
         end: (?=.)
         name: meta.new-class.without-arguments.saga
@@ -1601,7 +1623,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
+          (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
         comment: A new expression with arguments and maybe type params, like new Foo<string>(123)
         end: (?=.)
         name: meta.new-class.with-arguments.saga
@@ -1620,7 +1642,7 @@ repository:
       - include: '#operators'
       - comment: A call expression with no type params or arguments, like foo()
         match: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
+          (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
         name: meta.function-call.without-arguments.saga
         captures:
           1: {name: keyword.operator.private.saga}
@@ -1633,7 +1655,7 @@ repository:
           8: {name: meta.brace.round.saga}
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
+          (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
         comment: A call expression with type params and no arguments, like foo<string>()
         end: (?=.)
         name: meta.function-call.without-arguments.saga
@@ -1649,7 +1671,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(?=\s*(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\(\s*+\))
+          (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?=\s*(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\(\s*+\))
         comment: maybe in array form e.g. foo[bar]() or foo[bar]<string>()
         end: (?=.)
         name: meta.function-call.without-arguments.saga
@@ -1663,7 +1685,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+          (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: A call expression with arguments and maybe type params, like foo(123) or foo<string>(123)
         end: (?=.)
         name: meta.function-call.with-arguments.saga
@@ -1679,7 +1701,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+          (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: maybe in array form e.g. foo[bar](123)
         end: (?=.)
         name: meta.function-call.with-arguments.saga
@@ -1695,7 +1717,7 @@ repository:
   function-labels:
     patterns:
       - begin: >-
-          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
+          (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
         comment: 'e.g. play: function(arg1, arg2) { }'
         end: \s*(=)|\s*(?<=})
         name: meta.function.json.saga
@@ -1731,72 +1753,10 @@ repository:
           - include: '#flowtype'
           - include: '#core'
           - include: '#curly-brackets'
-  function-method:
-    patterns:
-      - include: '#function'
-      - match: >-
-          (?<!(?<!\.\.)\.|\#)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\(.*\))(.*)
-        name: meta.function-call.without-arguments.saga
-        captures:
-          1: {name: keyword.operator.private.saga}
-          2: {patterns: [{include: '#function-name'}]}
-          3: {name: keyword.operator.existential.saga}
-          4: {name: keyword.operator.accessor.saga}
-          5: {name: keyword.operator.assertion.saga}
-          6: {name: keyword.operator.accessor.saga}
-          7: {patterns: [{include: '#flowtype-polymorphs'}]}
-          8: {name: meta.brace.round.saga}
-          9: {patterns: [{include: '#core'}]}
-      - begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()
-        end: (\))(.*)
-        name: meta.function-call.with-arguments.saga
-        beginCaptures:
-          1: {name: keyword.operator.private.saga}
-          2: {patterns: [{include: '#function-name'}]}
-          3: {name: keyword.operator.existential.saga}
-          4: {name: keyword.operator.accessor.saga}
-          5: {name: keyword.operator.assertion.saga}
-          6: {name: keyword.operator.accessor.saga}
-          7: {patterns: [{include: '#flowtype-polymorphs'}]}
-          8: {name: meta.brace.round.saga}
-        endCaptures:
-          1: {name: meta.brace.round.saga}
-          2: {patterns: [{include: '#core'}]}
-        patterns:
-          - include: '#core'
-      - match: (?<=\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\(.*\))(.*)
-        name: meta.method-call.without-arguments.saga
-        captures:
-          1: {name: keyword.operator.private.saga}
-          2: {patterns: [{include: '#method-name'}]}
-          3: {name: keyword.operator.existential.saga}
-          4: {name: keyword.operator.accessor.saga}
-          5: {name: keyword.operator.assertion.saga}
-          6: {name: keyword.operator.accessor.saga}
-          7: {patterns: [{include: '#flowtype-polymorphs'}]}
-          8: {name: meta.brace.round.saga}
-          9: {patterns: [{include: '#core'}]}
-      - begin: (?<=\.)\s*(#)?([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)\s*(?:(\?\.)|(!\.)|(~\.)|(\.))\s*(<.*?>)?\s*(\()
-        end: (\))(.*)
-        name: meta.method-call.with-arguments.saga
-        beginCaptures:
-          1: {name: keyword.operator.private.saga}
-          2: {patterns: [{include: '#method-name'}]}
-          3: {name: keyword.operator.existential.saga}
-          4: {name: keyword.operator.accessor.saga}
-          5: {name: keyword.operator.assertion.saga}
-          6: {name: keyword.operator.accessor.saga}
-          7: {patterns: [{include: '#flowtype-polymorphs'}]}
-          8: {name: meta.brace.round.saga}
-        endCaptures:
-          1: {name: meta.brace.round.saga}
-          2: {patterns: [{include: '#core'}]}
-        patterns:
-          - include: '#core'
   function-name:
     patterns:
       - include: '#support-functions'
+      - include: '#support-methods'
       - comment: primitive flowtypes
         match: (?i)\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
         name: support.type.builtin.primitive.flowtype
@@ -1806,9 +1766,11 @@ repository:
       - match: >-
           \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
         name: support.type.builtin.class.flowtype
-      - match: '[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*'
+      - match: (([a-zA-Z])[-_\\\p{L}\p{M}\p{N}]*)
+        name: entity.name.function.$2.saga
+      - match: '[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*'
         name: support.type.class.flowtype
-      - match: '[_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*'
+      - match: '[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*'
         name: entity.name.function.saga
   graphql:
     patterns:
@@ -2280,17 +2242,17 @@ repository:
   implicit-call:
     patterns:
       - comment: Avoid all language keywords as much as possible
-        match: (?x)(?<=\.)\s* ([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*) \s*(?=['"`(]|::|<[+|])
+        match: (?x)(?<=\.)\s* ([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*) \s*(?=['"`(]|::|<[+|])
         captures:
           1: {patterns: [{include: '#method-name'}]}
       - comment: Avoid all language keywords as much as possible
-        match: (?x)\s* ([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*) \s*(?=['"`(]|::|<[+|])
+        match: (?x)\s* ([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*) \s*(?=['"`(]|::|<[+|])
         captures:
           1: {patterns: [{include: '#function-name'}]}
   js-label:
     comment: 'jslabel: $|for|while|do'
     match: >-
-      (?:^|(?<=;))\s*([_\\p{L}\p{Nl}][_\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|while|do|if|switch|match|repeat)\b))
+      (?:^|(?<=;))\s*([_\\p{L}\p{Nl}][-_\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|while|do|if|switch|match|repeat)\b))
     captures:
       1: {name: constant.other.label.saga}
       2: {name: punctuation.separator.label.saga}
@@ -2469,7 +2431,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          (?<=^|\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void)\s*+(?=<[_\\\p{L}]|<\s*>)
+          (?<=^|\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
@@ -2478,26 +2440,25 @@ repository:
         patterns:
           - comment: look for attribute assignment
             match: '=(?=\s*(?:''|"|{|/\*|<|//|\n))'
-            name: keyword.operator.assignment.sagax
+            name: keyword.operator.assignment.jsx
       jsx-attribute-name:
         patterns:
           - comment: look for attribute name
-            match: >-
-              (?<!\S)([_\\\p{L}](?:[._\\p{L}\p{M}\d\p{Nl}-](?<!\.\.))*+)(?<!(?<!\.\.)\.|\#)(?=//|/\*|=|\s|>|/>)
+            match: (?<!\S)([_\\\p{L}\p{Nl}](?:[._\\p{L}\p{M}\d\p{Nl}-](?<!\.\.))*+)(?<!(?<!\.\.)\.|\#)(?=//|/\*|=|\s|>|/>)
             captures:
-              0: {name: entity.other.attribute-name.sagax}
+              0: {name: entity.other.attribute-name.jsx}
       jsx-entities:
         patterns:
           - comment: Embeded HTML entities &blah
             match: (&)([a-zA-Z\d]+|#[\d]+|#x\h+)(;)
             captures:
-              0: {name: constant.character.entity.sagax}
-              1: {name: punctuation.definition.entity.sagax}
-              2: {name: entity.name.tag.html.sagax}
-              3: {name: punctuation.definition.entity.sagax}
+              0: {name: constant.character.entity.jsx}
+              1: {name: punctuation.definition.entity.jsx}
+              2: {name: entity.name.tag.html.jsx}
+              3: {name: punctuation.definition.entity.jsx}
           - comment: Entity with & and invalid name
             match: '&\s*+;'
-            name: invalid.illegal.bad-ampersand.sagax
+            name: invalid.illegal.bad-ampersand.jsx
       jsx-evaluated-code:
         patterns:
           - begin: '{'
@@ -2505,9 +2466,9 @@ repository:
             end: '}'
             name: meta.embedded.expression.saga
             beginCaptures:
-              0: {name: punctuation.section.embedded.begin.sagax}
+              0: {name: punctuation.section.embedded.begin.jsx}
             endCaptures:
-              0: {name: punctuation.section.embedded.end.sagax}
+              0: {name: punctuation.section.embedded.end.jsx}
             patterns:
               - include: '#jsx-string-double-quoted'
               - include: '#jsx-string-single-quoted'
@@ -2517,15 +2478,15 @@ repository:
         patterns:
           - comment: Spread attribute { ... AssignmentExpression }
             match: (?<!(?<!\.\.)\.|\#)\.\.\.
-            name: keyword.operator.spread.sagax
+            name: keyword.operator.spread.jsx
       jsx-string-double-quoted:
         begin: '"'
         end: '"(?<!\\")'
         name: string.quoted.double.saga
         beginCaptures:
-          0: {name: punctuation.definition.string.begin.sagax}
+          0: {name: punctuation.definition.string.begin.jsx}
         endCaptures:
-          0: {name: punctuation.definition.string.end.sagax}
+          0: {name: punctuation.definition.string.end.jsx}
         patterns:
           - include: '#jsx-entities'
       jsx-string-single-quoted:
@@ -2533,9 +2494,9 @@ repository:
         end: '''(?<!\\'')'
         name: string.quoted.single.saga
         beginCaptures:
-          0: {name: punctuation.definition.string.begin.sagax}
+          0: {name: punctuation.definition.string.begin.jsx}
         endCaptures:
-          0: {name: punctuation.definition.string.end.sagax}
+          0: {name: punctuation.definition.string.end.jsx}
         patterns:
           - include: '#jsx-entities'
       jsx-tag-attributes:
@@ -2553,29 +2514,29 @@ repository:
             comment: JSX Fragment
             contentName: JSXAttrs
             end: (?<=</)(>)
-            name: meta.tag.sagax
+            name: meta.tag.jsx
             beginCaptures:
-              1: {name: punctuation.definition.tag.sagax}
+              1: {name: punctuation.definition.tag.jsx}
             endCaptures:
-              1: {name: punctuation.definition.tag.sagax}
+              1: {name: punctuation.definition.tag.jsx}
             patterns:
               - include: '#jsx-tag-termination'
           - begin: >-
-              \s*+(<)((\p{Ll}[\p{Ll}\d]*)|((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}-]*?:)?+(?:[_\\\p{L}\p{Nl}](?:[_\\\p{L}\p{N}\p{M}\.-](?<!\.\.))*+)+))(?=[/>\s])(?![:])(?<!\.|:)
+              \s*+(<)((\p{Ll}[\p{Ll}\d]*)|((?:[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}-]*?:)?+(?:[_\\\p{L}\p{Nl}](?:[-_\\\p{L}\p{M}\p{N}\.-](?<!\.\.))*+)+))(?=[/>\s])(?![:])(?<!\.|:)
             comment: 'Tags that end > are trapped in #jsx-tag-termination'
             contentName: JSXAttrs
             end: \s*(?<=</)((\4)|\2)(>)|(/>)|((?<=</)[\S ]*?)>
-            name: meta.tag.sagax
+            name: meta.tag.jsx
             beginCaptures:
-              1: {name: punctuation.definition.tag.sagax}
-              2: {name: entity.name.tag.open.sagax}
-              4: {name: support.class.component.open.sagax}
+              1: {name: punctuation.definition.tag.jsx}
+              2: {name: entity.name.tag.open.jsx}
+              4: {name: support.class.component.open.jsx}
             endCaptures:
-              1: {name: entity.name.tag.close.sagax}
-              2: {name: support.class.component.close.sagax}
-              3: {name: punctuation.definition.tag.sagax}
-              4: {name: punctuation.definition.tag.sagax}
-              5: {name: invalid.illegal.termination.sagax}
+              1: {name: entity.name.tag.close.jsx}
+              2: {name: support.class.component.close.jsx}
+              3: {name: punctuation.definition.tag.jsx}
+              4: {name: punctuation.definition.tag.jsx}
+              5: {name: invalid.illegal.termination.jsx}
             patterns:
               - include: '#jsx-tag-termination'
               - include: '#jsx-tag-attributes'
@@ -2586,10 +2547,10 @@ repository:
             contentName: JSXNested
             end: (</)
             beginCaptures:
-              0: {name: punctuation.definition.tag.sagax}
+              0: {name: punctuation.definition.tag.jsx}
               1: {name: JSXStartTagEnd}
             endCaptures:
-              0: {name: punctuation.definition.tag.sagax}
+              0: {name: punctuation.definition.tag.jsx}
               1: {name: JSXEndTagStart}
             patterns:
               - include: '#jsx-evaluated-code'
@@ -2599,7 +2560,7 @@ repository:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(const|con|let|var|val)\b
         end: >-
-          (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
+          (?=\s*[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|})
         beginCaptures:
           1: {name: storage.type.saga}
         patterns:
@@ -2617,7 +2578,7 @@ repository:
           - include: '#comments'
           - include: '#keywords'
           - include: '#modifiers'
-          - match: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*
+          - match: \s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*
             captures:
               1: {name: constant.other.label.saga}
       - comment: Keyword operators
@@ -2687,7 +2648,7 @@ repository:
         patterns:
           - include: '#core'
       - include: '#js-label'
-      - match: (?<!\.|\?)\s*+(([_\\\p{L}\p{N}\p{M}]*))\s*+(:)((?=::)|(?!:))
+      - match: (?<!\.|\?)\s*+(([-_\\\p{L}\p{M}\p{N}]*))\s*+(:)((?=::)|(?!:))
         name: meta.object.member.saga meta.object-literal.key.saga
         captures:
           1: {name: constant.other.object.key.saga, patterns: [{include: '#number'}]}
@@ -2812,7 +2773,7 @@ repository:
   method:
     patterns:
       - begin: >-
-          (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
+          (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
         comment: 'e.g. play<T,T>(arg1, arg2): Type<T> { }'
         end: \s*(=(?!=|>))|(?={)|(?=;|}|,)
         beginCaptures:
@@ -2862,7 +2823,7 @@ repository:
           - include: '#class-content'
           - include: $self
       - begin: >-
-          (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(?=\s*+\()
+          (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?=\s*+\()
         comment: getter/setter
         end: \s*(=(?!=|>))|(?={)|(?=;|}|,)
         beginCaptures:
@@ -2898,7 +2859,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[\p{Lu}])(?:[_\\p{Lu}\d])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+          \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g CONSTNAME.method() or CONST.method[p]()
         end: (?=.)
         name: meta.method-call.without-arguments.saga
@@ -2917,7 +2878,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[\p{Lu}])(?:[_\\p{L}\p{M}\p{N}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(\(\s*+\)))
+          \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.without-arguments.saga
@@ -2932,10 +2893,11 @@ repository:
           8: {patterns: [{include: '#method-name'}]}
         patterns:
           - include: '#square-brackets'
+          - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[\p{Lu}])(?:[_\\p{Lu}\d])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+          \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g CONSTNAME.method()
         end: (?=.)
         name: meta.method-call.with-arguments.saga
@@ -2954,7 +2916,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          \s*+(\#?)((?:[\p{Lu}])(?:[_\\p{L}\p{M}\p{N}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+          \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.with-arguments.saga
@@ -2970,9 +2932,10 @@ repository:
         patterns:
           - include: '#round-brackets'
           - include: '#type-argument-brackets'
+          - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+          (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g .aaa()
         end: (?=.)
         name: meta.method-call.without-arguments.saga
@@ -2986,7 +2949,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+          (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g .aaa()
         end: (?=.)
         name: meta.method-call.with-arguments.saga
@@ -3000,85 +2963,10 @@ repository:
   method-name:
     patterns:
       - include: '#support-methods'
-      - match: (?<=\.)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
-        name: support.function.saga
-  mini-expression:
-    comment: A mini-language supporting most language features (the other syntax comes from Python)
-    patterns:
-      - include: '#keywords'
-      - include: '#support'
-      - include: '#modifiers'
-      - comment: 'TODO: fix brackets'
-        include: '#query-expression'
-      - comment: 'TODO: fix brackets'
-        include: '#new-expression'
-      - comment: 'TODO: fix brackets'
-        include: '#function-method'
-      - comment: 'TODO: fix brackets'
-        include: '#method-calls'
-      - comment: 'TODO: fix brackets'
-        include: '#function-calls'
-      - include: '#language-constant'
-      - include: '#language-variable'
-      - include: '#number'
-      - include: '#string'
-      - include: '#quasi'
-      - include: '#support.properties'
-      - include: '#variable'
-      - include: '#operator'
-      - include: '#operators'
-      - include: '#punctuation'
-      - include: '#round-brackets'
-      - include: '#square-brackets'
-      - include: '#curly-brackets'
-      - include: source.coffee
-      - include: source.python
-      - include: source.ruby
-      - include: source.fsharp
-      - include: source.elixir
-    repository:
-      comment: just some bugfixes
-      curly-brackets:
-        begin: \s*+(\{)
-        end: \s*(\})
-        beginCaptures:
-          1: {name: meta.brace.curly.saga}
-        endCaptures:
-          1: {name: meta.brace.curly.saga}
-        patterns:
-          - include: '#mini-expression'
-      round-brackets:
-        begin: \s*+(\()
-        end: \s*(\))
-        beginCaptures:
-          1: {name: meta.brace.round.saga}
-        endCaptures:
-          1: {name: meta.brace.round.saga}
-        patterns:
-          - include: '#mini-expression'
-      square-brackets:
-        begin: \s*+(\[)
-        end: \s*(\])
-        beginCaptures:
-          1: {name: meta.brace.square.saga}
-        endCaptures:
-          1: {name: meta.brace.square.saga}
-        patterns:
-          - include: '#mini-expression'
-      ternary-expression:
-        begin: \s*+(\?)(?!\.[^\d]|[?=])
-        end: \s*(:)((?=::)|(?!:|=))
-        beginCaptures:
-          1: {name: keyword.operator.ternary.saga}
-        endCaptures:
-          1: {name: keyword.operator.ternary.saga}
-        patterns:
-          - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*:)
-            end: \s*(?=:)
-            patterns:
-              - include: '#language-constant'
-              - include: '#variable'
-          - include: '#mini-expression'
+      - match: (([a-zA-Z])[-_\\\p{L}\p{M}\p{N}]*)
+        name: entity.name.function.method.$2.saga
+      - match: ([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+        name: entity.name.function.method.saga
   modifiers:
     patterns:
       - comment: Modifier keywords
@@ -3152,7 +3040,7 @@ repository:
         captures:
           1: {name: keyword.control.module.saga}
       - begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\p{L}\p{Nl}])(?:[_\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
+          (?<!(?<!\.\.)\.|\#)\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
         comment: export {  or  export * or export var or export type {} from module
         end: >-
           \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\)|}))
@@ -3272,7 +3160,7 @@ repository:
           - include: '#string-content'
   new-expression:
     - comment: A new expression with no type params or arguments, like new Foo()
-      match: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(\?\.)?(\()\s*+(\)))
+      match: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?(\()\s*+(\)))
       name: meta.new-class.without-arguments.saga
       captures:
         1: {name: keyword.operator.new.saga}
@@ -3284,7 +3172,7 @@ repository:
         7: {name: meta.brace.round.saga}
     - applyEndPatternLast: 1
       begin: >-
-        (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
+        (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
       comment: A new expression with type params and no arguments, like new Foo<string>()
       end: (?=.)
       name: meta.new-class.without-arguments.saga
@@ -3299,7 +3187,7 @@ repository:
         - include: '#round-brackets'
     - applyEndPatternLast: 1
       begin: >-
-        (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
+        (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
       comment: A new expression with arguments and maybe type params, like new Foo<string>(123)
       end: (?=.)
       name: meta.new-class.with-arguments.saga
@@ -3627,7 +3515,7 @@ repository:
         captures:
           1: {name: constant.other.object.key.saga}
           2: {name: variable.other.constant.shorthandpropertyname.saga}
-      - match: (?<=^|,|{)(?<!:|\.)\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*))\s*+(?=$|,|})
+      - match: (?<=^|,|{)(?<!:|\.)\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*+(?=$|,|})
         captures:
           1: {name: variable.other.readwrite.shorthandpropertyname.saga}
   of-clause:
@@ -3676,7 +3564,7 @@ repository:
                 (&&|\|\||\^\^|\\/|/\\)| #4
                 ([&^]|\|(?!>)|~(?![!=<>]))| #5
                 (=\.\.|\.\.=|=\.=|\.\.(?!\.))| #6
-                (<[|+]|[|+]>)|(<+|>+)| #7-8
+                (<[|+]|[|+]>)|(<<+|>>+)| #7-8
                 ([<>]:|:[<>]|[<>]:[<>])| #9
                 (=<|<>|[!=]~|~[!=]|[<>]~|~[<>])| #10
                 (->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?)| #11-13
@@ -3892,7 +3780,7 @@ repository:
   prototype:
     patterns:
       - comment: e.g. Sound.prototype
-        match: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(?:(\?\.)|(\.))(proto)\b
+        match: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?:(\?\.)|(\.))(proto)\b
         name: meta.prototype.access.saga
         captures:
           1: {name: keyword.operator.private.saga}
@@ -3901,7 +3789,7 @@ repository:
           4: {name: keyword.operator.accessor.saga}
           5: {name: variable.language.prototype.saga}
       - comment: e.g. Sound.prototype = { }
-        match: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)(?:(\?\.)|(\.))(proto)\s*+=\s*+
+        match: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?:(\?\.)|(\.))(proto)\s*+=\s*+
         name: meta.prototype.declaration.saga
         captures:
           1: {name: keyword.operator.private.saga}
@@ -3938,7 +3826,7 @@ repository:
           2: {name: punctuation.definition.quasi.end.saga}
         patterns:
           - include: source.css.styled
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*(?:(\?\.)|(\.))\s*(extend))\s*((`))
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+(?:([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(extend))\s*((`))
         comment: Styled CSS tags
         contentName: source.inside-js.css.styled
         end: \s*((`))
@@ -3956,7 +3844,7 @@ repository:
           - include: source.css.styled
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)|([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*(?:(\?\.)|(\.))\s*(withComponent))(?=\s*((\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))*\s*(`|\.extend`|$)))
+          (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)|([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(withComponent))(?=\s*((\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))*\s*(`|\.extend`|$)))
         comment: Styled CSS tag functions
         end: (?=.)
         beginCaptures:
@@ -4010,7 +3898,7 @@ repository:
               - include: source.css.styled
       - applyEndPatternLast: 1
         begin: >-
-          (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)\s*(?:(\?\.)|(\.))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*(?:(\?\.)|(\.))\s*(attrs|withConfig))(?=\s*\()
+          (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)\s*(?:(\?\.)|(\.))\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(attrs|withConfig))(?=\s*\()
         comment: Styled CSS tag functions
         end: (?=.|\n)
         beginCaptures:
@@ -4051,7 +3939,7 @@ repository:
           2: {name: punctuation.definition.quasi.end.saga}
         patterns:
           - include: '#graphql'
-      - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)?\s*((`))
+      - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?\s*((`))
         comment: Use two forms of scopes! fixes some themes
         contentName: string.quoted.template.saga
         end: \s*((`))
@@ -4069,8 +3957,7 @@ repository:
   quasi-embedded:
     patterns:
       - comment: Accepts arbitrary expressions
-        match: >-
-          (?<!\\)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)((:)[-\w/.%#<^>+*=!]+)?
+        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((:)[-\w/.%#<^>+*=!]+)?
         captures:
           1: {name: punctuation.quasi.element.saga}
           2: {patterns: [{include: '#core'}]}
@@ -4090,8 +3977,7 @@ repository:
   quasi-embedded-regexp:
     patterns:
       - comment: Accepts arbitrary expressions
-        match: >-
-          (?<!\\)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)((:)[-\w/.%#<^>+*=!]+)?
+        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((:)[-\w/.%#<^>+*=!]+)?
         captures:
           1: {name: punctuation.quasi.element.saga}
           2: {patterns: [{include: '#core'}]}
@@ -4182,7 +4068,7 @@ repository:
       - include: '#operators'
   regexp:
     begin: >-
-      (?<=^|[^/\w\p{L}\p{N}\p{M}\p{Sc}])\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;)}\]]|\.[\w\p{L}\p{N}\p{Sc}]))
+      (?<=^|[^/\-_\\\p{L}\p{M}\p{N}])\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;)}\]]|\.[-_\\\p{L}\p{M}\p{N}]))
     comment: Updated to support Perl regex syntax
     end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
     name: string.regexp.saga
@@ -4191,12 +4077,7 @@ repository:
       2: {name: punctuation.definition.string.begin.saga}
     endCaptures:
       1: {name: punctuation.definition.string.end.saga}
-      2: {name: string.quoted.saga, patterns: [{match: '\\[1-9]\d*', name: keyword.other.back-reference.regexp}, {begin:
-      (\\<), end: \s*(>), name: keyword.other.back-reference.regexp, beginCaptures: {1: {name:
-      keyword.other.back-reference.regexp}}, endCaptures: {1: {name: keyword.other.back-reference.regexp}}, patterns:
-      [{include: '#regex-group-name'}]}, {include: '#string-content'}]}
-      3: {name: punctuation.definition.string.end.saga}
-      4: {name: keyword.other.flag.saga}
+      2: {name: keyword.other.flag.saga}
     patterns:
       - include: '#regexp-patterns'
   regexp-patterns:
@@ -4246,7 +4127,7 @@ repository:
           3: {name: keyword.control.recursion.regexp}
           4: {name: storage.type.regexp}
           5: {name: punctuation.separator.label.regexp}
-      - match: (?<=\?\()(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)|([+-]?\d*))(?=\))
+      - match: (?<=\?\()(?:([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|([+-]?\d*))(?=\))
         name: keyword.control.conditional.group.regexp
         captures:
           1: {name: variable.other.regexp}
@@ -4417,9 +4298,7 @@ repository:
           9: {name: punctuation.definition.quasi.begin.saga}
       - include: '#operator'
       - include: '#operators'
-      - include: '#support-properties'
       - include: '#number'
-      - include: '#variable'
       - include: '#comments'
     repository:
       regex-character-class:
@@ -4610,7 +4489,7 @@ repository:
         endCaptures:
           1: {name: keyword.operator.ternary.saga}
         patterns:
-          - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*:)
+          - begin: \s*+(?=([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*:)
             end: \s*(?=:)
             patterns:
               - include: '#language-constant'
@@ -4831,7 +4710,6 @@ repository:
   support-functions:
     patterns:
       - include: '#support-python'
-      - include: '#support-php'
   support-methods:
     patterns:
       - applyEndPatternLast: 1
@@ -4844,7 +4722,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(add|append|at|average|chunk|clone|compact|concat|construct|copyWithin|count|create|difference|differenceBy|differenceWith|drop|dropRight|dropRightWhile|dropWhile|entries|every|exclude|fill|filter|find|findIndex|findLastIndex|first|flat|flatMap|flatten|flattenDeep|flattenDepth|fnFromIndex|forEach|from|fromPairs|groupBy|head|includes|indexOf|inGroups|inGroupsOf|initial|insert|intersect|intersection|intersectionBy|intersectionWith|isArray|isEmpty|isEqual|join|keys|last|lastIndexOf|least|map|max|median|min|most|none|nth|object|of|pop|pull|pullAll|pullAllBy|pullAllWith|pullAt|push|range|reduce|reduceRight|remove|removeAt|rest|reverse|sample|shift|shuffle|slice|some|sort|sortBy|sortedIndex|sortedIndexBy|sortedIndexOf|sortedLastIndex|sortedLastIndexBy|sortedLastIndexOf|sortedUniq|sortedUniqBy|splice|subtract|sum|tail|take|takeRight|takeRightWhile|takeWhile|to|toLocaleString|toSource|toString|union|unionBy|unionWith|uniq|uniqBy|unique|uniqWith|unshift|unzip|unzipWith|values|without|xor|xorBy|xorWith|zip|zipObject|zipObjectDeep|zipWith)\b
+          \s*+(add|append|at|average|chunk|clone|compact|concat|construct|copyWithin|count|create|difference|differenceBy|differenceWith|drop|dropRight|dropRightWhile|dropWhile|entries|every|exclude|fill|filter|find|findIndex|findLastIndex|first|flat|flatMap|flatten|flattenDeep|flattenDepth|fnFromIndex|forEach|from|fromPairs|groupBy|head|includes|indexOf|inGroups|inGroupsOf|initial|insert|intersect|intersection|intersectionBy|intersectionWith|isArray|isEmpty|isEqual|join|keys|last|lastIndexOf|least|map|max|median|min|most|none|nth|object|of|pop|pull|pullAll|pullAllBy|pullAllWith|pullAt|push|range|reduce|reduceRight|remove|removeAt|rest|reverse|sample|shift|shuffle|slice|some|sort|sortBy|sortedIndex|sortedIndexBy|sortedIndexOf|sortedLastIndex|sortedLastIndexBy|sortedLastIndexOf|sortedUniq|sortedUniqBy|splice|subtract|sum|tail|take|takeRight|takeRightWhile|takeWhile|to|toLocaleString|toSource|toString|union|unionBy|unionWith|uniq|uniqBy|unique|uniqWith|unshift|unzip|unzipWith|values|without|xor|xorBy|xorWith|zip|zipObject|zipObjectDeep|zipWith)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.array.saga}
@@ -4852,21 +4730,21 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(add|and|clamp|clone|compareExchange|contains|dateUnit|every|exchange|intersect|isLockFree|isValid|load|notify|or|span|store|sub|toArray|toString|union|wait|xor)\b
+          \s*+(add|and|clamp|clone|compareExchange|contains|dateUnit|every|exchange|intersect|isLockFree|isValid|load|notify|or|span|store|sub|toArray|toString|union|wait|xor)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.atomics.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(asIntN|asUintN|toLocaleString|toString|valueOf)\b
+        begin: \s*+(asIntN|asUintN|toLocaleString|toString|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.bigint.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(toSource|toString|valueOf)\b
+        begin: \s*+(toSource|toString|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.boolean.saga}
@@ -4874,7 +4752,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(contains|countBy|each|eachRight|every|filter|find|findLast|findWhere|flatMap|flatMapDeep|flatMapDepth|forEach|forEachRight|groupBy|includes|indexBy|invoke|invokeMap|keyBy|map|max|min|orderBy|partition|pluck|reduce|reduceRight|reject|sample|sampleSize|shuffle|size|some|sortBy|toArray|where)\b
+          \s*+(contains|countBy|each|eachRight|every|filter|find|findLast|findWhere|flatMap|flatMapDeep|flatMapDepth|forEach|forEachRight|groupBy|includes|indexBy|invoke|invokeMap|keyBy|map|max|min|orderBy|partition|pluck|reduce|reduceRight|reject|sample|sampleSize|shuffle|size|some|sortBy|toArray|where)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.collection.saga}
@@ -4882,7 +4760,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(getBigInt64|getBigUint64|getFloat32|getFloat64|getInt16|getInt32|getInt8|getUint16|getUint32|getUint8|setBigInt64|setBigUint64|setFloat32|setFloat64|setInt16|setInt32|setInt8|setUint16|setUint32|setUint8)\b
+          \s*+(getBigInt64|getBigUint64|getFloat32|getFloat64|getInt16|getInt32|getInt8|getUint16|getUint32|getUint8|setBigInt64|setBigUint64|setFloat32|setFloat64|setInt16|setInt32|setInt8|setUint16|setUint32|setUint8)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.dataview.saga}
@@ -4890,7 +4768,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(addLocale|addUnits|advance|beginningOfISOWeek|beginningOfUnit|clone|create|daysInMonth|endOfISOWeek|endOfUnit|format|full|get|getAllLocaleCodes|getAllLocales|getDate|getDay|getFullYear|getHours|getISOWeek|getLocale|getMilliseconds|getMinutes|getMonth|getOption|getSeconds|getTime|getTimezoneOffset|getUTCDate|getUTCDay|getUTCFullYear|getUTCHours|getUTCMilliseconds|getUTCMinutes|getUTCMonth|getUTCOffset|getUTCSeconds|getUTCWeekday|getWeekday|getYear|is|isAfter|isBefore|isBetween|isDay|isFuture|isLastUnit|isLeapYear|isNextUnit|iso|isPast|isThisUnit|isUTC|isValid|long|medium|now|parse|range|relative|relativeTo|removeLocale|reset|rewind|set|setDate|setFullYear|setHours|setISOWeek|setLocale|setMilliseconds|setMinutes|setMonth|setOption|setSeconds|setTime|setUTC|setUTCDate|setUTCFullYear|setUTCHours|setUTCMilliseconds|setUTCMinutes|setUTCMonth|setUTCSeconds|setWeekday|setYear|short|toDateString|toGMTString|toISOString|toJSON|toLocaleDateString|toLocaleString|toLocaleTimeString|toSource|toString|toTimeString|toUTCString|unitsAgo|unitsFromNow|unitsSince|unitsUntil|UTC|valueOf)\b
+          \s*+(addLocale|addUnits|advance|beginningOfISOWeek|beginningOfUnit|clone|create|daysInMonth|endOfISOWeek|endOfUnit|format|full|get|getAllLocaleCodes|getAllLocales|getDate|getDay|getFullYear|getHours|getISOWeek|getLocale|getMilliseconds|getMinutes|getMonth|getOption|getSeconds|getTime|getTimezoneOffset|getUTCDate|getUTCDay|getUTCFullYear|getUTCHours|getUTCMilliseconds|getUTCMinutes|getUTCMonth|getUTCOffset|getUTCSeconds|getUTCWeekday|getWeekday|getYear|is|isAfter|isBefore|isBetween|isDay|isFuture|isLastUnit|isLeapYear|isNextUnit|iso|isPast|isThisUnit|isUTC|isValid|long|medium|now|parse|range|relative|relativeTo|removeLocale|reset|rewind|set|setDate|setFullYear|setHours|setISOWeek|setLocale|setMilliseconds|setMinutes|setMonth|setOption|setSeconds|setTime|setUTC|setUTCDate|setUTCFullYear|setUTCHours|setUTCMilliseconds|setUTCMinutes|setUTCMonth|setUTCSeconds|setWeekday|setYear|short|toDateString|toGMTString|toISOString|toJSON|toLocaleDateString|toLocaleString|toLocaleTimeString|toSource|toString|toTimeString|toUTCString|unitsAgo|unitsFromNow|unitsSince|unitsUntil|UTC|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.date.saga}
@@ -4898,21 +4776,21 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(__|add|addIndex|adjust|after|all|allPass|always|and|andThen|any|anyPass|ap|aperture|append|apply|applySpec|applyTo|ary|ascend|assoc|assocPath|before|binary|bind|bindAll|bindKey|both|call|cancel|chain|clamp|clone|comparator|complement|compose|composeK|composeP|composeWith|concat|cond|construct|constructN|contains|converge|countBy|curry|curryN|curryRight|debounce|dec|defaultTo|defer|delay|descend|difference|differenceWith|dissoc|dissocPath|divide|drop|dropLast|dropLastWhile|dropRepeats|dropRepeatsWith|dropWhile|either|empty|endsWith|eqBy|eqProps|equals|every|evolve|F|filter|find|findIndex|findLast|findLastIndex|flatten|flip|forEach|forEachObjIndexed|fromPairs|groupBy|groupWith|gt|gte|has|hasIn|hasPath|head|identical|identity|ifElse|inc|includes|indexBy|indexOf|init|innerJoin|insert|insertAll|intersection|intersperse|into|invert|invertObj|invoker|is|isEmpty|isNil|join|juxt|keys|keysIn|last|lastIndexOf|lazy|length|lens|lensIndex|lensPath|lensProp|lift|liftN|lock|lt|lte|map|mapAccum|mapAccumRight|mapObjIndexed|match|mathMod|max|maxBy|mean|median|memoize|memoizeWith|merge|mergeAll|mergeDeepLeft|mergeDeepRight|mergeDeepWith|mergeDeepWithKey|mergeLeft|mergeRight|mergeWith|mergeWithKey|min|minBy|modulo|move|multiply|nAry|negate|none|not|nth|nthArg|o|objOf|of|omit|once|or|otherwise|over|overArgs|pair|partial|partialRight|partition|path|pathEq|pathOr|paths|pathSatisfies|pick|pickAll|pickBy|pipe|pipeK|pipeP|pipeWith|pluck|prepend|product|project|prop|propEq|propIs|propOr|props|propSatisfies|range|rearg|reduce|reduceBy|reduced|reduceRight|reduceWhile|reject|remove|repeat|replace|rest|restArguments|reverse|scan|sequence|set|slice|sort|sortBy|sortWith|split|splitAt|splitEvery|splitWhen|spread|startsWith|subtract|sum|symmetricDifference|symmetricDifferenceWith|T|tail|take|takeLast|takeLastWhile|takeWhile|tap|test|throttle|thunkify|times|toLower|toPairs|toPairsIn|toSource|toString|toUpper|transduce|transpose|traverse|trim|tryCatch|type|unapply|unary|uncurryN|unfold|union|unionWith|uniq|uniqBy|uniqWith|unless|unnest|until|update|useWith|values|valuesIn|view|when|where|whereEq|without|wrap|xor|xprod|zip|zipObj|zipWith)\b
+          \s*+(__|add|addIndex|adjust|after|all|allPass|always|and|andThen|any|anyPass|ap|aperture|append|apply|applySpec|applyTo|ary|ascend|assoc|assocPath|before|binary|bind|bindAll|bindKey|both|call|cancel|chain|clamp|clone|comparator|complement|compose|composeK|composeP|composeWith|concat|cond|construct|constructN|contains|converge|countBy|curry|curryN|curryRight|debounce|dec|defaultTo|defer|delay|descend|difference|differenceWith|dissoc|dissocPath|divide|drop|dropLast|dropLastWhile|dropRepeats|dropRepeatsWith|dropWhile|either|empty|endsWith|eqBy|eqProps|equals|every|evolve|F|filter|find|findIndex|findLast|findLastIndex|flatten|flip|forEach|forEachObjIndexed|fromPairs|groupBy|groupWith|gt|gte|has|hasIn|hasPath|head|identical|identity|ifElse|inc|includes|indexBy|indexOf|init|innerJoin|insert|insertAll|intersection|intersperse|into|invert|invertObj|invoker|is|isEmpty|isNil|join|juxt|keys|keysIn|last|lastIndexOf|lazy|length|lens|lensIndex|lensPath|lensProp|lift|liftN|lock|lt|lte|map|mapAccum|mapAccumRight|mapObjIndexed|match|mathMod|max|maxBy|mean|median|memoize|memoizeWith|merge|mergeAll|mergeDeepLeft|mergeDeepRight|mergeDeepWith|mergeDeepWithKey|mergeLeft|mergeRight|mergeWith|mergeWithKey|min|minBy|modulo|move|multiply|nAry|negate|none|not|nth|nthArg|o|objOf|of|omit|once|or|otherwise|over|overArgs|pair|partial|partialRight|partition|path|pathEq|pathOr|paths|pathSatisfies|pick|pickAll|pickBy|pipe|pipeK|pipeP|pipeWith|pluck|prepend|product|project|prop|propEq|propIs|propOr|props|propSatisfies|range|rearg|reduce|reduceBy|reduced|reduceRight|reduceWhile|reject|remove|repeat|replace|rest|restArguments|reverse|scan|sequence|set|slice|sort|sortBy|sortWith|split|splitAt|splitEvery|splitWhen|spread|startsWith|subtract|sum|symmetricDifference|symmetricDifferenceWith|T|tail|take|takeLast|takeLastWhile|takeWhile|tap|test|throttle|thunkify|times|toLower|toPairs|toPairsIn|toSource|toString|toUpper|transduce|transpose|traverse|trim|tryCatch|type|unapply|unary|uncurryN|unfold|union|unionWith|uniq|uniqBy|uniqWith|unless|unnest|until|update|useWith|values|valuesIn|view|when|where|whereEq|without|wrap|xor|xprod|zip|zipObj|zipWith)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.function.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(next|return|throw)\b
+        begin: \s*+(next|return|throw)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.generator.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(chain|parse|stringify|value)\b
+        begin: \s*+(chain|parse|stringify|value)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.json.saga}
@@ -4920,14 +4798,14 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(castArray|clone|cloneDeep|cloneDeepWith|cloneWith|conformsTo|eq|gt|gte|isArguments|isArray|isArrayBuffer|isArrayLike|isArrayLikeObject|isBoolean|isBuffer|isDate|isElement|isEmpty|isError|iSetual|iSetualWith|isFinite|isFunction|isInteger|isLength|isMap|isMatch|isMatchWith|isNaN|isNative|isNil|isNull|isNumber|isObject|isObjectLike|isPlainObject|isProxy|isRegExp|isSafeInteger|isSet|isString|isSymbol|isUndefined|isWeakMap|isWeakSet|lt|lte|toArray|toFinite|toInteger|toLength|toNumber|toPlainObject|toSafeInteger|toString)\b
+          \s*+(castArray|clone|cloneDeep|cloneDeepWith|cloneWith|conformsTo|eq|gt|gte|isArguments|isArray|isArrayBuffer|isArrayLike|isArrayLikeObject|isBoolean|isBuffer|isDate|isElement|isEmpty|isError|iSetual|iSetualWith|isFinite|isFunction|isInteger|isLength|isMap|isMatch|isMatchWith|isNaN|isNative|isNil|isNull|isNumber|isObject|isObjectLike|isPlainObject|isProxy|isRegExp|isSafeInteger|isSet|isString|isSymbol|isUndefined|isWeakMap|isWeakSet|lt|lte|toArray|toFinite|toInteger|toLength|toNumber|toPlainObject|toSafeInteger|toString)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.lang.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(clear|delete|entries|forEach|get|has|keys|set|values)\b
+        begin: \s*+(clear|delete|entries|forEach|get|has|keys|set|values)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.map.saga}
@@ -4935,7 +4813,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(abs|acos|acosh|acot|acoth|acsc|acsch|add|and|apply|arg|asec|asech|asin|asinh|atan|atan2|atanh|bellNumbers|bin|bitAnd|bitNot|bitOr|bitXor|catalan|cbrt|ceil|clone|clz32|column|combinations|combinationsWithRep|compare|compareNatural|compareText|compile|composition|concat|conj|cos|cosh|cot|coth|count|cross|csc|csch|ctranspose|cube|deepEqual|derivative|det|diag|diff|distance|divide|dot|dotDivide|dotMultiply|dotPow|eigs|equal|equalText|erf|evaluate|exp|expm|expm1|factorial|filter|fix|flatten|floor|forEach|format|fround|gamma|gcd|getMatrixDataType|hasNumericValue|help|hex|hypot|identity|im|imul|intersect|inv|isInteger|isNaN|isNegative|isNumeric|isPositive|isPrime|isZero|kldivergence|kron|larger|largerEq|lcm|leftShift|log|log10|log1p|log2|lsolve|lup|lusolve|mad|map|max|maxBy|mean|meanBy|median|min|minBy|mod|mode|multinomial|multiply|norm|not|nthRoot|nthRoots|numeric|oct|ones|or|parser|partitionSelect|permutations|pickRandom|pow|print|prod|qr|quantileSeq|random|randomInt|range|rationalize|re|reshape|resize|rightArithShift|rightLogShift|rotate|rotationMatrix|round|row|sec|sech|setCartesian|setDifference|setDistinct|setIntersect|setIsSubset|setMultiplicity|setPowerset|setSize|setSymDifference|setUnion|sign|simplify|sin|sinh|size|slu|smaller|smallerEq|sort|sqrt|sqrtm|square|squeeze|std|stirlingS2|subset|subtract|sum|sumBy|tan|tanh|to|trace|transpose|trunc|typeOf|unaryMinus|unaryPlus|unequal|usolve|variance|xgcd|xor|zeros)\b
+          \s*+(abs|acos|acosh|acot|acoth|acsc|acsch|add|and|apply|arg|asec|asech|asin|asinh|atan|atan2|atanh|bellNumbers|bin|bitAnd|bitNot|bitOr|bitXor|catalan|cbrt|ceil|clone|clz32|column|combinations|combinationsWithRep|compare|compareNatural|compareText|compile|composition|concat|conj|cos|cosh|cot|coth|count|cross|csc|csch|ctranspose|cube|deepEqual|derivative|det|diag|diff|distance|divide|dot|dotDivide|dotMultiply|dotPow|eigs|equal|equalText|erf|evaluate|exp|expm|expm1|factorial|filter|fix|flatten|floor|forEach|format|fround|gamma|gcd|getMatrixDataType|hasNumericValue|help|hex|hypot|identity|im|imul|intersect|inv|isInteger|isNaN|isNegative|isNumeric|isPositive|isPrime|isZero|kldivergence|kron|larger|largerEq|lcm|leftShift|log|log10|log1p|log2|lsolve|lup|lusolve|mad|map|max|maxBy|mean|meanBy|median|min|minBy|mod|mode|multinomial|multiply|norm|not|nthRoot|nthRoots|numeric|oct|ones|or|parser|partitionSelect|permutations|pickRandom|pow|print|prod|qr|quantileSeq|random|randomInt|range|rationalize|re|reshape|resize|rightArithShift|rightLogShift|rotate|rotationMatrix|round|row|sec|sech|setCartesian|setDifference|setDistinct|setIntersect|setIsSubset|setMultiplicity|setPowerset|setSize|setSymDifference|setUnion|sign|simplify|sin|sinh|size|slu|smaller|smallerEq|sort|sqrt|sqrtm|square|squeeze|std|stirlingS2|subset|subtract|sum|sumBy|tan|tanh|to|trace|transpose|trunc|typeOf|unaryMinus|unaryPlus|unequal|usolve|variance|xgcd|xor|zeros)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.math.saga}
@@ -4943,7 +4821,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(abbr|bytes|cap|ceil|chr|clamp|dateUnit|dateUnitAfter|dateUnitAgo|dateUnitBefore|dateUnitFromNow|downto|duration|floor|format|hex|inRange|isEven|isFinite|isInteger|isMultipleOf|isNaN|isOdd|isSafeInteger|log|math|metric|ordinalize|pad|parseFloat|parseInt|random|range|round|times|toExponential|toFixed|toLocaleString|toNumber|toPrecision|toSource|toString|upto|valueOf)\b
+          \s*+(abbr|bytes|cap|ceil|chr|clamp|dateUnit|dateUnitAfter|dateUnitAgo|dateUnitBefore|dateUnitFromNow|downto|duration|floor|format|hex|inRange|isEven|isFinite|isInteger|isMultipleOf|isNaN|isOdd|isSafeInteger|log|math|metric|ordinalize|pad|parseFloat|parseInt|random|range|round|times|toExponential|toFixed|toLocaleString|toNumber|toPrecision|toSource|toString|upto|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.number.saga}
@@ -4951,14 +4829,14 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(__defineGetter__|__defineSetter__|__lookupGetter__|__lookupSetter__|add|addAll|allKeys|assign|assignIn|assignInWith|assignWith|at|average|clone|count|create|defaults|defaultsDeep|defineProperties|defineProperty|entries|entriesIn|every|exclude|extend|extendOwn|extendWith|filter|find|findKey|findLastKey|forEach|forIn|forInRight|forOwn|forOwnRight|freeze|fromEntries|fromQueryString|functions|functionsIn|get|getOwnPropertyDescriptor|getOwnPropertyDescriptors|getOwnPropertyNames|getOwnPropertySymbols|getPrototypeOf|has|hasIn|hasOwnProperty|intersect|invert|invertBy|invoke|is|isArguments|isArray|isArrayBuffer|isBoolean|isDataView|isDate|isElement|isEmpty|isEqual|isError|isExtensible|isFinite|isFrozen|isFunction|isMap|isMatch|isNaN|isNull|isNumber|isObject|isPrototypeOf|isRegExp|isSealed|isSet|isString|isSymbol|isType|isTypedArray|isUndefined|isWeakMap|isWeakSet|keys|keysIn|least|map|mapKeys|mapObject|mapValues|matcher|max|median|merge|mergeAll|mergeWith|min|most|none|omit|omitBy|pairs|pick|pickBy|preventExtensions|property|propertyIsEnumerable|propertyOf|reduce|reject|remove|result|seal|select|set|setPrototypeOf|setWith|size|some|subtract|sum|tap|toLocaleString|toPairs|toPairsIn|toPath|toQueryString|toSource|toString|transform|unset|update|updateWith|valueOf|values|valuesIn)\b
+          \s*+(__defineGetter__|__defineSetter__|__lookupGetter__|__lookupSetter__|add|addAll|allKeys|assign|assignIn|assignInWith|assignWith|at|average|clone|count|create|defaults|defaultsDeep|defineProperties|defineProperty|entries|entriesIn|every|exclude|extend|extendOwn|extendWith|filter|find|findKey|findLastKey|forEach|forIn|forInRight|forOwn|forOwnRight|freeze|fromEntries|fromQueryString|functions|functionsIn|get|getOwnPropertyDescriptor|getOwnPropertyDescriptors|getOwnPropertyNames|getOwnPropertySymbols|getPrototypeOf|has|hasIn|hasOwnProperty|intersect|invert|invertBy|invoke|is|isArguments|isArray|isArrayBuffer|isBoolean|isDataView|isDate|isElement|isEmpty|isEqual|isError|isExtensible|isFinite|isFrozen|isFunction|isMap|isMatch|isNaN|isNull|isNumber|isObject|isPrototypeOf|isRegExp|isSealed|isSet|isString|isSymbol|isType|isTypedArray|isUndefined|isWeakMap|isWeakSet|keys|keysIn|least|map|mapKeys|mapObject|mapValues|matcher|max|median|merge|mergeAll|mergeWith|min|most|none|omit|omitBy|pairs|pick|pickBy|preventExtensions|property|propertyIsEnumerable|propertyOf|reduce|reject|remove|result|seal|select|set|setPrototypeOf|setWith|size|some|subtract|sum|tap|toLocaleString|toPairs|toPairsIn|toPath|toQueryString|toSource|toString|transform|unset|update|updateWith|valueOf|values|valuesIn)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.object.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(all|allSettled|any|catch|finally|race|reject|resolve|then)\b
+        begin: \s*+(all|allSettled|any|catch|finally|race|reject|resolve|then)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.promise.saga}
@@ -4966,7 +4844,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(apply|construct|defineProperty|deleteProperty|get|getOwnPropertyDescriptor|getPrototypeOf|has|isExtensible|ownKeys|preventExtensions|register|set|setPrototypeOf|unregister)\b
+          \s*+(apply|construct|defineProperty|deleteProperty|get|getOwnPropertyDescriptor|getPrototypeOf|has|isExtensible|ownKeys|preventExtensions|register|set|setPrototypeOf|unregister)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.proxy.saga}
@@ -4974,28 +4852,28 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(address|age|altitude|ampm|android_id|animal|apple_token|areacode|avatar|bb_pin|birthday|bool|capitalize|cc|cc_type|cf|character|city|coin|color|company|coordinates|country|cpf|currency|currency_pair|date|depth|dice|dollar|domain|email|euro|exp|exp_month|exp_year|falsy|fbid|first|floating|gender|geohash|google_analytics|guid|hammertime|hash|hashtag|hidden|hour|integer|ip|ipv6|klout|last|latitude|letter|locale|longitude|millisecond|minute|mixin|month|n|name|natural|normal|pad|paragraph|phone|pick|pickone|pickset|postal|postcode|prefix|prime|profession|province|radio|rpg|second|sentence|set|shuffle|ssn|state|street|string|suffix|syllable|timestamp|timezone|tld|tv|twitter|unique|url|weekday|weighted|word|wp7_anid|wp8_anid2|year|zip)\b
+          \s*+(address|age|altitude|ampm|android_id|animal|apple_token|areacode|avatar|bb_pin|birthday|bool|capitalize|cc|cc_type|cf|character|city|coin|color|company|coordinates|country|cpf|currency|currency_pair|date|depth|dice|dollar|domain|email|euro|exp|exp_month|exp_year|falsy|fbid|first|floating|gender|geohash|google_analytics|guid|hammertime|hash|hashtag|hidden|hour|integer|ip|ipv6|klout|last|latitude|letter|locale|longitude|millisecond|minute|mixin|month|n|name|natural|normal|pad|paragraph|phone|pick|pickone|pickset|postal|postcode|prefix|prime|profession|province|radio|rpg|second|sentence|set|shuffle|ssn|state|street|string|suffix|syllable|timestamp|timezone|tld|tv|twitter|unique|url|weekday|weighted|word|wp7_anid|wp8_anid2|year|zip)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.random.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(addFlags|compile|escape|exec|getFlags|removeFlags|setFlags|test|toSource|toString)\b
+        begin: \s*+(addFlags|compile|escape|exec|getFlags|removeFlags|setFlags|test|toSource|toString)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.regexp.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(at|chain|commit|next|plant|prototype|reverse|tap|thru|toJSON|value|valueOf)\b
+        begin: \s*+(at|chain|commit|next|plant|prototype|reverse|tap|thru|toJSON|value|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.seq.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(add|clear|delete|entries|forEach|has|values)\b
+        begin: \s*+(add|clear|delete|entries|forEach|has|values)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.set.saga}
@@ -5003,14 +4881,14 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(addAcronym|addHuman|addPlural|anchor|at|big|blink|bold|camelCase|camelize|capitalize|chain|charAt|charCodeAt|chars|codePointAt|codePoints|codes|compact|concat|count|countGraphemes|countSubstrings|countWhere|countWords|dasherize|deburr|decapitalize|decodeBase64|encodeBase64|endsWith|escape|escapeHtml|escapeHTML|escapeRegExp|escapeURL|first|fixed|fontcolor|fontsize|forEach|format|from|fromCharCode|fromCodePoint|graphemeAt|graphemes|hankaku|hasScript|hiragana|humanize|includes|indexOf|insert|isAlpha|isAlphaDigit|isBlank|isDigit|isEmpty|isLowerCase|isNumeric|isScript|isString|isUpperCase|italics|katakana|kebabCase|last|lastIndexOf|latinise|lines|link|localeCompare|lowerCase|lowerFirst|match|matchAll|matches|normalize|pad|padEnd|padLeft|padRight|padStart|parameterize|parseInt|pluralize|prune|range|raw|remove|removeAll|removeTags|repeat|replace|replaceAll|reverse|reverseGrapheme|search|shift|singularize|slice|slugify|small|snakeCase|spacify|splice|split|sprintf|startCase|startsWith|strike|stripBom|stripTags|sub|substr|substring|sup|swapCase|template|thru|titleCase|titleize|to|toLocaleLowerCase|toLocaleUpperCase|toLower|toLowerCase|toNumber|toSource|toString|toUpper|toUpperCase|tr|trim|trimEnd|trimLeft|trimRight|trimStart|truncate|truncateOnWord|underscore|unescape|unescapeHtml|unescapeHTML|unescapeURL|upperCase|upperFirst|value|valueOf|vprintf|words|wordWrap|zenkaku)\b
+          \s*+(addAcronym|addHuman|addPlural|anchor|at|big|blink|bold|camelCase|camelize|capitalize|chain|charAt|charCodeAt|chars|codePointAt|codePoints|codes|compact|concat|count|countGraphemes|countSubstrings|countWhere|countWords|dasherize|deburr|decapitalize|decodeBase64|encodeBase64|endsWith|escape|escapeHtml|escapeHTML|escapeRegExp|escapeURL|first|fixed|fontcolor|fontsize|forEach|format|from|fromCharCode|fromCodePoint|graphemeAt|graphemes|hankaku|hasScript|hiragana|humanize|includes|indexOf|insert|isAlpha|isAlphaDigit|isBlank|isDigit|isEmpty|isLowerCase|isNumeric|isScript|isString|isUpperCase|italics|katakana|kebabCase|last|lastIndexOf|latinise|lines|link|localeCompare|lowerCase|lowerFirst|match|matchAll|matches|normalize|pad|padEnd|padLeft|padRight|padStart|parameterize|parseInt|pluralize|prune|range|raw|remove|removeAll|removeTags|repeat|replace|replaceAll|reverse|reverseGrapheme|search|shift|singularize|slice|slugify|small|snakeCase|spacify|splice|split|sprintf|startCase|startsWith|strike|stripBom|stripTags|sub|substr|substring|sup|swapCase|template|thru|titleCase|titleize|to|toLocaleLowerCase|toLocaleUpperCase|toLower|toLowerCase|toNumber|toSource|toString|toUpper|toUpperCase|tr|trim|trimEnd|trimLeft|trimRight|trimStart|truncate|truncateOnWord|underscore|unescape|unescapeHtml|unescapeHTML|unescapeURL|upperCase|upperFirst|value|valueOf|vprintf|words|wordWrap|zenkaku)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.string.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(for|keyFor|toSource|toString|valueOf)\b
+        begin: \s*+(for|keyFor|toSource|toString|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.symbol.saga}
@@ -5018,7 +4896,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(at|copyWithin|entries|every|fill|filter|find|findIndex|forEach|from|includes|indexOf|join|keys|lastIndexOf|map|of|reduce|reduceRight|reverse|set|slice|some|sort|subarray|toLocaleString|toString|values)\b
+          \s*+(at|copyWithin|entries|every|fill|filter|find|findIndex|forEach|from|includes|indexOf|join|keys|lastIndexOf|map|of|reduce|reduceRight|reverse|set|slice|some|sort|subarray|toLocaleString|toString|values)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.typedarray.saga}
@@ -5026,14 +4904,14 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(attempt|bindAll|cond|conforms|constant|defaultTo|escape|flow|flowRight|identity|iteratee|matches|matchesProperty|method|methodOf|mixin|noConflict|noop|now|nthArg|over|overEvery|overSome|property|propertyOf|random|range|rangeRight|result|runInContext|stubArray|stubFalse|stubObject|stubString|stubTrue|template|times|toPath|unescape|uniqueId)\b
+          \s*+(attempt|bindAll|cond|conforms|constant|defaultTo|escape|flow|flowRight|identity|iteratee|matches|matchesProperty|method|methodOf|mixin|noConflict|noop|now|nthArg|over|overEvery|overSome|property|propertyOf|random|range|rangeRight|result|runInContext|stubArray|stubFalse|stubObject|stubString|stubTrue|template|times|toPath|unescape|uniqueId)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.util.saga}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(compile|compileStreaming|instantiate|instantiateStreaming|validate)\b
+        begin: \s*+(compile|compileStreaming|instantiate|instantiateStreaming|validate)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.webassembly.saga}
@@ -5041,7 +4919,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(on(?:Rowsinserted|Rowsdelete|Rowenter|Rowexit|Resize|Resizestart|Resizeend|Reset|Readystatechange|Mouseout|Mouseover|Mousedown|Mouseup|Mousemove|Before(?:cut|deactivate|unload|update|paste|print|editfocus|activate)|Blur|Scrolltop|Submit|Select|Selectstart|Selectionchange|Hover|Help|Change|Contextmenu|Controlselect|Cut|Cellchange|Clock|Close|Deactivate|Datasetchanged|Datasetcomplete|Dataavailable|Drop|Drag|Dragstart|Dragover|Dragdrop|Dragenter|Dragend|Dragleave|Dblclick|Unload|Paste|Propertychange|Error|Errorupdate|Keydown|Keyup|Keypress|Focus|Load|Activate|Afterupdate|Afterprint|Abort))\b
+          \s*+(on(?:Rowsinserted|Rowsdelete|Rowenter|Rowexit|Resize|Resizestart|Resizeend|Reset|Readystatechange|Mouseout|Mouseover|Mousedown|Mouseup|Mousemove|Before(?:cut|deactivate|unload|update|paste|print|editfocus|activate)|Blur|Scrolltop|Submit|Select|Selectstart|Selectionchange|Hover|Help|Change|Contextmenu|Controlselect|Cut|Cellchange|Clock|Close|Deactivate|Datasetchanged|Datasetcomplete|Dataavailable|Drop|Drag|Dragstart|Dragover|Dragdrop|Dragenter|Dragend|Dragleave|Dblclick|Unload|Paste|Propertychange|Error|Errorupdate|Keydown|Keyup|Keypress|Focus|Load|Activate|Afterupdate|Afterprint|Abort))\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.event-handler.saga}
@@ -5049,7 +4927,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(shift|showModelessDialog|showModalDialog|showHelp|scroll|scrollX|scrollByPages|scrollByLines|scrollY|scrollTo|stop|strike|sizeToContent|sidebar|signText|sort|sup|sub|substr|substring|splice|split|send|set(Milliseconds|Seconds|Minutes|Hours|Month|Year|FullYear|Date|UTC(Milliseconds|Seconds|Minutes|Hours|Month|FullYear|Date)|Time|Hotkeys|Cursor|ZOptions|Active|Resizable|RequestHeader)|search|slice|savePreferences|small|home|handleEvent|navigate|char|charCodeAt|charAt|concat|contextual|confirm|compile|clear|captureEvents|call|createStyleSheet|createPopup|createEventObject|to(GMTString|UTCString|String|Source|UpperCase|LowerCase|LocaleString)|test|taint|taintEnabled|indexOf|italics|disableExternalCapture|dump|detachEvent|unshift|untaint|unwatch|updateCommands|join|javaEnabled|pop|push|plugins.refresh|paddings|parse|print|prompt|preference|enableExternalCapture|exec|execScript|valueOf|UTC|find|file|fileModifiedDate|fileSize|fileCreatedDate|fileUpdatedDate|fixed|fontsize|fontcolor|forward|fromCharCode|watch|link|load|lastIndexOf|anchor|attachEvent|atob|apply|alert|abort|routeEvents|resize|resizeBy|resizeTo|recalc|returnValue|replace|reverse|reload|releaseCapture|releaseEvents|go|get(Milliseconds|Seconds|Minutes|Hours|Month|Day|Year|FullYear|Time|Date|TimezoneOffset|UTC(Milliseconds|Seconds|Minutes|Hours|Day|Month|FullYear|Date)|Attention|Selection|ResponseHeader|AllResponseHeaders)|moveBy|moveBelow|moveTo|moveToAbsolute|moveAbove|mergeAttributes|match|margins|btoa|big|bold|borderWidths|blink|back)\b
+          \s*+(shift|showModelessDialog|showModalDialog|showHelp|scroll|scrollX|scrollByPages|scrollByLines|scrollY|scrollTo|stop|strike|sizeToContent|sidebar|signText|sort|sup|sub|substr|substring|splice|split|send|set(Milliseconds|Seconds|Minutes|Hours|Month|Year|FullYear|Date|UTC(Milliseconds|Seconds|Minutes|Hours|Month|FullYear|Date)|Time|Hotkeys|Cursor|ZOptions|Active|Resizable|RequestHeader)|search|slice|savePreferences|small|home|handleEvent|navigate|char|charCodeAt|charAt|concat|contextual|confirm|compile|clear|captureEvents|call|createStyleSheet|createPopup|createEventObject|to(GMTString|UTCString|String|Source|UpperCase|LowerCase|LocaleString)|test|taint|taintEnabled|indexOf|italics|disableExternalCapture|dump|detachEvent|unshift|untaint|unwatch|updateCommands|join|javaEnabled|pop|push|plugins.refresh|paddings|parse|print|prompt|preference|enableExternalCapture|exec|execScript|valueOf|UTC|find|file|fileModifiedDate|fileSize|fileCreatedDate|fileUpdatedDate|fixed|fontsize|fontcolor|forward|fromCharCode|watch|link|load|lastIndexOf|anchor|attachEvent|atob|apply|alert|abort|routeEvents|resize|resizeBy|resizeTo|recalc|returnValue|replace|reverse|reload|releaseCapture|releaseEvents|go|get(Milliseconds|Seconds|Minutes|Hours|Month|Day|Year|FullYear|Time|Date|TimezoneOffset|UTC(Milliseconds|Seconds|Minutes|Hours|Day|Month|FullYear|Date)|Attention|Selection|ResponseHeader|AllResponseHeaders)|moveBy|moveBelow|moveTo|moveToAbsolute|moveAbove|mergeAttributes|match|margins|btoa|big|bold|borderWidths|blink|back)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.saga}
@@ -5057,7 +4935,7 @@ repository:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
         begin: >-
-          (?<=\.)\s*+(acceptNode|add|addEventListener|addTextTrack|adoptNode|after|animate|append|appendChild|appendData|before|blur|canPlayType|captureStream|caretPositionFromPoint|caretRangeFromPoint|checkValidity|clear|click|cloneContents|cloneNode|cloneRange|close|closest|collapse|compareBoundaryPoints|compareDocumentPosition|comparePoint|contains|convertPointFromNode|convertQuadFromNode|convertRectFromNode|createAttribute|createAttributeNS|createCaption|createCDATASection|createComment|createContextualFragment|createDocument|createDocumentFragment|createDocumentType|createElement|createElementNS|createEntityReference|createEvent|createExpression|createHTMLDocument|createNodeIterator|createNSResolver|createProcessingInstruction|createRange|createShadowRoot|createTBody|createTextNode|createTFoot|createTHead|createTreeWalker|delete|deleteCaption|deleteCell|deleteContents|deleteData|deleteRow|deleteTFoot|deleteTHead|detach|disconnect|dispatchEvent|elementFromPoint|elementsFromPoint|enableStyleSheetsForSet|entries|evaluate|execCommand|exitFullscreen|exitPointerLock|expand|extractContents|fastSeek|firstChild|focus|forEach|get|getAll|getAnimations|getAttribute|getAttributeNames|getAttributeNode|getAttributeNodeNS|getAttributeNS|getBoundingClientRect|getBoxQuads|getClientRects|getContext|getDestinationInsertionPoints|getElementById|getElementsByClassName|getElementsByName|getElementsByTagName|getElementsByTagNameNS|getItem|getNamedItem|getSelection|getStartDate|getVideoPlaybackQuality|has|hasAttribute|hasAttributeNS|hasAttributes|hasChildNodes|hasFeature|hasFocus|importNode|initEvent|insertAdjacentElement|insertAdjacentHTML|insertAdjacentText|insertBefore|insertCell|insertData|insertNode|insertRow|intersectsNode|isDefaultNamespace|isEqualNode|isPointInRange|isSameNode|item|key|keys|lastChild|load|lookupNamespaceURI|lookupPrefix|matches|move|moveAttribute|moveAttributeNode|moveChild|moveNamedItem|namedItem|nextNode|nextSibling|normalize|observe|open|parentNode|pause|play|postMessage|prepend|preventDefault|previousNode|previousSibling|probablySupportsContext|queryCommandEnabled|queryCommandIndeterm|queryCommandState|queryCommandSupported|queryCommandValue|querySelector|querySelectorAll|registerContentHandler|registerElement|registerProtocolHandler|releaseCapture|releaseEvents|remove|removeAttribute|removeAttributeNode|removeAttributeNS|removeChild|removeEventListener|removeItem|replace|replaceChild|replaceData|replaceWith|reportValidity|requestFullscreen|requestPointerLock|reset|scroll|scrollBy|scrollIntoView|scrollTo|seekToNextFrame|select|selectNode|selectNodeContents|set|setAttribute|setAttributeNode|setAttributeNodeNS|setAttributeNS|setCapture|setCustomValidity|setEnd|setEndAfter|setEndBefore|setItem|setNamedItem|setRangeText|setSelectionRange|setSinkId|setStart|setStartAfter|setStartBefore|slice|splitText|stepDown|stepUp|stopImmediatePropagation|stopPropagation|submit|substringData|supports|surroundContents|takeRecords|terminate|toBlob|toDataURL|toggle|toString|values|write|writeln)\b
+          \s*+(acceptNode|add|addEventListener|addTextTrack|adoptNode|after|animate|append|appendChild|appendData|before|blur|canPlayType|captureStream|caretPositionFromPoint|caretRangeFromPoint|checkValidity|clear|click|cloneContents|cloneNode|cloneRange|close|closest|collapse|compareBoundaryPoints|compareDocumentPosition|comparePoint|contains|convertPointFromNode|convertQuadFromNode|convertRectFromNode|createAttribute|createAttributeNS|createCaption|createCDATASection|createComment|createContextualFragment|createDocument|createDocumentFragment|createDocumentType|createElement|createElementNS|createEntityReference|createEvent|createExpression|createHTMLDocument|createNodeIterator|createNSResolver|createProcessingInstruction|createRange|createShadowRoot|createTBody|createTextNode|createTFoot|createTHead|createTreeWalker|delete|deleteCaption|deleteCell|deleteContents|deleteData|deleteRow|deleteTFoot|deleteTHead|detach|disconnect|dispatchEvent|elementFromPoint|elementsFromPoint|enableStyleSheetsForSet|entries|evaluate|execCommand|exitFullscreen|exitPointerLock|expand|extractContents|fastSeek|firstChild|focus|forEach|get|getAll|getAnimations|getAttribute|getAttributeNames|getAttributeNode|getAttributeNodeNS|getAttributeNS|getBoundingClientRect|getBoxQuads|getClientRects|getContext|getDestinationInsertionPoints|getElementById|getElementsByClassName|getElementsByName|getElementsByTagName|getElementsByTagNameNS|getItem|getNamedItem|getSelection|getStartDate|getVideoPlaybackQuality|has|hasAttribute|hasAttributeNS|hasAttributes|hasChildNodes|hasFeature|hasFocus|importNode|initEvent|insertAdjacentElement|insertAdjacentHTML|insertAdjacentText|insertBefore|insertCell|insertData|insertNode|insertRow|intersectsNode|isDefaultNamespace|isEqualNode|isPointInRange|isSameNode|item|key|keys|lastChild|load|lookupNamespaceURI|lookupPrefix|matches|move|moveAttribute|moveAttributeNode|moveChild|moveNamedItem|namedItem|nextNode|nextSibling|normalize|observe|open|parentNode|pause|play|postMessage|prepend|preventDefault|previousNode|previousSibling|probablySupportsContext|queryCommandEnabled|queryCommandIndeterm|queryCommandState|queryCommandSupported|queryCommandValue|querySelector|querySelectorAll|registerContentHandler|registerElement|registerProtocolHandler|releaseCapture|releaseEvents|remove|removeAttribute|removeAttributeNode|removeAttributeNS|removeChild|removeEventListener|removeItem|replace|replaceChild|replaceData|replaceWith|reportValidity|requestFullscreen|requestPointerLock|reset|scroll|scrollBy|scrollIntoView|scrollTo|seekToNextFrame|select|selectNode|selectNodeContents|set|setAttribute|setAttributeNode|setAttributeNodeNS|setAttributeNS|setCapture|setCustomValidity|setEnd|setEndAfter|setEndBefore|setItem|setNamedItem|setRangeText|setSelectionRange|setSinkId|setStart|setStartAfter|setStartBefore|slice|splitText|stepDown|stepUp|stopImmediatePropagation|stopPropagation|submit|substringData|supports|surroundContents|takeRecords|terminate|toBlob|toDataURL|toggle|toString|values|write|writeln)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.dom.saga}
@@ -5149,770 +5027,6 @@ repository:
         name: support.class.dom.saga
         beginCaptures:
           1: {name: support.class.dom.saga}
-  support-php:
-    comment: PHP built-in functions and classes
-    patterns:
-      - match: |-
-          (?xi)
-          \s*+(?<!(?<!\.\.)\.|\#)\b
-          apc_(
-            store|sma_info|compile_file|clear_cache|cas|cache_info|inc|dec|define_constants|delete(_file)?|
-            exists|fetch|load_constants|add|bin_(dump|load)(file)?
-          )\b
-        name: support.function.apc.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            shuffle|sizeof|sort|next|nat(case)?sort|count|compact|current|in_array|usort|uksort|uasort|
-            pos|prev|end|each|extract|ksort|key(_exists)?|krsort|list|asort|arsort|rsort|reset|range|
-            array(_(shift|sum|splice|search|slice|chunk|change_key_case|count_values|column|combine|
-                    (diff|intersect)(_(u)?(key|assoc))?|u(diff|intersect)(_(u)?assoc)?|unshift|unique|
-                    pop|push|pad|product|values|keys|key_exists|filter|fill(_keys)?|flip|walk(_recursive)?|
-                    reduce|replace(_recursive)?|reverse|rand|multisort|merge(_recursive)?|map)?)
-          )\b
-        name: support.function.array.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            show_source|sys_getloadavg|sleep|highlight_(file|string)|constant|connection_(aborted|status)|
-            time_(nanosleep|sleep_until)|ignore_user_abort|die|define(d)?|usleep|uniqid|unpack|__halt_compiler|
-            php_(check_syntax|strip_whitespace)|pack|eval|exit|get_browser
-          )\b
-        name: support.function.basic_functions.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          bc(scale|sub|sqrt|comp|div|pow(mod)?|add|mod|mul)\b
-        name: support.function.bcmath.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          blenc_encrypt\b
-        name: support.function.blenc.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          bz(compress|close|open|decompress|errstr|errno|error|flush|write|read)\b
-        name: support.function.bz2.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            (French|Gregorian|Jewish|Julian)ToJD|cal_(to_jd|info|days_in_month|from_jd)|unixtojd|
-            jdto(unix|jewish)|easter_(date|days)|JD(MonthName|To(Gregorian|Julian|French)|DayOfWeek)
-          )\b
-        name: support.function.calendar.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            class_alias|all_user_method(_array)?|is_(a|subclass_of)|__autoload|(class|interface|method|property|trait)_exists|
-            get_(class(_(vars|methods))?|(called|parent)_class|object_vars|declared_(classes|interfaces|traits))
-          )\b
-        name: support.function.classobj.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            com_(create_guid|print_typeinfo|event_sink|load_typelib|get_active_object|message_pump)|
-            variant_(sub|set(_type)?|not|neg|cast|cat|cmp|int|idiv|imp|or|div|date_(from|to)_timestamp|
-                     pow|eqv|fix|and|add|abs|round|get_type|xor|mod|mul)
-          )\b
-        name: support.function.com.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (isset|unset|eval|empty|list)\b
-        name: support.function.construct.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (print|echo)\b
-        name: support.function.construct.output.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          ctype_(space|cntrl|digit|upper|punct|print|lower|alnum|alpha|graph|xdigit)\b
-        name: support.function.ctype.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          curl_(
-            share_(close|init|setopt)|strerror|setopt(_array)?|copy_handle|close|init|unescape|pause|escape|
-            errno|error|exec|version|file_create|reset|getinfo|
-            multi_(strerror|setopt|select|close|init|info_read|(add|remove)_handle|getcontent|exec)
-          )\b
-        name: support.function.curl.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            strtotime|str[fp]time|checkdate|time|timezone_name_(from_abbr|get)|idate|
-            timezone_((location|offset|transitions|version)_get|(abbreviations|identifiers)_list|open)|
-            date(_(sun(rise|set)|sun_info|sub|create(_(immutable_)?from_format)?|timestamp_(get|set)|timezone_(get|set)|time_set|
-                   isodate_set|interval_(create_from_date_string|format)|offset_get|diff|default_timezone_(get|set)|date_set|
-                   parse(_from_format)?|format|add|get_last_errors|modify))?|
-            localtime|get(date|timeofday)|gm(strftime|date|mktime)|microtime|mktime
-          )\b
-        name: support.function.datetime.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          dba_(sync|handlers|nextkey|close|insert|optimize|open|delete|popen|exists|key_split|firstkey|fetch|list|replace)\b
-        name: support.function.dba.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          dbx_(sort|connect|compare|close|escape_string|error|query|fetch_row)\b
-        name: support.function.dbx.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (scandir|chdir|chroot|closedir|opendir|dir|rewinddir|readdir|getcwd)\b
-        name: support.function.dir.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          eio_(
-            sync(fs)?|sync_file_range|symlink|stat(vfs)?|sendfile|set_min_parallel|set_max_(idle|poll_(reqs|time)|parallel)|
-            seek|n(threads|op|pending|reqs|ready)|chown|chmod|custom|close|cancel|truncate|init|open|dup2|unlink|utime|poll|
-            event_loop|f(sync|stat(vfs)?|chown|chmod|truncate|datasync|utime|allocate)|write|lstat|link|rename|realpath|
-            read(ahead|dir|link)?|rmdir|get_(event_stream|last_error)|grp(_(add|cancel|limit))?|mknod|mkdir|busy
-          )\b
-        name: support.function.eio.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          enchant_(
-            dict_(store_replacement|suggest|check|is_in_session|describe|quick_check|add_to_(personal|session)|get_error)|
-            broker_(set_ordering|init|dict_exists|describe|free(_dict)?|list_dicts|request_(pwl_)?dict|get_error)
-          )\b
-        name: support.function.enchant.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (split(i)?|sql_regcase|ereg(i)?(_replace)?)\b
-        name: support.function.ereg.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          ((restore|set)_(error_handler|exception_handler)|trigger_error|debug_(print_)?backtrace|user_error|error_(log|reporting|get_last))\b
-        name: support.function.errorfunc.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (shell_exec|system|passthru|proc_(nice|close|terminate|open|get_status)|escapeshell(arg|cmd)|exec)\b
-        name: support.function.exec.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (exif_(thumbnail|tagname|imagetype|read_data)|read_exif_data)\b
-        name: support.function.exif.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          fann_(
-            (duplicate|length|merge|shuffle|subset)_train_data|scale_(train(_data)?|(input|output)(_train_data)?)|
-            set_(scaling_params|sarprop_(step_error_(shift|threshold_factor)|temperature|weight_decay_shift)|
-                 cascade_(num_candidate_groups|candidate_(change_fraction|limit|stagnation_epochs)|
-                          output_(change_fraction|stagnation_epochs)|weight_multiplier|activation_(functions|steepnesses)|
-                          (max|min)_(cand|out)_epochs)|
-                 callback|training_algorithm|train_(error|stop)_function|(input|output)_scaling_params|error_log|
-                 quickprop_(decay|mu)|weight(_array)?|learning_(momentum|rate)|bit_fail_limit|
-                 activation_(function|steepness)(_(hidden|layer|output))?|
-                 rprop_((decrease|increase)_factor|delta_(max|min|zero)))|
-            save(_train)?|num_(input|output)_train_data|copy|clear_scaling_params|cascadetrain_on_(file|data)|
-            create_((sparse|shortcut|standard)(_array)?|train(_from_callback)?|from_file)|
-            test(_data)?|train(_(on_(file|data)|epoch))?|init_weights|descale_(input|output|train)|destroy(_train)?|
-            print_error|run|reset_(MSE|err(no|str))|read_train_from_file|randomize_weights|
-            get_(sarprop_(step_error_(shift|threshold_factor)|temperature|weight_decay_shift)|num_(input|output|layers)|
-                 network_type|MSE|connection_(array|rate)|bias_array|bit_fail(_limit)?|
-                 cascade_(num_(candidates|candidate_groups)|(candidate|output)_(change_fraction|limit|stagnation_epochs)|
-                          weight_multiplier|activation_(functions|steepnesses)(_count)?|(max|min)_(cand|out)_epochs)|
-                 total_(connections|neurons)|training_algorithm|train_(error|stop)_function|err(no|str)|
-                 quickprop_(decay|mu)|learning_(momentum|rate)|layer_array|activation_(function|steepness)|
-                 rprop_((decrease|increase)_factor|delta_(max|min|zero)))
-          )\b
-        name: support.function.fann.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            symlink|stat|set_file_buffer|chown|chgrp|chmod|copy|clearstatcache|touch|tempnam|tmpfile|
-            is_(dir|(uploaded_)?file|executable|link|readable|writ(e)?able)|disk_(free|total)_space|diskfreespace|
-            dirname|unlink|umask|pclose|popen|pathinfo|parse_ini_(file|string)|fscanf|fstat|fseek|fnmatch|
-            fclose|ftell|ftruncate|file(size|[acm]time|type|inode|owner|perms|group)?|file_(exists|(get|put)_contents)|
-            f(open|puts|putcsv|passthru|eof|flush|write|lock|read|gets(s)?|getc(sv)?)|lstat|lchown|lchgrp|link(info)?|
-            rename|rewind|read(file|link)|realpath(_cache_(get|size))?|rmdir|glob|move_uploaded_file|mkdir|basename
-          )\b
-        name: support.function.file.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (finfo_(set_flags|close|open|file|buffer)|mime_content_type)\b
-        name: support.function.fileinfo.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          filter_(has_var|input(_array)?|id|var(_array)?|list)\b
-        name: support.function.filter.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          fastcgi_finish_request\b
-        name: support.function.fpm.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (call_user_(func|method)(_array)?|create_function|unregister_tick_function|forward_static_call(_array)?|function_exists|func_(num_args|get_arg(s)?)|register_(shutdown|tick)_function|get_defined_functions)\b
-        name: support.function.funchand.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          ((n)?gettext|textdomain|d((n)?gettext|c(n)?gettext)|bind(textdomain|_textdomain_codeset))\b
-        name: support.function.gettext.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          gmp_(
-            scan[01]|strval|sign|sub|setbit|sqrt(rem)?|hamdist|neg|nextprime|com|clrbit|cmp|testbit|
-            intval|init|invert|import|or|div(exact)?|div_(q|qr|r)|jacobi|popcount|pow(m)?|perfect_square|
-            prob_prime|export|fact|legendre|and|add|abs|root(rem)?|random(_(bits|range))?|gcd(ext)?|xor|mod|mul
-          )\b
-        name: support.function.gmp.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          hash(_(hmac(_file)?|copy|init|update(_(file|stream))?|pbkdf2|equals|file|final|algos))?\b
-        name: support.function.hash.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            http_(support|send_(status|stream|content_(disposition|type)|data|file|last_modified)|head|
-                  negotiate_(charset|content_type|language)|chunked_decode|cache_(etag|last_modified)|throttle|
-                  inflate|deflate|date|post_(data|fields)|put_(data|file|stream)|persistent_handles_(count|clean|ident)|
-                  parse_(cookie|headers|message|params)|redirect|request(_(method_(exists|name|(un)?register)|body_encode))?|
-                  get(_request_(headers|body(_stream)?))?|match_(etag|modified|request_header)|build_(cookie|str|url))|
-            ob_(etag|deflate|inflate)handler
-          )\b
-        name: support.function.http.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (iconv(_(str(pos|len|rpos)|substr|(get|set)_encoding|mime_(decode(_headers)?|encode)))?|ob_iconv_handler)\b
-        name: support.function.iconv.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          iis_((start|stop)_(service|server)|set_(script_map|server_rights|dir_security|app_settings)|(add|remove)_server|get_(script_map|service_state|server_(rights|by_(comment|path))|dir_security))\b
-        name: support.function.iisfunc.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            iptc(embed|parse)|(jpeg|png)2wbmp|gd_info|getimagesize(fromstring)?|
-            image(s[xy]|scale|(char|string)(up)?|set(style|thickness|tile|interpolation|pixel|brush)|savealpha|
-                  convolution|copy(resampled|resized|merge(gray)?)?|colors(forindex|total)|
-                  color(set|closest(alpha|hwb)?|transparent|deallocate|(allocate|exact|resolve)(alpha)?|at|match)|
-                  crop(auto)?|create(truecolor|from(string|jpeg|png|wbmp|webp|gif|gd(2(part)?)?|xpm|xbm))?|
-                  types|ttf(bbox|text)|truecolortopalette|istruecolor|interlace|2wbmp|destroy|dashedline|jpeg|
-                  _type_to_(extension|mime_type)|ps(slantfont|text|(encode|extend|free|load)font|bbox)|png|polygon|
-                  palette(copy|totruecolor)|ellipse|ft(text|bbox)|filter|fill|filltoborder|
-                  filled(arc|ellipse|polygon|rectangle)|font(height|width)|flip|webp|wbmp|line|loadfont|layereffect|
-                  antialias|affine(matrix(concat|get))?|alphablending|arc|rotate|rectangle|gif|gd(2)?|gammacorrect|
-                  grab(screen|window)|xbm)
-          )\b
-        name: support.function.image.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            sys_get_temp_dir|set_(time_limit|include_path|magic_quotes_runtime)|cli_(get|set)_process_title|
-            ini_(alter|get(_all)?|restore|set)|zend_(thread_id|version|logo_guid)|dl|php(credits|info|version)|
-            php_(sapi_name|ini_(scanned_files|loaded_file)|uname|logo_guid)|putenv|extension_loaded|version_compare|
-            assert(_options)?|restore_include_path|gc_(collect_cycles|disable|enable(d)?)|getopt|
-            get_(cfg_var|current_user|defined_constants|extension_funcs|include_path|included_files|loaded_extensions|
-                 magic_quotes_(gpc|runtime)|required_files|resources)|
-            get(env|lastmod|rusage|my(inode|[gup]id))|
-            memory_get_(peak_)?usage|main|magic_quotes_runtime
-          )\b
-        name: support.function.info.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          ibase_(
-            set_event_handler|service_(attach|detach)|server_info|num_(fields|params)|name_result|connect|
-            commit(_ret)?|close|trans|delete_user|drop_db|db_info|pconnect|param_info|prepare|err(code|msg)|
-            execute|query|field_info|fetch_(assoc|object|row)|free_(event_handler|query|result)|wait_event|
-            add_user|affected_rows|rollback(_ret)?|restore|gen_id|modify_user|maintain_db|backup|
-            blob_(cancel|close|create|import|info|open|echo|add|get)
-          )\b
-        name: support.function.interbase.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            normalizer_(normalize|is_normalized)|idn_to_(unicode|utf8|ascii)|
-            numfmt_(set_(symbol|(text_)?attribute|pattern)|create|(parse|format)(_currency)?|
-                    get_(symbol|(text_)?attribute|pattern|error_(code|message)|locale))|
-            collator_(sort(_with_sort_keys)?|set_(attribute|strength)|compare|create|asort|
-                      get_(strength|sort_key|error_(code|message)|locale|attribute))|
-            transliterator_(create(_(inverse|from_rules))?|transliterate|list_ids|get_error_(code|message))|
-            intl(cal|tz)_get_error_(code|message)|intl_(is_failure|error_name|get_error_(code|message))|
-            datefmt_(set_(calendar|lenient|pattern|timezone(_id)?)|create|is_lenient|parse|format(_object)?|localtime|
-                     get_(calendar(_object)?|time(type|zone(_id)?)|datetype|pattern|error_(code|message)|locale))|
-            locale_(set_default|compose|canonicalize|parse|filter_matches|lookup|accept_from_http|
-                    get_(script|display_(script|name|variant|language|region)|default|primary_language|keywords|all_variants|region))|
-            resourcebundle_(create|count|locales|get(_(error_(code|message)))?)|
-            grapheme_(str(i?str|r?i?pos|len)|substr|extract)|
-            msgfmt_(set_pattern|create|(format|parse)(_message)?|get_(pattern|error_(code|message)|locale))
-          )\b
-        name: support.function.intl.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          json_(decode|encode|last_error(_msg)?)\b
-        name: support.function.json.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          ldap_(
-            start|tls|sort|search|sasl_bind|set_(option|rebind_proc)|(first|next)_(attribute|entry|reference)|
-            connect|control_paged_result(_response)?|count_entries|compare|close|t61_to_8859|8859_to_t61|
-            dn2ufn|delete|unbind|parse_(reference|result)|escape|errno|err2str|error|explode_dn|bind|
-            free_result|list|add|rename|read|get_(option|dn|entries|values(_len)?|attributes)|modify(_batch)?|
-            mod_(add|del|replace)
-          )\b
-        name: support.function.ldap.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          libxml_(set_(streams_context|external_entity_loader)|clear_errors|disable_entity_loader|use_internal_errors|get_(errors|last_error))\b
-        name: support.function.libxml.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (ezmlm_hash|mail)\b
-        name: support.function.mail.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            (a)?(cos|sin|tan)(h)?|sqrt|srand|hypot|hexdec|ceil|is_(nan|(in)?finite)|octdec|dec(hex|oct|bin)|deg2rad|
-            pi|pow|exp(m1)?|floor|fmod|lcg_value|log(1(p|0))?|atan2|abs|round|rand|rad2deg|getrandmax|
-            mt_(srand|rand|getrandmax)|max|min|bindec|base_convert
-          )\b
-        name: support.function.math.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mb_(
-            str(cut|str|to(lower|upper)|istr|ipos|imwidth|pos|width|len|rchr|richr|ripos|rpos)|
-            substitute_character|substr(_count)?|split|send_mail|http_(input|output)|check_encoding|
-            convert_(case|encoding|kana|variables)|internal_encoding|output_handler|decode_(numericentity|mimeheader)|
-            detect_(encoding|order)|parse_str|preferred_mime_name|encoding_aliases|encode_(numericentity|mimeheader)|
-            ereg(i(_replace)?)?|ereg_(search(_(get(pos|regs)|init|regs|(set)?pos))?|replace(_callback)?|match)|
-            list_encodings|language|regex_(set_options|encoding)|get_info
-          )\b
-        name: support.function.mbstring.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            mcrypt_(
-              cfb|create_iv|cbc|ofb|decrypt|encrypt|ecb|list_(algorithms|modes)|generic(_((de)?init|end))?|
-              enc_(self_test|is_block_(algorithm|algorithm_mode|mode)|
-              get_(supported_key_sizes|(block|iv|key)_size|(algorithms|modes)_name))|
-              get_(cipher_name|(block|iv|key)_size)|
-              module_(close|self_test|is_block_(algorithm|algorithm_mode|mode)|open|
-                      get_(supported_key_sizes|algo_(block|key)_size)))|
-            mdecrypt_generic
-          )\b
-        name: support.function.mcrypt.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          memcache_debug\b
-        name: support.function.memcache.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mhash(_(count|keygen_s2k|get_(hash_name|block_size)))?\b
-        name: support.function.mhash.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (log_(cmd_(insert|delete|update)|killcursor|write_batch|reply|getmore)|bson_(decode|encode))\b
-        name: support.function.mongo.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mysql_(
-            stat|set_charset|select_db|num_(fields|rows)|connect|client_encoding|close|create_db|escape_string|
-            thread_id|tablename|insert_id|info|data_seek|drop_db|db_(name|query)|unbuffered_query|pconnect|ping|
-            errno|error|query|field_(seek|name|type|table|flags|len)|fetch_(object|field|lengths|assoc|array|row)|
-            free_result|list_(tables|dbs|processes|fields)|affected_rows|result|real_escape_string|
-            get_(client|host|proto|server)_info
-          )\b
-        name: support.function.mysql.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mysqli_(
-            ssl_set|store_result|stat|send_(query|long_data)|set_(charset|opt|local_infile_(default|handler))|
-            stmt_(store_result|send_long_data|next_result|close|init|data_seek|prepare|execute|fetch|free_result|
-                  attr_(get|set)|result_metadata|reset|get_(result|warnings)|more_results|bind_(param|result))|
-            select_db|slave_query|savepoint|next_result|change_user|character_set_name|connect|commit|
-            client_encoding|close|thread_safe|init|options|(enable|disable)_(reads_from_master|rpl_parse)|
-            dump_debug_info|debug|data_seek|use_result|ping|poll|param_count|prepare|escape_string|execute|
-            embedded_server_(start|end)|kill|query|field_seek|free_result|autocommit|rollback|report|refresh|
-            fetch(_(object|fields|field(_direct)?|assoc|all|array|row))?|rpl_(parse_enabled|probe|query_type)|
-            release_savepoint|reap_async_query|real_(connect|escape_string|query)|more_results|multi_query|
-            get_(charset|connection_stats|client_(stats|info|version)|cache_stats|warnings|links_stats|metadata)|
-            master_query|bind_(param|result)|begin_transaction
-          )\b
-        name: support.function.mysqli.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mysqlnd_memcache_(set|get_config)\b
-        name: support.function.mysqlnd-memcache.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mysqlnd_ms_(set_(user_pick_server|qos)|dump_servers|query_is_select|fabric_select_(shard|global)|get_(stats|last_(used_connection|gtid))|xa_(commit|rollback|gc|begin)|match_wild)\b
-        name: support.function.mysqlnd-ms.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mysqlnd_qc_(set_(storage_handler|cache_condition|is_select|user_handlers)|clear_cache|get_(normalized_query_trace_log|core_stats|cache_info|query_trace_log|available_handlers))\b
-        name: support.function.mysqlnd-qc.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mysqlnd_uh_(set_(statement|connection)_proxy|convert_to_mysqlnd)\b
-        name: support.function.mysqlnd-uh.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            syslog|socket_(set_(blocking|timeout)|get_status)|set(raw)?cookie|http_response_code|openlog|
-            headers_(list|sent)|header(_(register_callback|remove))?|checkdnsrr|closelog|inet_(ntop|pton)|ip2long|
-            openlog|dns_(check_record|get_(record|mx))|define_syslog_variables|(p)?fsockopen|long2ip|
-            get(servby(name|port)|host(name|by(name(l)?|addr))|protoby(name|number)|mxrr)
-          )\b
-        name: support.function.network.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          nsapi_(virtual|response_headers|request_headers)\b
-        name: support.function.nsapi.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            oci(statementtype|setprefetch|serverversion|savelob(file)?|numcols|new(collection|cursor|descriptor)|nlogon|
-                column(scale|size|name|type(raw)?|isnull|precision)|coll(size|trim|assign(elem)?|append|getelem|max)|commit|
-                closelob|cancel|internaldebug|definebyname|plogon|parse|error|execute|fetch(statement|into)?|
-                free(statement|collection|cursor|desc)|write(temporarylob|lobtofile)|loadlob|log(on|off)|rowcount|rollback|
-                result|bindbyname)|
-            oci_(statement_type|set_(client_(info|identifier)|prefetch|edition|action|module_name)|server_version|
-                 num_(fields|rows)|new_(connect|collection|cursor|descriptor)|connect|commit|client_version|close|cancel|
-                 internal_debug|define_by_name|pconnect|password_change|parse|error|execute|bind_(array_)?by_name|
-                 field_(scale|size|name|type(_raw)?|is_null|precision)|fetch(_(object|assoc|all|array|row))?|
-                 free_(statement|descriptor)|lob_(copy|is_equal)|rollback|result|get_implicit_resultset)
-          )\b
-        name: support.function.oci8.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          opcache_(compile_file|invalidate|reset|get_(status|configuration))\b
-        name: support.function.opcache.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          openssl_(
-            sign|spki_(new|export(_challenge)?|verify)|seal|csr_(sign|new|export(_to_file)?|get_(subject|public_key))|
-            cipher_iv_length|open|dh_compute_key|digest|decrypt|public_(decrypt|encrypt)|encrypt|error_string|
-            pkcs12_(export(_to_file)?|read)|pkcs7_(sign|decrypt|encrypt|verify)|verify|free_key|random_pseudo_bytes|
-            pkey_(new|export(_to_file)?|free|get_(details|public|private))|private_(decrypt|encrypt)|pbkdf2|
-            get_((cipher|md)_methods|cert_locations|(public|private)key)|
-            x509_(check_private_key|checkpurpose|parse|export(_to_file)?|fingerprint|free|read)
-          )\b
-        name: support.function.openssl.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            output_(add_rewrite_var|reset_rewrite_vars)|flush|
-            ob_(start|clean|implicit_flush|end_(clean|flush)|flush|list_handlers|gzhandler|
-                get_(status|contents|clean|flush|length|level))
-          )\b
-        name: support.function.output.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          password_(hash|needs_rehash|verify|get_info)\b
-        name: support.function.password.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          pcntl_(
-            strerror|signal(_dispatch)?|sig(timedwait|procmask|waitinfo)|setpriority|errno|exec|fork|
-            w(stopsig|termsig|if(stopped|signaled|exited))|wait(pid)?|alarm|getpriority|get_last_error
-          )\b
-        name: support.function.pcntl.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          pg_(
-            socket|send_(prepare|execute|query(_params)?)|set_(client_encoding|error_verbosity)|select|host|
-            num_(fields|rows)|consume_input|connection_(status|reset|busy)|connect(_poll)?|convert|copy_(from|to)|
-            client_encoding|close|cancel_query|tty|transaction_status|trace|insert|options|delete|dbname|untrace|
-            unescape_bytea|update|pconnect|ping|port|put_line|parameter_status|prepare|version|query(_params)?|
-            escape_(string|identifier|literal|bytea)|end_copy|execute|flush|free_result|last_(notice|error|oid)|
-            field_(size|num|name|type(_oid)?|table|is_null|prtlen)|affected_rows|result_(status|seek|error(_field)?)|
-            fetch_(object|assoc|all(_columns)?|array|row|result)|get_(notify|pid|result)|meta_data|
-            lo_(seek|close|create|tell|truncate|import|open|unlink|export|write|read(_all)?)|
-          )\b
-        name: support.function.pgsql.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (virtual|getallheaders|apache_((get|set)env|note|child_terminate|lookup_uri|response_headers|reset_timeout|request_headers|get_(version|modules)))\b
-        name: support.function.php_apache.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          dom_import_simplexml\b
-        name: support.function.php_dom.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          ftp_(
-            ssl_connect|systype|site|size|set_option|nlist|nb_(continue|f?(put|get))|ch(dir|mod)|connect|cdup|close|
-            delete|put|pwd|pasv|exec|quit|f(put|get)|login|alloc|rename|raw(list)?|rmdir|get(_option)?|mdtm|mkdir
-          )\b
-        name: support.function.php_ftp.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          imap_(
-            (create|delete|list|rename|scan)(mailbox)?|status|sort|subscribe|set_quota|set(flag_full|acl)|search|savebody|
-            num_(recent|msg)|check|close|clearflag_full|thread|timeout|open|header(info)?|headers|append|alerts|reopen|
-            8bit|unsubscribe|undelete|utf7_(decode|encode)|utf8|uid|ping|errors|expunge|qprint|gc|
-            fetch(structure|header|text|mime|body)|fetch_overview|lsub|list(scan|subscribed)|last_error|
-            rfc822_(parse_(headers|adrlist)|write_address)|get(subscribed|acl|mailboxes)|get_quota(root)?|
-            msgno|mime_header_decode|mail_(copy|compose|move)|mail|mailboxmsginfo|binary|body(struct)?|base64
-          )\b
-        name: support.function.php_imap.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          mssql_(
-            select_db|num_(fields|rows)|next_result|connect|close|init|data_seek|pconnect|execute|query|
-            field_(seek|name|type|length)|fetch_(object|field|assoc|array|row|batch)|free_(statement|result)|
-            rows_affected|result|guid_string|get_last_message|min_(error|message)_severity|bind
-          )\b
-        name: support.function.php_mssql.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          odbc_(
-            statistics|specialcolumns|setoption|num_(fields|rows)|next_result|connect|columns|columnprivileges|commit|
-            cursor|close(_all)?|tables|tableprivileges|do|data_source|pconnect|primarykeys|procedures|procedurecolumns|
-            prepare|error(msg)?|exec(ute)?|field_(scale|num|name|type|precision|len)|foreignkeys|free_result|
-            fetch_(into|object|array|row)|longreadlen|autocommit|rollback|result(_all)?|gettypeinfo|binmode
-          )\b
-        name: support.function.php_odbc.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          preg_(split|quote|filter|last_error|replace(_callback)?|grep|match(_all)?)\b
-        name: support.function.php_pcre.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (spl_(classes|object_hash|autoload(_(call|unregister|extensions|functions|register))?)|class_(implements|uses|parents)|iterator_(count|to_array|apply))\b
-        name: support.function.php_spl.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          zip_(close|open|entry_(name|compressionmethod|compressedsize|close|open|filesize|read)|read)\b
-        name: support.function.php_zip.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          posix_(
-            strerror|set(s|e?u|[ep]?g)id|ctermid|ttyname|times|isatty|initgroups|uname|errno|kill|access|
-            get(sid|cwd|uid|pid|ppid|pwnam|pwuid|pgid|pgrp|euid|egid|login|rlimit|gid|grnam|groups|grgid)|
-            get_last_error|mknod|mkfifo
-          )\b
-        name: support.function.posix.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          set(thread|proc)title\b
-        name: support.function.proctitle.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          pspell_(
-            store_replacement|suggest|save_wordlist|new(_(config|personal))?|check|clear_session|
-            config_(save_repl|create|ignore|(data|dict)_dir|personal|runtogether|repl|mode)|add_to_(session|personal)
-          )\b
-        name: support.function.pspell.saga
-      - match: >-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          readline(_(completion_function|clear_history|callback_(handler_(install|remove)|read_char)|info|on_new_line|write_history|list_history|add_history|redisplay|read_history))?\b
-        name: support.function.readline.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          recode(_(string|file))?\b
-        name: support.function.recode.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          rrd(c_disconnect|_(create|tune|info|update|error|version|first|fetch|last(update)?|restore|graph|xport))\b
-        name: support.function.rrd.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            shm_((get|has|remove|put)_var|detach|attach|remove)|sem_(acquire|release|remove|get)|ftok|
-            msg_((get|remove|set|stat)_queue|send|queue_exists|receive)
-          )\b
-        name: support.function.sem.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          session_(
-            status|start|set_(save_handler|cookie_params)|save_path|name|commit|cache_(expire|limiter)|
-            is_registered|id|destroy|decode|unset|unregister|encode|write_close|abort|reset|register(_shutdown)?|
-            regenerate_id|get_cookie_params|module_name
-          )\b
-        name: support.function.session.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          shmop_(size|close|open|delete|write|read)\b
-        name: support.function.shmop.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          simplexml_(import_dom|load_(string|file))\b
-        name: support.function.simplexml.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            snmp(walk(oid)?|realwalk|get(next)?|set)|
-            snmp_(set_(valueretrieval|quick_print|enum_print|oid_(numeric_print|output_format))|read_mib|
-                  get_(valueretrieval|quick_print))|
-            snmp[23]_(set|walk|real_walk|get(next)?)
-          )\b
-        name: support.function.snmp.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (is_soap_fault|use_soap_error_handler)\b
-        name: support.function.soap.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          socket_(
-            shutdown|strerror|send(to|msg)?|set_((non)?block|option)|select|connect|close|clear_error|bind|
-            create(_(pair|listen))?|cmsg_space|import_stream|write|listen|last_error|accept|recv(from|msg)?|
-            read|get(peer|sock)name|get_option
-          )\b
-        name: support.function.sockets.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          sqlite_(
-            single_query|seek|has_(more|prev)|num_(fields|rows)|next|changes|column|current|close|
-            create_(aggregate|function)|open|unbuffered_query|udf_(decode|encode)_binary|popen|prev|
-            escape_string|error_string|exec|valid|key|query|field_name|factory|
-            fetch_(string|single|column_types|object|all|array)|lib(encoding|version)|
-            last_(insert_rowid|error)|array_query|rewind|busy_timeout
-          )\b
-        name: support.function.sqlite.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          sqlsrv_(
-            send_stream_data|server_info|has_rows|num_(fields|rows)|next_result|connect|configure|commit|
-            client_info|close|cancel|prepare|errors|execute|query|field_metadata|fetch(_(array|object))?|
-            free_stmt|rows_affected|rollback|get_(config|field)|begin_transaction
-          )\b
-        name: support.function.sqlsrv.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          stats_(
-            harmonic_mean|covariance|standard_deviation|skew|
-            cdf_(noncentral_(chisquare|f)|negative_binomial|chisquare|cauchy|t|uniform|poisson|exponential|f|weibull|
-                 logistic|laplace|gamma|binomial|beta)|
-            stat_(noncentral_t|correlation|innerproduct|independent_t|powersum|percentile|paired_t|gennch|binomial_coef)|
-            dens_(normal|negative_binomial|chisquare|cauchy|t|pmf_(hypergeometric|poisson|binomial)|exponential|f|
-                  weibull|logistic|laplace|gamma|beta)|
-            den_uniform|variance|kurtosis|absolute_deviation|
-            rand_(setall|phrase_to_seeds|ranf|get_seeds|
-                  gen_(noncentral_[ft]|noncenral_chisquare|normal|chisquare|t|int|
-                       i(uniform|poisson|binomial(_negative)?)|exponential|f(uniform)?|gamma|beta))
-          )\b
-        name: support.function.stats.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            set_socket_blocking|
-            stream_(socket_(shutdown|sendto|server|client|pair|enable_crypto|accept|recvfrom|get_name)|
-              set_(chunk_size|timeout|(read|write)_buffer|blocking)|select|notification_callback|supports_lock|
-              context_(set_(option|default|params)|create|get_(options|default|params))|copy_to_stream|is_local|
-              encoding|filter_(append|prepend|register|remove)|wrapper_((un)?register|restore)|
-              resolve_include_path|register_wrapper|get_(contents|transports|filters|wrappers|line|meta_data)|
-              bucket_(new|prepend|append|make_writeable)
-            )
-          )\b
-        name: support.function.streamsfuncs.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            money_format|md5(_file)?|metaphone|bin2hex|sscanf|sha1(_file)?|
-            str(str|c?spn|n(at)?(case)?cmp|chr|coll|(case)?cmp|to(upper|lower)|tok|tr|istr|pos|pbrk|len|rchr|ri?pos|rev)|
-            str_(getcsv|ireplace|pad|repeat|replace|rot13|shuffle|split|word_count)|
-            strip(c?slashes|os)|strip_tags|similar_text|soundex|substr(_(count|compare|replace))?|setlocale|
-            html(specialchars(_decode)?|entities)|html_entity_decode|hex2bin|hebrev(c)?|number_format|nl2br|nl_langinfo|
-            chop|chunk_split|chr|convert_(cyr_string|uu(decode|encode))|count_chars|crypt|crc32|trim|implode|ord|
-            uc(first|words)|join|parse_str|print(f)?|echo|explode|v?[fs]?printf|quoted_printable_(decode|encode)|
-            quotemeta|wordwrap|lcfirst|[lr]trim|localeconv|levenshtein|addc?slashes|get_html_translation_table
-          )\b
-        name: support.function.string.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          sybase_(
-            set_message_handler|select_db|num_(fields|rows)|connect|close|deadlock_retry_count|data_seek|
-            unbuffered_query|pconnect|query|field_seek|fetch_(object|field|assoc|array|row)|free_result|
-            affected_rows|result|get_last_message|min_(client|error|message|server)_severity
-          )\b
-        name: support.function.sybase.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (taint|is_tainted|untaint)\b
-        name: support.function.taint.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            tidy_((get|set)opt|set_encoding|save_config|config_count|clean_repair|is_(xhtml|xml)|diagnose|
-                  (access|error|warning)_count|load_config|reset_config|(parse|repair)_(string|file)|
-                  get_(status|html(_ver)?|head|config|output|opt_doc|root|release|body))|
-            ob_tidyhandler
-          )\b
-        name: support.function.tidy.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          token_(name|get_all)\b
-        name: support.function.tokenizer.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          trader_(
-            stoch(f|r|rsi)?|stddev|sin(h)?|sum|sub|set_(compat|unstable_period)|sqrt|sar(ext)?|sma|
-            ht_(sine|trend(line|mode)|dc(period|phase)|phasor)|natr|cci|cos(h)?|correl|
-            cdl(shootingstar|shortline|sticksandwich|stalledpattern|spinningtop|separatinglines|
-                hikkake(mod)?|highwave|homingpigeon|hangingman|harami(cross)?|hammer|concealbabyswall|
-                counterattack|closingmarubozu|thrusting|tasukigap|takuri|tristar|inneck|invertedhammer|
-                identical3crows|2crows|onneck|doji(star)?|darkcloudcover|dragonflydoji|unique3river|
-                upsidegap2crows|3(starsinsouth|inside|outside|whitesoldiers|linestrike|blackcrows)|
-                piercing|engulfing|evening(doji)?star|kicking(bylength)?|longline|longleggeddoji|
-                ladderbottom|advanceblock|abandonedbaby|risefall3methods|rickshawman|gapsidesidewhite|
-                gravestonedoji|xsidegap3methods|morning(doji)?star|mathold|matchinglow|marubozu|
-                belthold|breakaway)|
-            ceil|cmo|tsf|typprice|t3|tema|tan(h)?|trix|trima|trange|obv|div|dema|dx|ultosc|ppo|
-            plus_d[im]|errno|exp|ema|var|kama|floor|wclprice|willr|wma|ln|log10|bop|beta|bbands|
-            linearreg(_(slope|intercept|angle))?|asin|acos|atan|atr|adosc|ad|add|adx(r)?|apo|avgprice|
-            aroon(osc)?|rsi|roc|rocp|rocr(100)?|get_(compat|unstable_period)|min(index)?|minus_d[im]|
-            minmax(index)?|mid(point|price)|mom|mult|medprice|mfi|macd(ext|fix)?|mavp|max(index)?|ma(ma)?
-          )\b
-        name: support.function.trader.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          uopz_(copy|compose|implement|overload|delete|undefine|extend|function|flags|restore|rename|redefine|backup)\b
-        name: support.function.uopz.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (http_build_query|(raw)?url(decode|encode)|parse_url|get_(headers|meta_tags)|base64_(decode|encode))\b
-        name: support.function.url.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            strval|settype|serialize|(bool|double|float)val|debug_zval_dump|intval|import_request_variables|isset|
-            is_(scalar|string|null|numeric|callable|int(eger)?|object|double|float|long|array|resource|real|bool)|
-            unset|unserialize|print_r|empty|var_(dump|export)|gettype|get_(defined_vars|resource_type)
-          )\b
-        name: support.function.var.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          wddx_(serialize_(value|vars)|deserialize|packet_(start|end)|add_vars)\b
-        name: support.function.wddx.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          xhprof_(sample_)?(disable|enable)\b
-        name: support.function.xhprof.saga
-      - match: |-
-          (?xi)
-          \s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            utf8_(decode|encode)|
-            xml_(set_((notation|(end|start)_namespace|unparsed_entity)_decl_handler|
-                      (character_data|default|element|external_entity_ref|processing_instruction)_handler|object)|
-                 parse(_into_struct)?|parser_((get|set)_option|create(_ns)?|free)|error_string|
-                 get_(current_((column|line)_number|byte_index)|error_code))
-          )\b
-        name: support.function.xml.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          xmlrpc_(
-            server_(call_method|create|destroy|add_introspection_data|register_(introspection_callback|method))|
-            is_fault|decode(_request)?|parse_method_descriptions|encode(_request)?|(get|set)_type
-          )\b
-        name: support.function.xmlrpc.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          xmlwriter_(
-            (end|start|write)_(comment|cdata|dtd(_(attlist|entity|element))?|document|pi|attribute|element)|
-            (start|write)_(attribute|element)_ns|write_raw|set_indent(_string)?|text|output_memory|open_(memory|uri)|
-            full_end_element|flush|
-          )\b
-        name: support.function.xmlwriter.saga
-      - match: |-
-          (?xi)\s*+(?<!(?<!\.\.)\.|\#)\b
-          (
-            zlib_(decode|encode|get_coding_type)|readgzfile|
-            gz(seek|compress|close|tell|inflate|open|decode|deflate|uncompress|puts|passthru|encode|eof|file|
-               write|rewind|read|getc|getss?)
-          )\b
-        name: support.function.zlib.saga
-      - match: |-
-          (?i)\s*+(?<!(?<!\.\.)\.|\#)\b
-          is_int(eger)?\b
-        name: support.function.alias.saga
   support-properties:
     patterns:
       - match: |-
@@ -6033,64 +5147,6 @@ repository:
             )\b
         captures:
           1: {name: support.variable.magic.saga}
-  swift-comments:
-    patterns:
-      - begin: /\*\*(?!/)
-        end: \*/
-        name: comment.block.documentation.saga
-        beginCaptures:
-          0: {name: punctuation.definition.comment.begin.saga}
-        endCaptures:
-          0: {name: punctuation.definition.comment.end.saga}
-        patterns:
-          - include: '#jsdoc'
-          - include: '#nested'
-      - begin: '/\*:'
-        end: \*/
-        name: comment.line.shebang.saga
-        beginCaptures:
-          0: {name: punctuation.definition.comment.begin.saga}
-        endCaptures:
-          0: {name: punctuation.definition.comment.end.saga}
-        patterns:
-          - include: '#nested'
-      - begin: /\*
-        end: \*/
-        name: comment.block.saga
-        beginCaptures:
-          0: {name: punctuation.definition.comment.begin.saga}
-        endCaptures:
-          0: {name: punctuation.definition.comment.end.saga}
-        patterns:
-          - include: '#nested'
-      - match: \*/
-        name: invalid.illegal.unexpected-end-of-block-comment.saga
-      - begin: (^[ \t]+)?(?=//)
-        end: (?!\G)
-        beginCaptures:
-          1: {name: punctuation.whitespace.comment.leading.saga}
-        patterns:
-          - begin: ///
-            end: ^
-            name: comment.line.triple-slash.documentation.saga
-            beginCaptures:
-              0: {name: punctuation.definition.comment.saga}
-          - begin: '//:'
-            end: ^
-            name: comment.line.double-slash.documentation.saga
-            beginCaptures:
-              0: {name: punctuation.definition.comment.saga}
-          - begin: //
-            end: ^
-            name: comment.line.double-slash.saga
-            beginCaptures:
-              0: {name: punctuation.definition.comment.saga}
-    repository:
-      nested:
-        begin: /\*
-        end: \*/
-        patterns:
-          - include: '#nested'
   switch:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(switch)\b
@@ -6142,45 +5198,39 @@ repository:
   variable:
     patterns:
       - comment: e.g. CONSTANT
-        match: \s*+(\#?)([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
+        match: \s*+(\#?)([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: variable.other.constant.saga}
       - comment: e.g. dollar vars
-        match: \s*+(\#?)(\\[_\\\p{L}\p{N}\p{M}]*)
+        match: \s*+(\#?)(\\[-_\\\p{L}\p{M}\p{N}]*)
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: variable.other.dollar.saga}
-      - comment: e.g. Class.property
-        match: >-
-          \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?:(\?\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
-        name: meta.property.class.saga
+      - comment: e.g. Class
+        match: \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: variable.other.class.saga}
-          3: {name: keyword.operator.existential.saga}
-          4: {name: keyword.operator.accessor.saga}
-          5: {name: keyword.operator.private.saga}
-          6: {name: variable.other.property.static.saga}
       - comment: e.g. obj.property
-        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*+(?=[\[\.]|[!?~]\.)
+        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=[\[\.]|[!?~]\.)
         name: variable.other.object.saga
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: variable.other.object.saga}
       - comment: e.g. obj.property
-        match: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+        match: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         name: meta.property.object.saga
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: variable.other.property.saga}
-      - match: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)
+      - match: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
         captures:
           1: {name: keyword.operator.private.saga}
           2: {name: variable.other.readwrite.saga}
   variable-flowtype:
     patterns:
-      - begin: (?<=^|,|\()\s*+(?=(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{N}\p{M}]*)\s*\??\s*(:)((?=::)|(?!:)))
+      - begin: (?<=^|,|\()\s*+(?=(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?!:)))
         comment: Assume this is a flow typed var
         end: \s*(?=,|\))
         beginCaptures:
