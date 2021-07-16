@@ -308,7 +308,7 @@ repository:
           1: {name: meta.brace.round.cgt}
         patterns:
           - include: '#curly-brackets'
-          - include: '#round-brackets'
+          - include: '#type-argument-brackets'
           - include: $self
   class:
     patterns:
@@ -449,7 +449,55 @@ repository:
           1: {name: punctuation.definition.comment.cgt}
   core:
     patterns:
-      - include: '#expression'
+      - include: '#for'
+      - include: '#if'
+      - include: '#switch'
+      - include: '#match'
+      - include: '#catch'
+      - include: '#with'
+      - include: '#do'
+      - comment: before module as it traps default {
+        include: '#object'
+      - include: '#new-expression'
+      - include: '#query-expression'
+      - include: '#module-expression'
+      - include: '#module'
+      - include: '#function'
+      - include: '#arrow-function'
+      - comment: after function, which includes some prototype strings
+        include: '#prototype'
+      - include: '#keyword-storage'
+      - include: '#method-call'
+      - include: '#function-call'
+      - include: '#enum-declaration'
+      - include: '#operator'
+      - include: '#class'
+      - include: '#flowtype-keywords'
+      - include: '#flowtype-trap'
+      - include: '#keywords'
+      - include: '#modifiers'
+      - include: '#multiline-arrow-function-generics'
+      - include: '#jsx'
+      - include: '#es7-decorators'
+      - include: '#js-label'
+      - include: '#multiline-regexp'
+      - comment: before operators to avoid ambiguities
+        include: '#regexp'
+      - include: '#number'
+      - include: '#quasi'
+      - include: '#string'
+      - include: '#language-constant'
+      - include: '#language-variable'
+      - include: '#support'
+      - include: '#implicit-call'
+      - include: '#cast-expression'
+      - include: '#support-properties'
+      - include: '#variable'
+      - include: '#brackets'
+      - include: '#operators'
+      - include: '#punctuation'
+      - include: '#comments'
+      - include: '#fat-arrow'
   curly-brackets:
     patterns:
       - begin: \s*+(#{)
@@ -508,9 +556,9 @@ repository:
               1: {name: variable.other.enummember.flowtype}
               2: {name: keyword.operator.assignment.cgt}
             endCaptures:
-              1: {patterns: [{include: '#expression'}]}
+              1: {patterns: [{include: '#core'}]}
             patterns:
-              - include: '#expression'
+              - include: '#core'
       - include: '#of-clause'
       - include: '#comments'
       - include: '#flowtype-polymorphs'
@@ -626,56 +674,6 @@ repository:
       - match: \s*(\|>|\+>)
         captures:
           1: {name: keyword.operator.pipeline.cgt}
-  expression:
-    patterns:
-      - include: '#for'
-      - include: '#if'
-      - include: '#switch'
-      - include: '#match'
-      - include: '#catch'
-      - include: '#with'
-      - include: '#do'
-      - comment: before module as it traps default {
-        include: '#object'
-      - include: '#module'
-      - include: '#function'
-      - include: '#arrow-function'
-      - comment: after function, which includes some prototype strings
-        include: '#prototype'
-      - include: '#keyword-storage'
-      - include: '#method-call'
-      - include: '#function-call'
-      - include: '#new-expression'
-      - include: '#query-expression'
-      - include: '#enum-declaration'
-      - include: '#operator'
-      - include: '#class'
-      - include: '#flowtype-keywords'
-      - include: '#flowtype-trap'
-      - include: '#keywords'
-      - include: '#modifiers'
-      - include: '#multiline-arrow-function-generics'
-      - include: '#jsx'
-      - include: '#es7-decorators'
-      - include: '#js-label'
-      - include: '#multiline-regexp'
-      - comment: before operators to avoid ambiguities
-        include: '#regexp'
-      - include: '#number'
-      - include: '#quasi'
-      - include: '#string'
-      - include: '#language-constant'
-      - include: '#language-variable'
-      - include: '#support'
-      - include: '#implicit-call'
-      - include: '#cast-expression'
-      - include: '#support-properties'
-      - include: '#variable'
-      - include: '#brackets'
-      - include: '#operators'
-      - include: '#punctuation'
-      - include: '#comments'
-      - include: '#fat-arrow'
   fat-arrow:
     comment: trap fat-arrow
     patterns:
@@ -949,7 +947,7 @@ repository:
           1: {name: keyword.operator.accessor.cgt}
       - include: '#core'
   flowtype-interface:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(inter|struct)(\s+|$)
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(inter|schema|struct)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
       1: {name: keyword.other.interface.flowtype}
@@ -1175,6 +1173,11 @@ repository:
         end: $
         patterns:
           - include: '#core'
+      - begin: (?<=[>-_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
+        comment: Fix of|in
+        end: $
+        patterns:
+          - include: '#core'
       - include: '#number'
       - include: '#string'
       - include: '#language-constant'
@@ -1182,7 +1185,6 @@ repository:
       - include: '#multiline-regexp'
       - match: (?<==>)\*
         name: keyword.generator.asterisk.cgt
-      - include: '#keywords'
       - include: '#modifiers'
       - begin: (?<=[>-_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'sometypename of|in '
@@ -1313,7 +1315,7 @@ repository:
           - include: '#flowtype-parse-types'
       - include: '#flowtype-predicate'
   flowtype-struct:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(frag|query)(\s+|$)
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(frag)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
       1: {name: keyword.other.struct.flowtype}
@@ -1490,9 +1492,11 @@ repository:
         endCaptures:
           1: {name: meta.brace.round.cgt}
         patterns:
+          - match: (?<!(?<!\.\.)\.|\#)\s*+\b(in|of|by|to|til)\b
+            name: keyword.control.loop.cgt
           - include: '#curly-brackets'
-          - include: '#round-brackets'
-          - include: $self
+          - include: '#type-argument-brackets'
+          - include: '#core'
   function:
     patterns:
       - applyEndPatternLast: 1
@@ -2232,7 +2236,7 @@ repository:
           1: {name: meta.brace.round.cgt}
         patterns:
           - include: '#curly-brackets'
-          - include: '#round-brackets'
+          - include: '#type-argument-brackets'
           - include: $self
   ignore-long-lines:
     comment: so set at arbitary 1000 chars to avoid parsing minified files
@@ -2708,7 +2712,7 @@ repository:
         endCaptures:
           1: {name: meta.brace.curly.matchEnd.cgt}
         patterns:
-          - include: '#round-brackets'
+          - include: '#type-argument-brackets'
           - begin: \s*+({)
             end: \s*(?=})
             beginCaptures:
@@ -2763,8 +2767,8 @@ repository:
           1: {name: keyword.control.match.cgt}
         endCaptures:
           1: {name: keyword.operator.cgt}
-          2: {patterns: [{include: '#expression'}]}
-          3: {patterns: [{include: '#expression'}]}
+          2: {patterns: [{include: '#core'}]}
+          3: {patterns: [{include: '#core'}]}
           4: {name: keyword.control.match.cgt}
         patterns:
           - include: '#if-clause'
@@ -2984,8 +2988,8 @@ repository:
       - comment: Type alias keywords
         match: |
           (?x)(?<!(?<!\.\.)\.|\#)\s*+\b(?:
-            (trait|enum|given)|(obj|rec)|(nspace)|(inter|struct)| #1-4
-            (pkg)|(extn)|(class)|(frag|query)|(ext)|(impl)|(decl) #6-10
+            (trait|enum|given)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
+            (pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl) #6-10
           )\b
         captures:
           1: {name: keyword.other.$1.cgt}
@@ -3004,7 +3008,7 @@ repository:
       - include: '#module-import'
       - include: '#module-export'
   module-as:
-    match: \s*+(?:(\*)|(\bdefault\b))?\s*+(\bas\b)\s*+(?:(\*)|(\bdefault\b))?
+    match: \s*+(?:(\*)|(\bdef\b))?\s*+(\bas\b)\s*+(?:(\*)|(\bdef\b))?
     captures:
       1: {name: keyword.operator.module.all.cgt}
       2: {name: keyword.control.module.cgt}
@@ -3035,7 +3039,7 @@ repository:
     patterns:
       - comment: e.g. export let variable =, export type a=
         match: >-
-          (?<!(?<!\.\.)\.|\#)\s*+\b(export)(?!\s*:)\b(?=\s++(const|con|let|opaque|var|type|typeof)\s++(?:[_\\p{L}\p{Nl}]))
+          (?<!(?<!\.\.)\.|\#)\s*+\b(export)(?!\s*:)\b(?=\s++(const|con|let|opaque|va[rl]|type|typeof)\s++(?:[_\\p{L}\p{Nl}]))
         captures:
           1: {name: keyword.control.module.cgt}
       - begin: >-
@@ -3993,10 +3997,100 @@ repository:
           3: {name: punctuation.separator.label.regexp}
         patterns:
           - include: '#core'
+  module-expression:
+    patterns:
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(import|export|open|close|as|def)\b\s*
+        comment: from ... import
+        end: (?=;|\p{Pe}|$)
+        beginCaptures:
+          1: {name: keyword.control.module.cgt}
+        patterns: 
+          - match: (?<!(?<!\.\.)\.|\#)\s*+\b(import|export|open|close|as|def)\b\s*
+            name: keyword.control.module.cgt
+          - match: \s*\*
+            name: keyword.operator.module.all.cgt
+          - begin: \s*+(('))
+            contentName: string.quoted.module.cgt
+            end: |-
+              \s*+(?:(('))|(
+              ))
+            beginCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.begin.cgt}
+            endCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.end.cgt}
+              3: {name: invalid.illegal.newline.cgt}
+            patterns:
+              - include: '#string-content'
+          - begin: \s*+(("))
+            contentName: string.quoted.module.cgt
+            end: |-
+              \s*+(?:(("))|(
+              ))
+            beginCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.begin.cgt}
+            endCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.end.cgt}
+              3: {name: invalid.illegal.newline.cgt}
+            patterns:
+              - include: '#string-content'
+          - include: '#keyword-storage'
+          - include: '#flowtype-keywords'
+          - include: '#flowtype-parse-types'
+          - include: '#operator'
+          - include: '#operators'
+          - include: '#punctuation'
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(from)\b\s*
+        comment: from ... import
+        end: (?=;|\p{Pe}|$)
+        beginCaptures:
+          1: {name: keyword.control.module.cgt}
+        patterns: 
+          - match: (?<!(?<!\.\.)\.|\#)\s*+\b(import|export|open|close|as|def)\b\s*
+            name: keyword.control.module.cgt
+          - match: \s*\*
+            name: keyword.operator.module.all.cgt
+          - begin: \s*+(('))
+            contentName: string.quoted.module.cgt
+            end: |-
+              \s*+(?:(('))|(
+              ))
+            beginCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.begin.cgt}
+            endCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.end.cgt}
+              3: {name: invalid.illegal.newline.cgt}
+            patterns:
+              - include: '#string-content'
+          - begin: \s*+(("))
+            contentName: string.quoted.module.cgt
+            end: |-
+              \s*+(?:(("))|(
+              ))
+            beginCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.begin.cgt}
+            endCaptures:
+              1: {name: string.quoted.module.cgt}
+              2: {name: punctuation.definition.string.end.cgt}
+              3: {name: invalid.illegal.newline.cgt}
+            patterns:
+              - include: '#string-content'
+          - include: '#keyword-storage'
+          - include: '#flowtype-keywords'
+          - include: '#flowtype-parse-types'
+          - include: '#operator'
+          - include: '#operators'
+          - include: '#punctuation'
   query-expression:
     patterns:
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(from)\b\s*
-        comment: from ... in
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(query)\b\s*
+        comment: query ... in
         end: \s*(in|of)\b
         beginCaptures:
           1: {name: keyword.query.cgt}
@@ -5156,7 +5250,7 @@ repository:
         endCaptures:
           1: {name: meta.brace.curly.switchEnd.cgt}
         patterns:
-          - include: '#round-brackets'
+          - include: '#type-argument-brackets'
           - begin: \s*+({)
             end: \s*(?=})
             beginCaptures:
