@@ -4,7 +4,7 @@ foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 information_for_contributors: |
   This file is a fork of the Babel JavaScript TextMate grammar and features many 
-  customizations for Sombra, whose syntax derives from JavaSciript and many other 
+  customizations for Sombra, whose syntax derives from JavaScript and many other 
   modern programing languages.
 
   > Sombra is a programming language for developers to build reliable and efficient 
