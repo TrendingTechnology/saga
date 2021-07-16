@@ -2432,8 +2432,7 @@ repository:
     comment: Avoid < operator expressions as best we can using Zertosh's regex
     patterns:
       - applyEndPatternLast: 1
-        begin: >-
-          (?<=^|[_\\\p{L}\p{M}\p{N}\p{P}\p{S}])\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
+        begin: (?<=^|[_\\\p{L}\p{M}\p{N}\p{P}\p{S}])\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
@@ -3009,7 +3008,7 @@ repository:
     end: (?=;|\p{Pe}|$)
     beginCaptures:
       1: {name: keyword.control.module.cgt}
-    patterns: 
+    patterns:
       - match: (?<!(?<!\.\.)\.|\#)\s*+\b(from|import|export|open|close|as|def|use|using)\b\s*
         name: keyword.control.module.cgt
       - match: \s*\*
@@ -4037,7 +4036,7 @@ repository:
           2: {name: storage.type.format.cgt}
           3: {name: punctuation.separator.label.regexp}
         patterns:
-          - include: '#core'    
+          - include: '#core'
   query:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(query)\b\s*
