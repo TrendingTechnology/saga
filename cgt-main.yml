@@ -17,9 +17,7 @@ information_for_contributors: |
   TODOs:
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
-    - Functions, classes and methods are grouped by their initial starting letter. 
-      Cogito has no standard library yet, and uses Python built-in functions and methods.
-
+    
   Unresolved:
     - As of the moment, custom binary operators do not capture combinations of /[</>]+/,
       except those leading in either characters, such as <!, >* and /%. Several of 
@@ -32,6 +30,8 @@ information_for_contributors: |
     - \ is the new $. $ has been repurposed as the binary function operator.
     - New numeric literals for bases 2 to 64. Higher bases use special Latin 
       and Greek letters.
+    - Functions, classes and methods are grouped by their initial starting letter. 
+      Cogito has no standard library yet, and uses Python built-in functions and methods.
     - Old JavaScript keywords now removed, and long keywords such as `protected`
       are shortened.
 name: Cogito
