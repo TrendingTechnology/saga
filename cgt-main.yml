@@ -17,7 +17,7 @@ information_for_contributors: |
   TODOs:
     - Fix generics in function/method calls 
     - Revamp regex syntax (more syntax scopes for constructs)
-    
+
   Unresolved:
     - As of the moment, custom binary operators do not capture combinations of /[</>]+/,
       except those leading in either characters, such as <!, >* and /%. Several of 
@@ -39,7 +39,7 @@ scopeName: source.nearley
 fileTypes:
   - cgt
   - cogito
-  - cg
+  - cog
   - ne
 patterns:
   - include: '#core'
@@ -489,7 +489,6 @@ repository:
       - include: '#language-variable'
       - include: '#support'
       - include: '#implicit-call'
-      - include: '#cast-expression'
       - include: '#support-properties'
       - include: '#variable'
       - include: '#brackets'
@@ -507,6 +506,8 @@ repository:
           1: {name: meta.brace.curly.litobj.cgt}
         patterns:
           - include: '#object-body'
+          - include: '#labels'
+          - include: '#core'
       - begin: \s*+({)
         end: \s*(\})
         beginCaptures:
@@ -515,6 +516,7 @@ repository:
           1: {name: meta.brace.curly.cgt}
         patterns:
           - include: '#js-label'
+          - include: '#labels'
           - include: '#core'
   do:
     patterns:
@@ -1003,7 +1005,7 @@ repository:
     patterns:
       - include: '#flowtype'
   flowtype-module:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(module)(\s+|$)
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(pack|pkg|module)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
       1: {name: keyword.other.module.flowtype}
@@ -1139,95 +1141,77 @@ repository:
     patterns:
       - include: '#flowtype-object-property'
   flowtype-parse-types:
+    repository:
+      for-all-clause:
+        - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
+          end: ^\s*|\s*(?=;|/[/*]|$)
+          beginCaptures:
+            1: {name: keyword.operator.forall.cgt}
+          patterns:
+            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b
+              end: ^\s*|\s*(?=;|/[/*]|$)
+              beginCaptures:
+                1: {name: keyword.operator.forall.cgt}
+              patterns:
+                - include: '#comments'
+                - include: '#core'
+            - match: (?<!(?<!\.\.)\.|\#)\s*+\b(va[rl]|const|con|let)\b\s*+
+              name: storage.type.cgt
+            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(as)\b
+              end: (?=$|;|/[/*]|\s*where)
+              beginCaptures:
+                1: {name: keyword.operator.forall.cgt}
+              patterns:
+                - include: '#flowtype-parse-types'
     patterns:
       - include: '#operator'
+      - include: '#for-all-clause'
+      - include: '#number'
+      - include: '#string'
+      - include: '#regexp'
+      - include: '#multiline-regexp'
       - match: (?<!(?<!\.\.)\.|\#)\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+
         captures:
           1: {name: keyword.operator.$1.flowtype}
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
-        end: ^\s*|\s*(?=;|/[/*]|$)
-        beginCaptures:
-          1: {name: keyword.operator.forall.cgt}
-        patterns:
-          - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b
-            end: ^\s*|\s*(?=;|/[/*]|$)
-            beginCaptures:
-              1: {name: keyword.operator.forall.cgt}
-            patterns:
-              - include: '#comments'
-              - include: '#core'
-          - match: (?<!(?<!\.\.)\.|\#)\s*+\b(va[rl]|const|con|let)\b\s*+
-            name: storage.type.cgt
-          - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(as)\b
-            end: (?=$|;|/[/*]|\s*where)
-            beginCaptures:
-              1: {name: keyword.operator.forall.cgt}
-            patterns:
-              - include: '#flowtype-parse-types'
+      - include: '#language-constant'
+      - comment: primitive flowtypes
+        match: (?i)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
+        captures:
+          1: {name: support.type.builtin.primitive.flowtype}
+      - comment: built-in variable flowtypes
+        match: (?i)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
+        captures:
+          1: {name: support.type.builtin.flowtype}
+      - comment: custom Shout-case types
+        match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)\b
+        name: support.type.builtin.flowtype
+      - comment: custom Class Types e.g. Abc avoid Abc(
+        match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
+        name: support.type.class.flowtype
+      - comment: custom primitive/var Types e.g. abc avoid abc(
+        match: \s*+\b([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
+        name: support.type.primitive.flowtype
+      - include: '#modifiers'
+      - include: '#keywords'
       - comment: Immutable modifier
-        match: \s*#(?![(\[{])\s*
+        match: \s*#(?![\p{Ps}])\s*
         name: keyword.operator.private.cgt
       - begin: (?![!=]==?|=<|=[:!]=)(?==>|=|{)\s*
         comment: There is no = in flowtype
-        end: $
+        end: \s*(?=,|;|\)|}|\]|\*/|\b)
         patterns:
           - include: '#core'
       - begin: (?<=[>-_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: Fix of|in
-        end: $
+        end: \s*(?=,|;|\)|}|\]|\*/|\b)
         patterns:
           - include: '#core'
-      - include: '#number'
-      - include: '#string'
-      - include: '#language-constant'
-      - include: '#regexp'
-      - include: '#multiline-regexp'
       - match: (?<==>)\*
         name: keyword.generator.asterisk.cgt
-      - include: '#modifiers'
-      - begin: (?<=[>-_\\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
-        comment: 'sometypename of|in '
-        end: >-
-          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
-        patterns:
-          - include: '#core'
       - comment: Maybe types
         match: \s*+(\?)
         captures:
           1: {name: keyword.operator.maybe.flowtype}
-      - comment: primitive flowtypes
-        match: (?i)(?!^)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
-        captures:
-          1: {name: support.type.builtin.primitive.flowtype}
-      - comment: primitive flowtypes
-        match: (?i)(?!^)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
-        captures:
-          1: {name: support.type.builtin.flowtype}
-      - comment: Built-in Class Types
-        match: >-
-          (?!^)\s*+\b((?>WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array))\b
-        captures:
-          1: {name: support.type.builtin.class.flowtype}
-      - match: >-
-          \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
-        captures:
-          2: {name: support.type.builtin.class.flowtype}
-          4: {name: keyword.operator.accessor.cgt}
-          5: {name: support.type.builtin.class.flowtype}
-      - match: \s*+\b((Intl)((\.)(NumberFormat|DateTimeFormat|Collator))?)\b
-        captures:
-          2: {name: support.type.builtin.class.flowtype}
-          4: {name: keyword.operator.accessor.cgt}
-          5: {name: support.type.builtin.class.flowtype}
-      - comment: custom Class Types e.g. Abc avoid Abc(
-        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
-        captures:
-          1: {name: support.type.class.flowtype}
-      - comment: custom primitive/var Types e.g. abc avoid abc(
-        match: >-
-          (?!\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end)\b)(?!^)\s*(?<=\s|:|&|\||<)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
-        captures:
-          2: {name: support.type.primitive.flowtype}
       - comment: symmetric difference of types &
         match: \s*+(\^)
         captures:
@@ -1253,10 +1237,26 @@ repository:
         name: punctuation.type.flowtype
         captures:
           1: {name: support.type.builtin.primitive.flowtype}
-      - comment: call back with a form  ) => type
+      - comment: call back with a form () => type
         match: (?<=\))\s*+(=>)
         captures:
           1: {name: storage.type.function.arrow.cgt}
+      - comment: Built-in Class Types
+        match: >-
+          (?!^)\s*+\b((?>WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array))\b
+        captures:
+          1: {name: support.type.builtin.class.flowtype}
+      - match: >-
+          \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
+        captures:
+          2: {name: support.type.builtin.class.flowtype}
+          4: {name: keyword.operator.accessor.cgt}
+          5: {name: support.type.builtin.class.flowtype}
+      - match: \s*+\b((Intl)((\.)(NumberFormat|DateTimeFormat|Collator))?)\b
+        captures:
+          2: {name: support.type.builtin.class.flowtype}
+          4: {name: keyword.operator.accessor.cgt}
+          5: {name: support.type.builtin.class.flowtype}
       - include: '#flowtype-polymorphs'
       - include: '#flowtype-bracketed-parameters'
       - include: '#flowtype-parse-objects'
@@ -2986,8 +2986,8 @@ repository:
       - comment: Type alias keywords
         match: |
           (?x)(?<!(?<!\.\.)\.|\#)\s*+\b(?:
-            (trait|enum|given)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
-            (pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl)|(opaque|type) #5-12
+            (module|trait|enum|given)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
+            (pack|pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl)|(opaque|type) #5-12
           )\b
         captures:
           1: {name: keyword.other.$1.cgt}
@@ -3009,7 +3009,7 @@ repository:
     beginCaptures:
       1: {name: keyword.control.module.cgt}
     patterns:
-      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(from|import|export|open|close|as|def|use|using)\b\s*
+      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(from|import|export|open|close|as|def|use|using|show|hide)\b\s*
         name: keyword.control.module.cgt
       - match: \s*\*
         name: keyword.operator.module.all.cgt
@@ -4755,6 +4755,7 @@ repository:
       - include: '#support-python'
   support-methods:
     patterns:
+      - include: '#support-python'
       - applyEndPatternLast: 1
         begin: >-
           (?<!(?<!\.\.)\.|\#)\s*+\b(decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|eval|isFinite|isNaN|parseFloat|parseInt|unescape)\b
@@ -5152,7 +5153,7 @@ repository:
         match: |
           (?x)
            \s*+ \b(
-              __(?:
+              _*(?:
                 abs | add | aenter | aexit | aiter | and | anext | await
                 | bool | call | ceil | cmp | coerce | complex | contains
                 | copy | deepcopy | del | delattr | delete | delitem
@@ -5171,7 +5172,7 @@ repository:
                 | setstate | sizeof | str | sub | subclasscheck | truediv
                 | trunc | unicode | xor | matmul | rmatmul | imatmul
                 | init_subclass | set_name | fspath | bytes | prepare
-              )__
+              )_*
             )\b
         captures:
           1: {name: support.function.magic.cgt}
