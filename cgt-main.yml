@@ -2433,7 +2433,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          (?<=^|\(|{|\[|,|&&|\|\||\?|:|=|=>|\Wreturn|^return|\Wyield|^yield|\Wdefault|\Wvoid|^void)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
+          (?<=^|[_\\\p{L}\p{M}\p{N}\p{P}\p{S}])\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
@@ -2988,7 +2988,7 @@ repository:
         match: |
           (?x)(?<!(?<!\.\.)\.|\#)\s*+\b(?:
             (trait|enum|given)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
-            (pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl) #6-10
+            (pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl)|(opaque|type) #5-12
           )\b
         captures:
           1: {name: keyword.other.$1.cgt}
@@ -3002,14 +3002,15 @@ repository:
           9: {name: keyword.other.extends.cgt}
           10: {name: keyword.other.implements.cgt}
           11: {name: keyword.other.declare.cgt}
+          12: {name: keyword.other.typedef.cgt}
   module:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(from|import|export|open|close|as|def)\b\s*
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(from|import|export|open|close|use|using)\b\s*
     comment: from ... import
     end: (?=;|\p{Pe}|$)
     beginCaptures:
       1: {name: keyword.control.module.cgt}
     patterns: 
-      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(from|import|export|open|close|as|def)\b\s*
+      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(from|import|export|open|close|as|def|use|using)\b\s*
         name: keyword.control.module.cgt
       - match: \s*\*
         name: keyword.operator.module.all.cgt
