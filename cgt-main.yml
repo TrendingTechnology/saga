@@ -1162,7 +1162,8 @@ repository:
         captures:
           1: {name: support.type.builtin.primitive.flowtype}
       - comment: built-in variable flowtypes
-        match: (?i)(?<!(?<!\.\.)\.|\#)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
+        match: >-
+          (?i)(?<!(?<!\.\.)\.|\#)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
         captures:
           1: {name: support.type.builtin.flowtype}
       - comment: custom Shout-case types
@@ -2760,7 +2761,7 @@ repository:
           1: {patterns: [{include: '#core'}]}
         patterns:
           - include: '#case-clause'
-          - include: '$self'
+          - include: $self
   method:
     patterns:
       - begin: >-
