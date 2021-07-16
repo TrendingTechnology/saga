@@ -2559,6 +2559,7 @@ repository:
               0: {name: punctuation.definition.tag.jsx}
               1: {name: JSXEndTagStart}
             patterns:
+              - include: text.html.markdown#inline
               - include: '#jsx-evaluated-code'
               - include: '#jsx-entities'
               - include: '#jsx-tag-element-name'
