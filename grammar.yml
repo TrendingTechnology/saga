@@ -18,7 +18,7 @@ information_for_contributors: |
   and I will be very happy to receive them.
 
   TODOs:
-    - Fix generics in function/method calls 
+    - Fix trailing semicolon issue in type declarations/imports
     - Revamp regex syntax (more syntax scopes for constructs)
 
   Unresolved:
@@ -396,7 +396,11 @@ repository:
     repository:
       nested:
         begin: /\*
+        beginCaptures:
+          0: {name: punctuation.definition.comment.sombra}
         end: \*/
+        endCaptures:
+          0: {name: punctuation.definition.comment.sombra}
         patterns:
           - include: '#jsdoc'
           - include: text.html.markdown#inline
@@ -440,6 +444,9 @@ repository:
           4: {name: punctuation.definition.comment.sombra}
         endCaptures:
           0: {name: comment.line.triple-slash.sombra}
+        patterns: 
+          - include: '#jsdoc'
+          - include: text.html.markdown#inline
       - begin: ((^\s*)|\s*)((//))
         comment: leading whitespace on a new line comment is scoped so Atom reflow works
         contentName: comment.line.double-slash.sombra
@@ -463,6 +470,7 @@ repository:
       - include: '#catch'
       - include: '#with'
       - include: '#do'
+      - include: '#operator'
       - comment: before module as it traps default {
         include: '#object'
       - include: '#new'
@@ -473,15 +481,14 @@ repository:
       - comment: after function, which includes some prototype strings
         include: '#prototype'
       - include: '#keyword-storage'
-      - include: '#method-call'
-      - include: '#function-call'
-      - include: '#enum-declaration'
-      - include: '#operator'
-      - include: '#class'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
       - include: '#keywords'
       - include: '#modifiers'
+      - include: '#enum-declaration'
+      - include: '#class'
+      - include: '#method-call'
+      - include: '#function-call'
       - include: '#multiline-arrow-function-generics'
       - include: '#jsx'
       - include: '#es7-decorators'
@@ -1149,6 +1156,8 @@ repository:
       - include: '#flowtype-object-property'
   flowtype-parse-types:
     patterns:
+      - include: '#modifiers'
+      - include: '#keywords'
       - include: '#operator'
       - include: '#for-all-clause'
       - include: '#number'
@@ -1177,8 +1186,6 @@ repository:
       - comment: custom primitive/var Types e.g. abc avoid abc(
         match: \s*+\b([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
         name: support.type.primitive.flowtype
-      - include: '#modifiers'
-      - include: '#keywords'
       - comment: Immutable modifier
         match: \s*#(?![\p{Ps}])\s*
         name: keyword.operator.private.sombra
@@ -1405,7 +1412,7 @@ repository:
       - applyEndPatternLast: 1
         begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type)\b\s+(?!(i[sn])\b)(?=[$_A-Za-z{\[])
         comment: type aliases for export but avoid type instaceof or type in operators
-        end: (?=.)
+        end: $|;
         beginCaptures:
           1: {name: keyword.other.typedef.flowtype}
           2: {name: keyword.other.typedef.flowtype}
@@ -1421,9 +1428,12 @@ repository:
           - include: '#flowtype-parse-types'
           - include: '#comments'
           - include: '#flowtype-function-name'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+(=)(?!=|>)
             captures:
               1: {name: keyword.operator.assignment.sombra}
+          - include: '#punctuation'
   flowtype-variable:
     patterns:
       - comment: 'e.g. let a: ()=>null  =  function() {return null}'
