@@ -14,7 +14,7 @@ information_for_contributors: |
   > access to bustling ecosystems of libraries.
 
   Should you want to provide a fix or improvement, or even a new feature,
-  please create a pull request against this repo: https://github.com/NoxUltima/saga,
+  please create a pull request against this repo: https://github.com/NoxUltima/sombra,
   and I will be very happy to receive them.
 
   TODOs:
@@ -395,7 +395,7 @@ repository:
   comments:
     repository:
       nested:
-        begin: /\*
+        begin: /\*\*?
         beginCaptures:
           0: {name: punctuation.definition.comment.sombra}
         end: \*/
