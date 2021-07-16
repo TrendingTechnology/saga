@@ -21,17 +21,22 @@ information_for_contributors: |
   Unresolved:
     - As of the moment, custom binary operators do not capture combinations of /[</>]+/,
       except those leading in either characters, such as <!, >* and /%. Several of 
-      those can be captured within a single string: <!>*
+      those can be captured within a single string: <!>*, but never any of thsoe characters
+      in isolation. 
       This is done to avoid confusion with JSX <></> and multiline regex syntax. /></></
       Might need some help here (scroll to section `operators`.)
 
-  Fixed: 
-    - (JSDoc/CogitoDoc) block comments can now support Markdown.
-    - \ is the new $. $ has been repurposed as the binary function operator.
-    - New numeric literals for bases 2 to 64. Higher bases use special Latin 
-      and Greek letters.
-    - Functions, classes and methods are grouped by their initial starting letter. 
-      Cogito has no standard library yet, and uses Python built-in functions and methods.
+  Done:
+    - Block comments can be nested (Swift) and can now support Markdown.
+    - Same thing for JSX markup.
+    - Identifiers can now include `\` and `-`.
+    - Added Scala `match` and `with` clauses.
+    - Added tons of new keywords and operators; as well as support for space-delimited 
+      unary and binary operators. 
+    - Numeric literals support every possible even base except 14, as well as extended numeric 
+      notation for all bases.
+    - Functions/classes/methods are scoped to their initial starting letter, excluding
+      the standard JavaScript/Python function/class/method names.
     - Old JavaScript keywords now removed, and long keywords such as `protected`
       are shortened.
 name: Cogito
@@ -1141,28 +1146,6 @@ repository:
     patterns:
       - include: '#flowtype-object-property'
   flowtype-parse-types:
-    repository:
-      for-all-clause:
-        - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
-          end: ^\s*|\s*(?=;|/[/*]|$)
-          beginCaptures:
-            1: {name: keyword.operator.forall.cgt}
-          patterns:
-            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b
-              end: ^\s*|\s*(?=;|/[/*]|$)
-              beginCaptures:
-                1: {name: keyword.operator.forall.cgt}
-              patterns:
-                - include: '#comments'
-                - include: '#core'
-            - match: (?<!(?<!\.\.)\.|\#)\s*+\b(va[rl]|const|con|let)\b\s*+
-              name: storage.type.cgt
-            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(as)\b
-              end: (?=$|;|/[/*]|\s*where)
-              beginCaptures:
-                1: {name: keyword.operator.forall.cgt}
-              patterns:
-                - include: '#flowtype-parse-types'
     patterns:
       - include: '#operator'
       - include: '#for-all-clause'
@@ -1175,11 +1158,11 @@ repository:
           1: {name: keyword.operator.$1.flowtype}
       - include: '#language-constant'
       - comment: primitive flowtypes
-        match: (?i)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
+        match: (?i)(?<!(?<!\.\.)\.|\#)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
         captures:
           1: {name: support.type.builtin.primitive.flowtype}
       - comment: built-in variable flowtypes
-        match: (?i)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
+        match: (?i)(?<!(?<!\.\.)\.|\#)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
         captures:
           1: {name: support.type.builtin.flowtype}
       - comment: custom Shout-case types
@@ -1262,6 +1245,28 @@ repository:
       - include: '#flowtype-parse-objects'
       - include: '#flowtype-parse-array'
       - include: '#comments'
+    repository:
+      for-all-clause:
+        - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
+          end: ^\s*|\s*(?=;|/[/*]|$)
+          beginCaptures:
+            1: {name: keyword.operator.forall.cgt}
+          patterns:
+            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b
+              end: ^\s*|\s*(?=;|/[/*]|$)
+              beginCaptures:
+                1: {name: keyword.operator.forall.cgt}
+              patterns:
+                - include: '#comments'
+                - include: '#core'
+            - match: (?<!(?<!\.\.)\.|\#)\s*+\b(va[rl]|const|con|let)\b\s*+
+              name: storage.type.cgt
+            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(as)\b
+              end: (?=$|;|/[/*]|\s*where)
+              beginCaptures:
+                1: {name: keyword.operator.forall.cgt}
+              patterns:
+                - include: '#flowtype-parse-types'
   flowtype-polymorphs:
     comment: Support Bounded Polymorphism http://flowtype.org/blog/2015/03/12/Bounded-Polymorphism.html
     patterns:
@@ -2717,60 +2722,44 @@ repository:
               1: {name: meta.brace.curly.matchStart.cgt}
             patterns:
               - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(if|unless?|els?if|ell?ess?|else\s+if|else\s+unless?)\b
-                end: \s*(=>)|\s*(:)((?=::)|(?!:))
+                end: \s*->
                 beginCaptures:
                   1: {name: keyword.control.match.cgt}
                 endCaptures:
-                  1: {name: storage.type.function.arrow.cgt}
-                  2: {name: keyword.operator.cgt}
+                  0: {patterns: [{include: '#core'}]}
                 patterns:
-                  - include: '#core'
+                  - include: $self
               - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(else|def)\b
-                contentName: meta.match.cgt
-                end: \s*(=>)|\s*(:)((?=::)|(?!:))
+                end: \s*->
                 beginCaptures:
                   1: {name: keyword.control.match.cgt}
                 endCaptures:
-                  1: {name: storage.type.function.arrow.cgt}
-                  2: {name: keyword.operator.cgt}
-              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(when|case)\b
-                end: \s*(=>)|\s*(:)((?=::)|(?!:))
-                beginCaptures:
-                  1: {name: keyword.control.match.cgt}
-                endCaptures:
-                  1: {name: storage.type.function.arrow.cgt}
-                  2: {name: keyword.operator.cgt}
+                  0: {patterns: [{include: '#core'}]}
                 patterns:
-                  - include: '#with-clause'
-                  - include: '#if-clause'
+                  - include: $self
+              - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(when|case)\b
+                end: \s*->
+                beginCaptures:
+                  1: {name: keyword.control.match.cgt}
+                endCaptures:
+                  0: {patterns: [{include: '#core'}]}
+                patterns:
+                  - include: '#match-clause'
                   - include: '#flowtype-parse-types'
               - include: $self
           - include: $self
     repository:
-      if-clause:
-        begin: \s*+\b(if|unless|where)
-        comment: with clause precedes with
-        end: \s*((?=:(?!:))|=>)
-        beginCaptures:
-          1: {name: keyword.control.match.cgt}
-        endCaptures:
-          1: {name: keyword.operator.cgt}
-        patterns:
-          - include: '#core'
-      with-clause:
-        begin: \s*+\b(as|with)
+      match-clause:
+        begin: \s*\b(as|with|if|unless|where)\b\s*
         comment: when clause precedes with
-        end: \s*(:)((?=::)|(?!:))|\s*(?=(:|;|=>)|\b(where|if|unless)\b)
+        end: \s*\b(?=as|with|if|unless|where)|\s*(?=->)
         beginCaptures:
           1: {name: keyword.control.match.cgt}
         endCaptures:
-          1: {name: keyword.operator.cgt}
-          2: {patterns: [{include: '#core'}]}
-          3: {patterns: [{include: '#core'}]}
-          4: {name: keyword.control.match.cgt}
+          1: {patterns: [{include: '#core'}]}
         patterns:
-          - include: '#if-clause'
-          - include: '#core'
+          - include: '#case-clause'
+          - include: '$self'
   method:
     patterns:
       - begin: >-
@@ -3609,7 +3598,7 @@ repository:
                 (=\.\.|\.\.=|=\.=|\.\.(?!\.))| #6
                 (<[|+]|[|+]>)|(<<+|>>+)| #7-8
                 ([<>]:|:[<>]|[<>]:[<>])| #9
-                (=<|<>|[!=]~|~[!=]|[<>]~|~[<>])| #10
+                (=<|<>|[!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+)| #10
                 (->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?)| #11-13
                 (!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.)| #14-18
                 (\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B))| #19
