@@ -1293,11 +1293,11 @@ repository:
           1: {name: keyword.operator.optional.parameter.sombra}
   flowtype-declare:
     patterns:
-      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(decl)\b\s*+
+      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(decl?|def)\b\s*+
         captures:
           1: {name: keyword.other.declare.sombra}
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?!:))
+        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl?|def)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?!:))
         comment: 'declare module.exports:'
         end: (?=.)
         beginCaptures:
@@ -1309,7 +1309,7 @@ repository:
         patterns:
           - include: '#flowtype-parse-objects'
           - include: '#flowtype-parse-types'
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl)\b\s*+\b(module)(\s|$)
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl?|def)\b\s*+\b(module)(\s|$)
         comment: declare modules
         end: \s*(?<=})
         beginCaptures:
@@ -1334,7 +1334,7 @@ repository:
               - include: '#flowtype-keywords'
               - include: '#flowtype-method'
               - include: '#class-content'
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl)\b\s*+(\bexport\b)?\s*+\b(class)\b
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl?|def)\b\s*+(\bexport\b)?\s*+\b(class)\b
         comment: declare classes
         end: \s*(?<=})
         beginCaptures:
@@ -2544,11 +2544,11 @@ repository:
   implicit-call:
     patterns:
       - comment: Avoid all language keywords as much as possible
-        match: (?x)(?<=\.)\s* ([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*) \s*(?=['"`(]|::|<[+|])
+        match: (?x)(?<=\.)\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
         captures:
           1: {patterns: [{include: '#method-name'}]}
       - comment: Avoid all language keywords as much as possible
-        match: (?x)\s* ([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*) \s*(?=['"`(]|::|<[+|])
+        match: (?x)\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
         captures:
           1: {patterns: [{include: '#function-name'}]}
   js-label:
@@ -3275,7 +3275,7 @@ repository:
         match: |
           (?x)(?<!(?<!\.\.)\.|\#)\s*+\b(?:
             (module|trait|enum|given)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
-            (pack|pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl)|(opaque|type) #5-12
+            (pack|pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl?|def)|(opaque|type) #5-12
           )\b
         captures:
           1: {name: keyword.other.$1.sombra}
