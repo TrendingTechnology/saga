@@ -20,6 +20,7 @@ information_for_contributors: |-
   TODOs:
     - Fix trailing semicolon issue in type declarations/imports
     - Revamp regex syntax (more syntax scopes for constructs)
+    - Add TypeScript, ReScript and JavaScript to raw code blocks
 
   Unresolved:
     - As of the moment, custom binary operators do not capture combinations of /[</>]+/,
@@ -351,7 +352,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -385,7 +386,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -463,7 +464,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -497,7 +498,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -531,7 +532,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -565,7 +566,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -599,7 +600,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -633,7 +634,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -769,7 +770,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.sombra}
@@ -799,41 +800,6 @@ repository:
           - include: '#curly-brackets'
           - include: '#type-argument-brackets'
           - include: $self
-  class:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b((class))\s+
-    comment: Classes
-    end: \s*(=(?!=|>))|\s*(?<=})
-    beginCaptures:
-      1: {name: meta.class.sombra}
-      2: {name: storage.type.class.sombra}
-    endCaptures:
-      1: {name: keyword.operator.assignment.sombra}
-    patterns:
-      - include: '#type-argument-brackets'
-      - match: \s*+\b((ext)|(impl)|(only))\b\s*+
-        captures:
-          1: {name: meta.class.extends.sombra}
-          2: {name: storage.type.extends.sombra}
-          3: {name: storage.type.implements.sombra}
-          4: {name: keyword.operator.expression.only.sombra}
-      - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
-        name: entity.name.class.sombra
-      - include: '#flowtype'
-      - begin: \s*+({)
-        contentName: meta.class.body.sombra
-        end: \s*(})
-        beginCaptures:
-          1: {name: punctuation.section.class.begin.sombra}
-        endCaptures:
-          1: {name: punctuation.section.class.end.sombra}
-        patterns:
-          - include: '#flowtype-method'
-          - include: '#class-content'
-      - match: \s*(\.)
-        captures:
-          1: {name: keyword.operator.accessor.sombra}
-      - include: '#core'
   class-body:
     patterns:
       - include: '#core'
@@ -865,9 +831,6 @@ repository:
           1: {name: storage.modifier.sombra}
       - include: '#flowtype-variable'
       - include: '#semi-colon'
-  class-content:
-    patterns:
-      - include: '#core'
   comma:
     patterns:
       - match: \s*+(,)
@@ -1026,39 +989,6 @@ repository:
           - include: '#round-brackets'
           - include: '#curly-brackets'
           - include: $self
-  enum-declaration:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?
-    end: \s*(=(?!=|>))|\s*(?<=})
-    name: meta.enum.declaration.sombra
-    beginCaptures:
-      1: {name: storage.type.enum.sombra}
-      2: {name: entity.name.type.enum.sombra}
-    endCaptures:
-      1: {name: keyword.operator.assignment.sombra}
-    patterns:
-      - begin: \s*+({)
-        contentName: meta.class.body.sombra
-        end: \s*(})
-        beginCaptures:
-          1: {name: punctuation.section.class.begin.sombra}
-        endCaptures:
-          1: {name: punctuation.section.class.end.sombra}
-        patterns:
-          - include: '#comments'
-          - begin: ([_$[:alpha:]][_$[:alnum:]]*)(?:\s*(=(?!=|>)))?\s*
-            end: (?=([,;}])|$)
-            beginCaptures:
-              1: {name: variable.other.enummember.sombra}
-              2: {name: keyword.operator.assignment.sombra}
-            endCaptures:
-              1: {patterns: [{include: '#core'}]}
-            patterns:
-              - include: '#core'
-      - include: '#of-clause'
-      - include: '#comments'
-      - include: '#flowtype-polymorphs'
-      - include: '#type-argument-brackets'
-      - include: '#core'
   es7-decorators:
     patterns:
       - applyEndPatternLast: 1
@@ -1101,7 +1031,7 @@ repository:
             patterns:
               - include: '#flowtype'
               - include: '#curly-brackets'
-              - include: '#class-content'
+              - include: '#core'
               - include: $self
           - include: '#comments'
           - match: |
@@ -1333,7 +1263,7 @@ repository:
             patterns:
               - include: '#flowtype-keywords'
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl?|def)\b\s*+(\bexport\b)?\s*+\b(class)\b
         comment: declare classes
         end: \s*(?<=})
@@ -1370,7 +1300,7 @@ repository:
               1: {name: punctuation.section.class.end.sombra}
             patterns:
               - include: '#flowtype-method'
-              - include: '#class-content'
+              - include: '#core'
           - include: '#flowtype-polymorphs'
           - include: '#comma'
           - match: \s*(\.)
@@ -1404,7 +1334,7 @@ repository:
           1: {name: punctuation.section.class.end.sombra}
         patterns:
           - include: '#flowtype-method'
-          - include: '#class-content'
+          - include: '#core'
       - match: \s*(\.)
         captures:
           1: {name: keyword.operator.accessor.sombra}
@@ -3076,7 +3006,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#curly-brackets'
-          - include: '#class-content'
+          - include: '#core'
           - include: $self
       - begin: >-
           (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
@@ -3092,7 +3022,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#curly-brackets'
-          - include: '#class-content'
+          - include: '#core'
           - include: $self
       - begin: >-
           (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\]))\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\())
@@ -3109,7 +3039,7 @@ repository:
           - include: '#flowtype'
           - include: '#square-brackets'
           - include: '#curly-brackets'
-          - include: '#class-content'
+          - include: '#core'
           - include: $self
       - begin: >-
           (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?=\s*+\()
@@ -3125,7 +3055,7 @@ repository:
         patterns:
           - include: '#flowtype'
           - include: '#curly-brackets'
-          - include: '#class-content'
+          - include: '#core'
           - include: $self
       - begin: >-
           (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(((')((?:[^']|\\')*)('))|\s*+((")((?:[^"]|\\")*)("))))\s*+(\())
@@ -3142,7 +3072,7 @@ repository:
           - include: '#string'
           - include: '#flowtype'
           - include: '#square-brackets'
-          - include: '#class-content'
+          - include: '#core'
           - include: $self
   method-call:
     patterns:
@@ -3813,15 +3743,6 @@ repository:
       - match: (?<=^|,|{)(?<!:|\.)\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*+(?=$|,|})
         captures:
           1: {name: variable.other.readwrite.shorthandpropertyname.sombra}
-  of-clause:
-    begin: \s*+(?<!(?<!\.\.)\.|\#)(of)
-    end: \s*(=(?!=|>))|\s*(?<=})
-    beginCaptures:
-      1: {name: meta.enum.of.sombra}
-    endCaptures:
-      1: {name: keyword.operator.assignment.sombra}
-    patterns:
-      - include: '#flowtype-parse-types'
   operator:
     patterns:
       - begin: \s*((:\?[<=>]?))\s*
