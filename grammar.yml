@@ -318,41 +318,75 @@ repository:
           - include: '#type-argument-brackets'
           - include: $self
   class:
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b((class))\s+
+    comment: Classes
+    end: \s*(=(?!=|>))|\s*(?<=})
+    beginCaptures:
+      1: {name: meta.class.sombra}
+      2: {name: storage.type.class.sombra}
+    endCaptures:
+      1: {name: keyword.operator.assignment.sombra}
     patterns:
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b((class))\s+
-        comment: Classes
-        end: \s*(=(?!=|>))|\s*(?<=})
+      - include: '#type-argument-brackets'
+      - match: \s*+\b((ext)|(impl)|(only))\b\s*+
+        captures:
+          1: {name: meta.class.extends.sombra}
+          2: {name: storage.type.extends.sombra}
+          3: {name: storage.type.implements.sombra}
+          4: {name: keyword.operator.expression.only.sombra}
+      - comment: look for interface names but don't assume uppercase start char
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+        name: entity.name.class.sombra
+      - include: '#flowtype'
+      - begin: \s*+({)
+        contentName: meta.class.body.sombra
+        end: \s*(})
         beginCaptures:
-          1: {name: meta.class.sombra}
-          2: {name: storage.type.class.sombra}
+          1: {name: punctuation.section.class.begin.sombra}
         endCaptures:
-          1: {name: keyword.operator.assignment.sombra}
+          1: {name: punctuation.section.class.end.sombra}
         patterns:
-          - include: '#type-argument-brackets'
-          - match: \s*+\b((ext)|(impl)|(only))\b\s*+
-            captures:
-              1: {name: meta.class.extends.sombra}
-              2: {name: storage.type.extends.sombra}
-              3: {name: storage.type.implements.sombra}
-              4: {name: keyword.operator.expression.only.sombra}
-          - comment: look for interface names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
-            name: entity.name.class.sombra
-          - include: '#flowtype'
-          - begin: \s*+({)
-            contentName: meta.class.body.sombra
-            end: \s*(})
-            beginCaptures:
-              1: {name: punctuation.section.class.begin.sombra}
-            endCaptures:
-              1: {name: punctuation.section.class.end.sombra}
-            patterns:
-              - include: '#flowtype-method'
-              - include: '#class-content'
-          - match: \s*(\.)
-            captures:
-              1: {name: keyword.operator.accessor.sombra}
-          - include: '#core'
+          - include: '#flowtype-method'
+          - include: '#class-content'
+      - match: \s*(\.)
+        captures:
+          1: {name: keyword.operator.accessor.sombra}
+      - include: '#core'
+  style:
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b((style))\s+
+    comment: Stylesheets
+    end: \s*(=(?!=|>))|\s*(?<=})
+    beginCaptures:
+      1: {name: meta.class.sombra}
+      2: {name: storage.type.style.sombra}
+    endCaptures:
+      1: {name: keyword.operator.assignment.sombra}
+    patterns:
+      - include: '#type-argument-brackets'
+      - match: \s*+\b((ext)|(impl)|(only))\b\s*+
+        captures:
+          1: {name: meta.class.extends.sombra}
+          2: {name: storage.type.extends.sombra}
+          3: {name: storage.type.implements.sombra}
+          4: {name: keyword.operator.expression.only.sombra}
+      - comment: look for interface names but don't assume uppercase start char
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+        name: entity.name.style.sombra
+      - include: '#flowtype'
+      - begin: \s*+({)
+        contentName: meta.class.body.sombra
+        end: \s*(})
+        beginCaptures:
+          1: {name: punctuation.section.style.begin.sombra}
+        endCaptures:
+          1: {name: punctuation.section.style.end.sombra}
+        patterns:
+          - include: '#quasi-embedded'
+          - include: source.css.scss
+      - match: \s*(\.)
+        captures:
+          1: {name: keyword.operator.accessor.sombra}
+      - include: '#core'
   class-body:
     patterns:
       - include: '#core'
@@ -481,12 +515,13 @@ repository:
       - comment: after function, which includes some prototype strings
         include: '#prototype'
       - include: '#keyword-storage'
+      - include: '#enum-declaration'
+      - include: '#class'
+      - include: '#style'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
       - include: '#keywords'
       - include: '#modifiers'
-      - include: '#enum-declaration'
-      - include: '#class'
       - include: '#method-call'
       - include: '#function-call'
       - include: '#multiline-arrow-function-generics'
@@ -549,10 +584,10 @@ repository:
   enum-declaration:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?
     end: \s*(=(?!=|>))|\s*(?<=})
-    name: meta.enum.declaration.flowtype
+    name: meta.enum.declaration.sombra
     beginCaptures:
-      1: {name: storage.type.enum.flowtype}
-      2: {name: entity.name.type.enum.flowtype}
+      1: {name: storage.type.enum.sombra}
+      2: {name: entity.name.type.enum.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -568,7 +603,7 @@ repository:
           - begin: ([_$[:alpha:]][_$[:alnum:]]*)(?:\s*(=(?!=|>)))?\s*
             end: (?=([,;}])|$)
             beginCaptures:
-              1: {name: variable.other.enummember.flowtype}
+              1: {name: variable.other.enummember.sombra}
               2: {name: keyword.operator.assignment.sombra}
             endCaptures:
               1: {patterns: [{include: '#core'}]}
@@ -765,10 +800,10 @@ repository:
     patterns:
       - begin: \s*+(/\*)\s*(::)
         end: \s*(\*/)
-        name: meta.comments.flowtype
+        name: meta.comments.sombra
         beginCaptures:
           1: {name: punctuation.definition.comment.sombra}
-          2: {name: punctuation.type.flowtype}
+          2: {name: punctuation.type.sombra}
         endCaptures:
           1: {name: punctuation.definition.comment.sombra}
         patterns:
@@ -781,10 +816,10 @@ repository:
           - include: '#keyword-storage'
       - begin: \s*+(/\*)\s*(flow-include)\b
         end: \s*(\*/)
-        name: meta.comments.flowtype
+        name: meta.comments.sombra
         beginCaptures:
           1: {name: punctuation.definition.comment.sombra}
-          2: {name: keyword.other.flow-include.flowtype}
+          2: {name: keyword.other.flow-include.sombra}
         endCaptures:
           1: {name: punctuation.definition.comment.sombra}
         patterns:
@@ -797,10 +832,10 @@ repository:
           - include: '#keyword-storage'
       - begin: \s*+(/\*)\s*(:)((?=::)|(?!:))
         end: \s*(\*/)
-        name: meta.comments.flowtype
+        name: meta.comments.sombra
         beginCaptures:
           1: {name: punctuation.definition.comment.sombra}
-          2: {name: punctuation.type.flowtype}
+          2: {name: punctuation.type.sombra}
         endCaptures:
           1: {name: punctuation.definition.comment.sombra}
         patterns:
@@ -810,22 +845,22 @@ repository:
     patterns:
       - match: (?<=::|flow-include)\s*(\?)
         captures:
-          1: {name: keyword.operator.optional.parameter.flowtype}
+          1: {name: keyword.operator.optional.parameter.sombra}
   flowtype-declare:
     patterns:
       - match: (?<!(?<!\.\.)\.|\#)\s*+\b(decl)\b\s*+
         captures:
-          1: {name: keyword.other.declare.flowtype}
+          1: {name: keyword.other.declare.sombra}
       - applyEndPatternLast: 1
         begin: (?<!(?<!\.\.)\.|\#)\s*+\b(decl)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?!:))
         comment: 'declare module.exports:'
         end: (?=.)
         beginCaptures:
-          1: {name: keyword.other.declare.flowtype}
-          2: {name: storage.type.module.flowtype}
-          3: {name: keyword.operator.accessor.flowtype}
-          4: {name: storage.type.module.flowtype}
-          5: {name: punctuation.type.flowtype}
+          1: {name: keyword.other.declare.sombra}
+          2: {name: storage.type.module.sombra}
+          3: {name: keyword.operator.accessor.sombra}
+          4: {name: storage.type.module.sombra}
+          5: {name: punctuation.type.sombra}
         patterns:
           - include: '#flowtype-parse-objects'
           - include: '#flowtype-parse-types'
@@ -833,8 +868,8 @@ repository:
         comment: declare modules
         end: \s*(?<=})
         beginCaptures:
-          1: {name: keyword.other.declare.flowtype}
-          2: {name: storage.type.module.flowtype}
+          1: {name: keyword.other.declare.sombra}
+          2: {name: storage.type.module.sombra}
         patterns:
           - include: '#flowtype-polymorphs'
           - comment: look for module names but don't assume uppercase start char
@@ -858,9 +893,9 @@ repository:
         comment: declare classes
         end: \s*(?<=})
         beginCaptures:
-          1: {name: keyword.other.declare.flowtype}
-          2: {name: keyword.constrol.module.flowtype}
-          3: {name: storage.type.class.flowtype}
+          1: {name: keyword.other.declare.sombra}
+          2: {name: keyword.constrol.module.sombra}
+          3: {name: storage.type.class.sombra}
         patterns:
           - comment: look for extends keyword
             match: \s*+\b((ext))\b\s*+
@@ -900,7 +935,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(extn)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.extension.flowtype}
+      1: {name: keyword.other.extension.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -932,7 +967,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(given)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.given.flowtype}
+      1: {name: keyword.other.given.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -965,7 +1000,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(inter|schema|struct)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.interface.flowtype}
+      1: {name: keyword.other.interface.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -1022,7 +1057,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(pack|pkg|module)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.module.flowtype}
+      1: {name: keyword.other.module.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -1054,7 +1089,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(nspace)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.namespace.flowtype}
+      1: {name: keyword.other.namespace.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -1086,7 +1121,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(object|record)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.object.flowtype}
+      1: {name: keyword.other.object.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -1119,8 +1154,8 @@ repository:
       - comment: Only these props syntax {| |}
         match: ((\|)(?={|))|(\s*(\|)(?=}))
         captures:
-          1: {name: keyword.operator.only.flowtype}
-          4: {name: keyword.operator.only.flowtype}
+          1: {name: keyword.operator.only.sombra}
+          4: {name: keyword.operator.only.sombra}
       - include: '#method'
       - include: '#comments'
       - include: '#flowtype-variable'
@@ -1129,9 +1164,9 @@ repository:
     comment: 'arrays such as [name: string, dob: Date]'
     end: \s*(\])
     beginCaptures:
-      1: {name: meta.brace.square.open.flowtype}
+      1: {name: meta.brace.square.open.sombra}
     endCaptures:
-      1: {name: meta.brace.square.end.flowtype}
+      1: {name: meta.brace.square.end.sombra}
     patterns:
       - applyEndPatternLast: 1
         begin: \s*(?=[_$[:alpha:]][_$[:alnum:]]*\s*[=:])
@@ -1147,45 +1182,65 @@ repository:
     begin: (?<=:|\||&|\?|=>|<|\()\s*+(#?{)
     comment: 'object literal flowtype  preceded by either => : | & ? symbols'
     end: \s*(\})
-    name: meta.object.flowtype
+    name: meta.object.sombra
     beginCaptures:
-      1: {name: meta.brace.curly.open.flowtype}
+      1: {name: meta.brace.curly.open.sombra}
     endCaptures:
-      1: {name: meta.brace.curly.close.flowtype}
+      1: {name: meta.brace.curly.close.sombra}
     patterns:
       - include: '#flowtype-object-property'
   flowtype-parse-types:
     patterns:
+      - comment: for all clause 
+        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
+        end: ^\s*|\s*(?=;|/[/*]|$)
+        beginCaptures:
+          1: {name: keyword.operator.forall.sombra}
+        patterns:
+          - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b
+            end: ^\s*|\s*(?=;|/[/*]|$)
+            beginCaptures:
+              1: {name: keyword.operator.forall.sombra}
+            patterns:
+              - include: '#comments'
+              - include: '#core'
+          - match: (?<!(?<!\.\.)\.|\#)\s*+\b(va[rl]|const|con|let)\b\s*+
+            name: storage.type.sombra
+          - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(as)\b
+            end: (?=$|;|/[/*]|\s*where)
+            beginCaptures:
+              1: {name: keyword.operator.forall.sombra}
+            patterns:
+              - include: '#flowtype-parse-types'
       - include: '#modifiers'
       - include: '#keywords'
       - include: '#operator'
-      - include: '#for-all-clause'
       - include: '#number'
       - include: '#string'
       - include: '#regexp'
       - include: '#multiline-regexp'
       - match: (?<!(?<!\.\.)\.|\#)\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+
         captures:
-          1: {name: keyword.operator.$1.flowtype}
+          1: {name: keyword.operator.$1.sombra}
       - include: '#language-constant'
       - comment: primitive flowtypes
         match: (?i)(?<!(?<!\.\.)\.|\#)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
         captures:
-          1: {name: support.type.builtin.primitive.flowtype}
+          1: {name: support.type.builtin.primitive.sombra}
       - comment: built-in variable flowtypes
         match: >-
           (?i)(?<!(?<!\.\.)\.|\#)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
         captures:
-          1: {name: support.type.builtin.flowtype}
+          1: {name: support.type.builtin.sombra}
       - comment: custom Shout-case types
         match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)\b
-        name: support.type.builtin.flowtype
+        name: support.type.builtin.sombra
       - comment: custom Class Types e.g. Abc avoid Abc(
         match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
-        name: support.type.class.flowtype
+        name: support.type.class.sombra
       - comment: custom primitive/var Types e.g. abc avoid abc(
         match: \s*+\b([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
-        name: support.type.primitive.flowtype
+        name: support.type.primitive.sombra
       - comment: Immutable modifier
         match: \s*#(?![\p{Ps}])\s*
         name: keyword.operator.private.sombra
@@ -1204,32 +1259,32 @@ repository:
       - comment: Maybe types
         match: \s*+(\?)
         captures:
-          1: {name: keyword.operator.maybe.flowtype}
+          1: {name: keyword.operator.maybe.sombra}
       - comment: symmetric difference of types &
         match: \s*+(\^)
         captures:
-          1: {name: keyword.operator.bitwise.flowtype}
+          1: {name: keyword.operator.bitwise.sombra}
       - comment: complement of types ~
         match: \s*+(\~)
         captures:
-          1: {name: keyword.operator.logical.flowtype}
+          1: {name: keyword.operator.logical.sombra}
       - comment: Type Unions |
         match: \s*+(\|)(?<!{\|)(?!}|>)
         captures:
-          1: {name: keyword.operator.union.flowtype}
+          1: {name: keyword.operator.union.sombra}
       - comment: intersection of types &
         match: \s*+(\&)
         captures:
-          1: {name: keyword.operator.intersection.flowtype}
+          1: {name: keyword.operator.intersection.sombra}
       - comment: as per React declares in flowtype github
         match: \s*+(\*)(?!/([^\*]|$))
         captures:
-          1: {name: keyword.operator.existential.flowtype}
+          1: {name: keyword.operator.existential.sombra}
       - comment: 'types of type marker e.g. <T: number | string>'
         match: \s*+(:)((?=::)|(?!:))
-        name: punctuation.type.flowtype
+        name: punctuation.type.sombra
         captures:
-          1: {name: support.type.builtin.primitive.flowtype}
+          1: {name: support.type.builtin.primitive.sombra}
       - comment: call back with a form () => type
         match: (?<=\))\s*+(=>)
         captures:
@@ -1238,45 +1293,23 @@ repository:
         match: >-
           (?!^)\s*+\b((?>WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array))\b
         captures:
-          1: {name: support.type.builtin.class.flowtype}
+          1: {name: support.type.builtin.class.sombra}
       - match: >-
           \s*+\b((SIMD)((\.)(Uint8x16|Uint32x4|Uint16x8|Int8x16|Int32x4|Int16x8|Float64x2|Float32x4|Bool8x16|Bool64x2|Bool32x4|Bool16x8))?)\b
         captures:
-          2: {name: support.type.builtin.class.flowtype}
+          2: {name: support.type.builtin.class.sombra}
           4: {name: keyword.operator.accessor.sombra}
-          5: {name: support.type.builtin.class.flowtype}
+          5: {name: support.type.builtin.class.sombra}
       - match: \s*+\b((Intl)((\.)(NumberFormat|DateTimeFormat|Collator))?)\b
         captures:
-          2: {name: support.type.builtin.class.flowtype}
+          2: {name: support.type.builtin.class.sombra}
           4: {name: keyword.operator.accessor.sombra}
-          5: {name: support.type.builtin.class.flowtype}
+          5: {name: support.type.builtin.class.sombra}
       - include: '#flowtype-polymorphs'
       - include: '#flowtype-bracketed-parameters'
       - include: '#flowtype-parse-objects'
       - include: '#flowtype-parse-array'
       - include: '#comments'
-    repository:
-      for-all-clause:
-        - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
-          end: ^\s*|\s*(?=;|/[/*]|$)
-          beginCaptures:
-            1: {name: keyword.operator.forall.sombra}
-          patterns:
-            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b
-              end: ^\s*|\s*(?=;|/[/*]|$)
-              beginCaptures:
-                1: {name: keyword.operator.forall.sombra}
-              patterns:
-                - include: '#comments'
-                - include: '#core'
-            - match: (?<!(?<!\.\.)\.|\#)\s*+\b(va[rl]|const|con|let)\b\s*+
-              name: storage.type.sombra
-            - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(as)\b
-              end: (?=$|;|/[/*]|\s*where)
-              beginCaptures:
-                1: {name: keyword.operator.forall.sombra}
-              patterns:
-                - include: '#flowtype-parse-types'
   flowtype-polymorphs:
     comment: Support Bounded Polymorphism http://flowtype.org/blog/2015/03/12/Bounded-Polymorphism.html
     patterns:
@@ -1284,28 +1317,28 @@ repository:
         comment: Built-in Class Types with elements of type <T>
         end: \s*(>)
         beginCaptures:
-          1: {name: support.type.builtin.class.flowtype}
-          2: {name: punctuation.flowtype}
+          1: {name: support.type.builtin.class.sombra}
+          2: {name: punctuation.sombra}
         endCaptures:
-          1: {name: punctuation.flowtype}
+          1: {name: punctuation.sombra}
         patterns:
           - include: '#comma'
           - match: \s*+(\+|-)
             captures:
-              1: {name: support.type.variant.flowtype}
+              1: {name: support.type.variant.sombra}
           - include: '#flowtype-parse-types'
       - begin: \s*+(<)
         comment: just the polymorph bit like this <K,V>(arg,arg)
         end: \s*(>)
         beginCaptures:
-          1: {name: punctuation.flowtype}
+          1: {name: punctuation.sombra}
         endCaptures:
-          1: {name: punctuation.flowtype}
+          1: {name: punctuation.sombra}
         patterns:
           - include: '#comma'
           - match: \s*+(\+|-)
             captures:
-              1: {name: support.type.variant.flowtype}
+              1: {name: support.type.variant.sombra}
           - include: '#flowtype-parse-types'
   flowtype-predicate:
     applyEndPatternLast: 1
@@ -1313,7 +1346,7 @@ repository:
     comment: flow predicate checks
     end: (?=.)
     beginCaptures:
-      1: {name: entity.name.function.predicate.flowtype}
+      1: {name: entity.name.function.predicate.sombra}
     patterns:
       - include: '#round-brackets'
   flowtype-return:
@@ -1323,7 +1356,7 @@ repository:
         comment: maybe an issue if a object literal is returned and the start of func block isn't on same line!
         end: (?=.)
         beginCaptures:
-          1: {name: punctuation.type.flowtype}
+          1: {name: punctuation.type.sombra}
         patterns:
           - include: '#flowtype-predicate'
           - include: '#flowtype-parse-types'
@@ -1332,7 +1365,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(frag)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.struct.flowtype}
+      1: {name: keyword.other.struct.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -1365,7 +1398,7 @@ repository:
     begin: (?<!(?<!\.\.)\.|\#)\s*+\b(trait)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: keyword.other.trait.flowtype}
+      1: {name: keyword.other.trait.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -1414,12 +1447,12 @@ repository:
         comment: type aliases for export but avoid type instaceof or type in operators
         end: $|;
         beginCaptures:
-          1: {name: keyword.other.typedef.flowtype}
-          2: {name: keyword.other.typedef.flowtype}
+          1: {name: keyword.other.typedef.sombra}
+          2: {name: keyword.other.typedef.sombra}
         patterns:
           - begin: \s*+({)
             end: \s*(})
-            name: meta.object.flowtype
+            name: meta.object.sombra
             captures:
               1: {name: meta.brace.curly.sombra}
             patterns:
@@ -1442,35 +1475,35 @@ repository:
         captures:
           1: {name: keyword.operator.private.sombra}
           2: {name: storage.type.function.sombra}
-          3: {name: keyword.operator.optional.parameter.flowtype}
+          3: {name: keyword.operator.optional.parameter.sombra}
       - comment: 'name of variable spread var with optional ? and optional flowtype :'
         match: ((?<!(?<!\.\.)\.|\#)\.\.\.)?\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
         captures:
           1: {name: keyword.operator.spread.sombra}
           2: {name: keyword.operator.private.sombra}
           3: {name: variable.other.readwrite.sombra}
-          4: {name: keyword.operator.optional.parameter.flowtype}
+          4: {name: keyword.operator.optional.parameter.sombra}
       - include: '#flowtype-vars-and-props'
   flowtype-vars-and-props:
     patterns:
       - comment: 'flowtype optional arg/parameter e.g. protocol? : string'
         match: \s*+(\?)
         captures:
-          1: {name: punctuation.type.flowtype}
+          1: {name: punctuation.type.sombra}
       - comment: Type Unions |
         match: \s*+(\|)(?<!{\|)(?!}|>)
         captures:
-          1: {name: keyword.operator.union.flowtype}
+          1: {name: keyword.operator.union.sombra}
       - comment: intersection of types &
         match: \s*+(\&)
         captures:
-          1: {name: keyword.operator.intersection.flowtype}
+          1: {name: keyword.operator.intersection.sombra}
       - applyEndPatternLast: 1
         begin: \s*+(:)((?=::)|(?!:))
         comment: 'typed entity :'
         end: (?=.)
         beginCaptures:
-          1: {name: punctuation.type.flowtype}
+          1: {name: punctuation.type.sombra}
         patterns:
           - include: '#flowtype-parse-types'
       - include: '#comma'
@@ -1779,17 +1812,17 @@ repository:
       - include: '#support-methods'
       - comment: primitive flowtypes
         match: (?i)\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
-        name: support.type.builtin.primitive.flowtype
+        name: support.type.builtin.primitive.sombra
       - comment: primitive flowtypes
         match: (?i)\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
-        name: support.type.builtin.flowtype
+        name: support.type.builtin.sombra
       - match: >-
           \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
-        name: support.type.builtin.class.flowtype
+        name: support.type.builtin.class.sombra
       - match: (([a-zA-Z])[-_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.function.$2.sombra
       - match: '[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*'
-        name: support.type.class.flowtype
+        name: support.type.class.sombra
       - match: '[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*'
         name: entity.name.function.sombra
   graphql:
@@ -3145,7 +3178,7 @@ repository:
   module-typeof:
     match: \s*\b(typeof|type)\b\s++(?={|\*|(?:[_\\p{L}\p{Nl}]))(?!\b(i[sn]|as)\b|,)
     captures:
-      1: {name: keyword.other.typedef.flowtype}
+      1: {name: keyword.other.typedef.sombra}
   multiline-arrow-function-generics:
     patterns:
       - begin: \s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?+\s*+\(\s*$)
@@ -3568,7 +3601,7 @@ repository:
     begin: \s*+(?<!(?<!\.\.)\.|\#)(of)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
-      1: {name: meta.enum.of.flowtype}
+      1: {name: meta.enum.of.sombra}
     endCaptures:
       1: {name: keyword.operator.assignment.sombra}
     patterns:
@@ -4061,6 +4094,7 @@ repository:
       - include: '#select-clause'
       - include: '#order-clause'
       - include: '#fold-clause'
+      - include: '#take-clause'
     repository:
       group-clause:
         begin: (?<!(?<!\.\.)\.|\#)\s*+\b(group)\b\s*
@@ -4104,7 +4138,10 @@ repository:
         match: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b\s*
         name: keyword.query.sombra
       fold-clause:
-        match: (?<!(?<!\.\.)\.|\#)\s*+\b(fold\s*(left|right)?|(sum|prod|mean|median|mode|avg))\b\s*
+        match: (?<!(?<!\.\.)\.|\#)\s*+\b((\b(fold|scan)\b)\s*(\b(left|right)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
+        name: keyword.query.sombra
+      take-clause:
+        match: (?<!(?<!\.\.)\.|\#)\s*+\b((\b(take)\b)\s*(\b(left|right|init|head|tail|last)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
         name: keyword.query.sombra
   regex-group-name:
     patterns:
@@ -5238,11 +5275,11 @@ repository:
       - begin: \s*+(<)(?=((?:(?>[^<>]+)|<\g<-1>>)*)>)
         comment: Type arguments. This is complicated since we don't want to match things like foo < 123 || bar > baz
         end: \s*(>)
-        name: meta.type-arguments.flowtype
+        name: meta.type-arguments.sombra
         beginCaptures:
-          1: {name: punctuation.flowtype}
+          1: {name: punctuation.sombra}
         endCaptures:
-          1: {name: punctuation.flowtype}
+          1: {name: punctuation.sombra}
         patterns:
           - include: '#flowtype-parse-types'
           - include: '#comma'
@@ -5285,21 +5322,21 @@ repository:
         comment: Assume this is a flow typed var
         end: \s*(?=,|\))
         beginCaptures:
-          3: {name: punctuation.flowtype}
+          3: {name: punctuation.sombra}
         patterns:
           - include: '#flowtype-variable'
       - begin: (?<=^|,|\()\s*+(?="[^"]"\s*(:))
         comment: Assume this is a flow typed var
         end: \s*(?>=|\))
         beginCaptures:
-          3: {name: punctuation.flowtype}
+          3: {name: punctuation.sombra}
         patterns:
           - include: '#flowtype-variable'
       - begin: (?<=^|,|\()\s*+(?='[^']'\s*(:))
         comment: Assume this is a flow typed var
         end: \s*(?>=|\))
         beginCaptures:
-          3: {name: punctuation.flowtype}
+          3: {name: punctuation.sombra}
         patterns:
           - include: '#flowtype-variable'
   with:
