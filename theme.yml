@@ -1,498 +1,266 @@
 type: dark
 name: Sombra
 colors:
-  activityBar.background: "#232e33"
-  activityBar.foreground: "#ffffff"
-  activityBarBadge.background: "#007acc"
-  activityBarBadge.foreground: "#232e33"
-  editor.background: "#263238"
-  editor.foreground: "#d4d4d4"
-  editor.inactiveSelectionBackground: "#3a3d41"
-  editor.lineHighlightBackground: "#232e33"
-  editor.lineHighlightBorder: "#232e33"
-  editor.selectionHighlightBackground: "#add6ff26"
-  editorGutter.modifiedBackground: "#ffff00"
-  editorIndentGuide.activeBackground: "#707070"
-  editorIndentGuide.background: "#404040"
-  editorLineNumber.foreground: "#beb4c438"
-  gitDecoration.modifiedResourceForeground: "#0078cf"
-  input.placeholderForeground: "#a6a6a6"
-  list.dropBackground: "#383b3d"
-  menu.background: "#252526"
-  menu.foreground: "#cccccc"
-  panel.background: "#232e33"
-  panel.border: "#1d2529"
-  pickerGroup.border: "#0078cf"
-  scrollbar.shadow: "#263238"
-  sideBar.background: "#232e33"
-  sideBar.foreground: "#a5a5a5"
-  sideBarSectionHeader.background: "#232e33"
-  sideBarSectionHeader.border: "#cccccc33"
-  sideBarTitle.foreground: "#bbbbbb"
-  statusBar.background: "#0078cf"
-  statusBar.foreground: "#ffffff"
-  statusBarItem.remoteBackground: "#16825d"
-  statusBarItem.remoteForeground: "#ffffff"
-  tab.activeBackground: "#263238"
-  tab.inactiveBackground: "#232e33"
-  tab.lastPinnedBorder: "#cccccc33"
-  terminalCursor.foreground: "#00ffaa"
-  titleBar.activeBackground: "#232e33"
-  titleBar.activeForeground: "#ffffff"
+  activityBar.background: '#232e33'
+  activityBar.foreground: '#ffffff'
+  activityBarBadge.background: '#007acc'
+  activityBarBadge.foreground: '#232e33'
+  editor.background: '#263238'
+  editor.foreground: '#d4d4d4'
+  editor.inactiveSelectionBackground: '#3a3d41'
+  editor.lineHighlightBackground: '#232e33'
+  editor.lineHighlightBorder: '#232e33'
+  editor.selectionHighlightBackground: '#add6ff26'
+  editorGutter.modifiedBackground: '#ffff00'
+  editorIndentGuide.activeBackground: '#707070'
+  editorIndentGuide.background: '#404040'
+  editorLineNumber.foreground: '#beb4c438'
+  gitDecoration.modifiedResourceForeground: '#0078cf'
+  input.placeholderForeground: '#a6a6a6'
+  list.dropBackground: '#383b3d'
+  menu.background: '#252526'
+  menu.foreground: '#cccccc'
+  panel.background: '#232e33'
+  panel.border: '#1d2529'
+  pickerGroup.border: '#0078cf'
+  scrollbar.shadow: '#263238'
+  sideBar.background: '#232e33'
+  sideBar.foreground: '#a5a5a5'
+  sideBarSectionHeader.background: '#232e33'
+  sideBarSectionHeader.border: '#cccccc33'
+  sideBarTitle.foreground: '#bbbbbb'
+  statusBar.background: '#0078cf'
+  statusBar.foreground: '#ffffff'
+  statusBarItem.remoteBackground: '#16825d'
+  statusBarItem.remoteForeground: '#ffffff'
+  tab.activeBackground: '#263238'
+  tab.inactiveBackground: '#232e33'
+  tab.lastPinnedBorder: '#cccccc33'
+  terminalCursor.foreground: '#00ffaa'
+  titleBar.activeBackground: '#232e33'
+  titleBar.activeForeground: '#ffffff'
 tokenColors:
-  - scope:
-      - meta.embedded
-      - source.groovy.embedded
-    settings:
-      foreground: "#D4D4D4"
-  - scope: emphasis
-    settings:
-      fontStyle: italic
-  - scope: strong
-    settings:
-      fontStyle: bold
-  - scope: header
-    settings:
-      foreground: "#000080"
   - scope: comment
     settings:
-      foreground: "#6A9955"
-  - scope: constant.language
-    settings:
-      foreground: "#569CD6"
-  - scope:
-      - constant.numeric
-      - variable.other.enummember
-      - keyword.operator.plus.exponent
-      - keyword.operator.minus.exponent
-    settings:
-      foreground: "#B5CEA8"
-  - scope: constant.regexp
-    settings:
-      foreground: "#646695"
-  - scope: entity.name.tag
-    settings:
-      foreground: "#569CD6"
-  - scope: entity.name.tag.css
-    settings:
-      foreground: "#D7BA7D"
-  - scope: entity.other.attribute-name
-    settings:
-      foreground: "#9CDCFE"
-  - scope:
-      - entity.other.attribute-name.class.css
-      - entity.other.attribute-name.class.mixin.css
-      - entity.other.attribute-name.id.css
-      - entity.other.attribute-name.parent-selector.css
-      - entity.other.attribute-name.pseudo-class.css
-      - entity.other.attribute-name.pseudo-element.css
-      - source.css.less entity.other.attribute-name.id
-      - entity.other.attribute-name.scss
-    settings:
-      foreground: "#D7BA7D"
-  - scope: invalid
-    settings:
-      foreground: "#F44747"
-  - scope: markup.underline
-    settings:
-      fontStyle: underline
-  - scope: markup.bold
-    settings:
-      foreground: "#569CD6"
-      fontStyle: bold
-  - scope: markup.heading
-    settings:
-      foreground: "#569CD6"
-      fontStyle: bold
-  - scope: markup.italic
-    settings:
-      fontStyle: italic
-  - scope: markup.inserted
-    settings:
-      foreground: "#B5CEA8"
-  - scope: markup.deleted
-    settings:
-      foreground: "#CE9178"
-  - scope: markup.changed
-    settings:
-      foreground: "#569CD6"
-  - scope: punctuation.definition.quote.begin.markdown
-    settings:
-      foreground: "#6A9955"
-  - scope: punctuation.definition.list.begin.markdown
-    settings:
-      foreground: "#6796E6"
-  - scope: markup.inline.raw
-    settings:
-      foreground: "#CE9178"
-  - scope: punctuation.definition.tag
-    settings:
-      foreground: "#808080"
-  - scope:
-      - meta.preprocessor
-      - entity.name.function.preprocessor
-    settings:
-      foreground: "#569CD6"
-  - scope: meta.preprocessor.string
-    settings:
-      foreground: "#CE9178"
-  - scope: meta.preprocessor.numeric
-    settings:
-      foreground: "#B5CEA8"
-  - scope: meta.structure.dictionary.key.python
-    settings:
-      foreground: "#9CDCFE"
-  - scope: meta.diff.header
-    settings:
-      foreground: "#569CD6"
-  - scope: storage
-    settings:
-      foreground: "#569CD6"
-  - scope: storage.type
-    settings:
-      foreground: "#569CD6"
-  - scope:
-      - storage.modifier
-      - keyword.operator.noexcept
-    settings:
-      foreground: "#569CD6"
-  - scope:
-      - string
-      - meta.embedded.assembly
-    settings:
-      foreground: "#CE9178"
-  - scope: string.tag
-    settings:
-      foreground: "#CE9178"
-  - scope: string.value
-    settings:
-      foreground: "#CE9178"
-  - scope: string.regexp
-    settings:
-      foreground: "#D16969"
-  - scope:
-      - punctuation.definition.template-expression.begin
-      - punctuation.definition.template-expression.end
-      - punctuation.section.embedded
-    settings:
-      foreground: "#569CD6"
-  - scope:
-      - meta.template.expression
-    settings:
-      foreground: "#D4D4D4"
-  - scope:
-      - support.type.vendored.property-name
-      - support.type.property-name
-      - variable.css
-      - variable.scss
-      - variable.other.less
-      - source.coffee.embedded
-    settings:
-      foreground: "#9CDCFE"
-  - scope: keyword
-    settings:
-      foreground: "#569CD6"
-  - scope: keyword.control
-    settings:
-      foreground: "#569CD6"
-  - scope: keyword.operator
-    settings:
-      foreground: "#D4D4D4"
-  - scope:
-      - keyword.operator.new
-      - keyword.operator.expression
-      - keyword.operator.cast
-      - keyword.operator.sizeof
-      - keyword.operator.alignof
-      - keyword.operator.typeid
-      - keyword.operator.alignas
-      - keyword.operator.instanceof
-      - keyword.operator.logical.python
-      - keyword.operator.wordlike
-    settings:
-      foreground: "#569CD6"
-  - scope: keyword.other.unit
-    settings:
-      foreground: "#B5CEA8"
-  - scope:
-      - punctuation.section.embedded.begin.php
-      - punctuation.section.embedded.end.php
-    settings:
-      foreground: "#569CD6"
-  - scope: support.function.git-rebase
-    settings:
-      foreground: "#9CDCFE"
-  - scope: constant.sha.git-rebase
-    settings:
-      foreground: "#B5CEA8"
-  - scope:
-      - storage.modifier.import.java
-      - variable.language.wildcard.java
-      - storage.modifier.package.java
-    settings:
-      foreground: "#D4D4D4"
-  - scope: variable.language
-    settings:
-      foreground: "#569CD6"
-  - scope: text.html.markdown.journal.task.open.bullet
-    settings:
-      foreground: "#FFFF00"
-  - scope: text.html.markdown.journal.task.open.marker
-    settings:
-      foreground: "#FFFF00"
-  - scope: text.html.markdown.journal.task.open.keyword
-    settings:
-      fontStyle: italic
-  - scope: text.html.markdown.journal.task.open.text
-    settings: {}
-  - scope: text.html.markdown.journal.task.completed.keyword
-    settings:
-      fontStyle: italic
-  - scope: text.html.markdown.journal.task.completed.marker
-    settings:
-      foreground: "#AAAAAA"
-  - scope: text.html.markdown.journal.task.completed.text
-    settings:
-      foreground: "#AAAAAA"
-  - scope: text.html.markdown.journal.task.completed.bullet
-    settings:
-      foreground: "#FFFF00"
-  - scope: text.html.markdown.journal.memo.keyword
-    settings:
-      fontStyle: italic
-  - scope: text.html.markdown.journal.memo.bullet
-    settings:
-      foreground: "#FFFF00"
-  - scope: text.html.markdown.journal.scope
-    settings:
-      foreground: "#FFFF00"
-  - scope: text.html.markdown.journal.link.keyword
-    settings:
-      fontStyle: italic
-  - scope: text.html.markdown.journal.link.bullet
-    settings:
-      foreground: "#FFFF00"
-  - scope: token.info-token
-    settings:
-      foreground: "#6796E6"
-  - scope: token.warn-token
-    settings:
-      foreground: "#CD9731"
-  - scope: token.error-token
-    settings:
-      foreground: "#F44747"
-  - scope: token.debug-token
-    settings:
-      foreground: "#B267E6"
-  - scope: comment
-    settings:
-      foreground: "#506686"
+      foreground: '#506686'
   - scope: string
     settings:
-      foreground: "#F6F6F5"
-  - scope: string.unquoted.html, string.quoted.double, string.quoted.single.html,
+      foreground: '#F6F6F5'
+  - scope:
+      string.unquoted.html, string.quoted.double, string.quoted.single.html,
       constant.other.symbol, entity.other.inherited-class
     settings:
-      foreground: "#B3D667"
+      foreground: '#B3D667'
   - scope: string.quoted.single
     settings:
-      foreground: "#70F49C"
+      foreground: '#70F49C'
   - scope: support.variable.dom
     settings:
-      foreground: "#59F2F7"
-  - scope: variable.other.constant, variable.other.constant.object,
+      foreground: '#59F2F7'
+  - scope:
+      variable.other.constant, variable.other.constant.object,
       variable.other.constant.property
     settings:
-      foreground: "#E9B684"
+      foreground: '#E9B684'
   - scope: constant.numeric
     settings:
-      foreground: "#58B4FF"
+      foreground: '#58B4FF'
   - scope: constant.language
     settings:
-      foreground: "#FFE792"
+      foreground: '#FFE792'
   - scope: constant.character, constant.other
     settings:
-      foreground: "#AC58FF"
+      foreground: '#AC58FF'
   - scope: variable
     settings:
-      foreground: "#B7C6DA"
+      foreground: '#B7C6DA'
   - scope: keyword
     settings:
-      foreground: "#E95293"
+      foreground: '#E95293'
   - scope: storage
     settings:
-      foreground: "#FF5BA2"
+      foreground: '#FF5BA2'
   - scope: storage.type
     settings:
-      foreground: "#D59DF6"
+      foreground: '#D59DF6'
   - scope: entity.name.class
     settings:
-      foreground: "#82C600"
+      foreground: '#82C600'
   - scope: entity.other.inherited-class
     settings:
-      foreground: "#82C600"
+      foreground: '#82C600'
   - scope: variable.parameter
     settings:
-      foreground: "#85AC3A"
+      foreground: '#85AC3A'
   - scope: entity.name.tag
     settings:
-      foreground: "#E76572"
-  - scope: entity.other.attribute-name, entity.other.attribute-name.class.css,
+      foreground: '#E76572'
+  - scope:
+      entity.other.attribute-name, entity.other.attribute-name.class.css,
       string.quoted.double.json
     settings:
-      foreground: "#EAB780"
-  - scope: meta.tag.other, entity.name.tag.style, entity.name.tag.script,
+      foreground: '#EAB780'
+  - scope:
+      meta.tag.other, entity.name.tag.style, entity.name.tag.script,
       meta.tag.block.script, source.embedded punctuation.definition.tag.html,
       source.css.embedded punctuation.definition.tag.html
     settings:
-      foreground: "#E26674"
+      foreground: '#E26674'
   - scope: variable.language.this, variable.language.this, entity.name.type
     settings:
-      foreground: "#EAB780"
+      foreground: '#EAB780'
   - scope: entity.other.attribute-name.id.html
     settings:
-      foreground: "#FFFA9E"
-  - scope: entity.name.function, entity.name.function.method, entity.name.accessor,
+      foreground: '#FFFA9E'
+  - scope:
+      entity.name.function, entity.name.function.method, entity.name.accessor,
       entity.name.class
     settings:
-      foreground: "#71B1FE"
+      foreground: '#71B1FE'
   - scope: support.class.builtin, entity.name.type.class
     settings:
-      foreground: "#FFFA9E"
-  - scope: variable.parameter, constant.other.object.key, variable.other.readwrite,
+      foreground: '#FFFA9E'
+  - scope:
+      variable.parameter, constant.other.object.key, variable.other.readwrite,
       punctuation.definition.parameters.begin,
       punctuation.definition.parameters.end, meta.object-literal.key,
       meta.array.literal, meta.brace.round, punctuation.definition.block,
       meta.objectliteral
     settings:
-      foreground: "#97A7C8"
+      foreground: '#97A7C8'
   - scope: constant.language.boolean.false, constant.language.boolean.true
     settings:
-      foreground: "#EAB780"
+      foreground: '#EAB780'
   - scope: support.variable.property.dom, entity.name.type.new
     settings:
-      foreground: "#E76572"
-  - scope: punctuation.definition.tag.html, punctuation.definition.tag.begin,
+      foreground: '#E76572'
+  - scope:
+      punctuation.definition.tag.html, punctuation.definition.tag.begin,
       punctuation.definition.tag.end
     settings:
-      foreground: "#E26674"
-  - scope: meta.tag string -source -punctuation, text source text meta.tag string
+      foreground: '#E26674'
+  - scope:
+      meta.tag string -source -punctuation, text source text meta.tag string
       -punctuation
     settings:
-      foreground: "#82BAF2"
-  - scope: punctuation.section.embedded -(source string source
+      foreground: '#82BAF2'
+  - scope:
+      punctuation.section.embedded -(source string source
       punctuation.section.embedded), meta.brace.erb.html
     settings:
-      foreground: "#D0B344"
+      foreground: '#D0B344'
   - scope: meta.toc-list.id
     settings:
-      foreground: "#88F2AF"
-  - scope: string.quoted.double.html, punctuation.definition.string.begin.html,
+      foreground: '#88F2AF'
+  - scope:
+      string.quoted.double.html, punctuation.definition.string.begin.html,
       punctuation.definition.string.end.html, string.quoted.double.handlebars
     settings:
-      foreground: "#56A3B1"
+      foreground: '#56A3B1'
   - scope: entity.other.attribute-name.id
     settings:
-      foreground: "#85AC3A"
+      foreground: '#85AC3A'
   - scope: support.type.property-name.css
     settings:
-      foreground: "#4FF2F8"
+      foreground: '#4FF2F8'
   - scope: entity.other.attribute-name.id.css
     settings:
-      foreground: "#FFFA9E"
+      foreground: '#FFFA9E'
   - scope: constant.other.color.rgb-value.hex.css
     settings:
-      foreground: "#4FF2F8"
-  - scope: meta.property-group support.constant.property-value.css,
+      foreground: '#4FF2F8'
+  - scope:
+      meta.property-group support.constant.property-value.css,
       meta.property-value support.constant.property-value.css
     settings:
-      foreground: "#85AC3A"
+      foreground: '#85AC3A'
   - scope: support.function
     settings:
-      foreground: "#71B1FE"
+      foreground: '#71B1FE'
   - scope: support.constant
     settings:
-      foreground: "#E76572"
+      foreground: '#E76572'
   - scope: support.type, support.class
     settings:
-      foreground: "#4DB1D8"
-  - scope: punctuation.definition.string, punctuation.definition.variable,
+      foreground: '#4DB1D8'
+  - scope:
+      punctuation.definition.string, punctuation.definition.variable,
       punctuation.definition.string, punctuation.definition.parameters,
       punctuation.definition.string, punctuation.definition.array
     settings:
-      foreground: "#D8D8D8"
+      foreground: '#D8D8D8'
   - scope: none
     settings:
-      foreground: "#D8D8D8"
+      foreground: '#D8D8D8'
   - scope: keyword.operator
     settings:
-      foreground: "#4FF2F8"
+      foreground: '#4FF2F8'
   - scope: keyword
     settings:
-      foreground: "#D59DF6"
+      foreground: '#D59DF6'
   - scope: variable, meta.selector.css
     settings:
-      foreground: "#E26674"
+      foreground: '#E26674'
   - scope: entity.name.function, meta.require, support.function.any-method
     settings:
-      foreground: "#7CAFC2"
+      foreground: '#7CAFC2'
   - scope: support.class, entity.name.class, entity.name.type.class
     settings:
-      foreground: "#E76572"
+      foreground: '#E76572'
   - scope: meta.class
     settings:
-      foreground: "#F8F8F8"
+      foreground: '#F8F8F8'
   - scope: keyword.other.special-method
     settings:
-      foreground: "#7CAFC2"
+      foreground: '#7CAFC2'
   - scope: storage
     settings:
-      foreground: "#BA8BAF"
+      foreground: '#BA8BAF'
   - scope: constant.numeric
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: none
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: none
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: constant
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: invalid.deprecated
     settings:
-      foreground: "#FFFFFF"
+      foreground: '#FFFFFF'
   - scope: meta.diff, meta.diff.header
     settings:
-      foreground: "#655C2D"
+      foreground: '#655C2D'
   - scope: markup.deleted
     settings:
-      foreground: "#FF5BA2"
+      foreground: '#FF5BA2'
   - scope: markup.inserted
     settings:
-      foreground: "#82C600"
+      foreground: '#82C600'
   - scope: markup.changed
     settings:
-      foreground: "#FFFF63"
+      foreground: '#FFFF63'
   - scope: entity.name.filename.find-in-files
     settings:
-      foreground: "#FFFF63"
+      foreground: '#FFFF63'
   - scope: token.info-token
     settings:
-      foreground: "#6796E6"
+      foreground: '#6796E6'
   - scope: token.warn-token
     settings:
-      foreground: "#CD9731"
+      foreground: '#CD9731'
   - scope: token.error-token
     settings:
-      foreground: "#F44747"
+      foreground: '#F44747'
   - scope: token.debug-token
     settings:
-      foreground: "#B267E6"
+      foreground: '#B267E6'
   - scope: comment.unused.elixir
     settings:
-      foreground: "#ABB2BF"
+      foreground: '#ABB2BF'
   - scope:
       - comment
       - punctuation.definition.comment
@@ -501,7 +269,7 @@ tokenColors:
       - comment.block.documentation
       - comment.block
     settings:
-      foreground: "#636D83"
+      foreground: '#636D83'
   - scope:
       - comment.block.documentation variable
       - keyword.other.documentation
@@ -511,7 +279,7 @@ tokenColors:
       - comment.block.documentation entity.name.type
       - meta.other.type.phpdoc support class
     settings:
-      foreground: "#449DAB"
+      foreground: '#449DAB'
   - scope:
       - punctuation.comma.graphql
       - punctuation.definition.variable
@@ -559,13 +327,13 @@ tokenColors:
       - punctuation.operation.graphql
       - punctuation.colon.graphql
     settings:
-      foreground: "#7A82DA"
+      foreground: '#7A82DA'
   - scope: none
     settings:
-      foreground: "#ABB2BF"
+      foreground: '#ABB2BF'
   - scope: keyword.operator
     settings:
-      foreground: "#7A82DA"
+      foreground: '#7A82DA'
   - scope:
       - keyword
       - keyword.operator.expression
@@ -573,17 +341,17 @@ tokenColors:
       - keyword.other.special-method.elixir
       - meta.control.flow
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope: support.type.primitive
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope:
       - variable
       - source.elixir.embedded.source
       - string source.groovy
       - string meta.embedded.line.ruby
     settings:
-      foreground: "#ABB2BF"
+      foreground: '#ABB2BF'
   - scope:
       - entity.name.function
       - meta.require
@@ -592,7 +360,7 @@ tokenColors:
       - meta.method-call
       - variable.function
     settings:
-      foreground: "#3FC56B"
+      foreground: '#3FC56B'
   - scope:
       - support.class
       - entity.name.class
@@ -606,18 +374,18 @@ tokenColors:
       - support.type.graphql
       - support.type.enum.graphql
     settings:
-      foreground: "#FF6480"
+      foreground: '#FF6480'
   - scope: keyword.other.special-method
     settings:
-      foreground: "#3FC56B"
+      foreground: '#3FC56B'
   - scope:
       - storage
       - constant.language
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope: support.function
     settings:
-      foreground: "#3FC56B"
+      foreground: '#3FC56B'
   - scope:
       - string
       - punctuation.definition.string
@@ -626,18 +394,18 @@ tokenColors:
       - support.function.variable.quoted.single.elixir
       - storage.type.string
     settings:
-      foreground: "#F9C859"
+      foreground: '#F9C859'
   - scope:
       - constant.numeric
       - variable.other.anonymous.elixir
     settings:
-      foreground: "#FF78F8"
+      foreground: '#FF78F8'
   - scope: none
     settings:
-      foreground: "#FF78F8"
+      foreground: '#FF78F8'
   - scope: none
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope:
       - constant
       - variable.other.constant
@@ -647,93 +415,93 @@ tokenColors:
       - support.constant
       - support.variable.magic.python
     settings:
-      foreground: "#9F7EFE"
+      foreground: '#9F7EFE'
   - scope:
       - entity.name.tag
       - punctuation.definition.tag
     settings:
-      foreground: "#3691FF"
+      foreground: '#3691FF'
   - scope:
       - entity.other.attribute-name
       - string.unquoted.alias.graphql
     settings:
-      foreground: "#FF936A"
+      foreground: '#FF936A'
   - scope: meta.selector
     settings:
-      foreground: "#7A82DA"
+      foreground: '#7A82DA'
   - scope: none
     settings:
-      foreground: "#FF78F8"
+      foreground: '#FF78F8'
   - scope:
       - markup.heading
       - punctuation.definition.heading
       - entity.name.section
       - markup.heading.setext
     settings:
-      foreground: "#F9C859"
+      foreground: '#F9C859'
   - scope: keyword.other.unit
     settings:
-      foreground: "#F9C859"
+      foreground: '#F9C859'
   - scope:
       - markup.bold
       - punctuation.definition.bold
     settings:
-      foreground: "#FF6480"
+      foreground: '#FF6480'
   - scope:
       - markup.italic
       - punctuation.definition.italic
     settings:
-      foreground: "#FF936A"
+      foreground: '#FF936A'
   - scope: markup.raw.inline
     settings:
-      foreground: "#F9C859"
+      foreground: '#F9C859'
   - scope: string.other.link
     settings:
-      foreground: "#3691FF"
+      foreground: '#3691FF'
   - scope: meta.link
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope: beginning.punctuation.definition.list
     settings:
-      foreground: "#CE9887"
+      foreground: '#CE9887'
   - scope: markup.quote
     settings:
-      foreground: "#9F7EFE"
+      foreground: '#9F7EFE'
   - scope: meta.separator
     settings:
-      foreground: "#ABB2BF"
+      foreground: '#ABB2BF'
   - scope: markup.inserted
     settings:
-      foreground: "#3FC56B"
+      foreground: '#3FC56B'
   - scope: markup.deleted
     settings:
-      foreground: "#FF6480"
+      foreground: '#FF6480'
   - scope: markup.changed
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope: string
     settings:
-      foreground: "#F9C859"
+      foreground: '#F9C859'
   - scope:
       - constant.character.escape
       - constant.other.character-class
     settings:
-      foreground: "#FF936A"
+      foreground: '#FF936A'
   - scope: variable.interpolation
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope: invalid
     settings:
-      foreground: "#FC2F52"
+      foreground: '#FC2F52'
   - scope: keyword.operator.new
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope: entity.other.attribute-name.id
     settings:
-      foreground: "#FF6480"
+      foreground: '#FF6480'
   - scope: meta.function-call.arguments
     settings:
-      foreground: "#ABB2BF"
+      foreground: '#ABB2BF'
   - scope:
       - meta.object-literal.key
       - meta.object.member
@@ -750,409 +518,421 @@ tokenColors:
       - support.type.map.key
       - variable.graphql
     settings:
-      foreground: "#CE9887"
+      foreground: '#CE9887'
   - scope:
       - markup.inline.raw
       - markup.fenced_code.block
       - markup.raw.block
     settings:
-      foreground: "#CE9887"
+      foreground: '#CE9887'
   - scope: markup.underline.link.image
     settings:
-      foreground: "#3FC56B"
+      foreground: '#3FC56B'
   - scope:
       - variable.parameter
       - parameter.variable.function.elixir
       - variable.other.block.ruby
     settings:
-      foreground: "#8BCDEF"
+      foreground: '#8BCDEF'
   - scope:
       - support.type.primitive
       - support.type.builtin
     settings:
-      foreground: "#10B1FE"
+      foreground: '#10B1FE'
   - scope: string.interpolated.dollar.shell
     settings:
-      foreground: "#FF6480"
+      foreground: '#FF6480'
   - scope: string.other.math.shell
     settings:
-      foreground: "#3691FF"
+      foreground: '#3691FF'
   - scope:
       - punctuation.definition.string.begin.shell
       - punctuation.definition.string.end.shell
     settings:
-      foreground: "#7A82DA"
+      foreground: '#7A82DA'
   - scope: comment.rainbow4
     settings:
-      foreground: "#CE9887"
+      foreground: '#CE9887'
   - scope: markup.bold.rainbow9
     settings:
-      foreground: "#9F7EFE"
+      foreground: '#9F7EFE'
   - scope: invalid.rainbow10
     settings:
-      foreground: "#FF936A"
+      foreground: '#FF936A'
   - scope: source.env
     settings:
-      foreground: "#7AA2F7"
+      foreground: '#7AA2F7'
   - scope: comment
     settings:
-      foreground: "#506686"
+      foreground: '#506686'
   - scope: string
     settings:
-      foreground: "#F6F6F5"
-  - scope: string.unquoted.html, string.quoted.double, string.quoted.single.html,
+      foreground: '#F6F6F5'
+  - scope:
+      string.unquoted.html, string.quoted.double, string.quoted.single.html,
       constant.other.symbol, entity.other.inherited-class
     settings:
-      foreground: "#B3D667"
+      foreground: '#B3D667'
   - scope: string.quoted.single
     settings:
-      foreground: "#70F49C"
+      foreground: '#70F49C'
   - scope: support.variable.dom
     settings:
-      foreground: "#59F2F7"
-  - scope: variable.other.constant, variable.other.constant.object,
+      foreground: '#59F2F7'
+  - scope:
+      variable.other.constant, variable.other.constant.object,
       variable.other.constant.property
     settings:
-      foreground: "#E9B684"
+      foreground: '#E9B684'
   - scope: constant.numeric
     settings:
-      foreground: "#58B4FF"
+      foreground: '#58B4FF'
   - scope: constant.language
     settings:
-      foreground: "#FFE792"
+      foreground: '#FFE792'
   - scope: constant.character, constant.other
     settings:
-      foreground: "#AC58FF"
+      foreground: '#AC58FF'
   - scope: variable
     settings:
-      foreground: "#B7C6DA"
+      foreground: '#B7C6DA'
   - scope: keyword
     settings:
-      foreground: "#E95293"
+      foreground: '#E95293'
   - scope: storage
     settings:
-      foreground: "#FF5BA2"
+      foreground: '#FF5BA2'
   - scope: storage.type
     settings:
-      foreground: "#D59DF6"
+      foreground: '#D59DF6'
   - scope: entity.name.class
     settings:
-      foreground: "#82C600"
+      foreground: '#82C600'
   - scope: entity.other.inherited-class
     settings:
-      foreground: "#82C600"
+      foreground: '#82C600'
   - scope: variable.parameter
     settings:
-      foreground: "#85AC3A"
+      foreground: '#85AC3A'
   - scope: entity.name.tag
     settings:
-      foreground: "#E76572"
-  - scope: entity.other.attribute-name, entity.other.attribute-name.class.css,
+      foreground: '#E76572'
+  - scope:
+      entity.other.attribute-name, entity.other.attribute-name.class.css,
       string.quoted.double.json
     settings:
-      foreground: "#EAB780"
-  - scope: meta.tag.other, entity.name.tag.style, entity.name.tag.script,
+      foreground: '#EAB780'
+  - scope:
+      meta.tag.other, entity.name.tag.style, entity.name.tag.script,
       meta.tag.block.script, source.embedded punctuation.definition.tag.html,
       source.css.embedded punctuation.definition.tag.html
     settings:
-      foreground: "#E26674"
+      foreground: '#E26674'
   - scope: variable.language.this, variable.language.this, entity.name.type
     settings:
-      foreground: "#EAB780"
+      foreground: '#EAB780'
   - scope: entity.other.attribute-name.id.html
     settings:
-      foreground: "#FFFA9E"
-  - scope: entity.name.function, entity.name.function.method, entity.name.accessor,
+      foreground: '#FFFA9E'
+  - scope:
+      entity.name.function, entity.name.function.method, entity.name.accessor,
       entity.name.class
     settings:
-      foreground: "#71B1FE"
+      foreground: '#71B1FE'
   - scope: support.class.builtin, entity.name.type.class
     settings:
-      foreground: "#FFFA9E"
-  - scope: variable.parameter, constant.other.object.key, variable.other.readwrite,
+      foreground: '#FFFA9E'
+  - scope:
+      variable.parameter, constant.other.object.key, variable.other.readwrite,
       punctuation.definition.parameters.begin,
       punctuation.definition.parameters.end, meta.object-literal.key,
       meta.array.literal, meta.brace.round, punctuation.definition.block,
       meta.objectliteral
     settings:
-      foreground: "#97A7C8"
+      foreground: '#97A7C8'
   - scope: constant.language.boolean.false, constant.language.boolean.true
     settings:
-      foreground: "#EAB780"
+      foreground: '#EAB780'
   - scope: support.variable.property.dom, entity.name.type.new
     settings:
-      foreground: "#E76572"
-  - scope: punctuation.definition.tag.html, punctuation.definition.tag.begin,
+      foreground: '#E76572'
+  - scope:
+      punctuation.definition.tag.html, punctuation.definition.tag.begin,
       punctuation.definition.tag.end
     settings:
-      foreground: "#E26674"
-  - scope: meta.tag string -source -punctuation, text source text meta.tag string
+      foreground: '#E26674'
+  - scope:
+      meta.tag string -source -punctuation, text source text meta.tag string
       -punctuation
     settings:
-      foreground: "#82BAF2"
-  - scope: punctuation.section.embedded -(source string source
+      foreground: '#82BAF2'
+  - scope:
+      punctuation.section.embedded -(source string source
       punctuation.section.embedded), meta.brace.erb.html
     settings:
-      foreground: "#D0B344"
+      foreground: '#D0B344'
   - scope: meta.toc-list.id
     settings:
-      foreground: "#88F2AF"
-  - scope: string.quoted.double.html, punctuation.definition.string.begin,
+      foreground: '#88F2AF'
+  - scope:
+      string.quoted.double.html, punctuation.definition.string.begin,
       punctuation.definition.string.end, string.quoted.double.handlebars
     settings:
-      foreground: "#56A3B1"
+      foreground: '#56A3B1'
   - scope:
       - entity.other.attribute-name.id
     settings:
-      foreground: "#85AC3A"
+      foreground: '#85AC3A'
   - scope: support.type.property-name.css
     settings:
-      foreground: "#4FF2F8"
+      foreground: '#4FF2F8'
   - scope: entity.other.attribute-name.id.css
     settings:
-      foreground: "#FFFA9E"
+      foreground: '#FFFA9E'
   - scope: constant.other.color.rgb-value.hex.css
     settings:
-      foreground: "#4FF2F8"
-  - scope: meta.property-group support.constant.property-value.css,
+      foreground: '#4FF2F8'
+  - scope:
+      meta.property-group support.constant.property-value.css,
       meta.property-value support.constant.property-value.css
     settings:
-      foreground: "#85AC3A"
+      foreground: '#85AC3A'
   - scope: support.function
     settings:
-      foreground: "#71B1FE"
+      foreground: '#71B1FE'
   - scope: support.constant
     settings:
-      foreground: "#E76572"
+      foreground: '#E76572'
   - scope: support.type, support.class
     settings:
-      foreground: "#4DB1D8"
-  - scope: punctuation.definition.string, punctuation.definition.variable,
+      foreground: '#4DB1D8'
+  - scope:
+      punctuation.definition.string, punctuation.definition.variable,
       punctuation.definition.string, punctuation.definition.parameters,
       punctuation.definition.string, punctuation.definition.array
     settings:
-      foreground: "#D8D8D8"
+      foreground: '#D8D8D8'
   - scope: none
     settings:
-      foreground: "#D8D8D8"
+      foreground: '#D8D8D8'
   - scope: keyword.operator
     settings:
-      foreground: "#4FF2F8"
+      foreground: '#4FF2F8'
   - scope: keyword
     settings:
-      foreground: "#D59DF6"
+      foreground: '#D59DF6'
   - scope: variable, meta.selector.css
     settings:
-      foreground: "#E26674"
+      foreground: '#E26674'
   - scope: entity.name.function, meta.require, support.function.any-method
     settings:
-      foreground: "#7CAFC2"
+      foreground: '#7CAFC2'
   - scope: support.class, entity.name.class, entity.name.type.class
     settings:
-      foreground: "#E76572"
+      foreground: '#E76572'
   - scope: meta.class
     settings:
-      foreground: "#F8F8F8"
+      foreground: '#F8F8F8'
   - scope: keyword.other.special-method
     settings:
-      foreground: "#7CAFC2"
+      foreground: '#7CAFC2'
   - scope: storage
     settings:
-      foreground: "#BA8BAF"
+      foreground: '#BA8BAF'
   - scope: constant.numeric
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: none
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: none
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: constant
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: invalid.deprecated
     settings:
-      foreground: "#FFFFFF"
+      foreground: '#FFFFFF'
   - scope: meta.diff, meta.diff.header
     settings:
-      foreground: "#655C2D"
+      foreground: '#655C2D'
   - scope: markup.deleted
     settings:
-      foreground: "#FF5BA2"
+      foreground: '#FF5BA2'
   - scope: markup.inserted
     settings:
-      foreground: "#82C600"
+      foreground: '#82C600'
   - scope: markup.changed
     settings:
-      foreground: "#FFFF63"
+      foreground: '#FFFF63'
   - scope: entity.name.filename.find-in-files
     settings:
-      foreground: "#FFFF63"
+      foreground: '#FFFF63'
   - scope: token.info-token
     settings:
-      foreground: "#6796E6"
+      foreground: '#6796E6'
   - scope: token.warn-token
     settings:
-      foreground: "#CD9731"
+      foreground: '#CD9731'
   - scope: token.error-token
     settings:
-      foreground: "#F44747"
+      foreground: '#F44747'
   - scope: token.debug-token
     settings:
-      foreground: "#B267E6"
+      foreground: '#B267E6'
   - scope:
       - comment
     settings:
-      foreground: "#626A73"
+      foreground: '#626A73'
   - scope:
       - string
       - constant.other.symbol
     settings:
-      foreground: "#C2D94C"
+      foreground: '#C2D94C'
   - scope:
       - string
       - constant.character
       - constant.other
     settings:
-      foreground: "#95E6CB"
+      foreground: '#95E6CB'
   - scope:
       - constant.numeric
     settings:
-      foreground: "#E6B450"
+      foreground: '#E6B450'
   - scope:
       - constant.language
     settings:
-      foreground: "#E6B450"
+      foreground: '#E6B450'
   - scope:
       - variable
     settings:
-      foreground: "#B3B1AD"
+      foreground: '#B3B1AD'
   - scope:
       - variable.member
     settings:
-      foreground: "#F07178"
+      foreground: '#F07178'
   - scope:
       - variable.language
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - storage
     settings:
-      foreground: "#FF8F40"
+      foreground: '#FF8F40'
   - scope:
       - keyword
     settings:
-      foreground: "#FF8F40"
+      foreground: '#FF8F40'
   - scope:
       - keyword.operator
     settings:
-      foreground: "#F29668"
+      foreground: '#F29668'
   - scope:
       - punctuation.separator
       - punctuation.terminator
     settings:
-      foreground: "#B3B1ADB3"
+      foreground: '#B3B1ADB3'
   - scope:
       - punctuation.section
     settings:
-      foreground: "#B3B1AD"
+      foreground: '#B3B1AD'
   - scope:
       - punctuation.accessor
     settings:
-      foreground: "#F29668"
+      foreground: '#F29668'
   - scope:
       - source.java storage.type
       - source.haskell storage.type
       - source.c storage.type
     settings:
-      foreground: "#59C2FF"
+      foreground: '#59C2FF'
   - scope:
       - entity.other.inherited-class
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - storage.type.function
     settings:
-      foreground: "#FF8F40"
+      foreground: '#FF8F40'
   - scope:
       - source.java storage.type.primitive
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - entity.name.function
     settings:
-      foreground: "#FFB454"
+      foreground: '#FFB454'
   - scope:
       - variable.parameter
       - meta.parameter
     settings:
-      foreground: "#FFEE99"
+      foreground: '#FFEE99'
   - scope:
       - variable.function
       - variable.annotation
       - meta.function-call.generic
       - support.function.go
     settings:
-      foreground: "#FFB454"
+      foreground: '#FFB454'
   - scope:
       - support.function
       - support.macro
     settings:
-      foreground: "#F07178"
+      foreground: '#F07178'
   - scope:
       - entity.name.import
       - entity.name.package
     settings:
-      foreground: "#C2D94C"
+      foreground: '#C2D94C'
   - scope:
       - entity.name
     settings:
-      foreground: "#59C2FF"
+      foreground: '#59C2FF'
   - scope:
       - entity.name.tag
       - meta.tag.sgml
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - punctuation.definition.tag.end
       - punctuation.definition.tag.begin
       - punctuation.definition.tag
     settings:
-      foreground: "#39BAE680"
+      foreground: '#39BAE680'
   - scope:
       - entity.other.attribute-name
     settings:
-      foreground: "#FFB454"
+      foreground: '#FFB454'
   - scope:
       - support.constant
     settings:
-      foreground: "#F29668"
+      foreground: '#F29668'
   - scope:
       - support.type
       - support.class
       - source.go storage.type
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - meta.decorator variable.other
       - meta.decorator punctuation.decorator
       - storage.type.annotation
     settings:
-      foreground: "#E6B673"
+      foreground: '#E6B673'
   - scope:
       - invalid
     settings:
-      foreground: "#FF3333"
+      foreground: '#FF3333'
   - scope:
       - meta.diff
       - meta.diff.header
     settings:
-      foreground: "#C594C5"
+      foreground: '#C594C5'
   - scope:
       - source.ruby variable.other.readwrite
     settings:
-      foreground: "#FFB454"
+      foreground: '#FFB454'
   - scope:
       - source.css entity.name.tag
       - source.sass entity.name.tag
@@ -1160,7 +940,7 @@ tokenColors:
       - source.less entity.name.tag
       - source.stylus entity.name.tag
     settings:
-      foreground: "#59C2FF"
+      foreground: '#59C2FF'
   - scope:
       - source.css support.type
       - source.sass support.type
@@ -1168,45 +948,45 @@ tokenColors:
       - source.less support.type
       - source.stylus support.type
     settings:
-      foreground: "#626A73"
+      foreground: '#626A73'
   - scope:
       - support.type.property-name
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - constant.numeric.line-number.find-in-files - match
     settings:
-      foreground: "#626A73"
+      foreground: '#626A73'
   - scope:
       - constant.numeric.line-number.match
     settings:
-      foreground: "#FF8F40"
+      foreground: '#FF8F40'
   - scope:
       - entity.name.filename.find-in-files
     settings:
-      foreground: "#C2D94C"
+      foreground: '#C2D94C'
   - scope:
       - message.error
     settings:
-      foreground: "#FF3333"
+      foreground: '#FF3333'
   - scope:
       - markup.heading
       - markup.heading entity.name
     settings:
-      foreground: "#C2D94C"
+      foreground: '#C2D94C'
   - scope:
       - markup.underline.link
       - string.other.link
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - markup.italic
     settings:
-      foreground: "#F07178"
+      foreground: '#F07178'
   - scope:
       - markup.bold
     settings:
-      foreground: "#F07178"
+      foreground: '#F07178'
   - scope:
       - markup.italic markup.bold
       - markup.bold markup.italic
@@ -1214,67 +994,67 @@ tokenColors:
   - scope:
       - markup.raw
     settings:
-      foreground: "#B3B1AD"
+      foreground: '#B3B1AD'
   - scope:
       - markup.raw.inline
     settings:
-      foreground: "#B3B1AD"
+      foreground: '#B3B1AD'
   - scope:
       - meta.separator
     settings:
-      foreground: "#626A73"
+      foreground: '#626A73'
   - scope:
       - markup.quote
     settings:
-      foreground: "#95E6CB"
+      foreground: '#95E6CB'
   - scope:
       - markup.list punctuation.definition.list.begin
     settings:
-      foreground: "#FFB454"
+      foreground: '#FFB454'
   - scope:
       - markup.inserted
     settings:
-      foreground: "#91B362"
+      foreground: '#91B362'
   - scope:
       - markup.changed
     settings:
-      foreground: "#6994BF"
+      foreground: '#6994BF'
   - scope:
       - markup.deleted
     settings:
-      foreground: "#D96C75"
+      foreground: '#D96C75'
   - scope:
       - markup.strike
     settings:
-      foreground: "#E6B673"
+      foreground: '#E6B673'
   - scope:
       - markup.table
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope:
       - text.html.markdown markup.inline.raw
     settings:
-      foreground: "#F29668"
+      foreground: '#F29668'
   - scope:
       - text.html.markdown meta.dummy.line-break
     settings:
-      foreground: "#626A73"
+      foreground: '#626A73'
   - scope:
       - punctuation.definition.markdown
     settings:
-      foreground: "#626A73"
+      foreground: '#626A73'
   - scope: token.info-token
     settings:
-      foreground: "#6796E6"
+      foreground: '#6796E6'
   - scope: token.warn-token
     settings:
-      foreground: "#CD9731"
+      foreground: '#CD9731'
   - scope: token.error-token
     settings:
-      foreground: "#F44747"
+      foreground: '#F44747'
   - scope: token.debug-token
     settings:
-      foreground: "#B267E6"
+      foreground: '#B267E6'
   - scope:
       - meta.brace
       - punctuation.definition.array
@@ -1288,1025 +1068,1030 @@ tokenColors:
       - punctuation.support
       - punctuation.terminator
     settings:
-      foreground: "#1ABC9C"
-  - scope: keyword.other.base, keyword.other.this, variable.language.super,
+      foreground: '#1ABC9C'
+  - scope:
+      keyword.other.base, keyword.other.this, variable.language.super,
       variable.language.this, keyword.operator.callout
     settings:
-      foreground: "#1D9ABA"
+      foreground: '#1D9ABA'
   - scope: support.type.variant
     settings:
-      foreground: "#1EA71A"
+      foreground: '#1EA71A'
   - scope: keyword.operator.new, keyword.other.new
     settings:
-      foreground: "#D65FDE"
+      foreground: '#D65FDE'
   - scope: storage.type.function.arrow, keyword.operator.arrow
     settings:
-      foreground: "#FFDD44"
+      foreground: '#FFDD44'
   - scope: meta.decorator, meta.decorator, entity.name.function.decorator.python
     settings:
-      foreground: "#74D1BA"
+      foreground: '#74D1BA'
   - scope: support.variable.dom
     settings:
-      foreground: "#7DE03B"
+      foreground: '#7DE03B'
   - scope: constant.language.python,keyword.operator.prototype.coffee,keyword.operator.accessor
     settings:
-      foreground: "#00C4E6"
+      foreground: '#00C4E6'
   - scope: variable.language.super
     settings:
-      foreground: "#57CC99"
+      foreground: '#57CC99'
   - scope: variable.language.arguments
     settings:
-      foreground: "#FB8500"
+      foreground: '#FB8500'
   - scope: variable.other.readwrite.instance,variable.other.readwrite.decorator
     settings:
-      foreground: "#BDB2FF"
+      foreground: '#BDB2FF'
   - scope: keyword.control.then,keyword.operator.expression.keyof,keyword.operator.then
     settings:
-      foreground: "#78C6A3"
+      foreground: '#78C6A3'
   - scope: keyword.control.when,keyword.operator.private
     settings:
-      foreground: "#3AB795"
+      foreground: '#3AB795'
   - scope: keyword.operator.expression.in,keyword.operator.in
     settings:
-      foreground: "#999BE3"
+      foreground: '#999BE3'
   - scope: keyword.operator.expression.of,keyword.operator.of,storage.type.format
     settings:
-      foreground: "#EB8BAB"
+      foreground: '#EB8BAB'
   - scope: keyword.operator.expression.by,keyword.operator.by
     settings:
-      foreground: "#E88873"
+      foreground: '#E88873'
   - scope: keyword.control.from,keyword.operator.intersection
     settings:
-      foreground: "#67C435"
+      foreground: '#67C435'
   - scope: keyword.operator.expression.to,keyword.operator.to
     settings:
-      foreground: "#67CDE1"
+      foreground: '#67CDE1'
   - scope: keyword.operator.expression.til,keyword.operator.til
     settings:
-      foreground: "#8DC0F6"
+      foreground: '#8DC0F6'
   - scope: keyword.operator.expression.downto,keyword.operator.downto
     settings:
-      foreground: "#B48EAE"
+      foreground: '#B48EAE'
   - scope: keyword.operator.expression.downtil,keyword.operator.downtil
     settings:
-      foreground: "#DB7F8E"
+      foreground: '#DB7F8E'
   - scope: keyword.operator.expression.range,keyword.operator.range
     settings:
-      foreground: "#59A5D8"
+      foreground: '#59A5D8'
   - scope: keyword.operator.expression.is
     settings:
-      foreground: "#80B918"
+      foreground: '#80B918'
   - scope: storage.type.constructor
     settings:
-      foreground: "#E8AC65"
+      foreground: '#E8AC65'
   - scope: markup.list,markup.list.numbered.markdown
     settings:
-      foreground: "#FAB38E"
+      foreground: '#FAB38E'
   - scope: markup.list,markup.list.unnumbered.markdown
     settings:
-      foreground: "#F7C57A"
+      foreground: '#F7C57A'
   - scope: support.function.magic
     settings:
-      foreground: "#74B8B3"
+      foreground: '#74B8B3'
   - scope: support.variable.magic
     settings:
-      foreground: "#DBCD92"
+      foreground: '#DBCD92'
   - scope: markup.underline.link.markdown
     settings:
-      foreground: "#FF87AB"
+      foreground: '#FF87AB'
   - scope: markup.bold.markdown,keyword.operator.expression.sub,storage.type.implements
     settings:
-      foreground: "#04D895"
+      foreground: '#04D895'
   - scope: markup.italic.markdown,keyword.control.proc
     settings:
-      foreground: "#E57EB3"
+      foreground: '#E57EB3'
   - scope: punctuation.definition.heading.markdown
     settings:
-      foreground: "#C3E88D"
+      foreground: '#C3E88D'
   - scope: punctuation.definition.list.begin.markdown
     settings:
-      foreground: "#6796E6"
+      foreground: '#6796E6'
   - scope: punctuation.definition.markdown
     settings:
-      foreground: "#C792EA"
+      foreground: '#C792EA'
   - scope:
       - string punctuation.definition.string.begin
       - string punctuation.definition.string.end
     settings:
-      foreground: "#29CCAD"
+      foreground: '#29CCAD'
   - scope:
       - keyword.modifier
     settings:
-      foreground: "#A3BD52"
+      foreground: '#A3BD52'
   - scope: punctuation.definition.raw
     settings:
-      foreground: "#64BAC5"
+      foreground: '#64BAC5'
   - scope: punctuation.definition.tag.begin,punctuation.definition.tag.end
     settings:
-      foreground: "#39BAE6"
+      foreground: '#39BAE6'
   - scope: entity.other.attribute-name.id
     settings:
-      foreground: "#85AC3A"
+      foreground: '#85AC3A'
   - scope: support.type.property-name.css
     settings:
-      foreground: "#6BE5FD"
+      foreground: '#6BE5FD'
   - scope: entity.other.attribute-name.id.css
     settings:
-      foreground: "#FFFA9E"
+      foreground: '#FFFA9E'
   - scope: entity.name.tag.css
     settings:
-      foreground: "#59C2FF"
+      foreground: '#59C2FF'
   - scope: constant.other.color.rgb-value.hex.css,constant.other.color.rgb-value.css,support.constant.color.w3c-extended-color-name
     settings:
-      foreground: "#45A1ED"
-  - scope: meta.tag.other, entity.name.tag.style, entity.name.tag.script,
+      foreground: '#45A1ED'
+  - scope:
+      meta.tag.other, entity.name.tag.style, entity.name.tag.script,
       meta.tag.block.script, source.embedded punctuation.definition.tag.html,
       source.css.embedded punctuation.definition.tag.html
     settings:
-      foreground: "#FF936A"
-  - scope: meta.property-group support.constant.property-value.css,
+      foreground: '#FF936A'
+  - scope:
+      meta.property-group support.constant.property-value.css,
       meta.property-value support.constant.property-value.css
     settings:
-      foreground: "#2EB67D"
+      foreground: '#2EB67D'
   - scope: meta.selector.css
     settings:
-      foreground: "#DC9656"
+      foreground: '#DC9656'
   - scope: keyword.other.unit
     settings:
-      foreground: "#C74DED"
-  - scope: keyword.other.important, support.type.exception.python, support.class.error
+      foreground: '#C74DED'
+  - scope:
+      keyword.other.important, support.type.exception.python,
+      support.class.error
     settings:
-      foreground: "#F43E5C"
+      foreground: '#F43E5C'
   - scope: support.type.vendored.property-name.css
     settings:
-      foreground: "#A9B2C3"
+      foreground: '#A9B2C3'
   - scope: variable.other.dollar.coffee
     settings:
-      foreground: "#EF596F"
+      foreground: '#EF596F'
   - scope: markup.fenced_code.block.markdown
     settings:
-      foreground: "#CED4DA"
+      foreground: '#CED4DA'
   - scope: storage.type.function,storage.type.function.python
     settings:
-      foreground: "#E34F8C"
+      foreground: '#E34F8C'
   - scope: string.quoted.double.json,string.quoted.double.json.comments,string.template,string
     settings:
-      foreground: "#E0E0E0"
+      foreground: '#E0E0E0'
   - scope: string.template,string
     settings:
-      foreground: "#91DD64"
-  - scope: string.unquoted.html, string.quoted.double, string.quoted.double,
+      foreground: '#91DD64'
+  - scope:
+      string.unquoted.html, string.quoted.double, string.quoted.double,
       string.quoted.double.jsx, string.quoted.double,string.quoted.double.tsx,
       string.quoted.single.html, constant.other.symbol,
       entity.other.inherited-class
     settings:
-      foreground: "#B3D667"
+      foreground: '#B3D667'
   - scope: string.quoted.single,string.quoted.single,string.quoted.single,string.quoted.single.jsx,string.quoted.single.tsx
     settings:
-      foreground: "#70F49C"
+      foreground: '#70F49C'
   - scope: keyword.control.trycatch,keyword.control.try,keyword.control.catch,keyword.control.finally
     settings:
-      foreground: "#E66255"
+      foreground: '#E66255'
   - scope: keyword.control.loop,keyword.control.for,keyword.control.while,keyword.control.do
     settings:
-      foreground: "#21BFC2"
+      foreground: '#21BFC2'
   - scope: keyword.control.switch,keyword.control.case,keyword.control.default
     settings:
-      foreground: "#35BA66"
-  - scope: storage.type.namespace
-    settings:
-      foreground: "#C19357"
-  - scope: storage.type
-    settings:
-      foreground: "#9D7CD8"
+      foreground: '#35BA66'
   - scope:
       - meta.brace.square
       - meta.brace.square
       - punctuation.definition.array
     settings:
-      foreground: "#0096C7"
+      foreground: '#0096C7'
   - scope:
       - meta.brace.round
       - meta.brace.round
     settings:
-      foreground: "#F25C54"
+      foreground: '#F25C54'
   - scope:
       - punctuation.definition.quasi.begin
       - punctuation.definition.quasi.end
     settings:
-      foreground: "#CD9731"
+      foreground: '#CD9731'
   - scope:
       - meta.brace.curly
       - punctuation.definition.dictionary
     settings:
-      foreground: "#52B788"
+      foreground: '#52B788'
   - scope: meta.brace.curly.litobj
     settings:
-      foreground: "#B388EB"
+      foreground: '#B388EB'
   - scope: punctuation.definition.group
     settings:
-      foreground: "#EA698B"
+      foreground: '#EA698B'
   - scope:
       - punctuation.definition.character-class
     settings:
-      foreground: "#809BCE"
+      foreground: '#809BCE'
   - scope: keyword.operator.quantifier.lazy
     settings:
-      foreground: "#8AC926"
+      foreground: '#8AC926'
   - scope: keyword.operator.quantifier.eager
     settings:
-      foreground: "#779BE7"
+      foreground: '#779BE7'
   - scope: keyword.operator.quantifier.greedy
     settings:
-      foreground: "#A06CD5"
+      foreground: '#A06CD5'
   - scope: keyword.operator.modifier.lazy
     settings:
-      foreground: "#2DC653"
+      foreground: '#2DC653'
   - scope: keyword.operator.modifier.eager
     settings:
-      foreground: "#0496FF"
+      foreground: '#0496FF'
   - scope: keyword.operator.modifier.greedy
     settings:
-      foreground: "#9F86C0"
+      foreground: '#9F86C0'
   - scope:
       - punctuation.terminator.statement
       - punctuation.terminator.statement
     settings:
-      foreground: "#1ABC9C"
+      foreground: '#1ABC9C'
   - scope:
       - meta.delimiter.comma
     settings:
-      foreground: "#8AC926"
+      foreground: '#8AC926'
   - scope:
       - punctuation.separator.key-value
       - punctuation.separator.dictionary.key-value
     settings:
-      foreground: "#FF6D00"
+      foreground: '#FF6D00'
   - scope:
       - meta.function-call.with-arguments meta.brace.round
       - meta.function-call.with-arguments meta.brace.round
     settings:
-      foreground: "#5D90FF"
+      foreground: '#5D90FF'
   - scope:
       - meta.function-call.without-arguments meta.brace.round
       - meta.function-call.without-arguments meta.brace.round
     settings:
-      foreground: "#D350CC"
+      foreground: '#D350CC'
   - scope:
       - meta.method-call.with-arguments meta.brace.round
       - meta.method-call.with-arguments meta.brace.round
     settings:
-      foreground: "#00AFB9"
+      foreground: '#00AFB9'
   - scope:
       - meta.method-call.without-arguments meta.brace.round
       - meta.method-call.without-arguments meta.brace.round
     settings:
-      foreground: "#7274F4"
+      foreground: '#7274F4'
   - scope: punctuation.definition.comment
     settings:
-      foreground: "#6B7089"
+      foreground: '#6B7089'
   - scope: punctuation.definition.tag
     settings:
-      foreground: "#56B6C2"
+      foreground: '#56B6C2'
   - scope: keyword.operator.module
     settings:
-      foreground: "#56A3B1"
+      foreground: '#56A3B1'
   - scope: punctuation.definition.entity
     settings:
-      foreground: "#FF9057"
+      foreground: '#FF9057'
   - scope: punctuation.definition.keyword
     settings:
-      foreground: "#FF66BB"
+      foreground: '#FF66BB'
   - scope: punctuation.definition.block
     settings:
-      foreground: "#819AFF"
+      foreground: '#819AFF'
   - scope: punctuation.definition.parameters
     settings:
-      foreground: "#FF5459"
+      foreground: '#FF5459'
   - scope: punctuation.definition.string
     settings:
-      foreground: "#3AD900"
+      foreground: '#3AD900'
   - scope: punctuation.quasi.element
     settings:
-      foreground: "#EC6A88"
+      foreground: '#EC6A88'
   - scope:
       - punctuation.section.class.begin
       - punctuation.section.class.end
     settings:
-      foreground: "#BF9277"
+      foreground: '#BF9277'
   - scope: punctuation.decorator.internaldeclaration
     settings:
-      foreground: "#6796E6"
+      foreground: '#6796E6'
   - scope: punctuation
     settings:
-      foreground: "#F79824"
+      foreground: '#F79824'
   - scope: meta.switch keyword.operator
     settings:
-      foreground: "#52B788"
+      foreground: '#52B788'
   - scope: punctuation.type
     settings:
-      foreground: "#9F9FED"
+      foreground: '#9F9FED'
   - scope: keyword.operator.or
     settings:
-      foreground: "#4E94CE"
+      foreground: '#4E94CE'
   - scope: variable.other.object
     settings:
-      foreground: "#A79E91"
+      foreground: '#A79E91'
   - scope: entity.name.function,keyword.operator.only
     settings:
-      foreground: "#6487C4"
+      foreground: '#6487C4'
   - scope: entity.name.function
     settings:
-      foreground: "#3498DB"
+      foreground: '#3498DB'
   - scope: entity.name.function.member,support.function,support.function.builtin,support.function.builtin.python
     settings:
-      foreground: "#9180D6"
+      foreground: '#9180D6'
   - scope: variable.other.object
     settings:
-      foreground: "#A79E91"
+      foreground: '#A79E91'
   - scope: storage.modifier.async,storage.modifier.async,storage.modifier.async.jsx,storage.modifier.async.jsx,storage.modifier.async,storage.modifier.async.tsx,storage.type.string
     settings:
-      foreground: "#A6BD52"
+      foreground: '#A6BD52'
   - scope: support.type.builtin.primitive
     settings:
-      foreground: "#98C378"
+      foreground: '#98C378'
   - scope: support.type.primitive,source support.type.primitive
     settings:
-      foreground: "#56B6C2"
+      foreground: '#56B6C2'
   - scope: support.type.builtin.class
     settings:
-      foreground: "#F25F5C"
+      foreground: '#F25F5C'
   - scope: support.variable.property.dom,support.variable.property.dom.jsx,support.variable.property.dom,support.variable.property.dom.tsx
     settings:
-      foreground: "#C0615A"
+      foreground: '#C0615A'
   - scope: support.variable.property.dom,keyword.operator.optional.parameter
     settings:
-      foreground: "#689CFF"
+      foreground: '#689CFF'
   - scope: keyword.operator.maybe
     settings:
-      foreground: "#00FFBC"
+      foreground: '#00FFBC'
   - scope: meta.object-literal.key,meta.object-literal.key,meta.object-literal.key.jsx,meta.object-literal.key.jsx,meta.object-literal.key.tsx,meta.object-literal.key.coffee,string.unquoted,string.unquoted.jsx,string.unquoted,string.unquoted.tsx
     settings:
-      foreground: "#FF5D8F"
-  - scope: variable.parameter, constant.other.object.key, variable.other.readwrite,
+      foreground: '#FF5D8F'
+  - scope:
+      variable.parameter, constant.other.object.key, variable.other.readwrite,
       punctuation.definition.parameters.begin,
       punctuation.definition.parameters.end, meta.object-literal.key,
       meta.array.literal, punctuation.definition.block,
       meta.object-literal,variable.parameter.function.coffee
     settings:
-      foreground: "#CED3D8"
+      foreground: '#CED3D8'
   - scope: variable.parameter
     settings:
-      foreground: "#B0B7C3"
+      foreground: '#B0B7C3'
   - scope: variable.assignment.coffee,source
     settings:
-      foreground: "#97A7C8"
+      foreground: '#97A7C8'
   - scope: keyword.control.flow
     settings:
-      foreground: "#61BDF2"
+      foreground: '#61BDF2'
   - scope:
       - keyword.operator.assignment
       - keyword.operator.assignment
     settings:
-      foreground: "#838D91"
+      foreground: '#838D91'
   - scope: keyword.control.with,keyword.operator.with
     settings:
-      foreground: "#B7B784"
+      foreground: '#B7B784'
   - scope: support.class.builtin,keyword.operator.slice.exclusive.coffee,variable.other.language
     settings:
-      foreground: "#CADE59"
+      foreground: '#CADE59'
   - scope: meta.definition.property,meta.field.declaration,constant.other.object.key,constant.other.object.key.jsx,constant.other.object.key.jsx,constant.other.object.key,constant.other.object.key.tsx,keyword.operator.slice.inclusive.coffee
     settings:
-      foreground: "#9EE37D"
+      foreground: '#9EE37D'
   - scope: keyword.control.import,keyword.control.import,keyword.control.import.jsx,keyword.control.import.jsx,keyword.control.import,keyword.control.import.tsx
     settings:
-      foreground: "#FA5E5B"
+      foreground: '#FA5E5B'
   - scope: keyword.control.export,keyword.control.export,keyword.control.export.jsx,keyword.control.export.jsx,keyword.control.export,keyword.control.export.tsx
     settings:
-      foreground: "#FFE600"
+      foreground: '#FFE600'
   - scope: keyword.control.from,keyword.control.from,keyword.control.from.jsx,keyword.control.from.jsx,keyword.control.from,keyword.control.from.tsx
     settings:
-      foreground: "#67C435"
+      foreground: '#67C435'
   - scope: meta.export.default,meta.export.default,meta.export.default.jsx,meta.export.default.jsx,meta.export.default,meta.export.default.tsx
     settings:
-      foreground: "#D972DE"
+      foreground: '#D972DE'
   - scope: keyword.control.do,keyword.generator.asterisk,keyword.other.coffee
     settings:
-      foreground: "#A88FFF"
+      foreground: '#A88FFF'
   - scope: meta.do meta.brace.round, meta.do meta.brace.curly
     settings:
-      foreground: "#7A82DA"
+      foreground: '#7A82DA'
   - scope: keyword.control.as,keyword.control.module
     settings:
-      foreground: "#4FB4D8"
+      foreground: '#4FB4D8'
   - scope: storage.modifier,storage.type.extends
     settings:
-      foreground: "#E15D97"
+      foreground: '#E15D97'
   - scope: storage.type.class,storage.type.class.python
     settings:
-      foreground: "#05B6C5"
+      foreground: '#05B6C5'
   - scope: storage.type.property,keyword.operator.extends,keyword.operator.class
     settings:
-      foreground: "#DD8AA3"
+      foreground: '#DD8AA3'
   - scope: storage.type.enum
     settings:
-      foreground: "#8160CC"
+      foreground: '#8160CC'
   - scope: storage.type.struct
     settings:
-      foreground: "#3FAEE2"
+      foreground: '#3FAEE2'
   - scope: storage.type.interface,keyword.other.interface
     settings:
-      foreground: "#7D9CE2"
+      foreground: '#7D9CE2'
   - scope: storage.type.type,keyword.other.typedef
     settings:
-      foreground: "#BA958B"
+      foreground: '#BA958B'
   - scope:
       - storage.type.numeric.bigint
       - storage.type.numeric.bigint
       - meta.delimiter.decimal.period
     settings:
-      foreground: "#9298A1"
+      foreground: '#9298A1'
   - scope: entity.name.function.tagged-template,keyword.operator.existential
     settings:
-      foreground: "#46DAD3"
+      foreground: '#46DAD3'
   - scope: entity.name.type.interface,support.type.class.interface
     settings:
-      foreground: "#3F87DA"
+      foreground: '#3F87DA'
   - scope: entity.name.type.alias
     settings:
-      foreground: "#B66D60"
+      foreground: '#B66D60'
   - scope: entity.name.type.enum
     settings:
-      foreground: "#D365E5"
+      foreground: '#D365E5'
   - scope: entity.name.type.module
     settings:
-      foreground: "#B48237"
+      foreground: '#B48237'
   - scope: keyword.operator.increment
     settings:
-      foreground: "#70F49C"
+      foreground: '#70F49C'
   - scope: keyword.operator.decrement
     settings:
-      foreground: "#FFCC95"
+      foreground: '#FFCC95'
   - scope: keyword.operator.bitwise
     settings:
-      foreground: "#2BBAC5"
+      foreground: '#2BBAC5'
   - scope: keyword.operator.bitwise.shift,keyword.operator.pipe,keyword.operator.pipeline
     settings:
-      foreground: "#C879FF"
+      foreground: '#C879FF'
   - scope: keyword.operator.assignment.compound,keyword.operator.assignment.compound.bitwise,keyword.operator.assignment.augmented
     settings:
-      foreground: "#0096C7"
+      foreground: '#0096C7'
   - scope: keyword.operator.relational
     settings:
-      foreground: "#88CC00"
+      foreground: '#88CC00'
   - scope: keyword.operator.comparison
     settings:
-      foreground: "#CF7D34"
+      foreground: '#CF7D34'
   - scope: keyword.operator.logical
     settings:
-      foreground: "#6DBDFA"
+      foreground: '#6DBDFA'
   - scope: keyword.operator.arithmetic
     settings:
-      foreground: "#DA6771"
+      foreground: '#DA6771'
   - scope: keyword.operator.spread,keyword.operator.splat
     settings:
-      foreground: "#50FA7B"
+      foreground: '#50FA7B'
   - scope: keyword.operator.expression.void,keyword.operator.void
     settings:
-      foreground: "#FCBF49"
+      foreground: '#FCBF49'
   - scope: keyword.operator.expression.instanceof,keyword.operator.instanceof
     settings:
-      foreground: "#95D5B2"
+      foreground: '#95D5B2'
   - scope: keyword.operator.expression.typeof,keyword.operator.typeof
     settings:
-      foreground: "#8ECAE6"
+      foreground: '#8ECAE6'
   - scope: keyword.operator.expression.delete,keyword.operator.delete
     settings:
-      foreground: "#DAA1A1"
+      foreground: '#DAA1A1'
   - scope: variable.other.constant
     settings:
-      foreground: "#9AA5CE"
+      foreground: '#9AA5CE'
   - scope: keyword.operator.expression.length
     settings:
-      foreground: "#FFD6A5"
+      foreground: '#FFD6A5'
   - scope: constant.numeric.binary,constant.numeric.bin,constant.character.entity.numeric.named
     settings:
-      foreground: "#E3CF65"
+      foreground: '#E3CF65'
   - scope: constant.numeric.octal,constant.numeric.oct,constant.character.entity.numeric.decimal
     settings:
-      foreground: "#89CA78"
+      foreground: '#89CA78'
   - scope: constant.numeric.hexadecimal,constant.numeric.hex,constant.character.entity.numeric.hexadecimal
     settings:
-      foreground: "#46AFE3"
+      foreground: '#46AFE3'
   - scope: constant.numeric.bigint
     settings:
-      foreground: "#7CC0D1"
+      foreground: '#7CC0D1'
   - scope: constant.language.boolean.true
     settings:
-      foreground: "#4ECB4D"
+      foreground: '#4ECB4D'
   - scope: support.module.node,constant.character.entity
     settings:
-      foreground: "#78C0E0"
+      foreground: '#78C0E0'
   - scope: constant.language.boolean.false
     settings:
-      foreground: "#D18C4E"
-  - scope: meta.with meta.brace.curly, meta.with meta.brace.round,
+      foreground: '#D18C4E'
+  - scope:
+      meta.with meta.brace.curly, meta.with meta.brace.round,
       meta.brace.curly.withEnd,
     settings:
-      foreground: "#E36414"
-  - scope: meta.if meta.brace.curly, meta.if meta.brace.round,
+      foreground: '#E36414'
+  - scope:
+      meta.if meta.brace.curly, meta.if meta.brace.round,
       meta.embedded.block.katex
     settings:
-      foreground: "#FCA311"
-  - scope: meta.brace.curly.switchStart, meta.switch meta.brace.round,
+      foreground: '#FCA311'
+  - scope:
+      meta.brace.curly.switchStart, meta.switch meta.brace.round,
       meta.brace.curly.switchEnd
     settings:
-      foreground: "#43AA8B"
+      foreground: '#43AA8B'
   - scope: meta.for meta.brace.curly, meta.for meta.brace.round
     settings:
-      foreground: "#00AFB9"
-  - scope: meta.brace.curly.matchStart, meta.match meta.brace.round,
+      foreground: '#00AFB9'
+  - scope:
+      meta.brace.curly.matchStart, meta.match meta.brace.round,
       meta.brace.curly.matchEnd
     settings:
-      foreground: "#5291C4"
+      foreground: '#5291C4'
   - scope: meta.catch meta.brace.curly, meta.catch meta.brace.round
     settings:
-      foreground: "#E63946"
+      foreground: '#E63946'
   - scope: meta.var.expr
     settings:
-      foreground: "#4CC9F0"
+      foreground: '#4CC9F0'
   - scope: constant.other.character-class
     settings:
-      foreground: "#1ADEBA"
+      foreground: '#1ADEBA'
   - scope: constant.other.character-class.range
     settings:
-      foreground: "#FFAE57"
+      foreground: '#FFAE57'
   - scope: constant.other.character-class.set
     settings:
-      foreground: "#C6DF3A"
+      foreground: '#C6DF3A'
   - scope: constant.character.unicode
     settings:
-      foreground: "#B5828D"
+      foreground: '#B5828D'
   - scope: constant.other.character-class.xml
     settings:
-      foreground: "#A5A58D"
+      foreground: '#A5A58D'
   - scope: constant.character.numeric
     settings:
-      foreground: "#16C98D"
+      foreground: '#16C98D'
   - scope: constant.character.control
     settings:
-      foreground: "#57B6C2"
+      foreground: '#57B6C2'
   - scope: keyword.control.anchor
     settings:
-      foreground: "#6DBDFA"
+      foreground: '#6DBDFA'
   - scope: keyword.other.back-reference
     settings:
-      foreground: "#829AEE"
+      foreground: '#829AEE'
   - scope: keyword.other.logical
     settings:
-      foreground: "#4CC9F0"
+      foreground: '#4CC9F0'
   - scope: keyword.operator.quantifier
     settings:
-      foreground: "#43AA8B"
+      foreground: '#43AA8B'
   - scope: keyword.control.or
     settings:
-      foreground: "#59F2F7"
+      foreground: '#59F2F7'
   - scope: keyword.operator.negation
     settings:
-      foreground: "#83ACFF"
+      foreground: '#83ACFF'
   - scope: meta.assertion
     settings:
-      foreground: "#E4FF1A"
+      foreground: '#E4FF1A'
   - scope: meta.assertion.look-ahead
     settings:
-      foreground: "#3AD900"
+      foreground: '#3AD900'
   - scope: meta.assertion.negative-look-ahead
     settings:
-      foreground: "#D27B53"
+      foreground: '#D27B53'
   - scope: meta.assertion.look-behind
     settings:
-      foreground: "#9BC53D"
+      foreground: '#9BC53D'
   - scope: meta.assertion.negative-look-behind
     settings:
-      foreground: "#EE5D43"
+      foreground: '#EE5D43'
   - scope: constant.other.character-class.negated
     settings:
-      foreground: "#E06C75"
+      foreground: '#E06C75'
   - scope: keyword.control.recursion
     settings:
-      foreground: "#43BCCD"
+      foreground: '#43BCCD'
   - scope: keyword.control.keepout
     settings:
-      foreground: "#AACC00"
+      foreground: '#AACC00'
   - scope: keyword.control.search
     settings:
-      foreground: "#FF7D00"
+      foreground: '#FF7D00'
   - scope: keyword.operator.crement
     settings:
-      foreground: "#EECA56"
+      foreground: '#EECA56'
   - scope: keyword.operator.fuzzy
     settings:
-      foreground: "#FF499E"
+      foreground: '#FF499E'
   - scope: punctuation.definition.italic
     settings:
-      foreground: "#E6AD53"
+      foreground: '#E6AD53'
   - scope: punctuation.definition.bold
     settings:
-      foreground: "#FF936A"
+      foreground: '#FF936A'
   - scope: constant.other.character-class.unicode
     settings:
-      foreground: "#A480CF"
+      foreground: '#A480CF'
   - scope: constant.character.escape.unicode.name
     settings:
-      foreground: "#6096BA"
+      foreground: '#6096BA'
   - scope: constant.character.escape.unicode.name
     settings:
-      foreground: "#3BB273"
+      foreground: '#3BB273'
   - scope:
       - entity.name.function.a
       - entity.name.function.method.a
     settings:
-      foreground: "#1ABC9C"
+      foreground: '#1ABC9C'
   - scope:
       - entity.name.function.b
       - entity.name.function.method.b
     settings:
-      foreground: "#11A8CD"
+      foreground: '#11A8CD'
   - scope:
       - entity.name.function.c
       - entity.name.function.method.c
     settings:
-      foreground: "#4E94CE"
+      foreground: '#4E94CE'
   - scope:
       - entity.name.function.d
       - entity.name.function.method.d
     settings:
-      foreground: "#40C8AE"
+      foreground: '#40C8AE'
   - scope:
       - entity.name.function.e
       - entity.name.function.method.e
     settings:
-      foreground: "#C2985B"
+      foreground: '#C2985B'
   - scope:
       - entity.name.function.f
       - entity.name.function.method.f
     settings:
-      foreground: "#8AC49A"
+      foreground: '#8AC49A'
   - scope:
       - entity.name.function.g
       - entity.name.function.method.g
     settings:
-      foreground: "#C49A5A"
+      foreground: '#C49A5A'
   - scope:
       - entity.name.function.h
       - entity.name.function.method.h
     settings:
-      foreground: "#868BC4"
+      foreground: '#868BC4'
   - scope:
       - entity.name.function.i
       - entity.name.function.method.i
     settings:
-      foreground: "#1ABC9C"
+      foreground: '#1ABC9C'
   - scope:
       - entity.name.function.j
       - entity.name.function.method.j
     settings:
-      foreground: "#4EB071"
+      foreground: '#4EB071'
   - scope:
       - entity.name.function.k
       - entity.name.function.method.k
     settings:
-      foreground: "#41A6B5"
+      foreground: '#41A6B5'
   - scope:
       - entity.name.function.l
       - entity.name.function.method.l
     settings:
-      foreground: "#E2BD3A"
+      foreground: '#E2BD3A'
   - scope:
       - entity.name.function.m
       - entity.name.function.method.m
     settings:
-      foreground: "#9AA5CE"
+      foreground: '#9AA5CE'
   - scope:
       - entity.name.function.n
       - entity.name.function.method.n
     settings:
-      foreground: "#9ECE6A"
+      foreground: '#9ECE6A'
   - scope:
       - entity.name.function.o
       - entity.name.function.method.o
     settings:
-      foreground: "#FF9E64"
+      foreground: '#FF9E64'
   - scope:
       - entity.name.function.p
       - entity.name.function.method.p
     settings:
-      foreground: "#F7768E"
+      foreground: '#F7768E'
   - scope:
       - entity.name.function.q
       - entity.name.function.method.q
     settings:
-      foreground: "#7AA2F7"
+      foreground: '#7AA2F7'
   - scope:
       - entity.name.function.r
       - entity.name.function.method.r
     settings:
-      foreground: "#449DAB"
+      foreground: '#449DAB'
   - scope:
       - entity.name.function.s
       - entity.name.function.method.s
     settings:
-      foreground: "#DE5971"
+      foreground: '#DE5971'
   - scope:
       - entity.name.function.t
       - entity.name.function.method.t
     settings:
-      foreground: "#9D7CD8"
+      foreground: '#9D7CD8'
   - scope:
       - entity.name.function.u
       - entity.name.function.method.u
     settings:
-      foreground: "#BBA461"
+      foreground: '#BBA461'
   - scope:
       - entity.name.function.v
       - entity.name.function.method.v
     settings:
-      foreground: "#61BDF2"
+      foreground: '#61BDF2'
   - scope:
       - entity.name.function.w
       - entity.name.function.method.w
     settings:
-      foreground: "#6D91DE"
+      foreground: '#6D91DE'
   - scope:
       - entity.name.function.x
       - entity.name.function.method.x
     settings:
-      foreground: "#B267E6"
+      foreground: '#B267E6'
   - scope:
       - entity.name.function.y
       - entity.name.function.method.y
     settings:
-      foreground: "#5294E2"
+      foreground: '#5294E2'
   - scope:
       - entity.name.function.z
       - entity.name.function.method.z
     settings:
-      foreground: "#86DF5D"
+      foreground: '#86DF5D'
   - scope:
       - entity.name.function.A
       - entity.name.function.method.A
     settings:
-      foreground: "#64B5F6"
+      foreground: '#64B5F6'
   - scope:
       - entity.name.function.B
       - entity.name.function.method.B
     settings:
-      foreground: "#FFCA28"
+      foreground: '#FFCA28'
   - scope:
       - entity.name.function.C
       - entity.name.function.method.C
     settings:
-      foreground: "#A599E9"
+      foreground: '#A599E9'
   - scope:
       - entity.name.function.D
       - entity.name.function.method.D
     settings:
-      foreground: "#89A4BB"
+      foreground: '#89A4BB'
   - scope:
       - entity.name.function.E
       - entity.name.function.method.E
     settings:
-      foreground: "#E2A2F4"
+      foreground: '#E2A2F4'
   - scope:
       - entity.name.function.F
       - entity.name.function.method.F
     settings:
-      foreground: "#B39554"
+      foreground: '#B39554'
   - scope:
       - entity.name.function.G
       - entity.name.function.method.G
     settings:
-      foreground: "#E2B93D"
+      foreground: '#E2B93D'
   - scope:
       - entity.name.function.H
       - entity.name.function.method.H
     settings:
-      foreground: "#9CCC65"
+      foreground: '#9CCC65'
   - scope:
       - entity.name.function.I
       - entity.name.function.method.I
     settings:
-      foreground: "#21C7A8"
+      foreground: '#21C7A8'
   - scope:
       - entity.name.function.J
       - entity.name.function.method.J
     settings:
-      foreground: "#22DA6E"
+      foreground: '#22DA6E'
   - scope:
       - entity.name.function.K
       - entity.name.function.method.K
     settings:
-      foreground: "#C792EA"
+      foreground: '#C792EA'
   - scope:
       - entity.name.function.L
       - entity.name.function.method.L
     settings:
-      foreground: "#7FDBCA"
+      foreground: '#7FDBCA'
   - scope:
       - entity.name.function.M
       - entity.name.function.method.M
     settings:
-      foreground: "#F78C6C"
+      foreground: '#F78C6C'
   - scope:
       - entity.name.function.N
       - entity.name.function.method.N
     settings:
-      foreground: "#569CD6"
+      foreground: '#569CD6'
   - scope:
       - entity.name.function.O
       - entity.name.function.method.O
     settings:
-      foreground: "#71A9D7"
+      foreground: '#71A9D7'
   - scope:
       - entity.name.function.P
       - entity.name.function.method.P
     settings:
-      foreground: "#FF5874"
+      foreground: '#FF5874'
   - scope:
       - entity.name.function.Q
       - entity.name.function.method.Q
     settings:
-      foreground: "#53A5B9"
+      foreground: '#53A5B9'
   - scope:
       - entity.name.function.R
       - entity.name.function.method.R
     settings:
-      foreground: "#8BD649"
+      foreground: '#8BD649'
   - scope:
       - entity.name.function.S
       - entity.name.function.method.S
     settings:
-      foreground: "#14A5FF"
+      foreground: '#14A5FF'
   - scope:
       - entity.name.function.T
       - entity.name.function.method.T
     settings:
-      foreground: "#7986E7"
+      foreground: '#7986E7'
   - scope:
       - entity.name.function.U
       - entity.name.function.method.U
     settings:
-      foreground: "#4E94CE"
+      foreground: '#4E94CE'
   - scope:
       - entity.name.function.V
       - entity.name.function.method.V
     settings:
-      foreground: "#CC9767"
+      foreground: '#CC9767'
   - scope:
       - entity.name.function.W
       - entity.name.function.method.W
     settings:
-      foreground: "#00CCCC"
+      foreground: '#00CCCC'
   - scope:
       - entity.name.function.X
       - entity.name.function.method.X
     settings:
-      foreground: "#E66533"
+      foreground: '#E66533'
   - scope:
       - entity.name.function.Y
       - entity.name.function.method.Y
     settings:
-      foreground: "#81B88B"
+      foreground: '#81B88B'
   - scope:
       - entity.name.function.Z
       - entity.name.function.method.Z
     settings:
-      foreground: "#A599E9"
+      foreground: '#A599E9'
   - scope:
       - support.function.mutator
       - support.function.mutator
     settings:
-      foreground: "#219EBC"
+      foreground: '#219EBC'
   - scope: support.function.method.array
     settings:
-      foreground: "#0096C7"
+      foreground: '#0096C7'
   - scope: support.function.method.atomics
     settings:
-      foreground: "#F25C54"
+      foreground: '#F25C54'
   - scope: support.function.method.bigint
     settings:
-      foreground: "#BC6C25"
+      foreground: '#BC6C25'
   - scope: support.function.method.boolean
     settings:
-      foreground: "#52B788"
+      foreground: '#52B788'
   - scope: support.function.method.collection
     settings:
-      foreground: "#B388EB"
+      foreground: '#B388EB'
   - scope: support.function.method.dataview
     settings:
-      foreground: "#EF476F"
+      foreground: '#EF476F'
   - scope: support.function.method.date
     settings:
-      foreground: "#9B5DE5"
+      foreground: '#9B5DE5'
   - scope: support.function.method.function
     settings:
-      foreground: "#F15BB5"
+      foreground: '#F15BB5'
   - scope: support.function.method.generator
     settings:
-      foreground: "#EF233C"
+      foreground: '#EF233C'
   - scope: support.function.method.json
     settings:
-      foreground: "#DB00B6"
+      foreground: '#DB00B6'
   - scope: support.function.method.lang
     settings:
-      foreground: "#C18CF9"
+      foreground: '#C18CF9'
   - scope: support.function.method.map
     settings:
-      foreground: "#0EAD69"
+      foreground: '#0EAD69'
   - scope: support.function.method.math
     settings:
-      foreground: "#8AC926"
+      foreground: '#8AC926'
   - scope: support.function.method.number
     settings:
-      foreground: "#FF6D00"
+      foreground: '#FF6D00'
   - scope: support.function.method.object
     settings:
-      foreground: "#00AFB9"
+      foreground: '#00AFB9'
   - scope: support.function.method.promise
     settings:
-      foreground: "#7274F4"
+      foreground: '#7274F4'
   - scope: support.function.method.proxy
     settings:
-      foreground: "#FFBC42"
+      foreground: '#FFBC42'
   - scope: support.function.method.random
     settings:
-      foreground: "#F79824"
+      foreground: '#F79824'
   - scope: support.function.method
     settings:
-      foreground: "#52B788"
+      foreground: '#52B788'
   - scope: support.function.method.seq
     settings:
-      foreground: "#9F9FED"
+      foreground: '#9F9FED'
   - scope: support.function.method.set
     settings:
-      foreground: "#9F86C0"
+      foreground: '#9F86C0'
   - scope: support.function.method.string
     settings:
-      foreground: "#3F8EFC"
+      foreground: '#3F8EFC'
   - scope: support.function.method.typedarray
     settings:
-      foreground: "#9381FF"
+      foreground: '#9381FF'
   - scope: support.function.method.util
     settings:
-      foreground: "#7AE582"
+      foreground: '#7AE582'
   - scope: support.function.method.webassembly
     settings:
-      foreground: "#C17C74"
+      foreground: '#C17C74'
   - scope: support.function.event-handler
     settings:
-      foreground: "#34A0A4"
+      foreground: '#34A0A4'
   - scope: support.function.dom
     settings:
-      foreground: "#118AB2"
+      foreground: '#118AB2'
   - scope: comment.line
     settings:
-      foreground: "#4F93D8"
+      foreground: '#4F93D8'
   - scope: comment.block
     settings:
-      foreground: "#5AB6C1"
+      foreground: '#5AB6C1'
   - scope: comment.block.documentation
     settings:
-      foreground: "#45BD9A"
+      foreground: '#45BD9A'
   - scope: comment.line.triple-slash
     settings:
-      foreground: "#C57BDB"
+      foreground: '#C57BDB'
   - scope: comment.typehint
     settings:
-      foreground: "#D19A66"
+      foreground: '#D19A66'
   - scope: comment.line.shebang
     settings:
-      foreground: "#E74C3C"
+      foreground: '#E74C3C'
   - scope: constant.language.access-type
     settings:
-      foreground: "#F1453D"
+      foreground: '#F1453D'
   - scope: constant.language.symbol-type
     settings:
-      foreground: "#558EFC"
+      foreground: '#558EFC'
   - scope: constant.other.description
     settings:
-      foreground: "#9096A2"
+      foreground: '#9096A2'
   - scope: constant.other.email.link.underline
     settings:
-      foreground: "#EDB54B"
+      foreground: '#EDB54B'
   - scope: constant.other.caps
     settings:
-      foreground: "#E6DB74"
+      foreground: '#E6DB74'
   - scope: constant.character.escape.other
     settings:
-      foreground: "#8E9AAF"
+      foreground: '#8E9AAF'
   - scope: punctuation.definition.group.no-capture
     settings:
-      foreground: "#AD99AE"
+      foreground: '#AD99AE'
   - scope:
       - constant.numeric
       - constant.numeric.css
@@ -2318,161 +2103,166 @@ tokenColors:
       - constant.numeric.integer
       - constant.numeric.bigint
     settings:
-      foreground: "#46AFE3"
+      foreground: '#46AFE3'
   - scope:
       - constant.float
       - constant.language.json
       - constant.numeric.float
       - constant.angle.units
     settings:
-      foreground: "#33CED8"
+      foreground: '#33CED8'
   - scope:
       - constant.numeric.binary
       - constant.numeric.bin
       - constant.freq.units
     settings:
-      foreground: "#E3CF65"
+      foreground: '#E3CF65'
   - scope:
       - constant.numeric.octal
       - constant.numeric.oct
       - constant.length.units
     settings:
-      foreground: "#D8985F"
+      foreground: '#D8985F'
   - scope:
       - constant.numeric.hexadecimal
       - constant.numeric.hex
     settings:
-      foreground: "#819AFF"
+      foreground: '#819AFF'
   - scope:
       - constant.numeric.quaternary
       - constant.numeric.qua
     settings:
-      foreground: "#86BBD8"
+      foreground: '#86BBD8'
   - scope:
       - constant.numeric.senary
       - constant.numeric.sen
     settings:
-      foreground: "#E39695"
+      foreground: '#E39695'
   - scope:
       - constant.numeric.duodecimal
       - constant.numeric.doz
     settings:
-      foreground: "#23C4B6"
+      foreground: '#23C4B6'
   - scope:
       - constant.boolean
       - constant.language.boolean
       - constant.language.boolean.true
       - constant.percentage.units
     settings:
-      foreground: "#89CA78"
+      foreground: '#89CA78'
   - scope:
       - constant.language.boolean.false
       - constant.language.boolean.false
     settings:
-      foreground: "#E07267"
+      foreground: '#E07267'
   - scope:
       - constant.language.null
       - constant.language.null
       - constant.language.nil
       - constant.resolution.units
     settings:
-      foreground: "#EE64AC"
+      foreground: '#EE64AC'
   - scope:
       - constant.language.undefined
       - constant.language.merge
       - constant.time.units
     settings:
-      foreground: "#B877DB"
+      foreground: '#B877DB'
   - scope:
       - constant.language.infinity
       - constant.numeric.indentation-indicator
     settings:
-      foreground: "#0DB9D7"
+      foreground: '#0DB9D7'
   - scope:
       - constant.language.nan
       - constant.other.timestamp
       - constant.numeric.yaml-version
       - support.constant.property-value.css
     settings:
-      foreground: "#1ABC9C"
+      foreground: '#1ABC9C'
   - scope: constant.character.escape
     settings:
-      foreground: "#21BFC2"
+      foreground: '#21BFC2'
   - scope:
       - constant.character.escape.newline
       - constant.character.escape.double-quoted.newline
     settings:
-      foreground: "#E06C75"
+      foreground: '#E06C75'
   - scope: constant.other.character-class
     settings:
-      foreground: "#E373CE"
+      foreground: '#E373CE'
   - scope: constant.other.character-class.range
     settings:
-      foreground: "#C2D94C"
+      foreground: '#C2D94C'
   - scope:
       - constant.other.character-class.set
       - constant.character.set
     settings:
-      foreground: "#E4B227"
+      foreground: '#E4B227'
   - scope:
       - constant.other.character-class.posix
       - constant.character.posix
     settings:
-      foreground: "#FF75B5"
+      foreground: '#FF75B5'
   - scope: constant.character.control
     settings:
-      foreground: "#80CBC4"
+      foreground: '#80CBC4'
   - scope: constant.character.numeric
     settings:
-      foreground: "#61AFEF"
+      foreground: '#61AFEF'
   - scope:
       - constant.other.label
       - constant.other.inline-data
     settings:
-      foreground: "#80CBC4"
+      foreground: '#80CBC4'
   - scope: constant.other.object.key
     settings:
-      foreground: "#EA5964"
+      foreground: '#EA5964'
   - scope: string.quoted.single
     settings:
-      foreground: "#70F49C"
+      foreground: '#70F49C'
   - scope:
       - string.quasi
       - string.quoted.raw
     settings:
-      foreground: "#ABE4BB"
+      foreground: '#ABE4BB'
   - scope: string.quoted.double
     settings:
-      foreground: "#B3D667"
+      foreground: '#B3D667'
   - scope:
       - string.quoted.template
       - string.template
     settings:
-      foreground: "#86DE74"
+      foreground: '#86DE74'
   - scope: string.quoted.module
     settings:
-      foreground: "#BEC191"
+      foreground: '#BEC191'
   - scope:
       - string.unquoted
       - string.unquoted.plain.out
       - string.unquoted.plain.out.yaml
     settings:
-      foreground: "#9CD230"
+      foreground: '#9CD230'
   - scope: string
     settings:
-      foreground: "#ABB8C0"
+      foreground: '#ABB8C0'
   - scope: fenced_code.block.language.markdown
     settings:
-      foreground: "#7CAFC2"
+      foreground: '#7CAFC2'
   - scope: meta.group.branch
     settings:
-      foreground: "#FFB703"
+      foreground: '#FFB703'
   - scope: meta.group.atomic
     settings:
-      foreground: "#31DA55"
+      foreground: '#31DA55'
   - scope: meta.group.absent
     settings:
-      foreground: "#E63946"
+      foreground: '#E63946'
+  - scope:
+      - storage.type.function.arrow
+      - storage.type.function.arrow
+    settings:
+      foreground: '#FFC501'
   - scope:
       - keyword.control.conditional
       - keyword.control.conditional
@@ -2480,20 +2270,20 @@ tokenColors:
       - keyword.control.elseif
       - keyword.control.else
     settings:
-      foreground: "#E4B227"
+      foreground: '#E4B227'
   - scope:
       - keyword.control.loop
       - keyword.control.for
       - keyword.control.while
     settings:
-      foreground: "#21BFC2"
+      foreground: '#21BFC2'
   - scope:
       - keyword.control.switch
       - keyword.control.switch
       - keyword.control.case
       - keyword.control.default
     settings:
-      foreground: "#35BA66"
+      foreground: '#35BA66'
   - scope:
       - keyword.control.trycatch
       - keyword.control.trycatch
@@ -2501,11 +2291,11 @@ tokenColors:
       - keyword.control.catch
       - keyword.control.finally
     settings:
-      foreground: "#E66255"
+      foreground: '#E66255'
   - scope:
       - keyword.control.match
     settings:
-      foreground: "#32ABFF"
+      foreground: '#32ABFF'
   - scope:
       - keyword.control.module
       - keyword.control.module
@@ -2514,652 +2304,680 @@ tokenColors:
       - keyword.control.from
       - keyword.control.as
     settings:
-      foreground: "#09CBDD"
+      foreground: '#09CBDD'
   - scope:
       - keyword.control.flow
       - keyword.control.goto
     settings:
-      foreground: "#4FB4D8"
+      foreground: '#4FB4D8'
   - scope: keyword.other.subroutine
     settings:
-      foreground: "#809BCE"
+      foreground: '#809BCE'
   - scope:
       - keyword.control.require
       - keyword.control.with
     settings:
-      foreground: "#CC7832"
+      foreground: '#CC7832'
   - scope: keyword.other
     settings:
-      foreground: "#B267E6"
+      foreground: '#B267E6'
   - scope: keyword.generator.asterisk
     settings:
-      foreground: "#C668BA"
+      foreground: '#C668BA'
   - scope: keyword.control.yield-from
     settings:
-      foreground: "#5BC0EB"
+      foreground: '#5BC0EB'
   - scope:
       - keyword.operator.cascade
     settings:
-      foreground: "#82BC6D"
+      foreground: '#82BC6D'
   - scope:
       - keyword.operator.assignment
       - keyword.operator.assignment
     settings:
-      foreground: "#9DA5B4"
+      foreground: '#9DA5B4'
   - scope:
       - keyword.operator.assignment.augmented
       - keyword.operator.assignment.compound
-      - keyword.operator.assignment.augmented
-      - keyword.operator.assignment.compound
-      - keyword.operator.assignment.augmented
-      - keyword.operator.assignment.compound
     settings:
-      foreground: "#81A1C1"
+      foreground: '#81A1C1'
+  - scope:
+      - keyword.operator.assertion
+    settings:
+      foreground: '#4895EF'
+  - scope: keyword.control
+    settings:
+      foreground: '#748AA6'
   - scope: keyword.operator.increment
     settings:
-      foreground: "#70F49C"
+      foreground: '#70F49C'
   - scope: keyword.operator.decrement
     settings:
-      foreground: "#FFCC95"
+      foreground: '#FFCC95'
   - scope: keyword.operator.decorator
     settings:
-      foreground: "#07D4B5"
+      foreground: '#07D4B5'
   - scope: keyword.operator.bitwise
     settings:
-      foreground: "#2BBAC5"
+      foreground: '#2BBAC5'
   - scope: keyword.operator.similarity
     settings:
-      foreground: "#9AC1D9"
+      foreground: '#9AC1D9'
   - scope: keyword.operator.bitwise.shift
     settings:
-      foreground: "#C678DD"
+      foreground: '#C678DD'
   - scope: keyword.operator.relational
     settings:
-      foreground: "#98C379"
+      foreground: '#98C379'
   - scope: keyword.operator.comparison
     settings:
-      foreground: "#D2945D"
+      foreground: '#D2945D'
   - scope: keyword.control.range
     settings:
-      foreground: "#4DB1D8"
+      foreground: '#4DB1D8'
   - scope: keyword.operator.logical
     settings:
-      foreground: "#61AFEF"
+      foreground: '#61AFEF'
   - scope: keyword.operator.pipeline
     settings:
-      foreground: "#0096C7"
+      foreground: '#0096C7'
   - scope: keyword.operator.arithmetic
     settings:
-      foreground: "#E05252"
+      foreground: '#E05252'
   - scope: keyword.operator.nonnull
     settings:
-      foreground: "#9BA9FF"
+      foreground: '#9BA9FF'
   - scope: keyword.operator.quasiternary
     settings:
-      foreground: "#B185DB"
+      foreground: '#B185DB'
   - scope:
       - keyword.operator.spread
       - keyword.operator.rest
     settings:
-      foreground: "#50FA7B"
+      foreground: '#50FA7B'
   - scope: keyword.operator.private
     settings:
-      foreground: "#3AB795"
+      foreground: '#3AB795'
   - scope: keyword.operator.nullcoalesce
     settings:
-      foreground: "#9F7EFE"
+      foreground: '#9F7EFE'
   - scope: keyword.operator.ternary
     settings:
-      foreground: "#FC58F6"
+      foreground: '#FC58F6'
   - scope: keyword.operator.intersection
     settings:
-      foreground: "#67C435"
+      foreground: '#67C435'
   - scope: keyword.operator.union
     settings:
-      foreground: "#E58934"
+      foreground: '#E58934'
   - scope:
       - keyword.operator.only
       - keyword.operator.expression.only
     settings:
-      foreground: "#67CDE1"
+      foreground: '#67CDE1'
   - scope: keyword.operator.maybe
     settings:
-      foreground: "#E9F818"
+      foreground: '#E9F818'
   - scope:
       - keyword.operator.new
       - keyword.control.new
     settings:
-      foreground: "#DB7F8E"
+      foreground: '#DB7F8E'
   - scope: keyword.operator.accessor
     settings:
-      foreground: "#59A5D8"
+      foreground: '#59A5D8'
   - scope:
       - keyword.operator.type
       - meta.identifier.css
     settings:
-      foreground: "#59A5D8"
+      foreground: '#59A5D8'
   - scope: keyword.operator.type.modifier
     settings:
-      foreground: "#21C7A8"
+      foreground: '#21C7A8'
   - scope:
       - keyword.operator.type.asserts
       - support.constant.color.w3c-standard-color-name.css
     settings:
-      foreground: "#22DA6E"
+      foreground: '#22DA6E'
   - scope: keyword.operator.type.modifier
     settings:
-      foreground: "#BB9AF7"
+      foreground: '#BB9AF7'
   - scope:
       - punctuation.parenthesis.non-capturing.begin
       - punctuation.parenthesis.non-capturing.end
     settings:
-      foreground: "#59A5D8"
+      foreground: '#59A5D8'
   - scope: keyword.operator.existential
     settings:
-      foreground: "#FD4C87"
+      foreground: '#FD4C87'
   - scope:
       - keyword.operator.expression.void
       - keyword.operator.void
     settings:
-      foreground: "#F9D367"
+      foreground: '#F9D367'
   - scope:
       - keyword.operator.range
       - keyword.operator.expression.range
     settings:
-      foreground: "#9BC53D"
+      foreground: '#9BC53D'
   - scope:
       - keyword.operator.expression.is
       - keyword.operator.is
       - keyword.operator.expression.instanceof
       - keyword.operator.instanceof
     settings:
-      foreground: "#BAE67E"
+      foreground: '#BAE67E'
   - scope:
       - keyword.operator.expression.forall
       - keyword.operator.forall
     settings:
-      foreground: "#F4A066"
+      foreground: '#F4A066'
   - scope:
       - keyword.operator.expression.nameof
       - keyword.operator.nameof
     settings:
-      foreground: "#A186CF"
+      foreground: '#A186CF'
   - scope:
       - keyword.operator.expression.typeof
       - keyword.operator.typeof
     settings:
-      foreground: "#72B3CA"
+      foreground: '#72B3CA'
   - scope:
       - keyword.operator.expression.delete
       - keyword.operator.delete
     settings:
-      foreground: "#E06C75"
+      foreground: '#E06C75'
   - scope:
       - keyword.operator.expression.keyof
       - keyword.operator.keyof
     settings:
-      foreground: "#C19FD8"
+      foreground: '#C19FD8'
   - scope:
       - keyword.operator.expression.infer
       - keyword.operator.infer
     settings:
-      foreground: "#DDBB88"
+      foreground: '#DDBB88'
   - scope: keyword.operator.sizeof
     settings:
-      foreground: "#04D895"
+      foreground: '#04D895'
   - scope: keyword.operator.length
     settings:
-      foreground: "#E57EB3"
+      foreground: '#E57EB3'
   - scope:
       - keyword.query
     settings:
-      foreground: "#EC7930"
+      foreground: '#EC7930'
   - scope:
       - keyword.operator.expression.of
       - keyword.operator.of
       - meta.enum.of
     settings:
-      foreground: "#E798B3"
+      foreground: '#E798B3'
   - scope:
       - keyword.operator.expression.in
       - keyword.operator.in
     settings:
-      foreground: "#999BE3"
+      foreground: '#999BE3'
   - scope:
       - keyword.operator.expression.as
       - keyword.operator.as
     settings:
-      foreground: "#E88873"
+      foreground: '#E88873'
   - scope: keyword.other.object
     settings:
-      foreground: "#00B4D8"
+      foreground: '#00B4D8'
   - scope:
-      - support.function.builtin
-      - entity.name.function
+      - keyword.other.trait
+      - storage.type.trait
     settings:
-      foreground: "#3498DB"
+      foreground: '#CD9731'
   - scope:
-      - entity.name.function.method
-      - entity.name.function.method
+      - entity.name.trait
+      - entity.other.inherited-class
     settings:
-      foreground: "#9180E6"
+      foreground: '#E2B93D'
   - scope:
-      - entity.name.class
-      - entity.name.class
+      - storage.type.class
+    settings:
+      foreground: '#39a0cf'
+  - scope:
       - entity.name.type.class
+      - entity.name.class
     settings:
-      foreground: "#5ABEB0"
+      foreground: '#6eade0'
+  - scope:
+      - keyword.other.typedef
+      - storage.type.alias
+    settings:
+      foreground: '#BF9277'
   - scope:
       - entity.name.type.alias
       - entity.name.type
       - entity.other.alias
     settings:
-      foreground: "#F16E6B"
-  - scope: entity.name.type.interface
-    settings:
-      foreground: "#0098DD"
-  - scope: entity.name.type.enum
-    settings:
-      foreground: "#D365E5"
-  - scope: entity.name.type.module
-    settings:
-      foreground: "#9ED01A"
-  - scope: entity.name.type.struct
-    settings:
-      foreground: "#66BF59"
+      foreground: '#E2A478'
   - scope:
-      - entity.type.name.object
-      - entity.name.type.object
+      - storage.type.interface
+      - keyword.other.interface
     settings:
-      foreground: "#FC644D"
+      foreground: '#1B98E0'
   - scope:
+      - entity.name.type.interface
+      - entity.name.interface
+    settings:
+      foreground: '#0098DD'
+  - scope:
+      - storage.type.object
       - keyword.other.object
     settings:
-      foreground: "#F1453D"
+      foreground: '#F1453D'
   - scope:
-      - entity.type.name.namespace
-      - entity.name.type.namespace
+      - entity.name.object
     settings:
-      foreground: "#FF9057"
+      foreground: '#FC644D'
   - scope:
+      - storage.type.enum
+      - keyword.other.enum
+    settings:
+      foreground: '#FF75B5'
+  - scope:
+      - entity.name.enum
+      - entity.name.type.enum
+    settings:
+      foreground: '#FF91DE'
+  - scope:
+      - storage.type.fragment
+      - keyword.other.fragment
+    settings:
+      foreground: '#45B746'
+  - scope:
+      - entity.name.fragment
+      - entity.name.type.fragment
+    settings:
+      foreground: '#66BF59'
+  - scope:
+      - storage.type.module
+      - keyword.other.module
+    settings:
+      foreground: '#82C600'
+  - scope:
+      - entity.name.module
+      - entity.name.type.module
+    settings:
+      foreground: '#9ED01A'
+  - scope:
+      - storage.type.namespace
       - keyword.other.namespace
     settings:
-      foreground: "#DD672C"
+      foreground: '#D98E48'
   - scope:
-      - entity.name.type.trait
-      - entity.other.inherited-class
+      - entity.name.namespace
+      - entity.name.type.namespace
     settings:
-      foreground: "#E2B93D"
+      foreground: '#da713d'
   - scope:
-      - keyword.operator.assertion
+      - storage.type.constraint
+      - keyword.other.given
     settings:
-      foreground: "#4895EF"
-  - scope: keyword.control
+      foreground: '#8892A0'
+  - scope:
+      - entity.name.constraint
+      - entity.name.type.given
     settings:
-      foreground: "#748AA6"
-  - scope: keyword.other.trait
+      foreground: '#9DA5B4'
+  - scope:
+      - storage.type.extension
+      - keyword.other.extension
     settings:
-      foreground: "#CD9731"
+      foreground: '#B1B011'
+  - scope:
+      - entity.name.extension
+      - entity.name.type.extension
+    settings:
+      foreground: '#C9C914'
+  - scope:
+      - storage.type.style
+      - keyword.other.style
+    settings:
+      foreground: '#9D7CD8'
+  - scope:
+      - entity.name.style
+      - entity.name.type.style
+    settings:
+      foreground: '#BB9AF7'
+  - scope:
+      - storage.type.schema
+      - keyword.other.schema
+    settings:
+      foreground: '#45BD9A'
+  - scope:
+      - entity.name.schema
+      - entity.name.type.schema
+    settings:
+      foreground: '#39CA74'
+  - scope:
+      - storage.modifier.declaration
+      - storage.type.accessor
+    settings:
+      foreground: '#C668BA'
+  - scope: storage.modifier
+    settings:
+      foreground: '#E15D97'
+  - scope: storage.type.function
+    settings:
+      foreground: '#E34F8C'
+  - scope: storage.type.extends
+    settings:
+      foreground: '#27D797'
+  - scope: storage.type.implements
+    settings:
+      foreground: '#66D9EF'
+  - scope: storage.type.property
+    settings:
+      foreground: '#F1453D'
+  - scope:
+      - support.function.builtin
+      - entity.name.function
+    settings:
+      foreground: '#3498DB'
+  - scope:
+      - entity.name.function.method
+      - entity.name.function.method
+    settings:
+      foreground: '#9180E6'
   - scope:
       - entity.name.tag
     settings:
-      foreground: "#FF5459"
+      foreground: '#FF5459'
   - scope:
       - entity.name.tag.block
     settings:
-      foreground: "#FD971F"
+      foreground: '#FD971F'
   - scope:
       - entity.name.tag.inline
       - support.class.component
       - entity.name.tag support.class.component
     settings:
-      foreground: "#FFCC23"
+      foreground: '#FFCC23'
   - scope:
       - entity.name.tag.doctype
       - entity.name.tag.namespace
     settings:
-      foreground: "#A6E22E"
+      foreground: '#A6E22E'
   - scope:
-      - entity.name.style
       - entity.name.tag.styledcss
     settings:
-      foreground: "#27D797"
+      foreground: '#27D797'
   - scope:
       - entity.name.script
       - entity.name.tag.directive
     settings:
-      foreground: "#2BB3B4"
+      foreground: '#2BB3B4'
   - scope: entity.name.xml
     settings:
-      foreground: "#00B7FF"
+      foreground: '#00B7FF'
   - scope:
       - keyword.other.flag
     settings:
-      foreground: "#FFB454"
+      foreground: '#FFB454'
   - scope: entity.name.tag.other
     settings:
-      foreground: "#B267E6"
+      foreground: '#B267E6'
   - scope: entity.other.attribute-name
     settings:
-      foreground: "#9BAEB7"
+      foreground: '#9BAEB7'
   - scope: entity.name.attribute-name.generic
     settings:
-      foreground: "#C5C5C5"
+      foreground: '#C5C5C5'
   - scope:
       - entity.other.attribute-value
       - entity.other.attribute.name.id
     settings:
-      foreground: "#D8DEE9"
+      foreground: '#D8DEE9'
   - scope: string.other.link.title.markdown
     settings:
-      foreground: "#1CD6CF"
+      foreground: '#1CD6CF'
   - scope: markup.inline.raw.string
     settings:
-      foreground: "#7CDF89"
+      foreground: '#7CDF89'
   - scope: variable.other.class
     settings:
-      foreground: "#979DB8"
+      foreground: '#979DB8'
   - scope: variable.other.property.static
     settings:
-      foreground: "#80A4C2"
+      foreground: '#80A4C2'
   - scope: keyword.other.declare
     settings:
-      foreground: "#FF66BB"
-  - scope: keyword.other.given
-    settings:
-      foreground: "#8892A0"
-  - scope: entity.name.type.given
-    settings:
-      foreground: "#9DA5B4"
-  - scope: keyword.other.extension
-    settings:
-      foreground: "#E95293"
-  - scope: entity.name.type.extension
-    settings:
-      foreground: "#FF5BA2"
+      foreground: '#FF66BB'
   - scope: markup.list.numbered
     settings:
-      foreground: "#EBCB8B"
+      foreground: '#EBCB8B'
   - scope: markup.list.unnumbered
     settings:
-      foreground: "#D7BA7D"
+      foreground: '#D7BA7D'
   - scope: markup.quote
     settings:
-      foreground: "#80CBC4"
+      foreground: '#80CBC4'
   - scope: markup.raw.block
     settings:
-      foreground: "#EEEEEE"
+      foreground: '#EEEEEE'
   - scope: markup.underline.link
     settings:
-      foreground: "#CD9731"
+      foreground: '#CD9731'
   - scope: markup.underline.image
     settings:
-      foreground: "#FFCA28"
+      foreground: '#FFCA28'
   - scope:
       - heading.1.markdown entity.name.section.markdown
       - heading.1.markdown punctuation.definition.heading.markdown
     settings:
-      foreground: "#89DDFF"
+      foreground: '#89DDFF'
   - scope:
       - heading.2.markdown entity.name.section.markdown
       - heading.2.markdown punctuation.definition.heading.markdown
     settings:
-      foreground: "#61BDF2"
+      foreground: '#61BDF2'
   - scope:
       - heading.3.markdown entity.name.section.markdown
       - heading.3.markdown punctuation.definition.heading.markdown
     settings:
-      foreground: "#7AA2F7"
+      foreground: '#7AA2F7'
   - scope:
       - heading.4.markdown entity.name.section.markdown
       - heading.4.markdown punctuation.definition.heading.markdown
     settings:
-      foreground: "#6D91DE"
+      foreground: '#6D91DE'
   - scope:
       - heading.5.markdown entity.name.section.markdown
       - heading.5.markdown punctuation.definition.heading.markdown
     settings:
-      foreground: "#9AA5CE"
+      foreground: '#9AA5CE'
   - scope:
       - heading.6.markdown entity.name.section.markdown
       - heading.6.markdown punctuation.definition.heading.markdown
     settings:
-      foreground: "#747CA1"
-  - scope: storage.type.class
-    settings:
-      foreground: "#9D7CD8"
-  - scope: storage.type.class
-    settings:
-      foreground: "#05B6C5"
-  - scope: storage.type.function
-    settings:
-      foreground: "#E34F8C"
-  - scope:
-      - storage.type.function.arrow
-      - storage.type.function.arrow
-    settings:
-      foreground: "#FFC501"
-  - scope:
-      - storage.type.enum
-      - keyword.other.enum
-    settings:
-      foreground: "#C651E5"
-  - scope:
-      - storage.type.interface
-      - keyword.other.interface
-    settings:
-      foreground: "#1B98E0"
-  - scope:
-      - storage.type.struct
-      - keyword.other.struct
-    settings:
-      foreground: "#45B746"
-  - scope:
-      - storage.type.module
-      - keyword.other.module
-    settings:
-      foreground: "#82C600"
-  - scope:
-      - storage.type.namespace
-      - keyword.other.namespace
-    settings:
-      foreground: "#CD9731"
-  - scope: storage.type.property
-    settings:
-      foreground: "#F1453D"
-  - scope: storage.type.type
-    settings:
-      foreground: "#9DA5B4"
-  - scope:
-      - storage.type.trait
-      - storage.modifier.declaration
-      - storage.type.accessor
-    settings:
-      foreground: "#C668BA"
-  - scope: storage.modifier
-    settings:
-      foreground: "#E15D97"
-  - scope: storage.type.extends
-    settings:
-      foreground: "#27D797"
-  - scope: storage.type.implements
-    settings:
-      foreground: "#66D9EF"
+      foreground: '#747CA1'
   - scope:
       - storage.modifier.flag
       - storage.modifier.flag
     settings:
-      foreground: "#57EAF1"
+      foreground: '#57EAF1'
   - scope:
       - support.variable
       - support.class.builtin
       - support.class.builtin
     settings:
-      foreground: "#21C5C7"
+      foreground: '#21C5C7'
   - scope:
       - support.constant.math
       - support.constant.math
     settings:
-      foreground: "#608B4E"
+      foreground: '#608B4E'
   - scope:
       - support.constant.dom
       - support.constant.dom
     settings:
-      foreground: "#149178"
+      foreground: '#149178'
   - scope:
       - support.constant.json
       - support.constant.json
     settings:
-      foreground: "#D26939"
+      foreground: '#D26939'
   - scope:
       - support.constant.error
       - support.constant.error
     settings:
-      foreground: "#DC362C"
+      foreground: '#DC362C'
   - scope:
       - support.constant.node
       - support.constant.node
     settings:
-      foreground: "#317FBF"
+      foreground: '#317FBF'
   - scope:
       - support.constant.promise
       - support.constant.promise
     settings:
-      foreground: "#8C6BC8"
+      foreground: '#8C6BC8'
   - scope: constant.character.escape.octal
     settings:
-      foreground: "#CF7D34"
+      foreground: '#CF7D34'
   - scope: constant.character.escape.hex
     settings:
-      foreground: "#C651E5"
+      foreground: '#C651E5'
   - scope: constant.character.escape.unicode
     settings:
-      foreground: "#5294E2"
+      foreground: '#5294E2'
   - scope:
       - constant.character.escape.newline
       - constant.character.escape.newline
     settings:
-      foreground: "#17C984"
+      foreground: '#17C984'
   - scope:
       - punctuation.definition.variable
     settings:
-      foreground: "#DF769B"
+      foreground: '#DF769B'
   - scope:
       - punctuation.quasi.element
     settings:
-      foreground: "#EF5350"
+      foreground: '#EF5350'
   - scope:
       - variable.language.arguments
       - variable.language.arguments
     settings:
-      foreground: "#F29668"
+      foreground: '#F29668'
   - scope:
       - variable.language.constructor
       - variable.language.constructor
     settings:
-      foreground: "#F9D367"
+      foreground: '#F9D367'
   - scope:
       - variable.language.proto
       - variable.language.proto
     settings:
-      foreground: "#81B88B"
+      foreground: '#81B88B'
   - scope:
       - variable.language.prototype
       - variable.language.prototype
     settings:
-      foreground: "#8ABCD1"
+      foreground: '#8ABCD1'
   - scope:
       - support.variable.property
       - support.variable.property
     settings:
-      foreground: "#DEDE91"
+      foreground: '#DEDE91'
   - scope:
       - variable.language.self
       - variable.language.self
     settings:
-      foreground: "#EEA6B7"
+      foreground: '#EEA6B7'
   - scope:
       - variable.language.super
       - variable.language.super
     settings:
-      foreground: "#8BD49C"
+      foreground: '#8BD49C'
   - scope:
       - variable.language.this
       - variable.language.this
     settings:
-      foreground: "#8ABCD1"
+      foreground: '#8ABCD1'
   - scope:
       - variable.object.property
       - variable.other.constant.object
       - variable.other.constant.object.property
       - variable.other.constant.property
     settings:
-      foreground: "#D16969"
+      foreground: '#D16969'
   - scope: variable.other.class
     settings:
-      foreground: "#71B6BD"
+      foreground: '#71B6BD'
   - scope: variable.other.conditional
     settings:
-      foreground: "#D7DAE0"
+      foreground: '#D7DAE0'
   - scope: variable.other.constant
     settings:
-      foreground: "#97A7C8"
+      foreground: '#97A7C8'
   - scope: variable.other.constant.object
     settings:
-      foreground: "#E9B88B"
+      foreground: '#E9B88B'
   - scope: variable.other.constant.shorthandpropertyname
     settings:
-      foreground: "#A6B2C0"
+      foreground: '#A6B2C0'
   - scope:
       - variable.language.property
       - variable.other.object.property
       - variable.other.property
       - variable.other.property
     settings:
-      foreground: "#E06C75"
+      foreground: '#E06C75'
   - scope: variable.language.property.decorator
     settings:
-      foreground: "#B8BCDF"
+      foreground: '#B8BCDF'
   - scope: variable.other.property.static
     settings:
-      foreground: "#80A4C2"
+      foreground: '#80A4C2'
   - scope: variable
     settings:
-      foreground: "#9DA5B4"
+      foreground: '#9DA5B4'
   - scope:
       - variable.other.readwrite
       - variable.other.readwrite.saga
     settings:
-      foreground: "#D5D6DB"
+      foreground: '#D5D6DB'
   - scope: variable.other.readwrite.alias
     settings:
-      foreground: "#D7DCE2"
+      foreground: '#D7DCE2'
   - scope: variable.other.readwrite.decorator
     settings:
-      foreground: "#D9F5DD"
+      foreground: '#D9F5DD'
   - scope: variable.other.readwrite.shorthandpropertyname
     settings:
-      foreground: "#CAECE6"
+      foreground: '#CAECE6'
   - scope:
       - variable.parameter
       - meta.function.parameters variable.parameter
     settings:
-      foreground: "#BAAFC0"
+      foreground: '#BAAFC0'
   - scope: variable.other.global
     settings:
-      foreground: "#D7DCE2"
+      foreground: '#D7DCE2'
   - scope: variable.legacy.builtin
     settings:
-      foreground: "#D9F5DD"
+      foreground: '#D9F5DD'
   - scope: variable.other.index
     settings:
-      foreground: "#CAECE6"
+      foreground: '#CAECE6'
+  - scope: storage.type.namespace
+    settings:
+      foreground: '#C19357'
+  - scope: storage.type
+    settings:
+      foreground: '#9D7CD8'
   - scope:
       - variable
       - markup
       - punctuation
     settings:
-      fontStyle: ""
+      fontStyle: ''
   - scope:
       - comment
       - constant
@@ -3212,19 +3030,19 @@ tokenColors:
       - markup.bold
       - markup.bold.markdown
     settings:
-      foreground: "#04D895"
+      foreground: '#04D895'
       fontStyle: bold
   - scope:
       - markup.italic
       - markup.italic.markdown
     settings:
-      foreground: "#E57EB3"
+      foreground: '#E57EB3'
       fontStyle: italic
   - scope:
       - markup.underline
       - markup.underline.markdown
     settings:
-      foreground: "#37B5B4"
+      foreground: '#37B5B4'
       fontStyle: underline
   - scope:
       - markup.bold markup.italic
@@ -3232,7 +3050,7 @@ tokenColors:
       - markup.bold.markdown markup.italic.markdown
       - markup.italic.markdown markup.bold.markdown
     settings:
-      foreground: "#D9993B"
+      foreground: '#D9993B'
       fontStyle: bold italic
   - scope:
       - markup.bold markup.underline
@@ -3240,7 +3058,7 @@ tokenColors:
       - markup.bold.markdown markup.underline.markdown
       - markup.underline.markdown markup.bold.markdown
     settings:
-      foreground: "#E75A52"
+      foreground: '#E75A52'
       fontStyle: bold underline
   - scope:
       - markup.italic markup.underline
@@ -3248,7 +3066,7 @@ tokenColors:
       - markup.italic.markdown markup.underline.markdown
       - markup.underline.markdown markup.italic.markdown
     settings:
-      foreground: "#2DA8D6"
+      foreground: '#2DA8D6'
       fontStyle: italic underline
   - scope:
       - markup.bold markup.italic markup.underline
@@ -3264,52 +3082,48 @@ tokenColors:
       - markup.bold.markdown markup.underline.markdown markup.italic.markdown
       - markup.italic.markdown markup.underline.markdown markup.bold.markdown
     settings:
-      foreground: "#EDB935"
+      foreground: '#EDB935'
       fontStyle: bold italic underline
   - scope: source.json support.type.property-name.json
     settings:
-      foreground: "#7AA2F7"
-  - scope: source.json meta.structure.dictionary.json
+      foreground: '#7AA2F7'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#0DB9D7"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
-    settings:
-      foreground: "#7DCFFF"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#0DB9D7'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#BB9AF7"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#7DCFFF'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#E0AF68"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#BB9AF7'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#73DACA"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#E0AF68'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#F7768E"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#73DACA'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3317,9 +3131,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#9ECE6A"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#F7768E'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3328,9 +3142,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#FFE957"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#9ECE6A'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3340,9 +3154,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#E1AF4B"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#FFE957'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3353,9 +3167,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#70F49C"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#E1AF4B'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3367,9 +3181,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#A887E3"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#70F49C'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3382,9 +3196,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#39CA74"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#A887E3'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3398,9 +3212,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#BF9277"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#39CA74'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3415,9 +3229,9 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#B6BCC4"
-  - scope: source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      foreground: '#BF9277'
+  - scope:
+      source.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json meta.structure.dictionary.json
@@ -3433,4 +3247,23 @@ tokenColors:
       meta.structure.dictionary.value.json meta.structure.dictionary.json
       meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: "#FA9D99"
+      foreground: '#B6BCC4'
+  - scope:
+      source.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json meta.structure.dictionary.json
+      meta.structure.dictionary.value.json support.type.property-name.json
+    settings:
+      foreground: '#FA9D99'
