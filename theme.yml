@@ -2537,12 +2537,12 @@ tokenColors:
   - scope:
       - storage.type.class
     settings:
-      foreground: '#39a0cf'
+      foreground: '#39A0CF'
   - scope:
       - entity.name.type.class
       - entity.name.class
     settings:
-      foreground: '#6eade0'
+      foreground: '#6EADE0'
   - scope:
       - keyword.other.typedef
       - storage.type.alias
@@ -2612,7 +2612,7 @@ tokenColors:
       - entity.name.namespace
       - entity.name.type.namespace
     settings:
-      foreground: '#da713d'
+      foreground: '#DA713D'
   - scope:
       - storage.type.constraint
       - keyword.other.given
