@@ -333,7 +333,7 @@ repository:
       - include: '#extension'
     repository:
       schema:
-        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(query|schema)(\s+|$)
+        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(data|schema)(\s+|$)
         end: \s*(=(?!=|>))|\s*(?<=})
         beginCaptures:
           1: {name: storage.type.schema.sombra}
