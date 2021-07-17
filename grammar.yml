@@ -1436,35 +1436,65 @@ repository:
       - include: '#comments'
       - include: '#flowtype-variable'
   flowtype-parse-array:
-    begin: (?<!=|[$_A-Za-z\d])\s*+(#?\[)
-    comment: 'arrays such as [name: string, dob: Date]'
-    end: \s*(\])
-    beginCaptures:
-      1: {name: meta.brace.square.open.sombra}
-    endCaptures:
-      1: {name: meta.brace.square.end.sombra}
     patterns:
-      - applyEndPatternLast: 1
-        begin: \s*(?=[_$[:alpha:]][_$[:alnum:]]*\s*[=:])
-        comment: destructring in arrays requires vars parse before types
-        end: (?=.)
+      - begin: (?<!=|[$_A-Za-z\d])\s*+(#\[)
+        comment: 'arrays such as [name: string, dob: Date]'
+        end: \s*(\])
+        beginCaptures:
+          1: {name: meta.brace.square.open.sombra}
+        endCaptures:
+          1: {name: meta.brace.square.end.sombra}
         patterns:
-          - include: '#flowtype-variable'
+          - applyEndPatternLast: 1
+            begin: \s*(?=[_$[:alpha:]][_$[:alnum:]]*\s*[=:])
+            comment: destructring in arrays requires vars parse before types
+            end: (?=.)
+            patterns:
+              - include: '#flowtype-variable'
+              - include: '#flowtype-parse-types'
           - include: '#flowtype-parse-types'
-      - include: '#flowtype-parse-types'
-      - include: '#flowtype-variable'
+          - include: '#flowtype-variable'
+      - begin: (?<!=|[$_A-Za-z\d])\s*+(\[)
+        comment: 'arrays such as [name: string, dob: Date]'
+        end: \s*(\])
+        beginCaptures:
+          1: {name: meta.brace.square.open.sombra}
+        endCaptures:
+          1: {name: meta.brace.square.end.sombra}
+        patterns:
+          - applyEndPatternLast: 1
+            begin: \s*(?=[_$[:alpha:]][_$[:alnum:]]*\s*[=:])
+            comment: destructring in arrays requires vars parse before types
+            end: (?=.)
+            patterns:
+              - include: '#flowtype-variable'
+              - include: '#flowtype-parse-types'
+          - include: '#flowtype-parse-types'
+          - include: '#flowtype-variable'
   flowtype-parse-objects:
-    applyEndPatternLast: 1
-    begin: (?<=:|\||&|\?|=>|<|\()\s*+(#?{)
-    comment: 'object literal flowtype  preceded by either => : | & ? symbols'
-    end: \s*(\})
-    name: meta.object.sombra
-    beginCaptures:
-      1: {name: meta.brace.curly.open.sombra}
-    endCaptures:
-      1: {name: meta.brace.curly.close.sombra}
-    patterns:
-      - include: '#flowtype-object-property'
+    patterns: 
+      - applyEndPatternLast: 1
+        begin: (?<=:|\||&|\?|=>|<|\()\s*+(\#{)
+        comment: 'object literal flowtype  preceded by either => : | & ? symbols'
+        end: \s*(\})
+        name: meta.object.sombra
+        beginCaptures:
+          1: {name: meta.brace.curly.open.sombra}
+        endCaptures:
+          1: {name: meta.brace.curly.close.sombra}
+        patterns:
+          - include: '#flowtype-object-property'
+      - applyEndPatternLast: 1
+        begin: (?<=:|\||&|\?|=>|<|\()\s*+({)
+        comment: 'object literal flowtype  preceded by either => : | & ? symbols'
+        end: \s*(\})
+        name: meta.object.sombra
+        beginCaptures:
+          1: {name: meta.brace.curly.open.sombra}
+        endCaptures:
+          1: {name: meta.brace.curly.close.sombra}
+        patterns:
+          - include: '#flowtype-object-property'
   flowtype-parse-types:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
@@ -1518,7 +1548,7 @@ repository:
         match: \s*+\b([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
         name: support.type.primitive.sombra
       - comment: Immutable modifier
-        match: \s*#(?![\p{Ps}])\s*
+        match: \s*#(?!\p{Ps})\s*
         name: keyword.operator.private.sombra
       - begin: (?![!=]==?|=<|=[:!]=)(?==>|=|{)\s*
         comment: There is no = in flowtype
@@ -1660,6 +1690,13 @@ repository:
           1: {name: keyword.other.typedef.sombra}
           2: {name: keyword.other.typedef.sombra}
         patterns:
+          - begin: \s*+(#{)
+            end: \s*(})
+            name: meta.object.sombra
+            captures:
+              1: {name: meta.brace.curly.sombra}
+            patterns:
+              - include: '#flowtype-object-property'
           - begin: \s*+({)
             end: \s*(})
             name: meta.object.sombra
@@ -1667,8 +1704,10 @@ repository:
               1: {name: meta.brace.curly.sombra}
             patterns:
               - include: '#flowtype-object-property'
-          - include: '#flowtype'
+          - include: '#flowtype-parse-objects'
+          - include: '#flowtype-parse-array'
           - include: '#flowtype-parse-types'
+          - include: '#flowtype'
           - include: '#comments'
           - include: '#flowtype-function-name'
           - include: '#operator'
