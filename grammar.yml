@@ -425,6 +425,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -457,6 +459,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -511,6 +515,8 @@ repository:
           - include: '#comments'
           - include: '#flowtype-polymorphs'
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - include: '#core'
         repository:
           of-clause:
@@ -531,6 +537,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -563,6 +571,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -595,6 +605,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -627,6 +639,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -659,6 +673,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -691,6 +707,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -723,6 +741,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -755,6 +775,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -787,6 +809,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -819,6 +843,8 @@ repository:
           1: {name: keyword.operator.assignment.sombra}
         patterns:
           - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
           - match: \s*+\b((ext)|(impl)|(only))\b\s*+
             captures:
               1: {name: meta.class.extends.sombra}
@@ -936,7 +962,6 @@ repository:
       - comment: after function, which includes some prototype strings
         include: '#prototype'
       - include: '#keyword-storage'
-      - include: '#enum-declaration'
       - include: '#blocks'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
@@ -1096,19 +1121,19 @@ repository:
           1: {name: keyword.operator.pipeline.sombra}
         patterns:
           - match: >-
-              (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+              (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.sombra}
               3: {name: meta.function-call.without-arguments.sombra}
               4: {patterns: [{include: '#function-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.sombra}
               3: {name: meta.method-call.without-arguments.sombra}
               4: {patterns: [{include: '#method-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.sombra}
               3: {name: variable.other.object.sombra}
@@ -1122,19 +1147,19 @@ repository:
           1: {name: keyword.operator.pipeline.sombra}
         patterns:
           - match: >-
-              (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+              (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.sombra}
               3: {name: meta.function-call.without-arguments.sombra}
               4: {patterns: [{include: '#function-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.sombra}
               3: {name: meta.method-call.without-arguments.sombra}
               4: {patterns: [{include: '#method-name'}]}
           - match: >-
-              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+              \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.sombra}
               3: {name: variable.other.object.sombra}
@@ -1704,13 +1729,13 @@ repository:
       - begin: (?<!let|const|con|va[lr])(?<=[-_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'varname of|in '
         end: >-
-          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
         patterns:
           - include: '#core'
       - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
         comment: 'assignment var = or = '
         end: >-
-          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+          \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
         patterns:
           - include: '#core'
       - include: '#flowtype-bracketed-parameters'
@@ -1739,7 +1764,7 @@ repository:
           \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!(?<!\.\.)\.|\#))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. function play<T>(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.sombra}
           2: {name: storage.type.function.sombra}
@@ -1756,7 +1781,7 @@ repository:
           \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. play = function(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: keyword.operator.private.sombra}
           2: {patterns: [{include: '#function-name'}]}
@@ -1776,7 +1801,7 @@ repository:
           \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: keyword.operator.private.sombra}
           2: {name: entity.name.class.sombra}
@@ -1803,7 +1828,7 @@ repository:
           \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
         end: >-
-          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
+          \s*(=(?!=|>)|{)|\s*(?<=;|})|\s*(?=,|;|:|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
         name: meta.function.static.sombra
         beginCaptures:
           1: {name: keyword.operator.private.sombra}
@@ -2506,7 +2531,7 @@ repository:
       - include: '#jsdoc-type-noname'
       - comment: additional jsdoc V2 keywords
         match: >-
-          (?<!\w)@(add|api|body|codeend|codestart|demo|download|group|hide|iframe|image|inherits|option|outline|page|parent|signature|tag)\b
+          (?<!\w)@(add|api|body|codeend|codestart|demo|download|group|select|hide|iframe|image|inherits|option|outline|page|parent|signature|tag)\b
         name: storage.type.class.jsdoc
       - comment: additional jsdoc keywords
         match: >-
@@ -2669,7 +2694,7 @@ repository:
     patterns:
       - applyEndPatternLast: 1
         begin: >-
-          (?<=^|\p{Ps}|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
+          (?<=^|\p{Ps}|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
@@ -2799,7 +2824,7 @@ repository:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(const|con|let|var|val)\b
         end: >-
-          (?=\s*[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
+          (?=\s*[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.sombra}
         patterns:
@@ -2810,7 +2835,7 @@ repository:
       - include: '#query'
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(halt|skip|break|continue|goto|label)\b
         end: >-
-          ^\s*|\s*(?=,|;|:|//|$|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)
+          ^\s*|\s*(?=,|;|:|//|$|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)
         beginCaptures:
           1: {name: keyword.control.loop.sombra}
         patterns:
@@ -2825,7 +2850,7 @@ repository:
           (?x)(?<!(?<!\.\.)\.|\#)\s*+\b(?:
             (in|of|as|void|new|(?:type|name|key|size)of|infer)| #1
             (size)|(len)|(del)|(is)|(to|til|by)|(then)| #2-7
-            (n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|
+            (n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|
             not(of|in)?|(is)no?t)#8-11
           )\b
         captures:
@@ -2848,7 +2873,7 @@ repository:
             (defn?|func?|fn|macro|proc)|(let|va[rl]|con|const)| #7,8
             (use|using|ref|open|close|out|union|move|crate|box|begin|end)| #9
             (do|goto|label|await|return|fallthru|yield|halt|skip)| #10
-            (from|where|join|equals|[io]nto|order|(?:a|de)sc|group)| #11
+            (from|where|join|equals|[io]nto|order|take|drop|fold|scan|group)| #11
             ((?:im|ex)port|from|as|def) #12
           )\b
         captures:
@@ -3308,7 +3333,7 @@ repository:
           (?<!(?<!\.\.)\.|\#)\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
         comment: export {  or  export * or export var or export type {} from module
         end: >-
-          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|}))
+          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|}))
         beginCaptures:
           1: {name: keyword.control.module.sombra}
           2: {name: keyword.control.module.sombra}
@@ -3341,7 +3366,7 @@ repository:
           - include: '#round-brackets'
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(import)(?!\s*:)\b
         end: >-
-          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|}))
+          \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b|\)|}))
         beginCaptures:
           1: {name: keyword.control.module.sombra}
         endCaptures:
@@ -4187,14 +4212,14 @@ repository:
   quasi-embedded:
     patterns:
       - comment: Accepts arbitrary expressions
-        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((:)[-\w/.%#<^>+*=!]+)?
+        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((%)[-\w/.%#<^>+*=!]+)?
         captures:
           1: {name: punctuation.quasi.element.sombra}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.sombra}
           4: {name: punctuation.separator.label.regexp}
       - begin: (?<!\\)(\#\{)\s*
-        end: \s*(\})((:)[-\w/.%#<^>+*=!]+)?
+        end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
         name: entity.quasi.element.sombra
         beginCaptures:
           1: {name: punctuation.quasi.element.begin.sombra}
@@ -4207,14 +4232,14 @@ repository:
   quasi-embedded-regexp:
     patterns:
       - comment: Accepts arbitrary expressions
-        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((:)[-\w/.%#<^>+*=!]+)?
+        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((%)[-\w/.%#<^>+*=!]+)?
         captures:
           1: {name: punctuation.quasi.element.sombra}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.sombra}
           4: {name: punctuation.separator.label.regexp}
       - begin: (?<!\\)(\#\{)\s*
-        end: \s*(\})((:)[-\w/.%#<^>+*=!]+)?
+        end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
         name: entity.quasi.element.sombra
         beginCaptures:
           1: {name: punctuation.quasi.element.begin.sombra}
@@ -4280,7 +4305,7 @@ repository:
         match: (?<!(?<!\.\.)\.|\#)\s*+\b(const|con|let|var|val)\b\s*
         name: storage.type.sombra
       order-clause:
-        match: (?<!(?<!\.\.)\.|\#)\s*+\b(order\s*(by)?)\b\s*
+        match: (?<!(?<!\.\.)\.|\#)\s*+\b((\b(order)\b)\s*(\b(by)\b)?\s*(\b((a|de)sc)\b)?)\b\s*
         name: keyword.query.sombra
       order-direction:
         match: (?<!(?<!\.\.)\.|\#)\s*+\b((a|de)sc)\b\s*
@@ -4290,7 +4315,7 @@ repository:
         name: keyword.query.sombra
       take-clause:
         match: >-
-          (?<!(?<!\.\.)\.|\#)\s*+\b((\b(take)\b)\s*(\b(left|right|init|head|tail|last)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
+          (?<!(?<!\.\.)\.|\#)\s*+\b((\b(take|drop)\b)\s*(\b(left|right|init|head|tail|last)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
         name: keyword.query.sombra
       where-clause:
         match: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b\s*
@@ -4307,7 +4332,7 @@ repository:
       - include: '#operators'
   regexp:
     begin: >-
-      (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}&&[^</>]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|(?:a|de)sc|group|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[-_\\\p{L}\p{M}\p{N}]))
+      (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}&&[^</>]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(?:of|in)?|is(?:no?t)?|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|union|move|crate|box|begin|end|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[-_\\\p{L}\p{M}\p{N}]))
     comment: Updated to support Perl regex syntax
     end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
     name: string.regexp.sombra
@@ -4842,12 +4867,14 @@ repository:
         patterns:
           - include: '#implicit-call'
           - include: '#regexp-patterns'
-      - match: \\[0-7]{1,3}|\\o{[0-7\s.,:;]*?}
+      - match: \\o{[0-7\s]*?}
         name: constant.character.escape.octal.sombra
       - match: \\['"\\anrtbfve0$%#`]
         name: constant.character.escape.sombra
-      - match: \\u({[\h\s.,:;]*?}|\h{4})|\\U\h{8}
+      - match: \\u({[\h\s]*?}|\h{4})|\\U\h{8}
         name: constant.character.escape.unicode.sombra
+      - match: \\\d+|d{[\d\s]*?}
+        name: constant.character.escape.decimal.sombra
       - match: \\x\h{2}
         name: constant.character.escape.hex.sombra
       - match: '''''|""|``'
