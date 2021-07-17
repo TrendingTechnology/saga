@@ -3565,7 +3565,7 @@ repository:
         captures:
           1: {name: variable.other.readwrite.shorthandpropertyname.sombra}
   of-clause:
-    begin: \s*+\b(of)
+    begin: \s*+(?<!(?<!\.\.)\.|\#)(of)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
       1: {name: meta.enum.of.flowtype}
@@ -3617,7 +3617,7 @@ repository:
                 (!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.)| #14-18
                 (\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B))| #19
                 (!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B))| #20
-                (~\.)|((?<!(?<!\.\.)\.|\#)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
+                (~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
               )(?=$|\s)
             name: keyword.operator.builtin.sombra
             captures:
@@ -4094,13 +4094,16 @@ repository:
         match: (?<!(?<!\.\.)\.|\#)\s*+\b(order\s*(by)?)\b\s*
         name: keyword.query.sombra
       order-direction:
-        match: (?<!(?<!\.\.)\.|\#)\s*+\b(ascending|descending)\b\s*
+        match: (?<!(?<!\.\.)\.|\#)\s*+\b((a|de)sc)\b\s*
         name: keyword.query.sombra
       select-clause:
         match: (?<!(?<!\.\.)\.|\#)\s*+\b(select)\b\s*
         name: keyword.query.sombra
       where-clause:
         match: (?<!(?<!\.\.)\.|\#)\s*+\b(where)\b\s*
+        name: keyword.query.sombra
+      fold-clause:
+        match: (?<!(?<!\.\.)\.|\#)\s*+\b(fold\s*(left|right)?|(sum|prod|mean|median|mode|avg))\b\s*
         name: keyword.query.sombra
   regex-group-name:
     patterns:
