@@ -2,7 +2,7 @@ comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
 firstLineMatch: ^#!\s*/.*\b(so|sombra)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
-information_for_contributors: |
+information_for_contributors: |-
   This file is a fork of the Babel JavaScript TextMate grammar and features many 
   customizations for Sombra, whose syntax derives from JavaScript and many other 
   modern programing languages.
@@ -306,100 +306,6 @@ repository:
         patterns:
           - include: '#regex-group-name'
       - include: '#string-content'
-  brackets:
-    patterns:
-      - include: '#round-brackets'
-      - include: '#square-brackets'
-      - include: '#curly-brackets'
-  cast-expression:
-    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]*?[-_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
-    captures:
-      1: {name: punctuation.definition.cast.begin.sombra}
-      2: {patterns: [{include: '#flowtype-parse-types'}]}
-      3: {name: punctuation.definition.cast.end.sombra}
-  catch:
-    patterns:
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
-        end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally)\b))
-        name: meta.catch.sombra
-        beginCaptures:
-          1: {name: keyword.control.trycatch.sombra}
-          2: {name: keyword.control.flow.sombra}
-        endCaptures:
-          1: {name: meta.brace.round.sombra}
-        patterns:
-          - include: '#curly-brackets'
-          - include: '#type-argument-brackets'
-          - include: $self
-  class:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b((class))\s+
-    comment: Classes
-    end: \s*(=(?!=|>))|\s*(?<=})
-    beginCaptures:
-      1: {name: meta.class.sombra}
-      2: {name: storage.type.class.sombra}
-    endCaptures:
-      1: {name: keyword.operator.assignment.sombra}
-    patterns:
-      - include: '#type-argument-brackets'
-      - match: \s*+\b((ext)|(impl)|(only))\b\s*+
-        captures:
-          1: {name: meta.class.extends.sombra}
-          2: {name: storage.type.extends.sombra}
-          3: {name: storage.type.implements.sombra}
-          4: {name: keyword.operator.expression.only.sombra}
-      - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
-        name: entity.name.class.sombra
-      - include: '#flowtype'
-      - begin: \s*+({)
-        contentName: meta.class.body.sombra
-        end: \s*(})
-        beginCaptures:
-          1: {name: punctuation.section.class.begin.sombra}
-        endCaptures:
-          1: {name: punctuation.section.class.end.sombra}
-        patterns:
-          - include: '#flowtype-method'
-          - include: '#class-content'
-      - match: \s*(\.)
-        captures:
-          1: {name: keyword.operator.accessor.sombra}
-      - include: '#core'
-  class-body:
-    patterns:
-      - include: '#core'
-      - include: '#attributes'
-      - include: '#modifiers'
-      - include: '#flowtype-keywords'
-      - include: '#arrow-expression'
-      - include: '#arrow-function-simple-assignments'
-      - include: '#arrow-function'
-      - include: '#brackets'
-      - include: '#es7-decorators'
-      - include: '#comments'
-      - comment: 'handle class fields with no flow types like var = '
-        match: (?<!:)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?==)(?!=>|==)
-        captures:
-          1: {name: keyword.operator.private.sombra}
-          2: {name: variable.other.readwrite.sombra}
-      - begin: \s*+(?==[^=>])
-        comment: a line starts with a static, [, name(, name:, name=, } or a semi-colon anywhere
-        end: >-
-          ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\p{L}\p{Nl}])(?:[(\#?)_\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
-        endCaptures:
-          9: {name: punctuation.terminator.statement.sombra}
-        patterns:
-          - include: '#method'
-          - include: '#core'
-      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(static)\b(?!\.)
-        captures:
-          1: {name: storage.modifier.sombra}
-      - include: '#flowtype-variable'
-      - include: '#semi-colon'
-  class-content:
-    patterns:
-      - include: '#core'
   blocks:
     patterns:
       - include: '#raw'
@@ -868,6 +774,100 @@ repository:
             captures:
               1: {name: keyword.operator.accessor.sombra}
           - include: '#core'
+  brackets:
+    patterns:
+      - include: '#round-brackets'
+      - include: '#square-brackets'
+      - include: '#curly-brackets'
+  cast-expression:
+    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]*?[-_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
+    captures:
+      1: {name: punctuation.definition.cast.begin.sombra}
+      2: {patterns: [{include: '#flowtype-parse-types'}]}
+      3: {name: punctuation.definition.cast.end.sombra}
+  catch:
+    patterns:
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
+        end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally)\b))
+        name: meta.catch.sombra
+        beginCaptures:
+          1: {name: keyword.control.trycatch.sombra}
+          2: {name: keyword.control.flow.sombra}
+        endCaptures:
+          1: {name: meta.brace.round.sombra}
+        patterns:
+          - include: '#curly-brackets'
+          - include: '#type-argument-brackets'
+          - include: $self
+  class:
+    begin: (?<!(?<!\.\.)\.|\#)\s*+\b((class))\s+
+    comment: Classes
+    end: \s*(=(?!=|>))|\s*(?<=})
+    beginCaptures:
+      1: {name: meta.class.sombra}
+      2: {name: storage.type.class.sombra}
+    endCaptures:
+      1: {name: keyword.operator.assignment.sombra}
+    patterns:
+      - include: '#type-argument-brackets'
+      - match: \s*+\b((ext)|(impl)|(only))\b\s*+
+        captures:
+          1: {name: meta.class.extends.sombra}
+          2: {name: storage.type.extends.sombra}
+          3: {name: storage.type.implements.sombra}
+          4: {name: keyword.operator.expression.only.sombra}
+      - comment: look for interface names but don't assume uppercase start char
+        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+        name: entity.name.class.sombra
+      - include: '#flowtype'
+      - begin: \s*+({)
+        contentName: meta.class.body.sombra
+        end: \s*(})
+        beginCaptures:
+          1: {name: punctuation.section.class.begin.sombra}
+        endCaptures:
+          1: {name: punctuation.section.class.end.sombra}
+        patterns:
+          - include: '#flowtype-method'
+          - include: '#class-content'
+      - match: \s*(\.)
+        captures:
+          1: {name: keyword.operator.accessor.sombra}
+      - include: '#core'
+  class-body:
+    patterns:
+      - include: '#core'
+      - include: '#attributes'
+      - include: '#modifiers'
+      - include: '#flowtype-keywords'
+      - include: '#arrow-expression'
+      - include: '#arrow-function-simple-assignments'
+      - include: '#arrow-function'
+      - include: '#brackets'
+      - include: '#es7-decorators'
+      - include: '#comments'
+      - comment: 'handle class fields with no flow types like var = '
+        match: (?<!:)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?==)(?!=>|==)
+        captures:
+          1: {name: keyword.operator.private.sombra}
+          2: {name: variable.other.readwrite.sombra}
+      - begin: \s*+(?==[^=>])
+        comment: a line starts with a static, [, name(, name:, name=, } or a semi-colon anywhere
+        end: >-
+          ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\p{L}\p{Nl}])(?:[(\#?)_\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
+        endCaptures:
+          9: {name: punctuation.terminator.statement.sombra}
+        patterns:
+          - include: '#method'
+          - include: '#core'
+      - match: (?<!(?<!\.\.)\.|\#)\s*+\b(static)\b(?!\.)
+        captures:
+          1: {name: storage.modifier.sombra}
+      - include: '#flowtype-variable'
+      - include: '#semi-colon'
+  class-content:
+    patterns:
+      - include: '#core'
   comma:
     patterns:
       - match: \s*+(,)
@@ -1472,7 +1472,7 @@ repository:
           - include: '#flowtype-parse-types'
           - include: '#flowtype-variable'
   flowtype-parse-objects:
-    patterns: 
+    patterns:
       - applyEndPatternLast: 1
         begin: (?<=:|\||&|\?|=>|<|\()\s*+(\#{)
         comment: 'object literal flowtype  preceded by either => : | & ? symbols'
