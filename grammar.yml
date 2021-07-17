@@ -3199,7 +3199,7 @@ repository:
             (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
             trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size|set))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
-            prev|next|lock|fixed) #3
+            prev|next|lock|fixed|lazy|eager|greedy) #3
           )\b
         captures:
           1: {name: storage.modifier.sombra}
