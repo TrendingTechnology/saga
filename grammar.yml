@@ -4910,7 +4910,7 @@ repository:
           - include: '#regexp-patterns'
       - match: \\o{[0-7\s]*?}
         name: constant.character.escape.octal.sombra
-      - match: \\[anrtbfveclz\p{S}\p{P}]
+      - match: \\[anrtbfveclzp\p{S}\p{P}]
         name: constant.character.escape.sombra
       - match: \\u({[\h\s]*?}|\h{4})|\\U\h{8}
         name: constant.character.escape.unicode.sombra
