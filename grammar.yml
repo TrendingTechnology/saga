@@ -4060,6 +4060,7 @@ repository:
       - include: '#group-clause'
       - include: '#select-clause'
       - include: '#order-clause'
+      - include: '#fold-clause'
     repository:
       group-clause:
         begin: (?<!(?<!\.\.)\.|\#)\s*+\b(group)\b\s*
