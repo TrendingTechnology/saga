@@ -356,8 +356,6 @@ tokenColors:
       - entity.name.function
       - meta.require
       - support.function.any-method
-      - meta.function-call
-      - meta.method-call
       - variable.function
     settings:
       foreground: '#3FC56B'
@@ -2539,12 +2537,12 @@ tokenColors:
   - scope:
       - storage.type.class
     settings:
-      foreground: '#39A0CF'
+      foreground: '#39a0cf'
   - scope:
       - entity.name.type.class
       - entity.name.class
     settings:
-      foreground: '#6EADE0'
+      foreground: '#6eade0'
   - scope:
       - keyword.other.typedef
       - storage.type.alias
@@ -2614,7 +2612,7 @@ tokenColors:
       - entity.name.namespace
       - entity.name.type.namespace
     settings:
-      foreground: '#DA713D'
+      foreground: '#da713d'
   - scope:
       - storage.type.constraint
       - keyword.other.given
@@ -2656,6 +2654,16 @@ tokenColors:
     settings:
       foreground: '#39CA74'
   - scope:
+      - storage.type.raw
+      - keyword.other.raw
+    settings:
+      foreground: '#C5C5C5'
+  - scope:
+      - entity.name.raw
+      - entity.name.type.raw
+    settings:
+      foreground: '#DDE0E6'
+  - scope:
       - storage.modifier.declaration
       - storage.type.accessor
     settings:
@@ -2665,7 +2673,7 @@ tokenColors:
       foreground: '#E15D97'
   - scope: storage.type.function
     settings:
-      foreground: '#E34F8C'
+      foreground: '#F07C92'
   - scope: storage.type.extends
     settings:
       foreground: '#27D797'
@@ -2847,6 +2855,9 @@ tokenColors:
   - scope: constant.character.escape.unicode
     settings:
       foreground: '#5294E2'
+  - scope: constant.character.escape.decimal
+    settings:
+      foreground: '#3FC4DE'
   - scope:
       - constant.character.escape.newline
       - constant.character.escape.newline
@@ -2971,7 +2982,7 @@ tokenColors:
       foreground: '#C19357'
   - scope: storage.type
     settings:
-      foreground: '#9D7CD8'
+      foreground: '#D59DF6'
   - scope:
       - variable
       - markup
