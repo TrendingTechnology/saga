@@ -1434,7 +1434,7 @@ repository:
         comment: when clause precedes with
         end: ^\s*|$|(?=;|,|\p{Pe})|\s*(?=\bwhere\b)
         beginCaptures:
-          1: {name: keyword.control.match.somra}
+          1: {name: keyword.operator.forall.somra}
         endCaptures:
           1: {patterns: [{include: '#core'}]}
         patterns:
