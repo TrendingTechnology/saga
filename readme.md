@@ -17,9 +17,9 @@ val personMap = {
   20: new Person('James', 'Bond')
 }
 
-val names = for (
-  if key > 15 (key, person) <- personMap
-) yield '$key%s = ${person.firstName}%s'
+val names = for (let [key, person] in personMap)
+  if (key > 15) 
+    yield '$key%s = ${person.firstName}%s'
 ```
 
 ## Roadmap
