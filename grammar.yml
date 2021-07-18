@@ -33,7 +33,7 @@ information_for_contributors: |-
   Done:
     - Block comments can be nested (Swift) and can now support Markdown.
     - Same thing for JSX markup.
-    - Identifiers can now include `\` and `-`.
+    - Identifiers can now include `\`.
     - Added Scala `match` and `with` clauses.
     - Added tons of new keywords and operators; as well as support for space-delimited 
       unary and binary operators. 
