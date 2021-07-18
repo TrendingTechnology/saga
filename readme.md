@@ -29,6 +29,7 @@ Somra is going to be a big project, and there's so many things that would need t
 - [ ] Documentation
 - [ ] Language reference (informal, no extended BNF\* yet)
 - [ ] Syntax highlighting (need to touch up, see `grammar.yml`)
+- [ ] A theme (see `theme.yml`)
 - [ ] Compiler
 - [ ] VSCode Support
 - [ ] Logo, website and branding
