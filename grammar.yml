@@ -1,4 +1,4 @@
-comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
 firstLineMatch: ^#!\s*/.*\b(so|somra)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
@@ -15,7 +15,6 @@ information_for_contributors: |-
 
   Should you want to provide a fix or improvement, or even a new feature,
   please create a pull request against this repo: https://github.com/NoxUltima/somra,
-
   and I will be very happy to receive them.
 
   TODOs
@@ -30,7 +29,7 @@ information_for_contributors: |-
       in isolation. 
       This is done to avoid confusion with JSX <></> and multiline regex syntax. /></></
       Might need some help here (scroll to section `operators`.)
-      
+
   Done:
     - Block comments can be nested (Swift) and can now support Markdown.
     - Same thing for JSX markup.
@@ -61,7 +60,7 @@ repository:
       - include: '#core'
   arrow-function:
     patterns:
-      - begin: \s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+      - begin: \s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.somra
@@ -73,7 +72,7 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: e.g. arg => { }
-        match: \s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
+        match: \s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.arrow.somra
         captures:
           1: {name: storage.type.somra}
@@ -81,7 +80,7 @@ repository:
           3: {name: variable.other.readwrite.somra}
           4: {name: storage.type.function.arrow.somra}
       - include: '#arrow-function-simple-assignments'
-      - begin: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+      - begin: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: Sound.prototype.play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.prototype.function.arrow.somra
@@ -103,7 +102,7 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: e.g. Sound.prototype.play = arg => { }
-        match: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?\s*(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(=>)
+        match: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(=>)
         name: meta.prototype.function.arrow.somra
         captures:
           1: {name: keyword.operator.private.somra}
@@ -119,7 +118,7 @@ repository:
           11: {name: storage.type.somra}
           12: {name: variable.other.readwrite.somra}
           13: {name: storage.type.function.arrow.somra}
-      - begin: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+      - begin: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. Sound.play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.static.arrow.somra
@@ -138,7 +137,7 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: e.g. Sound.play = arg => { }
-        match: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(=>)
+        match: \s*+(\#?)(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(=>)
         name: meta.function.static.arrow.somra
         captures:
           1: {name: keyword.operator.private.somra}
@@ -154,7 +153,7 @@ repository:
   arrow-function-labels:
     patterns:
       - include: '#async-arrow-function-labels'
-      - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+      - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: 'e.g. play: async <T>(args) => { }'
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.somra
@@ -168,7 +167,7 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: 'e.g. play: arg => { }'
-        match: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
+        match: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.json.arrow.somra
         captures:
           1: {patterns: [{include: '#function-name'}]}
@@ -177,7 +176,7 @@ repository:
           4: {name: meta.function.parameters.somra}
           5: {name: variable.other.readwrite.somra}
           6: {name: storage.type.function.arrow.somra}
-      - begin: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+      - begin: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: 'e.g. ''play'': (args) => { }'
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.somra
@@ -194,7 +193,7 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: 'e.g. ''play'': arg => { }'
-        match: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
+        match: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.json.arrow.somra
         captures:
           1: {name: string.quoted.somra}
@@ -209,7 +208,7 @@ repository:
   arrow-function-simple-assignments:
     patterns:
       - include: '#async-arrow-function-simple-assignments'
-      - begin: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+      - begin: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
         comment: e.g. play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.somra
@@ -224,7 +223,7 @@ repository:
           - include: '#flowtype'
           - include: '#fat-arrow-braced-body'
       - comment: e.g. play = arg => { }
-        match: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*(=>)
+        match: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+\s*+(\basync\b)?\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))\s*(=>)
         name: meta.function.arrow.somra
         captures:
           1: {name: keyword.operator.private.somra}
@@ -236,7 +235,7 @@ repository:
           7: {name: storage.type.function.arrow.somra}
   async-arrow-function-labels:
     patterns:
-      - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
+      - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(\basync)\s+)(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: 'e.g. play: async <T>('
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.somra
@@ -267,7 +266,7 @@ repository:
           - include: '#fat-arrow-braced-body'
   async-arrow-function-simple-assignments:
     patterns:
-      - begin: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(?:(\basync)\s+)(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
+      - begin: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(?:(\basync)\s+)(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g. play = (args) => { }
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.arrow.somra
@@ -329,7 +328,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for class names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.class.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -363,7 +362,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for constraint names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.constraint.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -380,7 +379,7 @@ repository:
               1: {name: keyword.operator.accessor.somra}
           - include: '#core'
       enum:
-        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?(\s+|$)
+        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(\s+|$)
         end: \s*(=(?!=|>))|\s*(?<=})
         name: meta.enum.declaration.somra
         beginCaptures:
@@ -441,7 +440,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for extension names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.extension.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -475,7 +474,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for fragment names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.fragment.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -509,7 +508,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for interface names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.interface.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -543,7 +542,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for module names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.module.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -577,7 +576,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for namespace names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.namespace.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -611,7 +610,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for object names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.object.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -645,7 +644,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for raw names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.raw.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -679,7 +678,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for schema names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.schema.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -713,7 +712,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for style names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.style.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -725,6 +724,7 @@ repository:
             patterns:
               - include: '#quasi-embedded'
               - include: source.css.scss
+              - include: source.css.styled
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.somra}
@@ -747,7 +747,7 @@ repository:
               3: {name: storage.type.implements.somra}
               4: {name: keyword.operator.expression.only.somra}
           - comment: look for trait names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             name: entity.name.trait.somra
           - include: '#flowtype'
           - begin: \s*+({)
@@ -769,15 +769,15 @@ repository:
       - include: '#square-brackets'
       - include: '#curly-brackets'
   cast-expression:
-    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]*?[-_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
+    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]*?[_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
     captures:
       1: {name: punctuation.definition.cast.begin.somra}
       2: {patterns: [{include: '#flowtype-parse-types'}]}
       3: {name: punctuation.definition.cast.end.somra}
   catch:
     patterns:
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
-        end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally)\b))
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(try|catch|rescue|finally|then|para|seq)\b\s*(await)?\b
+        end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally|then|para|seq)\b))
         name: meta.catch.somra
         beginCaptures:
           1: {name: keyword.control.trycatch.somra}
@@ -801,13 +801,13 @@ repository:
       - include: '#es7-decorators'
       - include: '#comments'
       - comment: 'handle class fields with no flow types like var = '
-        match: (?<!:)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?==)(?!=>|==)
+        match: (?<!:)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?==)(?!=>|==)
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.readwrite.somra}
       - begin: \s*+(?==[^=>])
         comment: a line starts with a static, [, name(, name:, name=, } or a semi-colon anywhere
-        end: ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\p{L}\p{Nl}])(?:[(\#?)_\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
+        end: ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\p{L}\p{Nl}])(?:[(\#?)_\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
         endCaptures:
           9: {name: punctuation.terminator.statement.somra}
         patterns:
@@ -979,7 +979,7 @@ repository:
   es7-decorators:
     patterns:
       - applyEndPatternLast: 1
-        begin: (?<!@)\s*+(?:(@)(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)))
+        begin: (?<!@)\s*+(?:(@)(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)))
         comment: Look for a @identifier start If unicode start uppercase e.g. @A class it as a class
         end: (?=.)
         beginCaptures:
@@ -990,7 +990,7 @@ repository:
         patterns:
           - begin: \s*(?:(\?\.)|(\.))
             commnent: decorator .property or .method which may be on a different line
-            end: \s*(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+))
+            end: \s*(\#?)(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+))
             beginCaptures:
               1: {name: keyword.operator.existential.somra}
               2: {name: keyword.operator.accessor.somra}
@@ -1002,7 +1002,7 @@ repository:
               - include: '#comments'
           - comment: arguments for decorators
             include: '#round-brackets'
-          - begin: (?:(?<=^|;)|(?=\s))\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
+          - begin: (?:(?<=^|;)|(?=\s))\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
             comment: 'method that always follow decorators such as play<T,T>(arg1, arg2): Type<T> { }'
             end: (?<=:|})|(?=;|}|,)
             name: meta.function.method.somra
@@ -1029,22 +1029,22 @@ repository:
   esnext-pipeline:
     patterns:
       - applyEndPatternLast: 1
-        begin: \s*(\+>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\??\.?\#?)++\s*([^(]|$|;))
+        begin: \s*(\+>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\??\.?\#?)++\s*([^(]|$|;))
         end: (?=.)
         beginCaptures:
           1: {name: keyword.operator.pipeline.somra}
         patterns:
-          - match: (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.somra}
               3: {name: meta.function-call.without-arguments.somra}
               4: {patterns: [{include: '#function-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.somra}
               3: {name: meta.method-call.without-arguments.somra}
               4: {patterns: [{include: '#method-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.somra}
               3: {name: variable.other.object.somra}
@@ -1052,22 +1052,22 @@ repository:
               5: {name: keyword.operator.accessor.somra}
           - include: '#comments'
       - applyEndPatternLast: 1
-        begin: \s*(\|>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\??\.?\#?)++\s*([^(]|$|;))
+        begin: \s*(\|>)(?=\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\??\.?\#?)++\s*([^(]|$|;))
         end: (?=.)
         beginCaptures:
           1: {name: keyword.operator.pipeline.somra}
         patterns:
-          - match: (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.somra}
               3: {name: meta.function-call.without-arguments.somra}
               4: {patterns: [{include: '#function-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.somra}
               3: {name: meta.method-call.without-arguments.somra}
               4: {patterns: [{include: '#method-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.somra}
               3: {name: variable.other.object.somra}
@@ -1226,7 +1226,7 @@ repository:
         patterns:
           - include: '#flowtype-polymorphs'
           - comment: look for module names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             captures:
               1: {name: entity.name.class.somra}
           - comment: look for module names in quoted string forms
@@ -1266,7 +1266,7 @@ repository:
               1: {name: meta.class.extends.somra}
               2: {name: storage.type.extends.somra}
           - comment: look for class names but don't assume uppercase start char
-            match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+            match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             captures:
               1: {name: entity.name.class.somra}
           - begin: \s*+({)
@@ -1300,7 +1300,7 @@ repository:
           3: {name: storage.type.implements.somra}
           4: {name: keyword.operator.expression.only.somra}
       - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+        match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.type.interface.somra
       - include: '#flowtype'
       - begin: \s*+({)
@@ -1404,18 +1404,9 @@ repository:
         patterns:
           - include: '#flowtype-object-property'
   flowtype-parse-types:
-    patterns:
-      - begin: (?<!let|const|con|va[lr])(?<=[-_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
-        comment: 'varname of|in '
-        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
-        patterns:
-          - include: '#core'
-      - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
-        comment: 'assignment var = or = '
-        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
-        patterns:
-          - include: '#core'
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
+    repository:
+      for-all-clause:
+        begin: (?<!(?<!\.\.)\.|\#)\s*+\b(for\s*all)\b\s*
         comment: for all clause
         end: ^\s*|\s*(?=;|/[/*]|$)
         beginCaptures:
@@ -1430,12 +1421,31 @@ repository:
               - include: '#core'
           - match: (?<!(?<!\.\.)\.|\#)\s*+\b(va[rl]|const|con|let)\b\s*+
             name: storage.type.somra
-          - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(as)\b
-            end: (?=$|;|/[/*]|\s*where)
-            beginCaptures:
-              1: {name: keyword.operator.forall.somra}
-            patterns:
-              - include: '#flowtype-parse-types'
+          - include: '#as-clause'
+      as-clause:
+        begin: \s*\b(as)\b\s*
+        comment: when clause precedes with
+        end: \s*\b(?=,|;)|\s*(?=\bwhere\b)
+        beginCaptures:
+          1: {name: keyword.control.match.somra}
+        endCaptures:
+          1: {patterns: [{include: '#core'}]}
+        patterns:
+          - include: '#as-clause'
+          - include: '#flowtype-parse-types'
+          - include: '#punctuation'
+    patterns:
+      - begin: (?<!let|const|con|va[lr])(?<=[-_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
+        comment: 'varname of|in '
+        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+        patterns:
+          - include: '#core'
+      - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
+        comment: 'assignment var = or = '
+        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+        patterns:
+          - include: '#core'
+      - include: '#for-all-clause'
       - include: '#modifiers'
       - include: '#keywords'
       - include: '#number'
@@ -1455,13 +1465,13 @@ repository:
         captures:
           1: {name: support.type.builtin.somra}
       - comment: custom Shout-case types
-        match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)\b
+        match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)\b
         name: support.type.builtin.somra
       - comment: custom Class Types e.g. Abc avoid Abc(
-        match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
+        match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b
         name: support.type.class.somra
       - comment: custom primitive/var Types e.g. abc avoid abc(
-        match: \s*+\b([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\b
+        match: \s*+\b([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b
         name: support.type.primitive.somra
       - comment: Immutable modifier
         match: \s*#(?!\p{Ps})\s*
@@ -1587,7 +1597,7 @@ repository:
   flowtype-type-aliases:
     patterns:
       - applyEndPatternLast: 1
-        begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type)\b\s+(?!(i[sn])\b)(?=[$_A-Za-z{\[])
+        begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type|alias)\b\s+(?!(i[sn])\b)(?=[$_A-Za-z{\[])
         comment: type aliases for export but avoid type instaceof or type in operators
         end: $|;
         beginCaptures:
@@ -1623,13 +1633,13 @@ repository:
   flowtype-variable:
     patterns:
       - comment: 'e.g. let a: ()=>null  =  function() {return null}'
-        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
+        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: storage.type.function.somra}
           3: {name: keyword.operator.optional.parameter.somra}
       - comment: 'name of variable spread var with optional ? and optional flowtype :'
-        match: ((?<!(?<!\.\.)\.|\#)\.\.\.)?\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
+        match: ((?<!(?<!\.\.)\.|\#)\.\.\.)?\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
         captures:
           1: {name: keyword.operator.spread.somra}
           2: {name: keyword.operator.private.somra}
@@ -1700,7 +1710,7 @@ repository:
   function:
     patterns:
       - applyEndPatternLast: 1
-        begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!(?<!\.\.)\.|\#))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!(?<!\.\.)\.|\#))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. function play<T>(arg1, arg2) { }
         end: (?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
@@ -1715,7 +1725,7 @@ repository:
           - include: '#core'
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. play = function(arg1, arg2) { }
         end: (?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
@@ -1733,7 +1743,7 @@ repository:
           - include: '#core'
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
         end: (?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
@@ -1758,7 +1768,7 @@ repository:
           - include: '#core'
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
         end: (?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         name: meta.function.static.somra
@@ -1784,7 +1794,7 @@ repository:
     patterns:
       - include: '#comments'
       - comment: A new expression with no type params or arguments, like new Foo()
-        match: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
+        match: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
         name: meta.new-class.without-arguments.somra
         captures:
           1: {name: keyword.operator.new.somra}
@@ -1798,7 +1808,7 @@ repository:
           9: {name: meta.brace.round.somra}
           10: {name: meta.brace.round.somra}
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
+        begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
         comment: A new expression with type params and no arguments, like new Foo<string>()
         end: (?=.)
         name: meta.new-class.without-arguments.somra
@@ -1815,7 +1825,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
+        begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
         comment: A new expression with arguments and maybe type params, like new Foo<string>(123)
         end: (?=.)
         name: meta.new-class.with-arguments.somra
@@ -1833,7 +1843,7 @@ repository:
           - include: '#round-brackets'
       - include: '#operators'
       - comment: A call expression with no type params or arguments, like foo()
-        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
+        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
         name: meta.function-call.without-arguments.somra
         captures:
           1: {name: keyword.operator.private.somra}
@@ -1845,7 +1855,7 @@ repository:
           7: {name: meta.brace.round.somra}
           8: {name: meta.brace.round.somra}
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
+        begin: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
         comment: A call expression with type params and no arguments, like foo<string>()
         end: (?=.)
         name: meta.function-call.without-arguments.somra
@@ -1860,7 +1870,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?=\s*(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\(\s*+\))
+        begin: (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\(\s*+\))
         comment: maybe in array form e.g. foo[bar]() or foo[bar]<string>()
         end: (?=.)
         name: meta.function-call.without-arguments.somra
@@ -1873,7 +1883,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: A call expression with arguments and maybe type params, like foo(123) or foo<string>(123)
         end: (?=.)
         name: meta.function-call.with-arguments.somra
@@ -1888,7 +1898,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: (?<!(?<!\.\.)\.|\#)\s*+((\bnew\b)*)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: maybe in array form e.g. foo[bar](123)
         end: (?=.)
         name: meta.function-call.with-arguments.somra
@@ -1903,7 +1913,7 @@ repository:
       - include: '#keywords'
   function-labels:
     patterns:
-      - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
+      - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!(?<!\.\.)\.|\#)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
         comment: 'e.g. play: function(arg1, arg2) { }'
         end: \s*(=)|\s*(?<=})
         name: meta.function.json.somra
@@ -1950,11 +1960,11 @@ repository:
         name: support.type.builtin.somra
       - match: \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
         name: support.type.builtin.class.somra
-      - match: (([a-zA-Z])[-_\\\p{L}\p{M}\p{N}]*)
+      - match: (([a-zA-Z])[_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.function.$2.somra
-      - match: '[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*'
+      - match: '[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*'
         name: support.type.class.somra
-      - match: '[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*'
+      - match: '[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*'
         name: entity.name.function.somra
   graphql:
     patterns:
@@ -2426,11 +2436,11 @@ repository:
   implicit-call:
     patterns:
       - comment: Avoid all language keywords as much as possible
-        match: (?x)(?<=\.)\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
+        match: (?x)(?<=\.)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
         captures:
           1: {patterns: [{include: '#method-name'}]}
       - comment: Avoid all language keywords as much as possible
-        match: (?x)\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
+        match: (?x)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
         captures:
           1: {patterns: [{include: '#function-name'}]}
   js-label:
@@ -2618,7 +2628,7 @@ repository:
       jsx-attribute-name:
         patterns:
           - comment: look for attribute name
-            match: (?<!\S)([_\\\p{L}](?:[_\\\p{L}\p{M}\p{N}-](?<!\.\.))*+)(?<!\.)(?=//|/\*|=|\s|>|/>)
+            match: (?<!\S)([_\\\p{L}](?:[_\\\p{L}\p{M}\p{N}](?<!\.\.))*+)(?<!\.)(?=//|/\*|=|\s|>|/>)
             captures:
               0: {name: entity.other.attribute-name.jsx}
       jsx-entities:
@@ -2644,8 +2654,7 @@ repository:
             endCaptures:
               0: {name: punctuation.section.embedded.end.jsx}
             patterns:
-              - include: '#jsx-string-double-quoted'
-              - include: '#jsx-string-single-quoted'
+              - include: '#string'
               - include: '#jsx-spread-attribute'
               - include: '#core'
       jsx-spread-attribute:
@@ -2695,7 +2704,7 @@ repository:
               1: {name: punctuation.definition.tag.jsx}
             patterns:
               - include: '#jsx-tag-termination'
-          - begin: \s*+(<)((\p{Ll}[\p{Ll}\d]*)|((?:[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}-]*?:)?+(?:[_\\\p{L}\p{Nl}](?:[-_\\\p{L}\p{M}\p{N}\.-](?<!\.\.))*+)+))(?=[/>\s])(?![:])(?<!\.|:)
+          - begin: \s*+(<)((\p{Ll}[\p{Ll}\p{N}]*)|((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*?:)?+(?:[_\\\p{L}\p{Nl}](?:[_\\\p{L}\p{M}\p{N}.:](?<!\.\.))*+)+))(?=[/>\s])(?![:])(?<!\.|:)
             comment: 'Tags that end > are trapped in #jsx-tag-termination'
             contentName: JSXAttrs
             end: \s*(?<=</)((\4)|\2)(>)|(/>)|((?<=</)[\S ]*?)>
@@ -2733,7 +2742,7 @@ repository:
   keyword-storage:
     patterns:
       - begin: (?<!(?<!\.\.)\.|\#)\s*+\b(const|con|let|var|val)\b
-        end: (?=\s*[_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+        end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.somra}
         patterns:
@@ -2750,7 +2759,7 @@ repository:
           - include: '#comments'
           - include: '#keywords'
           - include: '#modifiers'
-          - match: \s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*
+          - match: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*
             captures:
               1: {name: constant.other.label.somra}
       - comment: Keyword operators
@@ -2822,7 +2831,7 @@ repository:
         patterns:
           - include: '#core'
       - include: '#js-label'
-      - match: (?<!\.|\?)\s*+(([-_\\\p{L}\p{M}\p{N}]*))\s*+(:)((?=::)|(?!:))
+      - match: (?<!\.|\?)\s*+(([_\\\p{L}\p{M}\p{N}]*))\s*+(:)((?=::)|(?!:))
         name: meta.object.member.somra meta.object-literal.key.somra
         captures:
           1: {name: constant.other.object.key.somra, patterns: [{include: '#number'}]}
@@ -2917,19 +2926,30 @@ repository:
           - include: $self
     repository:
       match-clause:
-        begin: \s*\b(as|with|if|unless|where)\b\s*
-        comment: when clause precedes with
-        end: \s*\b(?=as|with|if|unless|where)|\s*(?=->)
+        begin: (?<!(?<!\.\.)\.|\#)\s*\b(as|with|if|unless|where)\b\s*
+        end: (?<!(?<!\.\.)\.|\#)\s*\b(?=as|with|if|unless|where)|\s*(?=->)
         beginCaptures:
           1: {name: keyword.control.match.somra}
         endCaptures:
           1: {patterns: [{include: '#core'}]}
         patterns:
-          - include: '#case-clause'
+          - include: '#match-clause'
+          - include: '#case-separator'
           - include: $self
+      case-separator:
+        begin: ([,;])
+        end: (?<!(?<!\.\.)\.|\#)\s*\b(?=as|with|if|unless|where)|\s*(?=->)
+        beginCaptures:
+          1: {patterns: [{include: '#core'}]}
+        endCaptures:
+          1: {patterns: [{include: '#core'}]}
+        patterns:
+          - include: '#match-clause'
+          - include: '#case-separator'
+          - include: '#flowtype-parse-types'
   method:
     patterns:
-      - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
+      - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!(?<!\.\.)\.|\#)(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
         comment: 'e.g. play<T,T>(arg1, arg2): Type<T> { }'
         end: (?={|;|}|,|=)
         beginCaptures:
@@ -2976,7 +2996,7 @@ repository:
           - include: '#curly-brackets'
           - include: '#core'
           - include: $self
-      - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?=\s*+\()
+      - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+\()
         comment: getter/setter
         end: (?={|;|}|,|=)
         beginCaptures:
@@ -3010,7 +3030,7 @@ repository:
   method-call:
     patterns:
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g CONSTNAME.method() or CONST.method[p]()
         end: (?=.)
         name: meta.method-call.without-arguments.somra
@@ -3028,7 +3048,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.without-arguments.somra
@@ -3046,7 +3066,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g CONSTNAME.method()
         end: (?=.)
         name: meta.method-call.with-arguments.somra
@@ -3064,7 +3084,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.with-arguments.somra
@@ -3082,7 +3102,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g .aaa()
         end: (?=.)
         name: meta.method-call.without-arguments.somra
@@ -3095,7 +3115,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g .aaa()
         end: (?=.)
         name: meta.method-call.with-arguments.somra
@@ -3109,9 +3129,9 @@ repository:
   method-name:
     patterns:
       - include: '#support-methods'
-      - match: (([a-zA-Z])[-_\\\p{L}\p{M}\p{N}]*)
+      - match: (([a-zA-Z])[_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.function.method.$2.somra
-      - match: ([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+      - match: ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
         name: entity.name.function.method.somra
   modifiers:
     patterns:
@@ -3122,7 +3142,7 @@ repository:
             (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
             trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size|set))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
-            prev|next|lock|fixed|lazy|eager|greedy) #3
+            prev|next|lock|fixed|lazy|eager|greedy|unique|handle) #3
           )\b
         captures:
           1: {name: storage.modifier.somra}
@@ -3308,7 +3328,7 @@ repository:
           - include: '#fat-arrow-braced-body'
   new:
     - comment: A new expression with no type params or arguments, like new Foo()
-      match: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?(\()\s*+(\)))
+      match: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?(\()\s*+(\)))
       name: meta.new-class.without-arguments.somra
       captures:
         1: {name: keyword.operator.new.somra}
@@ -3319,7 +3339,7 @@ repository:
         6: {name: meta.brace.round.somra}
         7: {name: meta.brace.round.somra}
     - applyEndPatternLast: 1
-      begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
+      begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
       comment: A new expression with type params and no arguments, like new Foo<string>()
       end: (?=.)
       name: meta.new-class.without-arguments.somra
@@ -3333,7 +3353,7 @@ repository:
         - include: '#type-argument-brackets'
         - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
+      begin: (?<!(?<!\.\.)\.|\#)\s*+(\bnew\b)\s*+((\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
       comment: A new expression with arguments and maybe type params, like new Foo<string>(123)
       end: (?=.)
       name: meta.new-class.with-arguments.somra
@@ -3661,7 +3681,7 @@ repository:
         captures:
           1: {name: constant.other.object.key.somra}
           2: {name: variable.other.constant.shorthandpropertyname.somra}
-      - match: (?<=^|,|{)(?<!:|\.)\s*+(([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*))\s*+(?=$|,|})
+      - match: (?<=^|,|{)(?<!:|\.)\s*+(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))\s*+(?=$|,|})
         captures:
           1: {name: variable.other.readwrite.shorthandpropertyname.somra}
   operator:
@@ -3675,7 +3695,7 @@ repository:
           - include: '#flowtype-parse-types'
       - match: \s*[.:]=\s*
         name: keyword.operator.assignment.somra
-      - match: \s*(\.\.[.=]?|[.=].[.=])\s*
+      - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
         name: keyword.operator.range.somra
       - match: \s*(/\\)|(\\/)\s*
         name: keyword.operator.logical.somra
@@ -3686,6 +3706,8 @@ repository:
           3: {name: keyword.operator.accessor.somra}
       - match: \s*\\\s*($|(?=/[/*]))
         name: constant.character.escape.newline.somra
+      - match: \s*(<-+|-+>)\s*
+        name: keyword.operator.then.somra
   operators:
     patterns:
       - include: '#unary-ops'
@@ -3923,7 +3945,7 @@ repository:
   prototype:
     patterns:
       - comment: e.g. Sound.prototype
-        match: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?:(\?\.)|(\.))(proto)\b
+        match: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?:(\?\.)|(\.))(proto)\b
         name: meta.prototype.access.somra
         captures:
           1: {name: keyword.operator.private.somra}
@@ -3932,7 +3954,7 @@ repository:
           4: {name: keyword.operator.accessor.somra}
           5: {name: variable.language.prototype.somra}
       - comment: e.g. Sound.prototype = { }
-        match: \s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)(?:(\?\.)|(\.))(proto)\s*+=\s*+
+        match: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?:(\?\.)|(\.))(proto)\s*+=\s*+
         name: meta.prototype.declaration.somra
         captures:
           1: {name: keyword.operator.private.somra}
@@ -3967,7 +3989,7 @@ repository:
           2: {name: punctuation.definition.quasi.end.somra}
         patterns:
           - include: source.css.styled
-      - begin: (?<!(?<!\.\.)\.|\#)\s*+(?:([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(extend))\s*((`))
+      - begin: (?<!(?<!\.\.)\.|\#)\s*+(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(extend))\s*((`))
         comment: Styled CSS tags
         contentName: source.inside-js.css.styled
         end: \s*((`))
@@ -3984,7 +4006,7 @@ repository:
         patterns:
           - include: source.css.styled
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)|([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(withComponent))(?=\s*((\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))*\s*(`|\.extend`|$)))
+        begin: (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)|([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(withComponent))(?=\s*((\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))*\s*(`|\.extend`|$)))
         comment: Styled CSS tag functions
         end: (?=.)
         beginCaptures:
@@ -4036,7 +4058,7 @@ repository:
             patterns:
               - include: source.css.styled
       - applyEndPatternLast: 1
-        begin: (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)\s*(?:(\?\.)|(\.))\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(attrs|withConfig))(?=\s*\()
+        begin: (?<!(?<!\.\.)\.|\#)\s*+(?:(\bstyled)\s*(?:(\?\.)|(\.))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(attrs|withConfig))(?=\s*\()
         comment: Styled CSS tag functions
         end: (?=.|\n)
         beginCaptures:
@@ -4077,7 +4099,7 @@ repository:
           2: {name: punctuation.definition.quasi.end.somra}
         patterns:
           - include: '#graphql'
-      - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)?\s*((`))
+      - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*((`))
         comment: Use two forms of scopes! fixes some themes
         contentName: string.quoted.template.somra
         end: \s*((`))
@@ -4095,13 +4117,13 @@ repository:
   quasi-embedded:
     patterns:
       - comment: Accepts arbitrary expressions
-        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((%)[-\w/.%#<^>+*=!]+)?
+        match: (?<!\\)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)((%)[-\w/.%#<^>+*=!]+)?
         captures:
           1: {name: punctuation.quasi.element.somra}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.somra}
           4: {name: punctuation.separator.label.regexp}
-      - begin: (?<!\\)(\#\{)\s*
+      - begin: (?<!\\)(\$\{)\s*
         end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
         name: entity.quasi.element.somra
         beginCaptures:
@@ -4115,13 +4137,13 @@ repository:
   quasi-embedded-regexp:
     patterns:
       - comment: Accepts arbitrary expressions
-        match: (?<!\\)(\#)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)((%)[-\w/.%#<^>+*=!]+)?
+        match: (?<!\\)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)((%)[-\w/.%#<^>+*=!]+)?
         captures:
           1: {name: punctuation.quasi.element.somra}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.somra}
           4: {name: punctuation.separator.label.regexp}
-      - begin: (?<!\\)(\#\{)\s*
+      - begin: (?<!\\)(\$\{)\s*
         end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
         name: entity.quasi.element.somra
         beginCaptures:
@@ -4213,7 +4235,7 @@ repository:
       - include: '#operator'
       - include: '#operators'
   regexp:
-    begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}&&[^</>]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[-_\\\p{L}\p{M}\p{N}]))
+    begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}&&[^</>]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
     comment: Updated to support Perl regex syntax
     end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
     name: string.regexp.somra
@@ -4299,7 +4321,7 @@ repository:
           3: {name: keyword.control.recursion.regexp}
           4: {name: storage.type.regexp}
           5: {name: punctuation.separator.label.regexp}
-      - match: (?<=\?\()(?:([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)|([+-]?\d*))(?=\))
+      - match: (?<=\?\()(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|([+-]?\d*))(?=\))
         name: keyword.control.conditional.group.regexp
         captures:
           1: {name: variable.other.regexp}
@@ -4659,7 +4681,7 @@ repository:
         endCaptures:
           1: {name: keyword.operator.ternary.somra}
         patterns:
-          - begin: \s*+(?=([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*:)
+          - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
             end: \s*(?=:)
             patterns:
               - include: '#language-constant'
@@ -4761,41 +4783,6 @@ repository:
       - match: \\.
         name: constant.character.escape.newline.somra
       - include: '#quasi-embedded'
-  style:
-    begin: (?<!(?<!\.\.)\.|\#)\s*+\b((style))\s+
-    comment: Stylesheets
-    end: \s*(=(?!=|>))|\s*(?<=})
-    beginCaptures:
-      1: {name: meta.class.somra}
-      2: {name: storage.type.style.somra}
-    endCaptures:
-      1: {name: keyword.operator.assignment.somra}
-    patterns:
-      - include: '#type-argument-brackets'
-      - match: \s*+\b((ext)|(impl)|(only))\b\s*+
-        captures:
-          1: {name: meta.class.extends.somra}
-          2: {name: storage.type.extends.somra}
-          3: {name: storage.type.implements.somra}
-          4: {name: keyword.operator.expression.only.somra}
-      - comment: look for interface names but don't assume uppercase start char
-        match: \s*+([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
-        name: entity.name.style.somra
-      - include: '#flowtype'
-      - begin: \s*+({)
-        contentName: meta.class.body.somra
-        end: \s*(})
-        beginCaptures:
-          1: {name: punctuation.section.style.begin.somra}
-        endCaptures:
-          1: {name: punctuation.section.style.end.somra}
-        patterns:
-          - include: '#quasi-embedded'
-          - include: source.css.scss
-      - match: \s*(\.)
-        captures:
-          1: {name: keyword.operator.accessor.somra}
-      - include: '#core'
   support:
     patterns:
       - match: |
@@ -5373,39 +5360,39 @@ repository:
   variable:
     patterns:
       - comment: e.g. dollar vars
-        match: \s*+(\#?)([_\\][-_\\\p{L}\p{M}\p{N}]+)
+        match: \s*+(\#?)([_\\][_\\\p{L}\p{M}\p{N}]+)
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.dollar.somra}
       - comment: e.g. CONSTANT
-        match: \s*+(\#?)(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
+        match: \s*+(\#?)(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.constant.somra}
       - comment: e.g. Class
-        match: \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+
+        match: \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.class.somra}
       - comment: e.g. obj.property
-        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*+(?=[\[\.]|[!?~]\.)
+        match: (?<!(?<!\.\.)\.|\#)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+\[|\s*+[!?~]?\.|->)
         name: variable.other.object.somra
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.object.somra}
       - comment: e.g. obj.property
-        match: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+        match: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
         name: meta.property.object.somra
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.property.somra}
-      - match: \s*+(\#?)([\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)
+      - match: \s*+(\#?)([\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.readwrite.somra}
   variable-flowtype:
     patterns:
-      - begin: (?<=^|,|\()\s*+(?=(\#?)([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?!:)))
+      - begin: (?<=^|,|\()\s*+(?=(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?!:)))
         comment: Assume this is a flow typed var
         end: \s*(?=,|\))
         beginCaptures:
