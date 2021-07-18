@@ -4237,7 +4237,7 @@ repository:
   regexp:
     begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}&&[^</>]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
     comment: Updated to support Perl regex syntax
-    end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
+    end: (/)(?:((?:\\.|.)+?)(/))?([[:alnum:]]*)
     name: string.regexp.somra
     beginCaptures:
       1: {name: keyword.modifier.somra}
