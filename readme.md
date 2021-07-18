@@ -2,12 +2,12 @@
 
 JavaScript is weird. Let's fix it and make something better.
 
-Here's Somra, that hackable programming language that looks like JavaScript, but you can actually use to build serious programs with.
+This is Somra, a new programming language designed for flexibility, scalability and awesomeness. Use it to build serious programs without ever complaining about type Related errors.
 
-- Built on Python, the strongly typed and already dynamic language for hobbyists.
-- Functional, object-oriented and concise, like Scala.
-- Compiles to clean and boilerplate-free JavaScript code.
-- Can be run on the browser and Node.
+- Built on Python.
+- Compiles to JavaScript.
+- Functional like Scala.
+- Runs anywhere, like Rust.
 
 ```so
 // This is definitely not the best code example
@@ -21,7 +21,7 @@ val personMap = {
 }
 
 val names = for (let [key, person] in personMap)
-  if (key > 15) 
+  if (key > 15)
     yield '$key%s = ${person.firstName}%s'
 ```
 
@@ -32,9 +32,11 @@ Somra is going to be a big project, and there's so many things that would need t
 - [ ] Documentation
 - [ ] Language reference (informal, no extended BNF\* yet)
 - [ ] Syntax highlighting (need to touch up, see `grammar.yml`)
+  - Fix some minor errors with end of line semicolons and variable type declarations
 - [ ] A theme (see `theme.yml`)
-- [ ] Compiler
-- [ ] VSCode Support
+- [ ] Parser and compiler (written in JavaScript through Babel)
+- [ ] Standard Library (a partial JS implementation of the Python Standard Library)
+- [ ] VSCode and Atom editor support
 - [ ] Logo, website and branding
 
 \*Backus-Naur Form (BNF): https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
@@ -148,8 +150,9 @@ def x() { return () }
 Everything is an expression, period. Even JSX, CSS, type declarations, interfaces and more.
 
 ```so
-def mymethod(x: int) = if (x > 2) "yay!" else "too low!"
-var x = type: forall let x as int where x < 10
+def mymethod(x: int): int = if (x > 2) "yay!" else "too low!"
+var x: int = type forall let x as int where x < 10
+var y = x + 1: int + 10
 ```
 
 Statements and expressions are never distinguished, and all blocks, delimited in between curly brackets, automatically return their last statement unless there is one.
@@ -191,12 +194,12 @@ All variables are block scoped, meaning they can be accessed on the same scope a
 var message = do {
   var part1 = "hello"
   var part2 = "world"
-  part1 ++ " " ++ part2
+  yield part1 ++ " " ++ part2
 }
 // part1 and part2 are not accessible from the outside!
 ```
 
-Control flow statements such as `if`, `for`, `while`, and functions all use the same block scoping mechanism.
+Statements in control expressions, fnuctions and other closures all use the same block scoping mechanism.
 
 ```so
 if displayGreeting {
@@ -217,7 +220,7 @@ Besides `var`, there are a couple more ways to declare variables:
 The `def` keyword is used to declare inline or named functions. All `def` declarations are hoisted to scope, and cannot be reassigned.
 
 ```so
-def hello(name: str): unit = "Hello, $name"
+def hello(name: str): unit = "Hello, ${name: unit} = 1"
 ```
 
 **Reassignable** means you can reassign the value directly without having to redeclare it.
@@ -333,7 +336,7 @@ Numeric literals can be one of the following forms:
 - `0` prefix: `0xFF`, `0b01_00`, `0z0X0Zp1`,
 - Prefix of the form `xb`, where 2 &le; x &le; 64: `2b101`, `16b40` (_to be implemented_)
 
-There are six prefixed numeric literals for the even bases below 16, _specifically_ not including 14: bases 2 `0b`, 4 `0q`, 6 `0s`, 8 `0o`, 12 `0z` and 16 `0x`.
+There are six prefixed numeric literals for the even bases below 16, _specifically_ not including 14.
 
 | Base | Prefix | Digits |
 | --- | --- | --- |
@@ -419,7 +422,7 @@ x++1 // syntax error
 Suffix operators are evaluated first, followed by prefix and infix operators. Infix operators have a special order of precedence:
 
 | Precedence | Built-In | Leading character (custom operators) |
-| :-: | :-: | :-: | --- | --- |
+| --- | --- | --- | --- | --- |
 | 1 | `.` `?.` `!.` `~.` | `.` |
 | 2 | `::` `->` `<-` | `:` |
 | 3 | `**` | (all special characters) |
