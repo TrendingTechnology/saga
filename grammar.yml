@@ -6,18 +6,22 @@ information_for_contributors: |-
   This file is a fork of the Babel JavaScript TextMate grammar and features many 
   customizations for Somra, whose syntax derives from JavaScript and many other 
   modern programing languages.
+  
   Somra is a programming language for developers to build reliable and efficient 
   software and apps for the web, desktop and mobile, that ain't gonna crash. It has 
   strong and honest types, compiles to efficient and boilerplate-free JavaScript and 
   Python, and comes with a fast compiler that scales to any codebase size, with easy 
   access to bustling ecosystems of libraries.
+
   Should you want to provide a fix or improvement, or even a new feature,
   please create a pull request against this repo: https://github.com/NoxUltima/somra,
   and I will be very happy to receive them.
+
   TODOs
     - Fix trailing semicolon issue in type declarations/imports
     - Revamp regex syntax (more syntax scopes for constructs)
     - Add TypeScript, ReScript and JavaScript to raw code blocks
+
   Unresolved:
     - As of the moment, custom binary operators do not capture combinations of /[</>]+/,
       except those leading in either characters, such as <!, >* and /%. Several of 
@@ -25,6 +29,7 @@ information_for_contributors: |-
       in isolation. 
       This is done to avoid confusion with JSX <></> and multiline regex syntax. /></></
       Might need some help here (scroll to section `operators`.)
+
   Done:
     - Block comments can be nested (Swift) and can now support Markdown.
     - Same thing for JSX markup.
@@ -1442,16 +1447,6 @@ repository:
           - include: '#flowtype-parse-types'
           - include: '#punctuation'
     patterns:
-      - begin: (?<!let|const|con|va[lr])(?<=[-_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
-        comment: 'varname of|in '
-        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
-        patterns:
-          - include: '#core'
-      - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
-        comment: 'assignment var = or = '
-        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
-        patterns:
-          - include: '#core'
       - include: '#for-all-clause'
       - include: '#modifiers'
       - include: '#keywords'
@@ -1668,16 +1663,16 @@ repository:
           1: {name: storage.type.function.arrow.somra}
         patterns:
           - include: '#flowtype-parse-types'
-      - begin: (?<!let|const|con|va[lr])(?<=[-_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
-        comment: 'varname of|in '
-        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+      - comment: 'varname of|in '
+        begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
+        end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert))
         patterns:
-          - include: '#core'
-      - begin: (?<!:)\s*+(?=((?:(\#?)[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)?\s*=)(?!=>|==)
-        comment: 'assignment var = or = '
-        end: \s*(?=,|;|\)|}|\]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\b(async|await)\b\s*+(?!=|:)|type\s+[$\w]+|declare\s+[$\w]+|interface\s+[$\w]+)
+          - include: '#expression'
+      - comment: 'assignment var = or = '
+        begin: (?<!:)\s*+(?=((\#?)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*=)(?!=>|==)
+        end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
         patterns:
-          - include: '#core'
+          - include: '#expression'
       - include: '#flowtype-bracketed-parameters'
       - include: '#flowtype-parse-array'
       - include: '#core'
