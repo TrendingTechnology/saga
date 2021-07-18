@@ -1,5 +1,5 @@
 type: dark
-name: Sombra
+name: Somra
 colors:
   activityBar.background: '#232e33'
   activityBar.foreground: '#ffffff'
@@ -40,6 +40,69 @@ colors:
   titleBar.activeBackground: '#232e33'
   titleBar.activeForeground: '#ffffff'
 tokenColors:
+  - scope: invalid
+    settings:
+      foreground: '#74D1BA'
+  - scope: invalid
+    settings:
+      foreground: '#7DE03B'
+  - scope: invalid
+    settings:
+      foreground: '#00C4E6'
+  - scope: invalid
+    settings:
+      foreground: '#57CC99'
+  - scope: invalid
+    settings:
+      foreground: '#FB8500'
+  - scope: invalid
+    settings:
+      foreground: '#BDB2FF'
+  - scope: invalid
+    settings:
+      foreground: '#999BE3'
+  - scope: invalid
+    settings:
+      foreground: '#EB8BAB'
+  - scope: invalid
+    settings:
+      foreground: '#E88873'
+  - scope: invalid
+    settings:
+      foreground: '#67C435'
+  - scope: invalid
+    settings:
+      foreground: '#67CDE1'
+  - scope: invalid
+    settings:
+      foreground: '#8DC0F6'
+  - scope: invalid
+    settings:
+      foreground: '#B48EAE'
+  - scope: invalid
+    settings:
+      foreground: '#DB7F8E'
+  - scope: invalid
+    settings:
+      foreground: '#59A5D8'
+  - scope: invalid
+    settings:
+      foreground: '#80B918'
+  - scope: invalid
+    settings:
+      foreground: '#E8AC65'
+  - scope: invalid
+    settings:
+      foreground: '#4ECB4D'
+  - scope: invalid
+    settings:
+      foreground: '#D18C4E'
+  - scope: invalid
+    settings:
+      foreground: '#04D895'
+  - scope: invalid
+    settings:
+      foreground: '#E57EB3'
   - scope: comment
     settings:
       foreground: '#506686'
@@ -1053,69 +1116,6 @@ tokenColors:
   - scope: token.debug-token
     settings:
       foreground: '#B267E6'
-  - scope: ''
-    settings:
-      foreground: '#74D1BA'
-  - scope: ''
-    settings:
-      foreground: '#7DE03B'
-  - scope: ''
-    settings:
-      foreground: '#00C4E6'
-  - scope: ''
-    settings:
-      foreground: '#57CC99'
-  - scope: ''
-    settings:
-      foreground: '#FB8500'
-  - scope: ''
-    settings:
-      foreground: '#BDB2FF'
-  - scope: ''
-    settings:
-      foreground: '#999BE3'
-  - scope: ''
-    settings:
-      foreground: '#EB8BAB'
-  - scope: ''
-    settings:
-      foreground: '#E88873'
-  - scope: ''
-    settings:
-      foreground: '#67C435'
-  - scope: ''
-    settings:
-      foreground: '#67CDE1'
-  - scope: ''
-    settings:
-      foreground: '#8DC0F6'
-  - scope: ''
-    settings:
-      foreground: '#B48EAE'
-  - scope: ''
-    settings:
-      foreground: '#DB7F8E'
-  - scope: ''
-    settings:
-      foreground: '#59A5D8'
-  - scope: ''
-    settings:
-      foreground: '#80B918'
-  - scope: ''
-    settings:
-      foreground: '#E8AC65'
-  - scope: ''
-    settings:
-      foreground: '#4ECB4D'
-  - scope: ''
-    settings:
-      foreground: '#D18C4E'
-  - scope: ''
-    settings:
-      foreground: '#04D895'
-  - scope: ''
-    settings:
-      foreground: '#E57EB3'
   - scope: markup.list.numbered.markdown
     settings:
       foreground: '#FAB38E'
@@ -1751,7 +1751,7 @@ tokenColors:
       - string.unquoted.plain.out
       - string.unquoted.plain.out.yaml
     settings:
-      foreground: '#9CD230'
+      foreground: '#ABE4BB'
   - scope: string
     settings:
       foreground: '#ABB8C0'
@@ -2362,7 +2362,9 @@ tokenColors:
   - scope: markup.list.unnumbered
     settings:
       foreground: '#D7BA7D'
-  - scope: markup.quote
+  - scope:
+      - markup.quote
+      - text.html.markdown markup.quote
     settings:
       foreground: '#80CBC4'
   - scope: markup.raw.block
