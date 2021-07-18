@@ -10,7 +10,10 @@ Here's Somra, that hackable programming language that looks like JavaScript, but
 - Can be run on the browser and Node.
 
 ```so
-import react.React;
+// This is definitely not the best code example
+val Person = class Person(
+  val first: str, val last: str
+) {}
 
 val personMap = {
   10: new Person('Roger', 'Moore'),
