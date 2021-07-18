@@ -22,7 +22,20 @@ val names = for (
 ) yield '$key%s = ${person.firstName}%s'
 ```
 
-### Introduction
+## Roadmap
+
+Somra is going to be a big project, and there's so many things that would need to be done in order to make this a reality:
+
+- [ ] Documentation
+- [ ] Language reference (informal, no extended BNF\* yet)
+- [ ] Syntax highlighting (need to touch up, see `grammar.yml`)
+- [ ] Compiler
+- [ ] VSCode Support
+- [ ] Logo, website and branding
+
+\*Backus-Naur Form (BNF): https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+
+## Introduction
 
 Somra is a language designed for hackability and scalability. Use it for whatever reason you like, be it building web, desktop or mobile application.
 
