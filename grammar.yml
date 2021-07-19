@@ -3180,22 +3180,36 @@ repository:
       - comment: Type alias keywords
         match: |
           (?x)(?<![\#\.])\s*+\b(?:
-            (module|trait|enum)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
-            (pack|pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl?|def)|(opaque|type) #5-12
+            (class|enum|module|object|raw|style)
+            |(given|constr)
+            |(enum)
+            |(extend|extn)
+            |(frag)
+            |(inter|struct)
+            |(module)
+            |(nspace)
+            |(object|record)
+            |(raw)
+            |(data|schema)
+            |(style)
+            |(trait)
+            #|(opaque|type)
           )\b
         captures:
-          1: {name: keyword.other.$1.somra}
-          2: {name: keyword.other.object.somra}
-          3: {name: keyword.other.namespace.somra}
-          4: {name: keyword.other.interface.somra}
-          5: {name: keyword.other.module.somra}
-          6: {name: keyword.other.extension.somra}
-          7: {name: storage.type.class.somra}
-          8: {name: keyword.other.struct.somra}
-          9: {name: keyword.other.extends.somra}
-          10: {name: keyword.other.implements.somra}
-          11: {name: keyword.other.declare.somra}
-          12: {name: keyword.other.typedef.somra}
+          1: {name: storage.type.$1.somra}
+          2: {name: storage.type.constraint.somra}
+          3: {name: storage.type.enum.somra}
+          4: {name: storage.type.extension.somra}
+          5: {name: storage.type.fragment.somra}
+          6: {name: storage.type.interface.somra}
+          7: {name: storage.type.module.somra}
+          8: {name: storage.type.namespace.somra}
+          9: {name: storage.type.object.somra}
+          10: {name: storage.type.raw.somra}
+          11: {name: storage.type.schema.somra}
+          12: {name: storage.type.style.somra}
+          13: {name: storage.type.trait.somra}
+          14: {name: keyword.other.typedef.somra}
   module:
     begin: (?<![\#\.])\s*+\b(from|import|export|open|close|use|using)\b\s*
     comment: from ... import
