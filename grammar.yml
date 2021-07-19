@@ -22,8 +22,16 @@ information_for_contributors: |-
     - Revamp regex syntax (more syntax scopes for constructs)
     - Add TypeScript, ReScript and JavaScript to raw code blocks
 
+  Unresolved:
+    - 
+
   Fixed: 
-    - All operators have been revamped, including support for custom operators.
+    - All operators have been revamped, including support for custom operators. 
+      JSX/Regex confusion has been resolved.
+    - Functions/classes/methods are scoped to their initial starting letter,  
+      excluding the standard JavaScript/Python function/class/method names.
+    - Old JavaScript keywords now removed, and long keywords such as `protected`
+      are shortened.
 
   Done:
     - Block comments can be nested (Swift) and can now support Markdown.
@@ -34,10 +42,6 @@ information_for_contributors: |-
       unary and binary operators. 
     - Numeric literals support every possible even base except 14, as well as extended numeric 
       notation for all bases.
-    - Functions/classes/methods are scoped to their initial starting letter, excluding
-      the standard JavaScript/Python function/class/method names.
-    - Old JavaScript keywords now removed, and long keywords such as `protected`
-      are shortened.
 name: Somra
 scopeName: source.nearley
 fileTypes:
@@ -1411,11 +1415,6 @@ repository:
           - include: '#flowtype-object-property'
   flowtype-parse-types:
     patterns:
-      - begin: (?<!:)\s*+(?=((\#?)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*=)(?!=>|==)
-        comment: 'assignment var = or = '
-        end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
-        patterns: 
-          - include: '#core'
       - include: '#for-all-clause'
       - include: '#modifiers'
       - include: '#keywords'
@@ -1678,11 +1677,13 @@ repository:
       - begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: 'varname of|in '
         end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert))
-        patterns: null
+        patterns: 
+          - include: '#core'
       - begin: (?<!:)\s*+(?=((\#?)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*=)(?!=>|==)
         comment: 'assignment var = or = '
         end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
-        patterns: null
+        patterns: 
+          - include: '#core'
       - include: '#flowtype-bracketed-parameters'
       - include: '#flowtype-parse-array'
       - include: '#core'
