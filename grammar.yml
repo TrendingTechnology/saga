@@ -23,7 +23,7 @@ information_for_contributors: |-
     - Add TypeScript, ReScript and JavaScript to raw code blocks
 
   Unresolved:
-    - 
+    - I need help finding problems with the syntax though, thanks
 
   Fixed: 
     - All operators have been revamped, including support for custom operators. 
@@ -3156,15 +3156,23 @@ repository:
         name: entity.name.function.method.somra
   modifiers:
     patterns:
-      - comment: Modifier keywords
+      - comment: Modifier keywords - activated when only next to each other
         match: |
           (?x)(?<![\#\.])\s*+\b(?:
             (pub|prot|pvt|ronly|(?:in|ex)tl)| #1
             (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
-            trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size|set))| #2
+            trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
             prev|next|lock|fixed|lazy|eager|greedy|unique|handle) #3
-          )\b
+          )\b\s*+\b(?=
+            ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
+            struct|data|schema|module|nspace|object|record|raw|style|trait|
+            defn?|func?|fn|proc|macro|pub|prot|pvt|ronly|(?:in|ex)tl|
+            over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
+            trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size)|
+            rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
+            prev|next|lock|fixed|lazy|eager|greedy|unique|handle|
+          )
         captures:
           1: {name: storage.modifier.somra}
           2: {name: keyword.modifier.somra}
@@ -3172,7 +3180,7 @@ repository:
       - comment: Type alias keywords
         match: |
           (?x)(?<![\#\.])\s*+\b(?:
-            (module|trait|enum|given)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
+            (module|trait|enum)|(obj|rec)|(nspace)|(inter|schema|struct)| #1-4
             (pack|pkg)|(extn)|(class)|(frag)|(ext)|(impl)|(decl?|def)|(opaque|type) #5-12
           )\b
         captures:
@@ -4258,7 +4266,7 @@ repository:
   regexp:
     begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}&&[^</>]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
     comment: Updated to support Perl regex syntax
-    end: (/)(?:((?:\\.|.)+?)(/))?([[:alnum:]]*)
+    end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
     name: string.regexp.somra
     beginCaptures:
       1: {name: keyword.modifier.somra}
