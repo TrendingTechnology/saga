@@ -922,11 +922,11 @@ repository:
       - comment: after function, which includes some prototype strings
         include: '#prototype'
       - include: '#blocks'
+      - include: '#modifiers'
       - include: '#keyword-storage'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
       - include: '#keywords'
-      - include: '#modifiers'
       - include: '#method-call'
       - include: '#function-call'
       - include: '#multiline-arrow-function-generics'
@@ -3164,15 +3164,15 @@ repository:
             trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
             prev|next|lock|fixed|lazy|eager|greedy|unique|handle) #3
-          )\b\s*+\b(?=
-            ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
+          )\s*+(?=\b
+            (ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
             struct|data|schema|module|nspace|object|record|raw|style|trait|
             defn?|func?|fn|proc|macro|pub|prot|pvt|ronly|(?:in|ex)tl|
             over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
             trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size)|
-            rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
-            prev|next|lock|fixed|lazy|eager|greedy|unique|handle|
-          )
+            rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gsl]et|con
+            prev|next|lock|fixed|lazy|eager|greedy|unique|handle|va[rl]|const
+          ))
         captures:
           1: {name: storage.modifier.somra}
           2: {name: keyword.modifier.somra}
