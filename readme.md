@@ -338,30 +338,7 @@ nil
 ()
 ```
 
-To check for a `nil` value at runtime, use the suffix `?` operator.
-
-```so
-var value // value is set
-```
-
-The initial value of variables is by default `nil`, or one of the following for those declared with types. Default values fall back to `false` when converted into booleans, including `nil` and the special numeric constant `nan`.
-
-| Type          | Default Value      | Description                    |
-| ------------- | ------------------ | ------------------------------ |
-| `nil`         | `nil`              | A singular value               |
-| `bool`        | `false`            | A binary value                 |
-| `int`, `char` | `0`, ` c`` `       | An arbitrary-precision integer |
-| `float`       | `0.`               | A 64-bit floating point        |
-| `str`         | `''`, `""`, ` `` ` | A string                       |
-| `regex`       | `/ /`              | A regular expression           |
-| `func`        | `() => ()`         | A function                     |
-| `seq`         | `#()`              | An infinite sequence           |
-| `bits`        | ` b`` `            | A bit stream                   |
-| `list`        | `[]`               | An immutable list or array     |
-| `set`         | `{}`               | An immutable set               |
-| `map`         | `{:}`              | A dictionary                   |
-
-`if` comes close, but not really, failing for `0`, `''` and `false`. The simplest way would be `a != null`.
+To check for a `nil` value at runtime, use the suffix `?` operator, like `x?`. In JavaScript to really test for undefined values, you would have to write `typeof x === 'undefined && x != null`.
 
 ```so
 var x = nil
@@ -377,6 +354,23 @@ x == () // true
 | `!?` | _Non-nil coalescing:_ Defaults to RHS if LHS is not `nil` |
 | `?.` | _Optional chaining:_ If value/property is `nil` return `nil` and do not evaluate |
 
+The initial value of variables is by default `nil`, or one of the following for those declared with types. Default values fall back to `false` when converted into booleans, including `nil` and the special numeric constant `nan`.
+
+| Type          | Default Value      | Description                    |
+| ------------- | ------------------ | ------------------------------ |
+| `nil`         | `nil`              | A singular value               |
+| `bool`        | `false`            | A binary value                 |
+| `int`, `char` | `0`, ` char`` `    | An arbitrary-precision integer |
+| `float`       | `0.`               | A 64-bit floating point        |
+| `str`         | `''`, `""`, ` `` ` | A string                       |
+| `regex`       | `/ /`              | A regular expression           |
+| `func`        | `() => ()`         | A function                     |
+| `seq`         | `#()`              | An infinite sequence           |
+| `bits`        | ` bits`` `         | A bit stream                   |
+| `list`        | `#[]`              | An immutable list or array     |
+| `set`         | `#{}`              | An immutable set               |
+| `map`         | `#{:}`             | A dictionary                   |
+
 ### Boolean Values
 
 A boolean has the type `bool` and can be either `true` or `false`, and are primarily used in control flow statements such as `if`, `for` and more.
@@ -389,27 +383,26 @@ bool('1') // true
 !!'' // false
 ```
 
-Logical operands `?:` and `!:` coerce operands into booleans and short-circuits, meaning they do not evaluate the right hand side
-
-Logical operators `&&`, OR `||` and XOR `^^` (coerce and)
+Logical operators `?:` and `!:` coerce operands into booleans and short-circuits, meaning they do not evaluate the RHS if the conditions with LHS are not met. Meanwhile, operators `&&`, OR `||` and XOR `^^` evaluate both sides, and return booleans, like comparison and equality operators.
 
 <!-- prettier-ignore -->
 | Operator | Name/Description |
-| --- | --- |
+| --- | --- | --- | --- |
 | Prefix `!` | _Logical not:_ Negates the boolean value of its operand |
-| `||`| _Logical or:_ Returns `true` if either is `true` |
+| `||` | _Logical or:_ Returns `true` if either is `true` |
 | `&&` | _Logical and:_ Returns `true` if both are `true` |
-| `^^` | _Logical exclusive or / 'xor':_ Returns `true` if LHS and RHS are different |
+| `^^` | _Logical exclusive or / 'xor':_ Returns `true` if LHS and RHS are not the same (LHS &ne; RHS) |
 | `?:` | _Falsy coalescing:_ Evaluates RHS if LHS yields `false` |
 | `!:` | _Truthy coalescing:_ Evaluates RHS if LHS yields `true` |
+| `? :` | _Falsy coalescing:_ Returns middle if LHS condition is `true`, else return the right |
 
 #### Comparison Operators
 
 All comparison operators have the same precedence and can be chained: `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
 
-- Abstract comparison makes type conversion before performing the operatione.
+- Abstract comparison performs type conversion before performing comparison.
 - Structural comparison operators perform comparison directly.
-- Referential equality operators compare shallowly and by reference.
+- Referential equality operators compare shallowly and by reference `#[1] === #[1]`.
 
 | Operator         | Abstract   | Structural | Referential |
 | ---------------- | ---------- | ---------- | ----------- |
@@ -483,6 +476,20 @@ and can contain the following escape sequences, beginning with a backslash:
 | `\N{name}` | A named Unicode character with name `name`. |
 | `\h{name}` | A named HTML alphanumeric character entity, such as `THORN`. |
 
+A backslash followed by a `u` denotes a unicode codepoint. It can either be followed by exactly four hexadecimal characters representing the unicode bytes (`\u0000` to `\uFFFF`) or a number of one to six hexadecimal characters wrapped in curly braces (`\u{0}` to` \u{10FFFF}`).
+
+Other radixes include decimals, which can be followed by up to 7 digits, or octal which can be followed by up to 8 digits, both within curly brackets. Escapes can also start with digits straight away.
+
+```so
+"\d{1114111}" = "\1114111" == "\o{4177777}"
+```
+
+One curly brace can contain multiple Unicode characters each separated by a whitespace.
+
+```so
+"\u{48 45 4C 4C 4F}" // "HELLO"
+```
+
 Any escape sequence where the second character is a symbol or punctuation mark such as `\'` is interpreted as the character itself, so `\[` is the same as simply writing `[`, and `\\` is the same as `\`.
 
 ## Operators
@@ -505,9 +512,13 @@ An operator is not a punctuation mark. The following are:
 
 ### Compound operators
 
+Operators that end in `=`, excluding those that begin with `:`, `!`, `=`, `~`, `<` or `>`, are parsed as compound assignment operators, and are the same as calling a method with the name `+=` on variables.
+
 Operators that end in `=`, except for those that begin with `:`, `!`, `=`, `<` or `>`, are parsed as compound assignment operators, and are the same as calling a method on a variable or property and reassigning its return value to it. For instance, `x += 1` is equivalent to calling `x.'+'(1)` and assigning its return value to `x`.
 
-Operators are distinguished from each other primarily through spacing. This is because Somra parses operators and identifiers simultaneously as a single token, similar to Scala. **Prefix** operators have _leading_ spaces, **suffix** operators have _trailing_ spaces and **infix** operators are spaced out on both sides.
+Somra iheriht
+
+. This is because Somra parses operators and identifiers simultaneously as a single token, similar to Scala.
 
 ```so
 x + 1 // infix
