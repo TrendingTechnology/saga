@@ -4771,7 +4771,7 @@ repository:
         name: constant.character.escape.somra
       - match: \\u({[\h\s]*?}|\h{4})|\\U\h{8}
         name: constant.character.escape.unicode.somra
-      - match: \\\d+|d{[\d\s]*?}
+      - match: \\\d+|\\d{[\d\s]*?}
         name: constant.character.escape.decimal.somra
       - match: \\x\h{2}
         name: constant.character.escape.hex.somra
