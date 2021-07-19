@@ -917,8 +917,8 @@ repository:
       - include: '#arrow-function'
       - comment: after function, which includes some prototype strings
         include: '#prototype'
-      - include: '#keyword-storage'
       - include: '#blocks'
+      - include: '#keyword-storage'
       - include: '#flowtype-keywords'
       - include: '#flowtype-trap'
       - include: '#keywords'
@@ -1411,6 +1411,11 @@ repository:
           - include: '#flowtype-object-property'
   flowtype-parse-types:
     patterns:
+      - begin: (?<!:)\s*+(?=((\#?)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*=)(?!=>|==)
+        comment: 'assignment var = or = '
+        end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+        patterns: 
+          - include: '#core'
       - include: '#for-all-clause'
       - include: '#modifiers'
       - include: '#keywords'
@@ -1491,6 +1496,8 @@ repository:
           2: {name: support.type.builtin.class.somra}
           4: {name: keyword.operator.accessor.somra}
           5: {name: support.type.builtin.class.somra}
+      - include: '#operator'
+      - include: '#operators'
       - include: '#flowtype-polymorphs'
       - include: '#flowtype-bracketed-parameters'
       - include: '#flowtype-parse-objects'
@@ -1510,7 +1517,7 @@ repository:
           - include: '#flowtype-parse-types'
       case-separator:
         begin: ([,;])
-        end: (?<![\#\.])\s*\b(?=as|with|if|unless|where)
+        end: (?<![\#\.])\s*\b(?=as|where)
         beginCaptures:
           1: {patterns: [{include: '#core'}]}
         endCaptures:
@@ -2918,6 +2925,8 @@ repository:
                   0: {patterns: [{include: '#core'}]}
                 patterns:
                   - include: '#match-clause'
+                  - include: '#as-clause'
+                  - include: '#case-separator'
                   - include: '#core'
               - include: $self
           - include: $self
@@ -2931,19 +2940,33 @@ repository:
           1: {patterns: [{include: '#core'}]}
         patterns:
           - include: '#match-clause'
+          - include: '#as-clause'
           - include: '#case-separator'
           - include: '#core'
-      match-clause:
-        begin: (?<![\#\.])\s*\b(as|with|if|unless|where)\b\s*
-        end: (?<![\#\.])\s*\b(?=as|with|if|unless|where)|\s*(?=->)
+      as-clause:
+        begin: (?<![\#\.])\s*\b(as|with)\b\s*
+        end: (?<![\#\.])\s*\b(?=as|with)|\s*(?=->)
         beginCaptures:
           1: {name: keyword.control.match.somra}
         endCaptures:
           1: {patterns: [{include: '#core'}]}
         patterns:
           - include: '#match-clause'
+          - include: '#as-clause'
           - include: '#case-separator'
           - include: '#flowtype-parse-types'
+      match-clause:
+        begin: (?<![\#\.])\s*\b(if|unless|where)\b\s*
+        end: (?<![\#\.])\s*\b(?=if|unless|where)|\s*(?=->)
+        beginCaptures:
+          1: {name: keyword.control.match.somra}
+        endCaptures:
+          1: {patterns: [{include: '#core'}]}
+        patterns:
+          - include: '#match-clause'
+          - include: '#as-clause'
+          - include: '#case-separator'
+          - include: '#core'
   method:
     patterns:
       - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<![\#\.])(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
