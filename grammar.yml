@@ -775,7 +775,7 @@ repository:
       3: {name: punctuation.definition.cast.end.somra}
   catch:
     patterns:
-      - begin: (?<![\#\.])\s*+\b(try|catch|rescue|finally|then|para|seq)\b\s*(await)?\b
+      - begin: (?<![\#\.])\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
         end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally|then|para|seq)\b))
         name: meta.catch.somra
         beginCaptures:
@@ -797,6 +797,31 @@ repository:
           - include: '#curly-brackets'
           - match: (?<![\#\.])\s*+\b(as)\b
             name: keyword.control.trycatch.somra
+          - include: $self
+  parallel:
+    patterns:
+      - begin: (?<![\#\.])\s*+\b(para|seq)\b\s*(await)?\b
+        end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally|then|para|seq)\b))
+        name: meta.parallel.somra
+        beginCaptures:
+          1: {name: keyword.control.parallel.somra}
+          2: {name: keyword.control.flow.somra}
+        endCaptures:
+          1: {name: meta.brace.round.somra}
+        patterns:
+          - begin: \s*+(\()
+            end: \s*(\))
+            beginCaptures:
+              1: {name: meta.brace.round.somra}
+            endCaptures:
+              1: {name: meta.brace.round.somra}  
+            patterns:
+              - match: (?<![\#\.])\s*+\b(as)\b
+                name: keyword.control.parallel.somra
+              - include: '#core'
+          - include: '#curly-brackets'
+          - match: (?<![\#\.])\s*+\b(as)\b
+            name: keyword.control.parallel.somra
           - include: $self
   class-body:
     patterns:
@@ -911,6 +936,7 @@ repository:
       - include: '#match'
       - include: '#catch'
       - include: '#with'
+      - include: '#parallel'
       - include: '#do'
       - comment: before module as it traps default {
         include: '#object'
@@ -4944,8 +4970,13 @@ repository:
   support-methods:
     patterns:
       - include: '#support-python'
+      - begin: (?<![\#\.])\s*+(shift|sort|splice|unshift|pop|push|reverse)\b
+        end: (?=.)
+        applyEndPatternLast: 1
+        beginCaptures:
+          1: {name: support.function.mutator.somra}
       - applyEndPatternLast: 1
-        begin: (?<![\#\.])\s*+\b(decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|eval|isFinite|isNaN|parseFloat|parseInt|unescape)\b
+        begin: (?<![\#\.])\s*+(decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|eval|isFinite|isNaN|parseFloat|parseInt|unescape)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.somra}
