@@ -12,20 +12,24 @@ This is Somra, a new programming language designed for flexibility, scalability 
 - Runs anywhere, like Rust.
 
 ```so
-using DOM
-
-val xhr = new XMLHttpRequest()
-xhr.open("GET",
-  "https://api.twitter.com/1.1/search/" +
-  "tweets.json?q=%23scalajs"
-)
-~.onload = (e: Event) => if xhr.status == 200 {
-  val r = JSON.parse(xhr.responseText)
-  \("#tweets").html(parseTweets(r))
+// Constrain a range.
+let constrainf = (&low, &high, n) => match n {
+  case n if n < low -> low
+  case n if n > high -> high
+  case _ -> n
 }
-~.send()
-.for
-libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "1.1.0"
+
+// Linearly interpolate a value.
+let lerpf = (&acc, &target, &roundness) => 
+  (1.0 - roundness) * acc + roundness * target
+
+// Map a value on an input range to a value on an output domain.
+let remapf = (&range as let [rl, rh], &domain as let [dl, dh], &value) =>
+  dl + (dh - dl) * ((value - rl) / (rh - rl))
+
+// Normalize a number on an input range to an output domain of [0, 1].
+let normalizef = (&range, &value) =>
+  remapf(&range, &domain = [0., 1.], &value)
 ```
 
 ## Roadmap
@@ -425,7 +429,7 @@ There are only two numeric types in Somra: **integers** `int` and 64-bit **float
 Numeric literals can be one of the following forms:
 
 - No prefix: `1`, `.01`,
-- `0` prefix: `0xFF`, `0b01_00`, `0z0X0Zp1`,
+- `0` prefix: `0xFF`, `0b01_00`, `0z0X0Zp1`, and so on
 <!-- - Prefix of the form `xb`, where 2 &le; `x` &le; 36: `2b101`, `16b40` (_to be implemented_) -->
 
 There are six prefixed numeric literals for the even bases below 16, _specifically_ not including 14.
