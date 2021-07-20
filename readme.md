@@ -499,36 +499,46 @@ Any escape sequence where the second character is a symbol or punctuation mark s
 
 ## Regular expressions
 
-Somra has its own regex engine inspired by PCRE and Oniguruma, written completely in JavaScript and is back-compatible with JavaScript regular expressions.
+Somra has two forms of regex literals, one delimited between slashes `x/r/g` and another multiline form delimited between slashes and angle brackets `x/>a</s`. Both regex syntaxes allow interpolation, but multiline regexes allow free spacing, traditional line and block comments.
+
+Somra's regular expression engine is back-compatible with JavaScript regexes, though many of its features are based heavily on other regex flavors such as Perl, Ruby (Oniguruma), Python and PCRE.
 
 ```so
 // Matches all compound assignment operators
-var regex =
-  /(?:[+\-*/%&|^]|(?:[&^|]){2,3}|\?+|(?:[+-*%]){2}|<<<?|>>>?|~\/|[+|]>|[?!][?:])=/g;
+def isDecimal(x: str): bool = x <> / \s*\b\d[\d_]*\d?(?:(\.)\d[\d_]*\d?)?(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(k)\w+)? /i
+
+def isDecimal(x: str): bool = x <> />
+  \s*\b
+  \d [\d_]* \d?           // integer part
+  (?:(\.) \d [\d_]* \d?)? // fractional part
+  (?:(r) \d [\d_]* \d?)?  // repeating part
+  (?:(p[+-]?) \d+)?       // exponent part
+  (?:(s) \d+)?            // significant part
+  (?:(k) \w+)?            // type part
+</
 ```
 
-Somra also supports block regexes, which ignore internal whitespace and can span mutliple lines, modeled after Perl's `/x` modifier, and delimited between pairs of angle brackets and slashes: `/> </`.
+Somra's regexes also include an optional replacement section after the pattern, and is used with the match `<>`, substitute `=<` or translate `</>` operators, similar to Perl's `s`, `m` and `tr` modifiers.
 
 ```so
-var isPrime = />
-  ^ 1? $ |            // 0, 1 and 2
-  ^ (?<over1> 1 1+?)  // numbers above 2
-  \g<over1>+? $       // match divisible groups
-</;
+let str = 'John Smith'
+let newstr = str </> /(\w+)\s(\w+)/$2, $1/g
+/* Smith, John */
 ```
 
 > **Note**: Stick around for a full guide on how to write and manipulate regular expressions.
 
-Interpolation works in regular expression literals just as it does in stringl literals. Note this feature might cause an exception to be raised if the resulting string results in an invalid regular expression. We have a workaround for this: the `/e` flag allows all interpolations to be properly converted into strings
+Interpolation works in regular expression literals just as it does in stringl literals. Note this feature might cause an exception to be raised if the resulting string results in an invalid regular expression.
 
-The following section serves as a reference to the regular expression syntax of Somra, as well as some of the more unique features that Somra has over other regex flavors.
+The following section serves as a summary to the regular expression syntax of Somra, as well as some of the more unique features that Somra has over other regex flavors.
 
 #### Basic Syntax Elements
 
+<!-- prettier-ignore -->
 | Syntax          | Description                         |
 | --------------- | ----------------------------------- |
 | `\`             | Escape (disable) a metacharacter    |
-| <code>\|</code> | Alternation                         |
+| `|`             | Alternation                         |
 | `(...)`         | Capturing group                     |
 | `[...]`         | Character class (can be nested)     |
 | `{...}`         | Embedded expression                 |
@@ -536,7 +546,7 @@ The following section serves as a reference to the regular expression syntax of 
 | `\Q...\E`       | Raw quoted literal                  |
 | `\q...\e`       | Quoted literal                      |
 | `\0` onward     | Numeric backreference (0-indexed)   |
-| `#...:...`      | Interpolation with `sprintf` syntax |
+| `$...%...`      | Interpolation with `sprintf` syntax |
 
 #### Characters
 
@@ -641,11 +651,12 @@ A short form starting with `In` indicates a block property:
 
 A set `[...]` can include nested sets. The operators below are listed in increasing precedence, meaning they are evaluated first.
 
+<!-- prettier-ignore -->
 | Syntax | Description |
 | --- | --- |
 | `^...` | Negated (complement) character class |
 | `x-y` | Range (from x to y) |
-| <code>\|\|</code> | Union (<code>x \|\| y</code> means "x or y") |
+| `||` | Union (`x || y` means "x or y") |
 | `&&` | Intersection (`x && y` means "x and y" ) |
 | `^^` | Symmetric difference (`x ^^ y` means "x and y, but not both") |
 | `~~` | Difference (`x ~~ y` means "x but not y") |
@@ -677,24 +688,25 @@ A set `[...]` can include nested sets. The operators below are listed in increas
 
 #### Groups
 
-| Syntax                       | Description                       |
-| ---------------------------- | --------------------------------- |
-| `(?#...)`                    | Comment                           |
-| `(?x-y:...)`<br>`(?x-y)...`  | Mode modifier                     |
-| `(?:...)`                    | Non-capturing (passive) group     |
-| `(...)`                      | Capturing group (numbered from 1) |
-| `(?<name>...)`               | Named capturing group             |
-| `(?=...)`                    | Positive lookahead                |
-| `(?!...)`                    | Negative lookahead                |
-| `(?<=...)`                   | Positive lookbehind               |
-| `(?<!...)`                   | Negative lookbehind               |
-| `(?>...)`                    | Atomic group (no backtracking)    |
-| `(?~...)`                    | Sub-expression                    |
-| <code>(?()\|...\|...)</code> | Conditional branching             |
-| <code>(?~\|...\|...)</code>  | Absent expression                 |
-| <code>(?~\|...)</code>       | Absent repeater                   |
-| <code>(?~...)</code>         | Absent stopper                    |
-| <code>(?~\|)</code>          | Range clear                       |
+<!-- prettier-ignore -->
+| Syntax | Description |
+| --- | --- |
+| `(?#...)` | Comment |
+| `(?x-y:...)`<br>`(?x-y)...` | Mode modifier |
+| `(?:...)` | Non-capturing (passive) group |
+| `(...)` | Capturing group (numbered from 1) |
+| `(?<name>...)` | Named capturing group |
+| `(?=...)` | Positive lookahead |
+| `(?!...)` | Negative lookahead |
+| `(?<=...)` | Positive lookbehind |
+| `(?<!...)` | Negative lookbehind |
+| `(?>...)` | Atomic group (no backtracking) |
+| `(?~...)` | Sub-expression |
+| `(?()|...|...)` | Conditional branching |
+| `(?~|...|...)` | Absent expression |
+| `(?~|...)` | Absent repeater |
+| `(?~...)` | Absent stopper |
+| `(?~|)` | Range clear |
 
 #### Backreferences and Calls
 
@@ -710,10 +722,11 @@ A set `[...]` can include nested sets. The operators below are listed in increas
 
 #### Flags
 
+These flags go after the regex literal.
+
 | Flag | Description |
 | --- | --- |
 | `a` | Astral mode - `\p` supports the past the BMP |
-| `b` |
 | `c` | Case-sensitive |
 | `d` | Treat only `\n` as a line break |
 | `e` | Safe mode - escape all interpolations |
@@ -728,8 +741,7 @@ A set `[...]` can include nested sets. The operators below are listed in increas
 | `t` | Turns off free-spacing mode |
 | `u` | Unicode mode |
 | `w` | `^` and `$` match at the start/end of string, `.` does not match line breaks |
-| `x` | Partial free spacing mode |
-| `y` | Sticky mode - |
+| `y` | Sticky mode - search begins from specified index |
 
 ## Operators
 
@@ -823,7 +835,7 @@ Suffix operators are evaluated first, followed by prefix and infix operators. In
 | 11 | Range | `..` `..=` `=..` `=.=` | | 
 | 12 | Comparison & equality | `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `===` `!==` | `<` `>` `=` `!` `~` |
 | 13 | Membership & class| `<-` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` | |
-| 14 | Type casting & property setting | `as` `:?` <br> `set` `.=` | |
+| 14 | Type casting, property setting & regex operators | `as` `:?` <br> `set` `.=` <br> `<>` `=<` `</>` | |
 | 15 | Logical and | `&&` | |
 | 16 | Logical xor | `^^` | |
 | 17 | Bitwise or | `||` | | 
