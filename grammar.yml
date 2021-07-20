@@ -3251,7 +3251,7 @@ repository:
           (?x)(?<![\#\.])\s*+\b(?:
             (pub|prot|pvt|ronly|(?:in|ex)tl)| #1
             (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
-            trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size))| #2
+            trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
             prev|next|lock|fixed|lazy|eager|greedy|unique|handle) #3
           )\s*+(?=\b
@@ -3259,7 +3259,7 @@ repository:
             struct|data|schema|module|nspace|object|record|raw|style|trait|
             defn?|func?|fn|proc|macro|pub|prot|pvt|ronly|(?:in|ex)tl|
             over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
-            trans|(?:im|ex)pl|dele|ext|(?:un)?(?:sign|safe|check|size)|
+            trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size)|
             rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gsl]et|con
             prev|next|lock|fixed|lazy|eager|greedy|unique|handle|va[rl]|const
           ))
