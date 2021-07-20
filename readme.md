@@ -1,15 +1,14 @@
 # **Somra**
 
+> The language for coders without deadlines.
+
 JavaScript is weird. Let's fix it and make something better.
 
-This is Somra, a new programming language as a suitable replacement for JavaScript, for developers like me who love JavaScript but keep on complaining about its weird and sometimes annoying things (such as type coercion).
-
-This is Somra, a new programming language designed for flexibility, scalability and awesomeness. Use it to build serious programs without ever complaining about type related errors.
+This is Somra, an experimental programming language with a big stack, designed for flexiblity, scalability and awesomeness. Use it to build serious programs and software for the web, without all that pesky and complicated quirks of JavaScript, with a fast compiler and package manager that allows for easy access to bustling ecosystems of libraries.
 
 - Inspired by Python.
 - Compiles to JavaScript.
 - Functional like Scala.
-- Runs anywhere, like Rust.
 
 ```so
 // Constrain a range.
@@ -20,28 +19,29 @@ let constrainf = (&low, &high, n) => match n {
 }
 
 // Linearly interpolate a value.
-let lerpf = (&acc, &target, &roundness) => 
+let lerpf = def (&acc, &target, &roundness) =
   (1.0 - roundness) * acc + roundness * target
 
 // Map a value on an input range to a value on an output domain.
-let remapf = (&range as let [rl, rh], &domain as let [dl, dh], &value) =>
+let remapf = def (&range as [rl, rh], &domain as [dl, dh], &value) =
   dl + (dh - dl) * ((value - rl) / (rh - rl))
 
 // Normalize a number on an input range to an output domain of [0, 1].
-let normalizef = (&range, &value) =>
+let normalizef = def (&range, &value) =
   remapf(&range, &domain = [0., 1.], &value)
 ```
 
 ## Roadmap
 
-Somra is going to be a big project, and there's so many things that would need to be done in order to make this a reality:
+Somra is going to be a big project, and there's so many things that would need to be done in order to make this a reality. The steps are in order.
 
-- [ ] Documentation
-- [ ] Language reference (informal, no extended BNF\* yet)
+- [ ] Documentation (this document)
+- [ ] Language reference
 - [ ] Syntax highlighting (need to touch up, see `grammar.yml`)
   - Fix some minor errors with end of line semicolons and variable type declarations
 - [ ] A theme (see `theme.yml`)
-- [ ] Parser and compiler (written in JavaScript through Babel)
+- [ ] Parser and compiler
+- [ ] _Nyxus_ the package manager
 - [ ] Standard Library (Python StdLib &rArr; JS)
 - [ ] VSCode and Atom editor support
 - [ ] Website and logo
@@ -52,11 +52,13 @@ Somra is going to be a big project, and there's so many things that would need t
 
 Somra is a language designed for hackability and scalability. Use it for whatever reason you like, be it building web, desktop or mobile application.
 
-> _**Note**: This language serves as a quick and informative guide for existing JavaScript developers, or also as a cheat sheet to all the language features of Somra. Should you feel something is not right and needs to be corrected, feel free to make a pull request. Currently not taking issues at the moment, I'm only a single person._
+> _**Disclaimer**: This language serves as a quick and informative guide for existing JavaScript developers, or also as a cheat sheet to all the language features of Somra. Should you feel something is not right and needs to be corrected, feel free to make a pull request. Currently not taking issues at the moment, I'm only a single person._
+
+> _**Trivia**: This language was previously named "Sombra", as in the Overwatch character ("shadow" in Spanish). All releases are based on the surnames of Overwatch characters, starting with R:Amari._
 
 ### Installation and Architecture
 
-Somra is written in Python and is distributed as a single executable shipped with an NPM module, `@somra/core`. This package by default also would install:
+Somra is written in Python and is distributed as a single executable shipped with an NPM module, `somra`. This package by default also would install:
 
 - Lodash
 - Yargs
@@ -65,10 +67,10 @@ Somra is written in Python and is distributed as a single executable shipped wit
 To install Somra, you actually need one command.
 
 ```sh
-npm i -g @somra/core
+npm i -g somra
 ```
 
-That's it. Somra compiles your code to JavaScript.
+That's it.
 
 But that's only half the story. Somra installs and builds Python modules too.
 
@@ -80,19 +82,21 @@ If you know Node you should probably know this command:
 npm config set msvs_version 2019 # Set your Visual Studio version
 ```
 
-Somra's executable is dubbed `so` and _`.so`_ is the file extension. Here are a few simple single-letter commands you would use all the time:
+Somra compiles your code, be it Somra ihei to JavaScript.
+
+Somra's executable is dubbed `somra` (duh). `.so` is the file extension. Here are a few simple single-letter commands you would use all the time:
 
 - `i` (install) to install all dependencies, or add new ones
 - `r` (remove) to remove dependencies
 - `u` (update) to update them
-- `b` (build) to build and recompile your project
-- `s` (serve) to run your project
+- `b` (build) to recompile and build your project
+- `s` (serve) to serve your project on a platform
 - `-p` (Python) to install and manage Python dependencies
 
 ```sh
 # Install multiple packages
-so i lodash date-fns rxjs
-so i -p numpy pandas gensim
+somra i lodash date-fns rxjs
+somra i -p numpy pandas gensim
 ```
 
 Running `so i` for the first time would also initialize a Python and JavaScript project/virtual environment at the same time.
@@ -158,7 +162,7 @@ Everything is an expression, period. Even JSX, CSS, type declarations, interface
 
 ```so
 def mymethod(x: int): str = if (x > 2) "yay!" else "too low!"
-var x = type forall [x, y] as [int, int] where x + y < 5;
+var x = type for all [x, y] as [int, int] where x + y < 5;
 ```
 
 Statements and expressions are never distinguished, and all blocks, delimited in between curly brackets, automatically return their last statement unless there is one.
@@ -260,15 +264,16 @@ let x += 1 // Error - x cannot be overridden
 
 ### Type Annotations
 
-All variables have the same type throughout its lifetime. A value binding with type signature `int | str` is restricted to types `int` or `str`. Don't worry, we'll get to types soon.
+All variables have the same type throughout its lifetime. A value binding with type signature `int | str` is restricted to types `int` or `str`. Don't worry, we'll get to types soon. The `dyn` modifier allows variables to be dynamically typed.
 
 ```so
-var dyn x: int = 1 + 1
+dyn var x: int = 1 + 1
 var x: any = 1 + 1
 x = str(x) // x is now of type 'str'
 
 var x: int | str = 10 // 'int' or 'str'
 x = str(x) ++ '10' // x is now of type 'str'
+x: number in arr
 ```
 
 #### Regular identifiers
@@ -287,12 +292,12 @@ in of as void to til by new len del is size typeof nameof keyof sizeof infer if 
 const let var val con fn fun func macro proc decl class data enum extend frag given inter module nspace object raw record style struct trait
 
 // Modifiers (prefixed after a declaration):
-
+pub prot pvt ronly intl extl over abs stat dyn vol sync async immut mut part seal final dele ref tran impl expl ext sign safe check size unsign unsafe uncheck unsize rec gen inline prefix infix suffix unary binary ternary nary get set prev next lock fixed laxy eager greedy unique handle
 ```
 
 ```so
 var #var = 'Happy stropping'
-var #type = type: [int, int]
+var #type = type [int, int]
 
 let #object = new #type(int := 9)
 assert #object is #type
@@ -331,34 +336,7 @@ This rule does not apply to quoted identifiers (`#""`) which are case-insensitiv
 
 Somra comes with a number of built-in primitive types and data structures, which represent the lowest level of the language. Primitives are immutable and have a special "literal" syntax, and are divided into two main types: _scalar_ (single values) or _vector_ (multiple values grouped together in some way).
 
-### Booleans, Nil and Undefined
-
-An empty value is of type `nil` and is composed of a single value. Nil can either be written literally or a pair of empty brackets `()`. Nil compiles to JavaScript's `undefined`.
-
-It's a dummy type used as a placeholder in various places. You won't need it until you see it.
-
-```so
-nil
-()
-```
-
-To check for a `nil` value at runtime, use the suffix `?` operator, like `x?`. In JavaScript to really test for undefined values, you would have to write `typeof x === 'undefined && x != null`.
-
-```so
-var x = nil
-!x? // true
-x == () // true
-```
-
-| Operator | Name/Description |
-| --- | --- |
-| Postfix `?` | _Existential:_ Checks at runtime if a value is `nil` |
-| Postfix `!`, `!.` | _Non-nil assertion:_ Checks if a value or property is `nil`, if so, would panic |
-| `??` | _Nil coalescing:_ Defaults to RHS if LHS is `nil` |
-| `!?` | _Non-nil coalescing:_ Defaults to RHS if LHS is not `nil` |
-| `?.` | _Optional chaining:_ If value/property is `nil` return `nil` and do not evaluate |
-
-The initial value of variables is by default `nil`, or one of the following for those declared with types. Default values fall back to `false` when converted into booleans, including `nil` and the special numeric constant `nan`.
+The initial value of untyped variables is by default `nil`, or one of the following for those declared with types. Default values fall back to `false` when converted into booleans, including `nil` and the special numeric constant `nan`.
 
 | Type          | Default Value      | Description                    |
 | ------------- | ------------------ | ------------------------------ |
@@ -375,30 +353,24 @@ The initial value of variables is by default `nil`, or one of the following for 
 | `set`         | `#{}`              | An immutable set               |
 | `map`         | `#{:}`             | A dictionary                   |
 
+### Booleans, Nil and Undefined
+
+An empty value is of type `nil` and is composed of a single value. Nil can either be written literally or a pair of empty brackets `()`. Nil compiles to JavaScript's `undefined`.
+
+```so
+nil
+()
+```
+
 ### Boolean Values
 
 A boolean has the type `bool` and can be either `true` or `false`, and are primarily used in control flow statements such as `if`, `for` and more.
-
-Conversion is done explicitly using the `bool` function, or implicitly by doubling `!`:
 
 ```so
 bool('1') // true
 !!'1' // true
 !!'' // false
 ```
-
-Logical operators `?:` and `!:` coerce operands into booleans and short-circuits, meaning they do not evaluate the RHS if the conditions with LHS are not met. Meanwhile, operators `&&`, OR `||` and XOR `^^` evaluate both sides, and return booleans, like comparison and equality operators.
-
-<!-- prettier-ignore -->
-| Operator | Name/Description |
-| --- | --- | --- | --- |
-| Prefix `!` | _Logical not:_ Negates the boolean value of its operand |
-| `||` | _Logical or:_ Returns `true` if either is `true` |
-| `&&` | _Logical and:_ Returns `true` if both are `true` |
-| `^^` | _Logical exclusive or / 'xor':_ Returns `true` if LHS and RHS are not the same (LHS &ne; RHS) |
-| `?:` | _Falsy coalescing:_ Evaluates RHS if LHS yields `false` |
-| `!:` | _Truthy coalescing:_ Evaluates RHS if LHS yields `true` |
-| `? :` | _Falsy coalescing:_ Returns middle if LHS condition is `true`, else return the right |
 
 #### Comparison Operators
 
@@ -408,29 +380,17 @@ All comparison operators have the same precedence and can be chained: `2 < 3 < 4
 - Structural comparison operators perform comparison directly.
 - Referential equality operators compare shallowly and by reference `#[1] === #[1]`.
 
-| Operator         | Abstract   | Structural | Referential |
-| ---------------- | ---------- | ---------- | ----------- |
-| Greater          | `~>`       | `>`        |             |
-| Lesser           | `~<`       | `<`        |             |
-| Greater or equal | `>~`       | `>=`       |             |
-| Lesser or equal  | `<~`       | `<=`       |             |
-| Equal to         | `~=`, `=~` | `==`       | `===`       |
-| Not equal        | `~!`, `!~` | `!=`       | `!==`       |
-| Three-way        | `<~>`      | `<=>`      |             |
-
 ### Numbers
 
-Numerical constants are of a single type and start with a decimal digit `Nd`, or a dot followed by a digit. A leading or trailing `+` or `-` is not considered part of the literal, however the decimal point is.
-
-All numeric literals are case-insensitive, though we recommend you to use uppercase for digits and lowercase for everything else, such as exponents and prefixes for easy readability: `0xFF`. Underscores in numeric literals are tolerated, except after the decimal point.
-
-There are only two numeric types in Somra: **integers** `int` and 64-bit **floating points** `float`. Integers compile to JavaScript's `bigint` while floating points compile to regular JavaScript `number`s.
-
-Numeric literals can be one of the following forms:
+Numerical constants are of a single type and start with a decimal digit `Nd`, or a dot followed by a digit. Numeric literals can be one of the following forms:
 
 - No prefix: `1`, `.01`,
 - `0` prefix: `0xFF`, `0b01_00`, `0z0X0Zp1`, and so on
 <!-- - Prefix of the form `xb`, where 2 &le; `x` &le; 36: `2b101`, `16b40` (_to be implemented_) -->
+
+There are only two numeric types in Somra: **integers** `int` and 64-bit **floating points** `float`. Integers compile to JavaScript's `bigint` while floating points compile to regular JavaScript `number`s.
+
+A leading or trailing `+` or `-` is not considered part of the literal, however `.` is. All numeric literals are case-insensitive, though we recommend you to use uppercase for digits and lowercase for everything else: `0xFFp-10`. Underscores in numeric literals are tolerated, except after the decimal point.
 
 There are six prefixed numeric literals for the even bases below 16, _specifically_ not including 14.
 
@@ -448,6 +408,15 @@ There are six prefixed numeric literals for the even bases below 16, _specifical
 
 \*The reason why so many letters represent digits 10 to 12 in duodecimal is to be in line with [ASCII notations][duodecimal notation] for duodecimal digits.
 
+Numeric literals can have optional modifiers, in this order:
+
+| Suffix | Digits | Meaning |
+| --- | --- | --- |
+| `r` | Radix | Indicates a repeating block of digits |
+| `p` | Decimal | Indicates an exponent. Can have an optional `+` or `-` sign at the beginning. |
+| `s` | Decimal | Formats a number with the specified number of digits after the point |
+| `k` | Alphanumeric | Type suffix used to indicate the resultant data type |
+
 ### Strings
 
 String literals can be delimited by matching single or double quotes.
@@ -459,7 +428,7 @@ let dialog = "I said, \"Can you hear me?\""
 
 and can contain the following escape sequences, beginning with a backslash:
 
-| Escape sequence | Meaning |
+| Escape Sequence | Meaning |
 | --- | --- |
 | `\p` | platform specific newline: CRLF on Windows, LF on Unix |
 | `\r`, `\c` | carriage return |
@@ -482,13 +451,13 @@ and can contain the following escape sequences, beginning with a backslash:
 
 A backslash followed by a `u` denotes a unicode codepoint. It can either be followed by exactly four hexadecimal characters representing the unicode bytes (`\u0000` to `\uFFFF`) or a number of one to six hexadecimal characters wrapped in curly braces (`\u{0}` to` \u{10FFFF}`).
 
-Other radixes include decimals, which can be followed by up to 7 digits, or octal which can be followed by up to 8 digits, both within curly brackets. Escapes can also start with digits straight away.
+Other radixes include decimals, which can be followed by up to 7 digits, or octal which can be followed by up to 8 digits, both within curly brackets. Escapes can also start with a string of decimal digits, where all the digits are used for the code point.
 
 ```so
-"\d{1114111}" = "\1114111" == "\o{4177777}"
+"\d{1114111}" == "\1114111" == "\o{4177777}"
 ```
 
-One curly brace can contain multiple Unicode characters each separated by a whitespace.
+One curly brace can contain multiple Unicode code points each separated by a whitespace.
 
 ```so
 "\u{48 45 4C 4C 4F}" // "HELLO"
@@ -516,13 +485,42 @@ An operator is not a punctuation mark. The following are:
 
 ### Compound operators
 
-Operators that end in `=`, excluding those that begin with `:`, `!`, `=`, `~`, `<` or `>`, are parsed as compound assignment operators, and are the same as calling a method with the name `+=` on variables.
+<!--prettier-ignore-->
+| Operator | Name/Description |
+| --- | --- |
+| Postfix `?` | _Existential:_ Checks at runtime if a value is `nil` |
+| Postfix `!`, `!.` | _Non-nil assertion:_ Checks if a value or property is `nil`, if so, would panic |
+| `??` | _Nil coalescing:_ Defaults to RHS if LHS is `nil` |
+| `!?` | _Non-nil coalescing:_ Defaults to RHS if LHS is not `nil` |
+| `?.` | _Optional chaining:_ If value/property is `nil` |
+| Prefix `!` | _Logical not:_ Negates the boolean value of its operand |
+| `||` | _Logical or:_ Returns `true` if either is `true` |
+| `&&` | _Logical and:_ Returns `true` if both are `true` |
+| `^^` | _Logical exclusive or / 'xor':_ Returns `true` if LHS and RHS are not the same (LHS &ne; RHS) |
+| `?:` | _Falsy coalescing:_ Evaluates RHS if LHS yields `false` |
+| `!:` | _Truthy coalescing:_ Evaluates RHS if LHS yields `true` |
+| `? :` | _Falsy coalescing:_ Returns middle if LHS condition is `true`, else return the right |
 
-Operators that end in `=`, except for those that begin with `:`, `!`, `=`, `<` or `>`, are parsed as compound assignment operators, and are the same as calling a method on a variable or property and reassigning its return value to it. For instance, `x += 1` is equivalent to calling `x.'+'(1)` and assigning its return value to `x`.
+<!--prettier-ignore-->
+| Operator         | Abstract   | Structural | Referential |
+| ---------------- | ---------- | ---------- | ----------- |
+| Greater          | `~>`       | `>`        |             |
+| Lesser           | `~<`       | `<`        |             |
+| Greater or equal | `>~`       | `>=`       |             |
+| Lesser or equal  | `<~`       | `<=`       |             |
+| Equal to         | `~=`, `=~` | `==`       | `===`       |
+| Not equal        | `~!`, `!~` | `!=`       | `!==`       |
+| Three-way        | `<~>`      | `<=>`      |             |
 
-Somra iheriht
+Somra parses operators differently than in most languages. Any string of symbols excluding the above are parsed as operators, so they have to be clearly distinguished from one another through the use of spaces.
+
+```so
+
+```
 
 . This is because Somra parses operators and identifiers simultaneously as a single token, similar to Scala.
+
+Operators that end in `=`, excluding those that begin with `:`, `!`, `=`, `~`, `<` or `>`, are parsed as compound assignment operators. Compound assignment operators perform the operation of the corresponding operator on both operands, and reassigns the result of the operation onto the left, which can be any reassignable variable or property.
 
 ```so
 x + 1 // infix
@@ -536,27 +534,28 @@ x++1 // syntax error
 Suffix operators are evaluated first, followed by prefix and infix operators. Infix operators have a special order of precedence:
 
 <!-- prettier-ignore -->
-| Precedence | Built-In | Leading character (custom operators) |
-| --- | --- | --- |
-| 1 | `.` `?.` `!.` `~.` | `.` |
-| 2 | `::` `->` `<-` | `:` |
-| 3 | `**` | (all special characters) |
-| 4 | `*` `/` `#` `%` `%%` | `*` `/` `#` `%` |
-| 5 | `+` `-` | `+` `-` |
-| 6 | `&` | `&` |
-| 7 | `^` | `^` |
-| 8 | ` | ` | ` | ` |
-| 9 | `<<` `>>` |  |
-| 10 | `<*` `*>` |  |
-| 11 | `<` `>` `<=` `>=` `<>` `<=>` `=<` `>~` `~>` `<~` `~<` `<~>` | `<` `>` |
-| 12 | `==` `!=` `~=` `~!` `=~` `!~` `===` `!==` | `=` `!` `~` |
-| 13 | `&&` |  |
-| 14 | `^^` |  |
-| 15 | `|` | `|` | 
-| 16 | `?!` `?:` `!?` `!:` | `?` |
-| 17 | `|>` `<|` `<+` `+>` | 
-| 18 | `? :` (ternary) |  
-| 19 | (Compound) assignment: `=` `.=` `:=` `+=` `-=` etc. |  |
+| Precedence |Description| Built-In | Leading character |
+| :-: | :-: | :-: |:-: |
+| 1 | Property access |`.` `?.` `!.` `~.` | `.` |
+| 2 | Binding & prototype |`::` `->` | `:` |
+| 3 | Exponentiative |`**` | (non-ASCII symbols) |
+| 4 | Multiplicative |`*` `/` `#` `%` `%%` | `*` `/` `#` `%` |
+| 5 | Additive |`+` `-` | `+` `-` |
+| 6 | Bitwise and |`&` | `&` |
+| 7 | Bitwise xor |`^` | `^` |
+| 8 | Bitwise or |`|` | `|` |
+| 9 | Bitwise shift |`<<` `>>` |  |
+| 10 | Minimum/maximum | `<*` `*>` |  |
+| 11 | Range | `..` `..=` `=..` `=.=` | | 
+| 11 | Comparison & equality | `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `===` `!==` | `<` `>` `=` `!` `~` |
+| 13 | Membership & class| `<-` `<:` `<!` `<?` <br> `:<` `:>` | |
+| 12 | Logical and | `&&` |  |
+| 13 | Logical xor | `^^` |  |
+| 14 | Bitwise and | `|` | `|` | 
+| 15 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
+| 16 | Function | `|>` `<|` `<+` `+>` |  |
+| 17 | Conditional | `? :` `! :` |   |
+| 18 | Assignment | : `=` `.=` `:=` `+=` `-=` etc. |  |
 
 ```so
 var [a, b, c, d] = [20, 10, 15, 5]
