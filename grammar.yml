@@ -15,17 +15,16 @@ Information for Contributors: |-
   Should you want to provide a fix or improvement, or even a new feature,
     please create a pull request against this repo: https://github.com/NoxUltima/somra,
     and I will be very happy to receive them.
-To Do:
-  - Revamp regex syntax (more syntax scopes for constructs)
-  - Add TypeScript, ReScript and JavaScript to raw code blocks
-Bugs:
-  - 'Fix `let x: num in arr` scenario'
+name: Somra
+scopeName: source.nearley
 Bugfixes:
   - Fix trailing semicolon issue in type declarations/imports and functions
   - All operators are colored differently based on their type.
   - Functions and methods are scoped to their initial starting letter, in the meantime.
   - Fixed modifier keyword parsing (technically). They should activate only before a declaration, say `dyn val x = 1` or other modifiers.
   - Fixed operator parsing in JSX and regex literals. Inline regexes shuold wherever possible be spaced out on both sides. This is intentional.
+Bugs:
+  - 'Fix `let x: num in arr` scenario'
 Changes:
   - Block comments can be nested thanks to Swift's codes, and can now support Markdown.
   - Same thing for JSX markup.
@@ -33,12 +32,13 @@ Changes:
   - Added Scala `match` and `with` clauses.
   - Added tons of new keywords and operators; as well as support for space-delimited unary and binary operators.
   - Numeric literals support every possible even base except 14, as well as extended numeric notation for all bases.
-name: Somra
-scopeName: source.nearley
 fileTypes:
   - so
   - somra
   - ne
+Fixes:
+  - Revamp regex syntax (more syntax scopes for constructs)
+  - Add TypeScript, ReScript and JavaScript to raw code blocks
 patterns:
   - include: '#core'
 repository:
@@ -847,11 +847,6 @@ repository:
               - include: '#curly-brackets'
               - include: $self
       for-block:
-        repository:
-          let-clause:
-            comment: override let keyword
-            match: (?<![\#\.])\s*+\b(const|con|let|var|val)\b\s*
-            name: storage.type.somra
         patterns:
           - begin: (?<![\#\.])\s*+\b(for|foreach|each|while|until)\b\s*(await)?\b
             end: \s*(?<=[})])
@@ -877,6 +872,11 @@ repository:
                   - include: '#core'
               - include: '#curly-brackets'
               - include: $self
+        repository:
+          let-clause:
+            comment: override let keyword
+            match: (?<![\#\.])\s*+\b(const|con|let|var|val)\b\s*
+            name: storage.type.somra
       if-block:
         patterns:
           - begin: (?<![\#\.])\s*+\b(if|els?if|ell?ess?|unless?|guard)\b\s*(await)?\b
@@ -3868,57 +3868,6 @@ repository:
       - include: '#binary-ops'
       - include: '#special-operators'
     repository:
-      special-operators:
-        patterns:
-          - include: '#esnext-pipeline'
-          - begin: \s*((:\?[<=>]?))\s*
-            comment: Type assertion/conversion/coercion/casting operator
-            end: (?=[^&|^~<>!?\p{L}\p{N}\p{Sc}\[\]{}_])
-            beginCaptures:
-              1: {name: keyword.operator.type.somra}
-            endCaptures:
-              1: {patterns: [{include: '#core'}]}
-            patterns:
-              - include: '#flowtype-parse-types'
-          - begin: \s*+(\?)(?!\.[^\d]|[?=])(?=\s)
-            comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
-            end: \s*(:)((?=::)|(?!:|=))
-            beginCaptures:
-              1: {name: keyword.operator.ternary.somra}
-            endCaptures:
-              1: {name: keyword.operator.ternary.somra}
-            patterns:
-              - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
-                end: \s*(?=:)
-                patterns:
-                  - include: '#language-constant'
-                  - include: '#variable'
-              - include: '#core'
-          - begin: \s*+(\!)(?!\.[^\d]|[?=])(?=\s)
-            comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
-            end: \s*(:)((?=::)|(?!:|=))
-            beginCaptures:
-              1: {name: keyword.operator.quasiternary.somra}
-            endCaptures:
-              1: {name: keyword.operator.quasiternary.somra}
-            patterns:
-              - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
-                end: \s*(?=:)
-                patterns:
-                  - include: '#language-constant'
-                  - include: '#variable'
-              - include: '#core'
-          - begin: (\$)\s*
-            end: \s*(\$)
-            name: keyword.operator.function.somra
-            beginCaptures:
-              1: {name: keyword.operator.function.somra}
-            endCaptures:
-              1: {name: keyword.operator.function.somra}
-            patterns:
-              - include: '#function-name'
-              - include: '#method-name'
-              - include: '#core'
       binary-ops:
         patterns:
           - comment: built-in operators need to be surrounded with spaces
@@ -4000,6 +3949,57 @@ repository:
               8: {name: keyword.operator.currency.somra}
               9: {name: keyword.operator.ascii.somra}
               10: {name: keyword.operator.infix.somra}
+      special-operators:
+        patterns:
+          - include: '#esnext-pipeline'
+          - begin: \s*((:\?[<=>]?))\s*
+            comment: Type assertion/conversion/coercion/casting operator
+            end: (?=[^&|^~<>!?\p{L}\p{N}\p{Sc}\[\]{}_])
+            beginCaptures:
+              1: {name: keyword.operator.type.somra}
+            endCaptures:
+              1: {patterns: [{include: '#core'}]}
+            patterns:
+              - include: '#flowtype-parse-types'
+          - begin: \s*+(\?)(?!\.[^\d]|[?=])(?=\s)
+            comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
+            end: \s*(:)((?=::)|(?!:|=))
+            beginCaptures:
+              1: {name: keyword.operator.ternary.somra}
+            endCaptures:
+              1: {name: keyword.operator.ternary.somra}
+            patterns:
+              - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
+                end: \s*(?=:)
+                patterns:
+                  - include: '#language-constant'
+                  - include: '#variable'
+              - include: '#core'
+          - begin: \s*+(\!)(?!\.[^\d]|[?=])(?=\s)
+            comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
+            end: \s*(:)((?=::)|(?!:|=))
+            beginCaptures:
+              1: {name: keyword.operator.quasiternary.somra}
+            endCaptures:
+              1: {name: keyword.operator.quasiternary.somra}
+            patterns:
+              - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
+                end: \s*(?=:)
+                patterns:
+                  - include: '#language-constant'
+                  - include: '#variable'
+              - include: '#core'
+          - begin: (\$)\s*
+            end: \s*(\$)
+            name: keyword.operator.function.somra
+            beginCaptures:
+              1: {name: keyword.operator.function.somra}
+            endCaptures:
+              1: {name: keyword.operator.function.somra}
+            patterns:
+              - include: '#function-name'
+              - include: '#method-name'
+              - include: '#core'
       unary-ops:
         patterns:
           - comment: Unary prefix operators
