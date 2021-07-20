@@ -354,16 +354,16 @@ The initial value of untyped variables is by default `nil`, or one of the follow
 | `set` | `#{}` | An immutable set | `Set` |
 | `map` | `#{:}` | A dictionary | `Object`, `Map` |
 
-### Booleans, Nil and Undefined
+### Nil and Undefined
 
 An empty value is of type `nil` and is composed of a single value. Nil can either be written literally or a pair of empty brackets `()`. Nil compiles to JavaScript's `undefined`.
 
 ```so
 nil
-()
+() '\d'
 ```
 
-### Boolean Values
+### Booleans
 
 A boolean has the type `bool` and can be either `true` or `false`, and are primarily used in control flow statements such as `if`, `for` and more.
 
@@ -428,9 +428,9 @@ Modifiers after the `k` can be in these specified combinations:
 | `q` | rational number `q` &Qopf; |
 | `r` | irrational number `r` &Ropf; |
 | `a` | algebraic irrational number `a` &Aopf;<sub>&Ropf;</sub> |
-| `j` | complex number number `a` &Copf; |
+| `j` | complex number `a` &Copf; |
 
-- An optional `u` parameter to indicate the result is unsigned:
+- An optional `u` parameter to indicate the literal is unsigned:
   - `b` (`byte` or `sbyte`), an 8-bit integer,
   - `s` (`short` or `ushort`), a 16-bit integer,
   - `i` (`int` or `uint`), a 32-bit integer,
@@ -441,7 +441,7 @@ Modifiers after the `k` can be in these specified combinations:
   - `f` (`float`), a 32-bit floating point number,
   - `d` (`double`), a 64-bit floating point number,
   - `m` (`decimal`), a 128-bit floating point number.
-- One of the following types rto eihw
+- An optional `j` modifier to indicate the literal is complex:
   - `n` (natural) to represent all natural numbers.
   - `i` (integer) to represent all integers,
   - `f` (fraction) to represent all rational numbers.
@@ -505,17 +505,18 @@ Somra's regular expression engine is back-compatible with JavaScript regexes, th
 
 ```so
 // Matches all compound assignment operators
-def isDecimal(x: str): bool = x <> / \s*\b\d[\d_]*\d?(?:(\.)\d[\d_]*\d?)?(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(k)\w+)? /i
+def isDecimal(x: str): bool = x <> / \b\d[\d_]*\d?(?:(\.)\d[\d_]*\d?)?(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(k)\w+)?\b /x
 
 def isDecimal(x: str): bool = x <> />
-  \s*\b
+  \b
   \d [\d_]* \d?           // integer part
   (?:(\.) \d [\d_]* \d?)? // fractional part
   (?:(r) \d [\d_]* \d?)?  // repeating part
   (?:(p[+-]?) \d+)?       // exponent part
   (?:(s) \d+)?            // significant part
   (?:(k) \w+)?            // type part
-</
+  \b
+</i
 ```
 
 Somra's regexes also include an optional replacement section after the pattern, and is used with the match `<>`, substitute `=<` or translate `</>` operators, similar to Perl's `s`, `m` and `tr` modifiers.
@@ -550,6 +551,8 @@ The following section serves as a summary to the regular expression syntax of So
 
 #### Characters
 
+Most of these characters also appear the same way as in string literals.
+
 | Syntax | Description and Use |
 | --- | --- |
 | `\a` | \*Alert/bell character (inside `[]`) |
@@ -574,7 +577,7 @@ The following section serves as a summary to the regular expression syntax of So
 | --------------------- | ---------------------------------------- |
 | `\x{7F 7F ... 7F}`    | Hexadecimal code point (1-8 digits)      |
 | `\o{100 100 ... 100}` | Octal code point (1-11 digits)           |
-| `\f{alpha beta}`      | `f`-expansion (full documentation later) |
+| `\j{alpha beta}`      | `j`-expansion (full documentation later) |
 
 #### Character Classes
 
@@ -743,6 +746,19 @@ These flags go after the regex literal.
 | `w` | `^` and `$` match at the start/end of string, `.` does not match line breaks |
 | `y` | Sticky mode - search begins from specified index |
 
+#### Replacement String
+
+This syntax applies to the right hand side of the regex literal in compound regex operations: substitution `=<` and translation `<>`.
+
+| x | y |
+| --- | --- |
+| `$$` | Inserts a literal "$". |
+| `$0` | Inserts the entire matched substring into the output |
+| `$-` | Inserts the portion of the string that precedes the matched substring. |
+| `$+` | Inserts the portion of the string that follows the matched substring. |
+| `$n` | Where `n` is a positive integer, inserts the `n`th parenthesized submatch string. If `n` refers to an invalid group, the result is inserted literally. |
+| `$<name>` | Where name is a capturing group name. If the group is invalid, it is inserted literally. |
+
 ## Operators
 
 Operators consist entirely of symbols and punctuation marks that are not brackets, diacritical or quotation marks, those on the list below. For example, `+`, `*`, `<>` and `>>` are all valid operators. No operator should contain `:`,
@@ -798,13 +814,7 @@ All comparison operators have the same precedence and can be chained: `2 < 3 < 4
 | Not equal        | `~!`, `!~` | `!=`       | `!==`       |
 | Three-way        | `<~>`      | `<=>`      |             |
 
-Somra parses operators differently than in most languages. Any string of symbols excluding the above are parsed as operators, so they have to be clearly distinguished from one another through the use of spaces.
-
-```so
-
-```
-
-. This is because Somra parses operators and identifiers simultaneously as a single token, similar to Scala.
+Somra parses operators differently than in most languages. Any Somra parses operators differently than in most languages. Any string of symbols excluding the above are parsed as operators, so they have to be clearly distinguished from one another through the use of spaces.
 
 Operators that end in `=`, excluding those that begin with `:`, `!`, `=`, `~`, `<` or `>`, are parsed as compound assignment operators. Compound assignment operators perform the operation of the corresponding operator on both operands, and reassigns the result of the operation onto the left, which can be any reassignable variable or property.
 
