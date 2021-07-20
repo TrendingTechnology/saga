@@ -19,15 +19,15 @@ let constrainf = (&low, &high, n) => match n {
 }
 
 // Linearly interpolate a value.
-let lerpf = def (&acc, &target, &roundness) =
+let lerpf = (&acc, &target, &roundness) =>
   (1.0 - roundness) * acc + roundness * target
 
 // Map a value on an input range to a value on an output domain.
-let remapf = def (&range as [rl, rh], &domain as [dl, dh], &value) =
+let remapf = (&range as [rl, rh], &domain as [dl, dh], &value) =>
   dl + (dh - dl) * ((value - rl) / (rh - rl))
 
 // Normalize a number on an input range to an output domain of [0, 1].
-let normalizef = def (&range, &value) =
+let normalizef = (&range, &value) =>
   remapf(&range, &domain = [0., 1.], &value)
 ```
 
@@ -204,7 +204,7 @@ All variables are block scoped, meaning they can be accessed on the same scope a
 var message = do {
   var part1 = "hello"
   var part2 = "world"
-  yield part1 ++ " " ++ part2
+  part1 ++ " " ++ part2
 }
 // part1 and part2 are not accessible from the outside!
 ```
@@ -270,15 +270,16 @@ All variables have the same type throughout its lifetime. A value binding with t
 dyn var x: int = 1 + 1
 var x: any = 1 + 1
 x = str(x) // x is now of type 'str'
-
+x: (int | str) # = 10
 var x: int | str = 10 // 'int' or 'str'
 x = str(x) ++ '10' // x is now of type 'str'
-x: number in arr
 ```
 
 #### Regular identifiers
 
-Regular identifiers start with an alphabetic unicode character, underscore `_` or a backslash `\`, followed by any number or the characters already mentioned. For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
+Regular identifiers start with an alphabetic Unicode character, underscore `_` or a backslash `\`. Further characters can also include combining character marks which are Unicode normalized, followed by by
+
+For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
 
 ```so
 var _set\\_() = 10
@@ -495,6 +496,240 @@ One curly brace can contain multiple Unicode code points each separated by a whi
 ```
 
 Any escape sequence where the second character is a symbol or punctuation mark such as `\'` is interpreted as the character itself, so `\[` is the same as simply writing `[`, and `\\` is the same as `\`.
+
+## Regular expressions
+
+Somra has its own regex engine inspired by PCRE and Oniguruma, written completely in JavaScript and is back-compatible with JavaScript regular expressions.
+
+```so
+// Matches all compound assignment operators
+var regex =
+  /(?:[+\-*/%&|^]|(?:[&^|]){2,3}|\?+|(?:[+-*%]){2}|<<<?|>>>?|~\/|[+|]>|[?!][?:])=/g;
+```
+
+Somra also supports block regexes, which ignore internal whitespace and can span mutliple lines, modeled after Perl's `/x` modifier, and delimited between pairs of angle brackets and slashes: `/> </`.
+
+```so
+var isPrime = />
+  ^ 1? $ |            // 0, 1 and 2
+  ^ (?<over1> 1 1+?)  // numbers above 2
+  \g<over1>+? $       // match divisible groups
+</;
+```
+
+> **Note**: Stick around for a full guide on how to write and manipulate regular expressions.
+
+Interpolation works in regular expression literals just as it does in stringl literals. Note this feature might cause an exception to be raised if the resulting string results in an invalid regular expression. We have a workaround for this: the `/e` flag allows all interpolations to be properly converted into strings
+
+The following section serves as a reference to the regular expression syntax of Somra, as well as some of the more unique features that Somra has over other regex flavors.
+
+#### Basic Syntax Elements
+
+| Syntax          | Description                         |
+| --------------- | ----------------------------------- |
+| `\`             | Escape (disable) a metacharacter    |
+| <code>\|</code> | Alternation                         |
+| `(...)`         | Capturing group                     |
+| `[...]`         | Character class (can be nested)     |
+| `{...}`         | Embedded expression                 |
+| `{\d*,\d*}`     | Quantifier token                    |
+| `\Q...\E`       | Raw quoted literal                  |
+| `\q...\e`       | Quoted literal                      |
+| `\0` onward     | Numeric backreference (0-indexed)   |
+| `#...:...`      | Interpolation with `sprintf` syntax |
+
+#### Characters
+
+| Syntax | Description and Use |
+| --- | --- |
+| `\a` | \*Alert/bell character (inside `[]`) |
+| `\b` | \*Backspace character (inside `[]`) |
+| `\B` | \*Backslash (inside `[]`) |
+| `\e` | Escape character (Unicode `U+`) |
+| `\f` | Form feed (Unicode `U+`) |
+| `\n` | New line (Unicode `U+`) |
+| `\r` | Carriage return (Unicode `U+`) |
+| `\t` | Horizontal tab (Unicode `U+`) |
+| `\v` | Vertical tab (Unicode `U+`) |
+| `\cA`...`\cZ`<br>`\ca`...`\cz` | Control character from `U+01` to `U+1A` |
+| `\x00` | Unicode character from `U+00` to `U+FF` |
+| `\u0000` | Unicode character from `U+00` to `U+FFFF` |
+| `\U00000000` | Unicode character from `U+00` to `U+10FFFF` |
+| `\u{7HHHHHHH}`<br>`\x{7HHHHHHH}` | Unicode character (1-8 digits) |
+| `\o{17777777777}` | Octal Unicode codepoint (1-11 digits) |
+
+#### Character Sequences
+
+| Syntax                | Description                              |
+| --------------------- | ---------------------------------------- |
+| `\x{7F 7F ... 7F}`    | Hexadecimal code point (1-8 digits)      |
+| `\o{100 100 ... 100}` | Octal code point (1-11 digits)           |
+| `\f{alpha beta}`      | `f`-expansion (full documentation later) |
+
+#### Character Classes
+
+| Syntax     | Inverse | Description                              |
+| ---------- | ------- | ---------------------------------------- |
+| `.`        | None    | Hexadecimal code point (1-8 digits)      |
+| `\w`       | `\W`    | Word character `[\d]`                    |
+| `\d`       | `\D`    | Digit character `[0-9]`                  |
+| `\s`       | `\S`    | Space character `[\t\n\v\f\r ]`          |
+| `\h`       | `\H`    | Hexadecimal digit character `[\da-fA-F]` |
+| `\u`       | `\U`    | Uppercase letter `[A-Z]`                 |
+| `\l`       | `\L`    | Lowercase letter `[a-z]`                 |
+| `\f`       | `\F`    | Form feed `[\f]`                         |
+| `\t`       | `\T`    | Horizontal tab `[\t]`                    |
+| `\v`       | `\V`    | Form feed `[\v]`                         |
+| `\n`       | `\N`    | Newline `[\n]`                           |
+|            | `\O`    | Any character `[^]`                      |
+| `\R`       |         | General line break (CR + LF, etc)        |
+| `\x`, `\X` |         | Extended Grapheme Cluster                |
+| `\c`       | `\C`    | Extended Grapheme Cluster                |
+| `\i`       | `\I`    | Extended Grapheme Cluster                |
+
+##### Unicode Properties
+
+Properties are case-insensitive. Logical operators such as `&&`, `||`, `^^` and `!` (`and`, `or`, `xor`, `not`), as well as `==` and `!=`, unary `in` and `!in` (`notin`), `is` and `!is` (`isnt`) can work.
+
+A short form starting with `Is` indicates a script or binary property:
+
+- `is Latin`, &rarr; `Script=Latin`.
+- `is Alphabetic`, &rarr; `Alphabetic=Yes`.
+
+A short form starting with `In` indicates a block property:
+
+- `InBasicLatin`, &rarr; `Block=BasicLatin` .
+- `\p{in Alphabetic && is Latin}` - all Latin characters in Unicode
+
+| Syntax | Description |
+| --- | --- |
+| `\p{property=value}`<br>`\p{property:value}`<br>`\p{property==value}` | Unicode binary property |
+| `\p{property!=value}`<br>`\P{property:value}`<br>`\p{!(property==value)}` | Negated binary property |
+| `\p{in basicLatin}`<br>`\P{block==basicLatin}` | Block property |
+| `\p{is latin}`<br>`\p{script==latin}` | Script property (shorthand `is`) |
+| `\p{value}` | Short form\* |
+| `\p{Cc}` | Unicode character categories^ |
+
+\*Properties are checked in the order: `General_Category`, `Script`, `Block`, binary property:
+
+- `Latin` &rarr; (`Script=Latin`).
+- `BasicLatin` &rarr; (`Block=BasicLatin`).
+- `Alphabetic` &rarr; (`Alphabetic=Yes`).
+
+##### POSIX Classes
+
+| Syntax | ASCII | Unicode (`/u` flag enabled) | Description |
+| --- | --- | --- | --- |
+| `[:alnum:]` | `[a-zA-Z0-9]` | `[\p{L}\p{Nl}\p{Nd}]` | Alphanumeric characters |
+| `[:alpha:]` | `[a-zA-Z]` | `[\p{L}\p{Nl}]` | Alphabetic characters |
+| `[:ascii:]` | `[\x00-\x7F]` | `[\x00-\xFF]` | ASCII characters |
+| `[:blank:]` | `[ \t]` | `[\p{Zs}\t]` | Space and tab |
+| `[:cntrl:]` | `[\x00-\x1F\x7F]` | `\p{Cc}` | Control characters |
+| `[:digit:]` | `[0-9]` | `\p{Nd}` | Digits |
+| `[:graph:]` | `[\x21-\x7E]` | `[^\p{Z}\p{C}]` | Visible characters (anything except spaces and control characters) |
+| `[:lower:]` | `[a-z]` | `\p{Ll}` | Lowercase letters |
+| `[:number:]` | `[0-9]` | `\p{N}` | Numeric characters |
+| `[:print:]` | `[\x20-\x7E] ` | `\P{C}` | Visible characters and spaces (anything except control characters) |
+| `[:punct:]` | `[!"\#$%&'()\*+,\-./:;<=>?@\[\\\]^\_‘{\|}~]` | `\p{P}` | Punctuation (and symbols). |
+| `[:space:]` | `[ \t\r\n\v\f]` | `[\p{Z}\t\r\n\v\f]` | Spacing characters |
+| `[:symbol:]` | `[\p{S}&&\p{ASCII}]` | `\p{S}` | Symbols |
+| `[:upper:]` | `[A-Z]` | `\p{Lu}` | Uppercase letters |
+| `[:word:]` | `[A-Za-z0-9_]` | `[\p{L}\p{Nl}\p{Nd}\p{Pc}]` | Word characters |
+| `[:xdigit:]` | `[A-Fa-f0-9] ` | `[A-Fa-f0-9]` | Hexadecimal digits |
+
+#### Character Sets
+
+A set `[...]` can include nested sets. The operators below are listed in increasing precedence, meaning they are evaluated first.
+
+| Syntax | Description |
+| --- | --- |
+| `^...` | Negated (complement) character class |
+| `x-y` | Range (from x to y) |
+| <code>\|\|</code> | Union (<code>x \|\| y</code> means "x or y") |
+| `&&` | Intersection (`x && y` means "x and y" ) |
+| `^^` | Symmetric difference (`x ^^ y` means "x and y, but not both") |
+| `~~` | Difference (`x ~~ y` means "x but not y") |
+
+#### Anchors
+
+| Syntax | Inverse | Description                                  |
+| ------ | ------- | -------------------------------------------- |
+| `^`    | None    | Beginning of the string/line                 |
+| `$`    | None    | End of the string/line                       |
+| `\b`   | `\B`    | Word boundary                                |
+| `\a`   | `\A`    | Beginning of the string/line                 |
+| `\z`   | `\Z`    | End of the string/before new line            |
+| `\g`   | `\G`    | Where the current search attempt begins/ends |
+| `\k`   | `\K`    | Keep start/end position of the result string |
+| `\y`   | `\Y`    | Text segment boundary                        |
+
+#### Quantifiers
+
+| Syntax | Reluctant (`?`) | Possessive (`+`) | Greedy (`*`) | Description |
+| --- | --- | --- | --- | --- |
+| `?` | `??` | `?+` | `?*` | 1 or 0 times |
+| `+` | `+?` | `++` | `+*` | 1 or more times |
+| `*`, `{,}` | `*?`, `{,}?` | `*+`, `{,}+` | `**`, `{,}*` | 0 or more times |
+| `{n,m}` | `{n,m}?` | `{n,m}+` | `{n,m}*` | At least `n` but no more than `m` times |
+| `{n,}` | `{n,}?` | `{n,}+` | `{n,}*` | At least `n` times |
+| `{,m}` | `{,m}?` | `{,m}+` | `{,m}*` | Up to `m` times |
+| `{n}` | `{n}?` | `{n}+` | `{n}*` | Exactly `n` times |
+
+#### Groups
+
+| Syntax                       | Description                       |
+| ---------------------------- | --------------------------------- |
+| `(?#...)`                    | Comment                           |
+| `(?x-y:...)`<br>`(?x-y)...`  | Mode modifier                     |
+| `(?:...)`                    | Non-capturing (passive) group     |
+| `(...)`                      | Capturing group (numbered from 1) |
+| `(?<name>...)`               | Named capturing group             |
+| `(?=...)`                    | Positive lookahead                |
+| `(?!...)`                    | Negative lookahead                |
+| `(?<=...)`                   | Positive lookbehind               |
+| `(?<!...)`                   | Negative lookbehind               |
+| `(?>...)`                    | Atomic group (no backtracking)    |
+| `(?~...)`                    | Sub-expression                    |
+| <code>(?()\|...\|...)</code> | Conditional branching             |
+| <code>(?~\|...\|...)</code>  | Absent expression                 |
+| <code>(?~\|...)</code>       | Absent repeater                   |
+| <code>(?~...)</code>         | Absent stopper                    |
+| <code>(?~\|)</code>          | Range clear                       |
+
+#### Backreferences and Calls
+
+| Syntax     | Description                                               |
+| ---------- | --------------------------------------------------------- |
+| `\1`       | Specific numbered backreference                           |
+| `\k<1>`    | Specific numbered backreference                           |
+| `\k<-1>`   | Relative numbered backreference (`+` ahead, `-` behind)   |
+| `\k<name>` | Specific named backreference                              |
+| `\g<1>`    | Specific numbered subroutine call                         |
+| `\g<-1>`   | Relative numbered subroutine call (`+` ahead, `-` behind) |
+| `\g<name>` | Specific named subroutine call                            |
+
+#### Flags
+
+| Flag | Description |
+| --- | --- |
+| `a` | Astral mode - `\p` supports the past the BMP |
+| `b` |
+| `c` | Case-sensitive |
+| `d` | Treat only `\n` as a line break |
+| `e` | Safe mode - escape all interpolations |
+| `g` | Global. Enabled by default |
+| `i` | Case-insensitive |
+| `j` | Allows duplicate named groups |
+| `m` | Multiline - `^`/`$` match at every line |
+| `n` | Named capturing groups only - all unnamed groups become non-capturing |
+| `p` | `^` and `$` match at the start/end of line, `.` matches all characters |
+| `q` | Quote all metacharacters |
+| `s` | "Dot-all" - `.` matches all possible characters |
+| `t` | Turns off free-spacing mode |
+| `u` | Unicode mode |
+| `w` | `^` and `$` match at the start/end of string, `.` does not match line breaks |
+| `x` | Partial free spacing mode |
+| `y` | Sticky mode - |
 
 ## Operators
 
