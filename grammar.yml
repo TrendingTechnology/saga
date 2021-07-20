@@ -24,7 +24,7 @@ Bugfixes:
   - Fixed modifier keyword parsing (technically). They should activate only before a declaration, say `dyn val x = 1` or other modifiers.
   - Fixed operator parsing in JSX and regex literals. Inline regexes shuold wherever possible be spaced out on both sides. This is intentional.
 Bugs:
-  - 'Fix `let x: num in arr` scenario'
+  - 'Fix `let x: num in arr` scenario: still left some remaining'
 Changes:
   - Block comments can be nested thanks to Swift's codes, and can now support Markdown.
   - Same thing for JSX markup.
