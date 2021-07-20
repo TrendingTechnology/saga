@@ -3821,7 +3821,7 @@ repository:
           1: {name: variable.other.readwrite.shorthandpropertyname.somra}
   operator:
     patterns:
-      - begin: \s*(:)((?=::)|(?!:))\s*|\s*(:\?[<=>]?)\s*
+      - begin: \s*(:\?[<=>]?|:(?![:=]))\s*
         comment: Type assertion/conversion/coercion/casting operator
         end: |
           (?x)(?==[=>]|[\p{Pe}\p{Po}\p{Pd}\p{S}&&[^<=>&|^~!?]]|\s*\b
@@ -3832,7 +3832,7 @@ repository:
           do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|
           from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|
           select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|
-          hide|debug|check|assert))
+          hide|debug|check|assert)\b)
         beginCaptures:
           1: {name: keyword.operator.type.somra}
         patterns:
