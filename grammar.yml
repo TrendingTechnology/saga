@@ -21,7 +21,7 @@ Bugfixes:
   - Fix trailing semicolon issue in type declarations/imports and functions
   - All operators are colored differently based on their type.
   - Functions and methods are scoped to their initial starting letter, in the meantime.
-  - Fixed modifier keyword parsing (technically). They should activate only before a declaration, say `dyn val x = 1` or other modifiers.
+  - Fixed modifier keyword parsing (technically). They should activate only before a declaration, say `dyn val x = 1`, or other modifiers.
   - Fixed operator parsing in JSX and regex literals. Inline regexes shuold wherever possible be spaced out on both sides. This is intentional.
 Bugs:
   - 'Fix `let x: num in arr` scenario: still left some remaining'
@@ -3242,23 +3242,20 @@ repository:
         match: |-
           (?x)(?<![\#\.])\s*+\b(?:
             (pub|prot|pvt|ronly|(?:in|ex)tl)| #1
-            (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
+            (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|
             trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
             prev|next|lock|fixed|lazy|eager|greedy|unique|handle) #3
           )\s*+(?=\b
+            (\s*\b(pub|prot|pvt|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size)|rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle)\b\s*)*\s*\b
             (ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
             struct|data|schema|module|nspace|object|record|raw|style|trait|
-            defn?|func?|fn|proc|macro|pub|prot|pvt|ronly|(?:in|ex)tl|
-            over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef
-            trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size)|
-            rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gsl]et|con
-            prev|next|lock|fixed|lazy|eager|greedy|unique|handle|va[rl]|const
-          ))
+            defn?|func?|fn|proc|macro|con|va[rl]|const)\b
+          )
         captures:
-          1: {name: storage.modifier.somra}
-          2: {name: keyword.modifier.somra}
-          3: {name: storage.type.accessor.somra}
+          1: { name: storage.modifier.somra }
+          2: { name: keyword.modifier.somra }
+          3: { name: storage.type.accessor.somra }
       - comment: Type alias keywords
         match: |-
           (?x)(?<![\#\.])\s*+\b(?:
