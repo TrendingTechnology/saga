@@ -283,6 +283,8 @@ repository:
     patterns:
       - match: \$\d+|\$[+-]
         name: keyword.other.back-reference.somra
+      - match: \$\$
+        name: constant.character.escape.somra
       - begin: (\$<)
         end: \s*(>)
         name: keyword.other.back-reference.somra
@@ -4797,8 +4799,8 @@ repository:
             name: constant.other.character-class.xml.somra
           - match: \\[ux](({[\h\s]+\})|\h{4})
             name: constant.character.escape.unicode.somra
-          - begin: (?i)(\\f{)
-            end: \s*(})
+          - begin: (?i)\\j{
+            end: '\s*}'
             name: constant.character.entity.named.somra
             beginCaptures:
               1: {name: constant.character.entity.named.somra}
@@ -4998,8 +5000,8 @@ repository:
       - match: |
           \\
         name: constant.character.escape.newline.somra
-      - begin: \\[hHN]{
-        end: '}'
+      - begin: (?i)\\j{
+        end: '\s*}'
         name: constant.character.entity.named.somra
         beginCaptures:
           1: {name: constant.character.entity.named.somra}
