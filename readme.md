@@ -823,14 +823,14 @@ Suffix operators are evaluated first, followed by prefix and infix operators. In
 | 11 | Range | `..` `..=` `=..` `=.=` | | 
 | 12 | Comparison & equality | `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `===` `!==` | `<` `>` `=` `!` `~` |
 | 13 | Membership & class| `<-` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` | |
-14 | Type casting & property setting | `as` `:?` <br> `set` `.=` | |
-| 14 | Logical and | `&&` | |
-| 15 | Logical xor | `^^` | |
-| 16 | Bitwise or | `||` | | 
-| 17 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
-| 18 | Function | `|>` `<|` `<+` `+>` | |
-| 19 | Conditional | `? :` `! :` | |
-| 20 | Assignment | `=` `:=` `::=` `+=` `-=` etc. |  |
+| 14 | Type casting & property setting | `as` `:?` <br> `set` `.=` | |
+| 15 | Logical and | `&&` | |
+| 16 | Logical xor | `^^` | |
+| 17 | Bitwise or | `||` | | 
+| 18 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
+| 19 | Function | `|>` `<|` `<+` `+>` | |
+| 20 | Conditional | `? :` `! :` | |
+| 21 | Assignment | `=` `:=` `::=` `+=` `-=` etc. |  |
 
 ```so
 var [a, b, c, d] = [20, 10, 15, 5]
