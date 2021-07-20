@@ -338,20 +338,20 @@ Somra comes with a number of built-in primitive types and data structures, which
 
 The initial value of untyped variables is by default `nil`, or one of the following for those declared with types. Default values fall back to `false` when converted into booleans, including `nil` and the special numeric constant `nan`.
 
-| Type          | Default Value      | Description                    |
-| ------------- | ------------------ | ------------------------------ |
-| `nil`         | `nil`              | A singular value               |
-| `bool`        | `false`            | A binary value                 |
-| `int`, `char` | `0`, ` char`` `    | An arbitrary-precision integer |
-| `float`       | `0.`               | A 64-bit floating point        |
-| `str`         | `''`, `""`, ` `` ` | A string                       |
-| `regex`       | `/ /`              | A regular expression           |
-| `func`        | `() => ()`         | A function                     |
-| `seq`         | `#()`              | An infinite sequence           |
-| `bits`        | ` bits`` `         | A bit stream                   |
-| `list`        | `#[]`              | An immutable list or array     |
-| `set`         | `#{}`              | An immutable set               |
-| `map`         | `#{:}`             | A dictionary                   |
+| Type | Default Value | Description | JavaScript equivalent (class) |
+| --- | --- | --- | --- |
+| `nil` | `nil` | A singular value | `undefined` |
+| `bool` | `false` | A binary value | `Boolean` |
+| `int`, `char` | `0`, ` char`` ` | An arbitrary-precision integer | `BigInt` |
+| `float` | `0.` | A 64-bit floating point | `Number` |
+| `str` | `''`, `""`, ` `` ` | A string | `String` |
+| `regex` | `/ /` | A regular expression | `RegExp` |
+| `func` | `() => ()` | A function | `Function` |
+| `seq` | `#()` | An infinite sequence | `Generator` |
+| `bits` | ` bits`` ` | A bit stream | `Buffer` |
+| `list` | `#[]` | An immutable list or array | `Array` |
+| `set` | `#{}` | An immutable set | `Set` |
+| `map` | `#{:}` | A dictionary | `Object`, `Map` |
 
 ### Booleans, Nil and Undefined
 
@@ -372,14 +372,6 @@ bool('1') // true
 !!'' // false
 ```
 
-#### Comparison Operators
-
-All comparison operators have the same precedence and can be chained: `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
-
-- Abstract comparison performs type conversion before performing comparison.
-- Structural comparison operators perform comparison directly.
-- Referential equality operators compare shallowly and by reference `#[1] === #[1]`.
-
 ### Numbers
 
 Numerical constants are of a single type and start with a decimal digit `Nd`, or a dot followed by a digit. Numeric literals can be one of the following forms:
@@ -390,9 +382,9 @@ Numerical constants are of a single type and start with a decimal digit `Nd`, or
 
 There are only two numeric types in Somra: **integers** `int` and 64-bit **floating points** `float`. Integers compile to JavaScript's `bigint` while floating points compile to regular JavaScript `number`s.
 
-A leading or trailing `+` or `-` is not considered part of the literal, however `.` is. All numeric literals are case-insensitive, though we recommend you to use uppercase for digits and lowercase for everything else: `0xFFp-10`. Underscores in numeric literals are tolerated, except after the decimal point.
+A leading or trailing `+` or `-` is not considered part of the literal, however `.` is. All numeric literals are case-insensitive, and underscores in numeric literals are tolerated, except immediately after the decimal point or modifiers (shown in the next table below).
 
-There are six prefixed numeric literals for the even bases below 16, _specifically_ not including 14.
+There are six prefixed numeric literals for the even bases up to 16 but not including 14:
 
 | Base | Prefix | Digits |
 | --- | --- | --- |
@@ -410,12 +402,51 @@ There are six prefixed numeric literals for the even bases below 16, _specifical
 
 Numeric literals can have optional modifiers, in this order:
 
-| Suffix | Digits | Meaning |
+| Modifier suffix | Digits | Meaning |
 | --- | --- | --- |
-| `r` | Radix | Indicates a repeating block of digits |
-| `p` | Decimal | Indicates an exponent. Can have an optional `+` or `-` sign at the beginning. |
-| `s` | Decimal | Formats a number with the specified number of digits after the point |
-| `k` | Alphanumeric | Type suffix used to indicate the resultant data type |
+| `r` | Corresponding base | Indicates a repeating block of digits |
+| `p` | `0-9` | Indicates an exponent. Can have an optional `+`/`-` sign: `p+34`. |
+| `s` | `0-9` | Formats a number with the specified number of digits after the point |
+| `k` | `a-z` or `0-9` | Type suffix used to indicate the resultant data type |
+
+Modifiers after the `k` can be in these specified combinations:
+
+| Type suffix | Meaning |
+| :-: | --- |
+| `b`, `ub`, `i8`, `u8` | 8-bit (un)signed integer |
+| `s`, `us`, `i16`, `u16` | 16-bit (un)signed integer |
+| `i`, `ui`, `i32`, `u32` | 32-bit (un)signed integer `int32` |
+| `l`, `ul`, `i64`, `u64` | 64-bit (un)signed integer |
+| `c`, `uc`, `i128`, `128` | 128-bit (un)signed integer |
+| `h`, `f16` | 16-bit floating point |
+| `f`, `f32` | 32-bit floating point |
+| `d`, `f64` | 64-bit floating point |
+| `m`, `f128` | 128-bit floating point |
+| `n` | natural number &Nopf; |
+| `z` | integer (`int`) &Zopf; |
+| `q` | rational number `q` &Qopf; |
+| `r` | irrational number `r` &Ropf; |
+| `a` | algebraic irrational number `a` &Aopf;<sub>&Ropf;</sub> |
+| `j` | complex number number `a` &Copf; |
+
+- An optional `u` parameter to indicate the result is unsigned:
+  - `b` (`byte` or `sbyte`), an 8-bit integer,
+  - `s` (`short` or `ushort`), a 16-bit integer,
+  - `i` (`int` or `uint`), a 32-bit integer,
+  - `l` (`long` or `ulong`), a 64-bit integer,
+  - `c` (`cent` or `ucent`), a 128-bit integer;
+- One of the following letters to indicate floating point numbers:
+  - `h` (`half`), a 16-bit floating point number,
+  - `f` (`float`), a 32-bit floating point number,
+  - `d` (`double`), a 64-bit floating point number,
+  - `m` (`decimal`), a 128-bit floating point number.
+- One of the following types rto eihw
+  - `n` (natural) to represent all natural numbers.
+  - `i` (integer) to represent all integers,
+  - `f` (fraction) to represent all rational numbers.
+  - `r` (real) to represent all real numbers.
+  - `a` (algebraic) to represent all algebraic irrational numbers.
+  - `j` (imaginary) to represent all complex numbers.
 
 ### Strings
 
@@ -467,9 +498,9 @@ Any escape sequence where the second character is a symbol or punctuation mark s
 
 ## Operators
 
-Operators consist entirely of symbols and punctuation marks that are not brackets, diacritical or quotation marks (`\p{S||Po||Pd}`). For example, `+`, `*`, `<>` and `>>` are all valid operators.
+Operators consist entirely of symbols and punctuation marks that are not brackets, diacritical or quotation marks, those on the list below. For example, `+`, `*`, `<>` and `>>` are all valid operators. No operator should contain `:`,
 
-An operator is not a punctuation mark. The following are:
+An operator is not a punctuation mark. The following graphemes and grapheme expressions are:
 
 - `:` (type annotations and assertions),
 - `;` (delimits statements),
@@ -500,6 +531,14 @@ An operator is not a punctuation mark. The following are:
 | `?:` | _Falsy coalescing:_ Evaluates RHS if LHS yields `false` |
 | `!:` | _Truthy coalescing:_ Evaluates RHS if LHS yields `true` |
 | `? :` | _Falsy coalescing:_ Returns middle if LHS condition is `true`, else return the right |
+
+#### Comparison Operators
+
+All comparison operators have the same precedence and can be chained: `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
+
+- Abstract comparison performs type conversion before performing comparison.
+- Structural comparison operators perform comparison directly.
+- Referential equality operators compare shallowly and by reference `#[1] === #[1]`.
 
 <!--prettier-ignore-->
 | Operator         | Abstract   | Structural | Referential |
@@ -535,7 +574,7 @@ Suffix operators are evaluated first, followed by prefix and infix operators. In
 
 <!-- prettier-ignore -->
 | Precedence |Description| Built-In | Leading character |
-| :-: | :-: | :-: |:-: |
+| --- | --- | :-: |:-: |
 | 1 | Property access |`.` `?.` `!.` `~.` | `.` |
 | 2 | Binding & prototype |`::` `->` | `:` |
 | 3 | Exponentiative |`**` | (non-ASCII symbols) |
@@ -547,15 +586,16 @@ Suffix operators are evaluated first, followed by prefix and infix operators. In
 | 9 | Bitwise shift |`<<` `>>` |  |
 | 10 | Minimum/maximum | `<*` `*>` |  |
 | 11 | Range | `..` `..=` `=..` `=.=` | | 
-| 11 | Comparison & equality | `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `===` `!==` | `<` `>` `=` `!` `~` |
-| 13 | Membership & class| `<-` `<:` `<!` `<?` <br> `:<` `:>` | |
-| 12 | Logical and | `&&` |  |
-| 13 | Logical xor | `^^` |  |
-| 14 | Bitwise and | `|` | `|` | 
-| 15 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
-| 16 | Function | `|>` `<|` `<+` `+>` |  |
-| 17 | Conditional | `? :` `! :` |   |
-| 18 | Assignment | : `=` `.=` `:=` `+=` `-=` etc. |  |
+| 12 | Comparison & equality | `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `===` `!==` | `<` `>` `=` `!` `~` |
+| 13 | Membership & class| `<-` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` | |
+14 | Type casting & property setting | `as` `:?` <br> `set` `.=` | |
+| 14 | Logical and | `&&` | |
+| 15 | Logical xor | `^^` | |
+| 16 | Bitwise or | `||` | | 
+| 17 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
+| 18 | Function | `|>` `<|` `<+` `+>` | |
+| 19 | Conditional | `? :` `! :` | |
+| 20 | Assignment | `=` `:=` `::=` `+=` `-=` etc. |  |
 
 ```so
 var [a, b, c, d] = [20, 10, 15, 5]
@@ -563,7 +603,7 @@ var e = 0
 
 // operators with the highest precedence
 // will operate first
-e = a + b * c / d;
+e = a + b * c / d
 
 /*step 1: 20 + (10 * 15) /5
   step 2: 20 + (150 /5)
