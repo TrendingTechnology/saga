@@ -9,7 +9,7 @@ information_for_contributors: |-
 
   Somra is a programming language for developers to build reliable and efficient 
   software and apps for the web, desktop and mobile, that ain't gonna crash. It has 
-  strong and honest types, compiles to efficient and boilerplate-free JavaScript and 
+  strong and honest types, compiles to efficient and boilerplate-free JavaScript and
   Python, and comes with a fast compiler that scales to any codebase size, with easy 
   access to bustling ecosystems of libraries.
 
@@ -768,7 +768,7 @@ repository:
       - include: '#square-brackets'
       - include: '#curly-brackets'
   cast-expression:
-    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]*?[_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
+    match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*?[_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
     captures:
       1: {name: punctuation.definition.cast.begin.somra}
       2: {patterns: [{include: '#flowtype-parse-types'}]}
@@ -3824,14 +3824,23 @@ repository:
           1: {name: variable.other.readwrite.shorthandpropertyname.somra}
   operator:
     patterns:
-      - begin: \s*((:\?[<=>]?))\s*
+      - begin: \s*(:)((?=::)|(?!:))\s*|\s*(:\?[<=>]?)\s*
         comment: Type assertion/conversion/coercion/casting operator
-        end: (?=[^&|^~<>!?_\\\p{L}\p{M}\p{N}\p{Sc}])
+        end: |
+          (?x)(?==[=>]|[\p{Pe}\p{Po}\p{Pd}\p{S}&&[^<=>&|^~]]|\s*\b
+          (in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|
+          to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|
+          until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|
+          rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|
+          do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|
+          from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|
+          select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|
+          hide|debug|check|assert))
         beginCaptures:
           1: {name: keyword.operator.type.somra}
         patterns:
           - include: '#flowtype-parse-types'
-      - match: \s*[.:]=\s*
+      - match: \s*(\.=|::?=)\s*
         name: keyword.operator.assignment.somra
       - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
         name: keyword.operator.range.somra
@@ -3852,14 +3861,65 @@ repository:
       - include: '#binary-ops'
       - include: '#special-operators'
     repository:
+      special-operators:
+        patterns:
+          - include: '#esnext-pipeline'
+          - begin: \s*((:\?[<=>]?))\s*
+            comment: Type assertion/conversion/coercion/casting operator
+            end: (?=[^&|^~<>!?\p{L}\p{N}\p{Sc}\[\]{}_])
+            beginCaptures:
+              1: {name: keyword.operator.type.somra}
+            endCaptures:
+              1: {patterns: [{include: '#core'}]}
+            patterns:
+              - include: '#flowtype-parse-types'
+          - begin: \s*+(\?)(?!\.[^\d]|[?=])(?=\s)
+            comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
+            end: \s*(:)((?=::)|(?!:|=))
+            beginCaptures:
+              1: {name: keyword.operator.ternary.somra}
+            endCaptures:
+              1: {name: keyword.operator.ternary.somra}
+            patterns:
+              - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
+                end: \s*(?=:)
+                patterns:
+                  - include: '#language-constant'
+                  - include: '#variable'
+              - include: '#core'
+          - begin: \s*+(\!)(?!\.[^\d]|[?=])(?=\s)
+            comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
+            end: \s*(:)((?=::)|(?!:|=))
+            beginCaptures:
+              1: {name: keyword.operator.quasiternary.somra}
+            endCaptures:
+              1: {name: keyword.operator.quasiternary.somra}
+            patterns:
+              - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
+                end: \s*(?=:)
+                patterns:
+                  - include: '#language-constant'
+                  - include: '#variable'
+              - include: '#core'
+          - begin: (\$)\s*
+            end: \s*(\$)
+            name: keyword.operator.function.somra
+            beginCaptures:
+              1: {name: keyword.operator.function.somra}
+            endCaptures:
+              1: {name: keyword.operator.function.somra}
+            patterns:
+              - include: '#function-name'
+              - include: '#method-name'
+              - include: '#core'
       binary-ops:
         patterns:
           - comment: built-in operators need to be surrounded with spaces
             match: |
               (?x)(?<=^|\s)(?:
-                ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+(?<![!~<=>])=)| #1
+                ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=)| #1
                 (\+\+|--)| #2
-                (\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|%%?|\*>|<\*)| #3
+                (\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*)| #3
                 (&&|\|\||\^\^|\\/|/\\)| #4
                 ([&^]|\|(?!>)|~(?![!=<>]))| #5
                 (=\.\.|\.\.=|=\.=|\.\.(?!\.))| #6
@@ -3909,16 +3969,16 @@ repository:
               so we will leave it here for now (please help)
             match: |
               (?x)
-              ([&|^~][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #1
-              ([-+*%/\#][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+(?<![</>]))| #2
-              ([:.][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #3
-              ([<>][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+(?<![</>]))| #4
-              ([!=][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #5
-              (\?[\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+)| #6
-              (\s+[\p{Sm}&&[\x{80}-\x{10FFFF}]][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]*\s+)| #7
-              ([\p{Sc}&&[^$]][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]*)| #8
-              ([\p{S}\p{Po}\p{Pd}&&[\x{80}-\x{FF}]][\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]*)| #9
-              ([\p{S}\p{Po}\p{Pd}&&[^.,:;'"`\\$]]+(?<![</>])) #10
+              ([&|^~][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #1
+              ([-+*%/\#][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>]))| #2
+              ([:.][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #3
+              ([<>][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>]))| #4
+              ([!=][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #5
+              (\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #6
+              (\s+[\p{Sm}&&[\x{80}-\x{10FFFF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*\s+)| #7
+              ([\p{Sc}&&[^$]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*)| #8
+              ([\p{S}\p{Po}\p{Pd}&&[\x{80}-\x{FF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*)| #9
+              ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>])) #10
             name: keyword.operator.infix.somra
             captures:
               1: {name: keyword.operator.logical.somra}
@@ -3936,8 +3996,19 @@ repository:
           - comment: Unary prefix operators
             match: |
               (?x)
-              (?:(\*+)|(\++)|(\-+)|(\&+)|(\|+)|(\^+)|(\!+)|(\#+)|(\@+)|(\~+)|(\?+)| #1-11
-              [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #12
+              (?:(\*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\+[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\-[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\&[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\|[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\^[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\![\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\#[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\@[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\~[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )| #1-11
+              [\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]+) #12
               (?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
             name: keyword.operator.prefix.somra
             captures:
@@ -3957,8 +4028,19 @@ repository:
             match: |
               (?x)
               (?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
-              (?:(\*+)|(\++)|(\-+)|(\&+)|(\|+)|(\^+)|(\!+\.?)|(\#+)|(\@+)|(\~+\.?)|(\?+\.?)| #1-11
-              [\p{S}\p{Po}\p{Pd}&&[^.,:;'"`</>\\$]]+) #12
+              (?:(\*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\+[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\-[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\&[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\|[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\^[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\![\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\#[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\@[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\~[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )|(\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              )| #1-11
+              [\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]+) #12
             name: keyword.operator.suffix.somra
             captures:
               1: {name: keyword.operator.module.all.somra}
@@ -4799,57 +4881,6 @@ repository:
         name: variable.other.conditional.somra
         captures:
           1: {name: punctuation.definition.variable.somra}
-  special-operators:
-    patterns:
-      - include: '#esnext-pipeline'
-      - begin: \s*((:\?[<=>]?))\s*
-        comment: Type assertion/conversion/coercion/casting operator
-        end: (?=[^&|^~<>!?\p{L}\p{N}\p{Sc}\[\]{}_])
-        beginCaptures:
-          1: {name: keyword.operator.type.somra}
-        endCaptures:
-          1: {patterns: [{include: '#core'}]}
-        patterns:
-          - include: '#flowtype-parse-types'
-      - begin: \s*+(\?)(?!\.[^\d]|[?=])(?=\s)
-        comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
-        end: \s*(:)((?=::)|(?!:|=))
-        beginCaptures:
-          1: {name: keyword.operator.ternary.somra}
-        endCaptures:
-          1: {name: keyword.operator.ternary.somra}
-        patterns:
-          - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
-            end: \s*(?=:)
-            patterns:
-              - include: '#language-constant'
-              - include: '#variable'
-          - include: '#core'
-      - begin: \s*+(\!)(?!\.[^\d]|[?=])(?=\s)
-        comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
-        end: \s*(:)((?=::)|(?!:|=))
-        beginCaptures:
-          1: {name: keyword.operator.quasiternary.somra}
-        endCaptures:
-          1: {name: keyword.operator.quasiternary.somra}
-        patterns:
-          - begin: \s*+(?=([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*:)
-            end: \s*(?=:)
-            patterns:
-              - include: '#language-constant'
-              - include: '#variable'
-          - include: '#core'
-      - begin: (\$)\s*
-        end: \s*(\$)
-        name: keyword.operator.function.somra
-        beginCaptures:
-          1: {name: keyword.operator.somra}
-        endCaptures:
-          1: {name: keyword.operator.somra}
-        patterns:
-          - include: '#function-name'
-          - include: '#method-name'
-          - include: '#core'
   square-brackets:
     patterns:
       - begin: \s*+(#\[)
@@ -4859,7 +4890,7 @@ repository:
         endCaptures:
           1: {name: meta.brace.square.somra}
         patterns:
-          - match: ':'
+          - match: ;
             name: punctuation.separator.slice.somra
           - include: '#object'
           - include: '#core'
@@ -4870,7 +4901,7 @@ repository:
         endCaptures:
           1: {name: meta.brace.square.somra}
         patterns:
-          - match: ':'
+          - match: ;
             name: punctuation.separator.slice.somra
           - include: '#object'
           - include: '#core'
