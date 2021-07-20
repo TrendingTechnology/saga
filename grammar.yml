@@ -21,8 +21,10 @@ information_for_contributors: |-
     - Fix trailing semicolon issue in type declarations/imports
     - Revamp regex syntax (more syntax scopes for constructs)
     - Add TypeScript, ReScript and JavaScript to raw code blocks
+
   Unresolved:
     - Fix `let x: num in arr` scenario
+
   Fixed: 
     - All operators have been revamped, including support for custom operators. 
       JSX/Regex confusion has been resolved.
@@ -30,6 +32,7 @@ information_for_contributors: |-
       excluding the standard JavaScript/Python function/class/method names.
     - Old JavaScript keywords now removed, and long keywords such as `protected`
       are shortened.
+
   Done:
     - Block comments can be nested (Swift) and can now support Markdown.
     - Same thing for JSX markup.
@@ -278,15 +281,15 @@ repository:
           - include: '#fat-arrow-braced-body'
   backreferences:
     patterns:
-      - match: \\[1-9]\d*
-        name: keyword.other.back-reference.regexp
-      - begin: (\\<)
+      - match: \$\d+|\$[+-]
+        name: keyword.other.back-reference.somra
+      - begin: (\$<)
         end: \s*(>)
-        name: keyword.other.back-reference.regexp
+        name: keyword.other.back-reference.somra
         beginCaptures:
-          1: {name: keyword.other.back-reference.regexp}
+          1: {name: keyword.other.back-reference.somra}
         endCaptures:
-          1: {name: keyword.other.back-reference.regexp}
+          1: {name: keyword.other.back-reference.somra}
         patterns:
           - include: '#regex-group-name'
       - include: '#string-content'
@@ -3914,20 +3917,21 @@ repository:
           - comment: built-in operators need to be surrounded with spaces
             match: |
               (?x)(?<=^|\s)(?:
-                ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=)| #1
-                (\+\+|--)| #2
-                (\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*)| #3
-                (&&|\|\||\^\^|\\/|/\\)| #4
-                ([&^]|\|(?!>)|~(?![!=<>]))| #5
-                (=\.\.|\.\.=|=\.=|\.\.(?!\.))| #6
-                (<[|+]|[|+]>)|(<<+|>>+)| #7-8
-                ([<>]:|:[<>]|[<>]:[<>])| #9
-                (=<|<>|[!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+)| #10
-                (->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?)| #11-13
-                (!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.)| #14-18
-                (\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B))| #19
-                (!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B))| #20
-                (~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
+                ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=) #1
+                |(\+\+|--) #2
+                |(\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*) #3
+                |(&&|\|\||\^\^|\\/|/\\) #4
+                |([&^]|\|(?!>)|~(?![!=<>])) #5
+                |(=\.\.|\.\.=|=\.=|\.\.(?!\.)) #6
+                |(<[|+]|[|+]>)|(<<+|>>+) #7-8
+                |([<>]:|:[<>]|[<>]:[<>]) #9
+                |([!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+) #10
+                |(->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?) #11-13
+                |(!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.) #14-18
+                |(\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
+                |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
+                |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
+                |(=<|</?>) #24
               )(?=$|\s)
             name: keyword.operator.builtin.somra
             captures:
@@ -3954,6 +3958,7 @@ repository:
               21: {name: keyword.operator.cascade.somra}
               22: {name: keyword.operator.accessor.somra}
               23: {name: keyword.operator.assignment.somra}
+              24: {name: keyword.operator.regexp.somra}
           - match: (?:(\?\.)|(~\.)|(!\.)|(\.))
             captures:
               1: {name: keyword.operator.existential.somra}
@@ -4339,7 +4344,7 @@ repository:
           1: {name: punctuation.quasi.element.somra}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.somra}
-          4: {name: punctuation.separator.label.regexp}
+          4: {name: punctuation.separator.label.somra}
       - begin: (?<!\\)(\$\{)\s*
         end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
         name: entity.quasi.element.somra
@@ -4348,7 +4353,7 @@ repository:
         endCaptures:
           1: {name: punctuation.quasi.element.end.somra}
           2: {name: storage.type.format.somra}
-          3: {name: punctuation.separator.label.regexp}
+          3: {name: punctuation.separator.label.somra}
         patterns:
           - include: '#core'
   quasi-embedded-regexp:
@@ -4359,7 +4364,7 @@ repository:
           1: {name: punctuation.quasi.element.somra}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.somra}
-          4: {name: punctuation.separator.label.regexp}
+          4: {name: punctuation.separator.label.somra}
       - begin: (?<!\\)(\$\{)\s*
         end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
         name: entity.quasi.element.somra
@@ -4368,7 +4373,7 @@ repository:
         endCaptures:
           1: {name: punctuation.quasi.element.end.somra}
           2: {name: storage.type.format.somra}
-          3: {name: punctuation.separator.label.regexp}
+          3: {name: punctuation.separator.label.somra}
         patterns:
           - include: '#core'
   query:
@@ -4452,10 +4457,10 @@ repository:
       - include: '#operator'
       - include: '#operators'
   regexp:
-    begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}&&[^</>]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
+    begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
     comment: Updated to support Perl regex syntax
-    end: (/)(?:((?:\\.|.)*?)(/))?([[:alnum:]]*)
-    name: string.regexp.somra
+    end: (/)(?:((?:\\.|.)*)(/))?([[:alnum:]]*)
+    name: string.somra.somra
     beginCaptures:
       1: {name: keyword.modifier.somra}
       2: {name: punctuation.definition.string.begin.somra}
@@ -4471,7 +4476,7 @@ repository:
     patterns:
       - begin: ([[:alpha:]]*)(/>)\s*\n?
         end: \s*(\n?</)([[:alnum:]]*)
-        name: string.regexp.multiline.somra
+        name: string.somra.multiline.somra
         beginCaptures:
           1: {name: keyword.modifier.somra}
           2: {name: punctuation.definition.string.begin.somra}
@@ -4483,7 +4488,7 @@ repository:
       - begin: (?!\\)(?<=</)(>)\s*\n?
         contentName: string.quoted.somra
         end: \s*\n?(</)([[:alnum:]]*)
-        name: string.regexp.somra
+        name: string.somra.somra
         beginCaptures:
           1: {name: punctuation.definition.string.begin.somra}
         endCaptures:
@@ -4495,153 +4500,153 @@ repository:
     patterns:
       - include: '#quasi-embedded-regexp'
       - match: \|
-        name: keyword.operator.or.regexp
+        name: keyword.operator.or.somra
       - match: (?i)\\[abyz]
-        name: keyword.control.anchor.regexp
+        name: keyword.control.anchor.somra
       - match: \^
-        name: keyword.control.begin.regexp
+        name: keyword.control.begin.somra
       - match: \$
-        name: keyword.control.end.regexp
+        name: keyword.control.end.somra
       - match: \.
-        name: constant.character.all.regexp
+        name: constant.character.all.somra
       - comment: Suppress ? in (? sequence
         match: (\\\()(?:(\?)|(\+)|(\*))
         captures:
-          1: {name: constant.character.escape.other.regexp}
-          2: {name: keyword.operator.quantifier.lazy.regexp}
-          3: {name: keyword.operator.quantifier.eager.regexp}
-          4: {name: keyword.operator.quantifier.greedy.regexp}
+          1: {name: constant.character.escape.other.somra}
+          2: {name: keyword.operator.quantifier.lazy.somra}
+          3: {name: keyword.operator.quantifier.eager.somra}
+          4: {name: keyword.operator.quantifier.greedy.somra}
       - begin: (?<=\()(\?\{)
         comment: Embedded code callouts
         end: \s*(\})([<*>])?(?:(\[)(.*)(\]))?
-        name: keyword.operator.callout.regexp
+        name: keyword.operator.callout.somra
         beginCaptures:
-          1: {name: keyword.operator.callout.regexp}
-          2: {name: keyword.operator.callout.regexp}
+          1: {name: keyword.operator.callout.somra}
+          2: {name: keyword.operator.callout.somra}
         endCaptures:
-          1: {name: keyword.operator.callout.regexp}
-          2: {name: keyword.operator.range.regexp}
-          3: {name: punctuation.definition.tag.regexp}
+          1: {name: keyword.operator.callout.somra}
+          2: {name: keyword.operator.range.somra}
+          3: {name: punctuation.definition.tag.somra}
           4: {patterns: [{include: $self}]}
-          5: {name: punctuation.definition.tag.regexp}
+          5: {name: punctuation.definition.tag.somra}
         patterns:
           - include: $self
       - begin: (?<=\()(\?<)
         comment: Named groups
         end: \s*(>)
-        name: punctuation.definition.group.named.regexp
+        name: punctuation.definition.group.named.somra
         beginCaptures:
-          1: {name: punctuation.definition.group.named.regexp}
+          1: {name: punctuation.definition.group.named.somra}
         endCaptures:
-          1: {name: punctuation.definition.group.named.regexp}
+          1: {name: punctuation.definition.group.named.somra}
         patterns:
           - include: '#regex-group-name'
       - match: (?<=\()(\?(?:([+-]?\d+?)|([A-Z\d]+(?:-[A-Z\d]+)?)|([a-z\d]+(?:-[a-z\d]+)?)))\s*(:)?
-        name: keyword.control.back-reference.regexp
+        name: keyword.control.back-reference.somra
         captures:
-          1: {name: keyword.other.back-reference.regexp}
-          2: {name: entity.name.function.method.regexp}
-          3: {name: keyword.control.recursion.regexp}
-          4: {name: storage.type.regexp}
-          5: {name: punctuation.separator.label.regexp}
+          1: {name: keyword.other.back-reference.somra}
+          2: {name: entity.name.function.method.somra}
+          3: {name: keyword.control.recursion.somra}
+          4: {name: storage.type.somra}
+          5: {name: punctuation.separator.label.somra}
       - match: (?<=\?\()(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|([+-]?\d*))(?=\))
-        name: keyword.control.conditional.group.regexp
+        name: keyword.control.conditional.group.somra
         captures:
-          1: {name: variable.other.regexp}
-          2: {name: keyword.other.back-reference.regexp}
+          1: {name: variable.other.somra}
+          2: {name: keyword.other.back-reference.somra}
       - match: \\[1-9]\d*
-        name: keyword.other.back-reference.regexp
+        name: keyword.other.back-reference.somra
       - match: \{(\s*\d*\s*(?:,?\s*\d*\s*)*)\}\??
-        name: keyword.operator.quantifier.regexp
+        name: keyword.operator.quantifier.somra
       - begin: (\\Q)
-        contentName: string.quoted.double.regexp
+        contentName: string.quoted.double.somra
         end: (\\E)
-        name: string.quoted.raw.regexp
+        name: string.quoted.raw.somra
         beginCaptures:
-          1: {name: punctuation.definition.string.begin.regexp}
+          1: {name: punctuation.definition.string.begin.somra}
         endCaptures:
-          1: {name: punctuation.definition.string.end.regexp}
+          1: {name: punctuation.definition.string.end.somra}
       - begin: (\\q)
-        contentName: string.quoted.single.regexp
+        contentName: string.quoted.single.somra
         end: (\\e)
-        name: string.quoted.regexp
+        name: string.quoted.somra
         beginCaptures:
-          1: {name: punctuation.definition.string.begin.regexp}
+          1: {name: punctuation.definition.string.begin.somra}
         endCaptures:
-          1: {name: punctuation.definition.string.end.regexp}
+          1: {name: punctuation.definition.string.end.somra}
         patterns:
           - include: '#string-content'
       - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\p{L}\p{Nl}][_\\d\p{L}\p{M}\p{N}]*)|([+-]?\d*)))(:)?
         end: \s*(\))
-        name: meta.group.regexp
+        name: meta.group.somra
         beginCaptures:
-          0: {name: punctuation.definition.group.regexp}
-          1: {name: keyword.other.back-reference.regexp}
-          2: {name: keyword.operator.assignment.regexp}
-          3: {name: entity.name.function.method.regexp}
-          4: {name: variable.other.regexp}
-          5: {name: punctuation.separator.label.regexp}
+          0: {name: punctuation.definition.group.somra}
+          1: {name: keyword.other.back-reference.somra}
+          2: {name: keyword.operator.assignment.somra}
+          3: {name: entity.name.function.method.somra}
+          4: {name: variable.other.somra}
+          5: {name: punctuation.separator.label.somra}
         endCaptures:
-          1: {name: punctuation.definition.group.regexp}
+          1: {name: punctuation.definition.group.somra}
         patterns:
           - include: '#regexp-patterns'
       - begin: \(([*+])
         end: \s*(\))
-        name: constant.other.pcre.regexp
+        name: constant.other.pcre.somra
         beginCaptures:
-          0: {name: punctuation.definition.group.regexp}
-          1: {name: keyword.generator.regexp}
+          0: {name: punctuation.definition.group.somra}
+          1: {name: keyword.generator.somra}
         endCaptures:
-          1: {name: punctuation.definition.group.regexp}
+          1: {name: punctuation.definition.group.somra}
         patterns:
           - include: '#mini-expression'
       - begin: (\()(\?#)
-        contentName: comment.line.number-sign.regexp
+        contentName: comment.line.number-sign.somra
         end: \s*(\))
-        name: comment.line.number-sign.regexp
+        name: comment.line.number-sign.somra
         beginCaptures:
-          1: {name: punctuation.definition.group.regexp}
-          2: {name: punctuation.definition.comment.regexp}
+          1: {name: punctuation.definition.group.somra}
+          2: {name: punctuation.definition.comment.somra}
         endCaptures:
-          1: {name: punctuation.definition.group.regexp}
+          1: {name: punctuation.definition.group.somra}
         patterns:
           - match: \\.
-            name: comment.line.number-sign.regexp
+            name: comment.line.number-sign.somra
       - begin: (\()((\?=)|(\?!)|(\?<=)|(\?<!)|(\?>)|(?:(\?))(?=[(|])|(\?~))
         end: \s*(\))
-        name: meta.group.regexp
+        name: meta.group.somra
         beginCaptures:
-          1: {name: punctuation.definition.group.regexp}
-          2: {name: punctuation.definition.group.assertion.regexp}
-          3: {name: meta.assertion.look-ahead.regexp}
-          4: {name: meta.assertion.negative-look-ahead.regexp}
-          5: {name: meta.assertion.look-behind.regexp}
-          6: {name: meta.assertion.negative-look-behind.regexp}
-          7: {name: meta.group.atomic.regexp}
-          8: {name: meta.group.branch.regexp}
-          9: {name: meta.group.absent.regexp}
+          1: {name: punctuation.definition.group.somra}
+          2: {name: punctuation.definition.group.assertion.somra}
+          3: {name: meta.assertion.look-ahead.somra}
+          4: {name: meta.assertion.negative-look-ahead.somra}
+          5: {name: meta.assertion.look-behind.somra}
+          6: {name: meta.assertion.negative-look-behind.somra}
+          7: {name: meta.group.atomic.somra}
+          8: {name: meta.group.branch.somra}
+          9: {name: meta.group.absent.somra}
         endCaptures:
-          1: {name: punctuation.definition.group.regexp}
+          1: {name: punctuation.definition.group.somra}
         patterns:
           - include: '#regexp-patterns'
       - begin: \((?:(\?:)|(?:\?<(.*?)>))?
         end: \s*(\))
-        name: meta.group.regexp
+        name: meta.group.somra
         beginCaptures:
-          0: {name: punctuation.definition.group.regexp}
-          1: {name: punctuation.definition.group.no-capture.regexp}
+          0: {name: punctuation.definition.group.somra}
+          1: {name: punctuation.definition.group.no-capture.somra}
           2: {patterns: [{include: '#regex-group-name'}]}
         endCaptures:
-          0: {name: punctuation.definition.group.regexp}
+          0: {name: punctuation.definition.group.somra}
         patterns:
           - include: '#regexp-patterns'
       - begin: (\\k<)
         end: \s*(>)
-        name: keyword.other.back-reference.regexp
+        name: keyword.other.back-reference.somra
         beginCaptures:
-          1: {name: keyword.other.back-reference.regexp}
+          1: {name: keyword.other.back-reference.somra}
         endCaptures:
-          1: {name: keyword.other.back-reference.regexp}
+          1: {name: keyword.other.back-reference.somra}
         patterns:
           - include: '#jsx-tag-attributes'
           - include: '#support'
@@ -4653,11 +4658,11 @@ repository:
           - include: '#operators'
       - begin: (\\g<)
         end: \s*(>)
-        name: keyword.other.subroutine.regexp
+        name: keyword.other.subroutine.somra
         beginCaptures:
-          1: {name: keyword.other.subroutine.regexp}
+          1: {name: keyword.other.subroutine.somra}
         endCaptures:
-          1: {name: keyword.other.subroutine.regexp}
+          1: {name: keyword.other.subroutine.somra}
         patterns:
           - include: '#jsx-tag-attributes'
           - include: '#support'
@@ -4669,68 +4674,69 @@ repository:
           - include: '#operators'
       - begin: (\[)(\^)?
         end: \s*(\])
-        name: constant.other.character-class.set.regexp
+        name: constant.other.character-class.set.somra
         beginCaptures:
-          1: {name: punctuation.definition.character-class.regexp}
-          2: {name: keyword.operator.negation.regexp}
+          1: {name: punctuation.definition.character-class.somra}
+          2: {name: keyword.operator.negation.somra}
         endCaptures:
-          1: {name: punctuation.definition.character-class.regexp}
+          1: {name: punctuation.definition.character-class.somra}
         patterns:
           - include: '#comments'
           - match: '--'
-            name: keyword.operator.optional.regexp
+            name: keyword.operator.optional.somra
           - include: '#regex-character-class'
           - include: '#regex-character-range'
           - include: '#regex-character-set'
       - begin: (\{)
         end: \s*(\})
-        name: meta.brace.curly.litobj.regexp
+        name: meta.brace.curly.litobj.somra
         patterns:
           - include: '#regexp-patterns'
       - include: '#regex-character-class'
       - comment: Remaining backslash tokens
         match: (?i)\\(?:(M)|(K)|(G)|(X))
         captures:
-          1: {name: keyword.control.anchor.regexp}
-          2: {name: keyword.control.keepout.regexp}
-          3: {name: keyword.control.search.regexp}
-          4: {name: constant.character.unicode.regexp}
+          1: {name: keyword.control.anchor.somra}
+          2: {name: keyword.control.keepout.somra}
+          3: {name: keyword.control.search.somra}
+          4: {name: constant.character.unicode.somra}
       - match: \\.
-        name: constant.character.escape.other.regexp
+        name: constant.character.escape.other.somra
       - match: (?<=[*+?}])(?:(\?)|(\+)|(\*))
         captures:
-          1: {name: keyword.operator.modifier.lazy.regexp}
-          2: {name: keyword.operator.modifier.eager.regexp}
-          3: {name: keyword.operator.modifier.greedy.regexp}
+          1: {name: keyword.operator.modifier.lazy.somra}
+          2: {name: keyword.operator.modifier.eager.somra}
+          3: {name: keyword.operator.modifier.greedy.somra}
       - match: (\?)|(\+)|(\*)|(;)|(,)|(:)(?!:)|(=+>|~+>)|(['"])|(`)
         captures:
-          1: {name: keyword.operator.quantifier.lazy.regexp}
-          2: {name: keyword.operator.quantifier.eager.regexp}
-          3: {name: keyword.operator.quantifier.greedy.regexp}
+          1: {name: keyword.operator.quantifier.lazy.somra}
+          2: {name: keyword.operator.quantifier.eager.somra}
+          3: {name: keyword.operator.quantifier.greedy.somra}
           4: {name: punctuation.terminator.statement.somra}
           5: {name: meta.delimiter.comma.somra}
           6: {name: meta.switch.somra keyword.operator.somra}
           7: {name: storage.type.function.arrow.somra}
           8: {name: punctuation.definition.string.begin.somra}
           9: {name: punctuation.definition.quasi.begin.somra}
-      - comment: built-in operator combinations
+      - comment: built-in operators need to be surrounded with spaces
         match: |
-          (?x)(?:
-            ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=)| #1
-            (\+\+|--)| #2
-            (\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*)| #3
-            (&&|\|\||\^\^|\\/|/\\)| #4
-            ([&^]|\|(?!>)|~(?![!=<>]))| #5
-            (=\.\.|\.\.=|=\.=|\.\.(?!\.))| #6
-            (<[|+]|[|+]>)|(<<+|>>+)| #7-8
-            ([<>]:|:[<>]|[<>]:[<>])| #9
-            (=<|<>|[!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+)| #10
-            (->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?)| #11-13
-            (!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.)| #14-18
-            (\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B))| #19
-            (!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B))| #20
-            (~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
-          )
+          (?x)(?<=^|\s)(?:
+            ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=) #1
+            |(\+\+|--) #2
+            |(\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*) #3
+            |(&&|\|\||\^\^|\\/|/\\) #4
+            |([&^]|\|(?!>)|~(?![!=<>])) #5
+            |(=\.\.|\.\.=|=\.=|\.\.(?!\.)) #6
+            |(<[|+]|[|+]>)|(<<+|>>+) #7-8
+            |([<>]:|:[<>]|[<>]:[<>]) #9
+            |([!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+) #10
+            |(->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?) #11-13
+            |(!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.) #14-18
+            |(\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
+            |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
+            |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
+            |(=<|</?>) #24
+          )(?=$|\s)
         name: keyword.operator.builtin.somra
         captures:
           1: {name: keyword.operator.assignment.augmented.somra}
@@ -4756,6 +4762,7 @@ repository:
           21: {name: keyword.operator.cascade.somra}
           22: {name: keyword.operator.accessor.somra}
           23: {name: keyword.operator.assignment.somra}
+          24: {name: keyword.operator.regexp.somra}
       - match: (?:(\?\.)|(~\.)|(!\.)|(\.))
         captures:
           1: {name: keyword.operator.existential.somra}
@@ -4769,27 +4776,27 @@ repository:
         patterns:
           - match: |
               \\
-            name: constant.character.escape.newline.regexp
+            name: constant.character.escape.newline.somra
           - begin: (?i)(\\p{)
             end: \s*(})
-            name: constant.other.character-class.unicode.regexp
+            name: constant.other.character-class.unicode.somra
             beginCaptures:
-              1: {name: constant.other.character-class.unicode.regexp}
+              1: {name: constant.other.character-class.unicode.somra}
             endCaptures:
-              1: {name: constant.other.character-class.unicode.regexp}
+              1: {name: constant.other.character-class.unicode.somra}
             patterns:
               - include: '#implicit-call'
               - include: '#regexp-patterns'
           - match: \\x\h{2}|\\U\h{8}
-            name: constant.character.escape.hex.regexp
+            name: constant.character.escape.hex.somra
           - match: \\[cCmM][[:alpha:]]|\R
-            name: constant.character.control.regexp
+            name: constant.character.control.somra
           - match: \\[pP][[:alpha:]]|\\O
-            name: constant.other.character-class.unicode.regexp
+            name: constant.other.character-class.unicode.somra
           - match: (?i)\\[ci]
-            name: constant.other.character-class.xml.regexp
+            name: constant.other.character-class.xml.somra
           - match: \\[ux](({[\h\s]+\})|\h{4})
-            name: constant.character.escape.unicode.regexp
+            name: constant.character.escape.unicode.somra
           - begin: (?i)(\\f{)
             end: \s*(})
             name: constant.character.entity.named.somra
@@ -4801,90 +4808,90 @@ repository:
               - include: '#implicit-call'
               - include: '#regexp-patterns'
           - match: \.|\\[wsdvntluh]
-            name: constant.other.character-class.regexp
+            name: constant.other.character-class.somra
           - match: \\[WSDVNTLUH]
-            name: constant.other.character-class.negated.regexp
+            name: constant.other.character-class.negated.somra
           - match: \\N{[\w\s]+}
-            name: constant.character.escape.unicode.name.regexp
+            name: constant.character.escape.unicode.name.somra
           - match: \\o{[0-7]+}
-            name: constant.character.escape.octal.regexp
+            name: constant.character.escape.octal.somra
           - match: \\['"\\nrtfve0`]
             name: constant.character.escape.somra
       regex-character-range:
         patterns:
           - match: (?:.|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[a-zA-Z])|(\\.))\-(?:[^\]\\]|(\\(?:[0-7]{3}|x\h{2}|u\h{4}))|(\\c[a-zA-Z])|(\\.))
-            name: constant.other.character-class.range.regexp
+            name: constant.other.character-class.range.somra
             captures:
-              1: {name: constant.character.numeric.regexp}
-              2: {name: constant.character.control.regexp}
-              3: {name: constant.character.escape.backslash.regexp}
-              4: {name: constant.character.numeric.regexp}
-              5: {name: constant.character.control.regexp}
-              6: {name: constant.character.escape.backslash.regexp}
+              1: {name: constant.character.numeric.somra}
+              2: {name: constant.character.control.somra}
+              3: {name: constant.character.escape.backslash.somra}
+              4: {name: constant.character.numeric.somra}
+              5: {name: constant.character.control.somra}
+              6: {name: constant.character.escape.backslash.somra}
       regex-character-set:
         patterns:
           - match: '[|]{2}'
-            name: keyword.operator.union.regexp
+            name: keyword.operator.union.somra
           - match: '&{2}'
-            name: keyword.operator.intersection.regexp
+            name: keyword.operator.intersection.somra
           - match: \^{2}
-            name: keyword.operator.only.regexp
+            name: keyword.operator.only.somra
           - match: ~{2}
-            name: keyword.operator.maybe.regexp
+            name: keyword.operator.maybe.somra
           - match: \.
-            name: constant.other.character-class.set.regexp
+            name: constant.other.character-class.set.somra
           - begin: (\[=)
             end: \s*(=\])
-            name: constant.other.character-class.posix.regexp
+            name: constant.other.character-class.posix.somra
             beginCaptures:
-              1: {name: punctuation.definition.character-class.posix.regexp}
+              1: {name: punctuation.definition.character-class.posix.somra}
             endCaptures:
-              1: {name: punctuation.definition.character-class.posix.regexp}
+              1: {name: punctuation.definition.character-class.posix.somra}
             patterns:
               - include: '#comments'
               - include: '#variables'
               - include: '#operators'
           - begin: (\[\.)
             end: \s*(\.\])
-            name: constant.other.character-class.posix.regexp
+            name: constant.other.character-class.posix.somra
             beginCaptures:
-              1: {name: punctuation.definition.character-class.posix.regexp}
+              1: {name: punctuation.definition.character-class.posix.somra}
             endCaptures:
-              1: {name: punctuation.definition.character-class.posix.regexp}
+              1: {name: punctuation.definition.character-class.posix.somra}
             patterns:
               - include: '#comments'
               - include: '#variables'
               - include: '#operators'
           - begin: (\[:)
             end: \s*(:\])
-            name: constant.other.character-class.posix.regexp
+            name: constant.other.character-class.posix.somra
             beginCaptures:
-              1: {name: punctuation.definition.character-class.posix.regexp}
+              1: {name: punctuation.definition.character-class.posix.somra}
             endCaptures:
-              1: {name: punctuation.definition.character-class.posix.regexp}
+              1: {name: punctuation.definition.character-class.posix.somra}
             patterns:
               - include: '#comments'
               - include: '#variables'
               - include: '#operators'
           - begin: (\[)(\^)?
             end: \s*(\])
-            name: constant.other.character-class.set.regexp
+            name: constant.other.character-class.set.somra
             beginCaptures:
-              1: {name: punctuation.definition.character-class.regexp}
-              2: {name: keyword.operator.negation.regexp}
+              1: {name: punctuation.definition.character-class.somra}
+              2: {name: keyword.operator.negation.somra}
             endCaptures:
-              1: {name: punctuation.definition.character-class.regexp}
+              1: {name: punctuation.definition.character-class.somra}
             patterns:
               - include: '#comments'
               - match: '--'
-                name: keyword.operator.optional.regexp
+                name: keyword.operator.optional.somra
               - include: '#regex-character-range'
               - include: '#regex-character-class'
               - include: '#regex-character-set'
               - match: \\.
-                name: constant.character.escape.other.regexp
+                name: constant.character.escape.other.somra
           - match: \\.
-            name: constant.character.escape.other.regexp
+            name: constant.character.escape.other.somra
   round-brackets:
     patterns:
       - begin: \s*+(#\()
@@ -5276,7 +5283,7 @@ repository:
         begin: \s*+(addFlags|compile|escape|exec|getFlags|removeFlags|setFlags|test|toSource|toString)\b
         end: (?=.)
         beginCaptures:
-          1: {name: support.function.method.regexp.somra}
+          1: {name: support.function.method.somra.somra}
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
