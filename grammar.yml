@@ -4735,17 +4735,11 @@ repository:
           1: {name: keyword.operator.modifier.lazy.somra}
           2: {name: keyword.operator.modifier.eager.somra}
           3: {name: keyword.operator.modifier.greedy.somra}
-      - match: (\?)|(\+)|(\*)|(;)|(,)|(:)(?!:)|(=+>|~+>)|(['"])|(`)
+      - match: (\?)|(\+)|(\*)
         captures:
           1: {name: keyword.operator.quantifier.lazy.somra}
           2: {name: keyword.operator.quantifier.eager.somra}
           3: {name: keyword.operator.quantifier.greedy.somra}
-          4: {name: punctuation.terminator.statement.somra}
-          5: {name: meta.delimiter.comma.somra}
-          6: {name: meta.switch.somra keyword.operator.somra}
-          7: {name: storage.type.function.arrow.somra}
-          8: {name: punctuation.definition.string.begin.somra}
-          9: {name: punctuation.definition.quasi.begin.somra}
       - include: '#number'
       - include: '#comments'
     repository:
