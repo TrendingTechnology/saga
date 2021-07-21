@@ -1681,6 +1681,9 @@ repository:
         name: punctuation.type.somra
         captures:
           1: {name: support.type.builtin.primitive.somra}
+      - match: \s*(=>)
+        captures:
+          1: {name: storage.type.function.arrow.somra}
       - comment: call back with a form () => type
         match: (?<=\))\s*+(=>)
         captures:
@@ -1699,8 +1702,6 @@ repository:
           2: {name: support.type.builtin.class.somra}
           4: {name: keyword.operator.accessor.somra}
           5: {name: support.type.builtin.class.somra}
-      - include: '#operator'
-      - include: '#operators'
       - include: '#flowtype-polymorphs'
       - include: '#flowtype-bracketed-parameters'
       - include: '#flowtype-parse-objects'
@@ -3250,7 +3251,7 @@ repository:
             (\s*\b(pub|prot|pvt|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size)|rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle)\b\s*)*\s*\b
             (ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
             struct|data|schema|module|nspace|object|record|raw|style|trait|
-            defn?|func?|fn|proc|macro|con|va[rl]|const)\b
+            defn?|func?|fn|proc|macro|con|va[rl]|let|const)\b
           )
         captures:
           1: {name: storage.modifier.somra}
@@ -3831,7 +3832,7 @@ repository:
       - begin: \s*(:\?[<=>]?|:(?![:=]))\s*
         comment: Type assertion/conversion/coercion/casting operator
         end: |-
-          (?x)(?==[=>]|[\p{Pe}\p{Po}\p{Pd}\p{S}&&[^<=>&|^~!?]]|\s*\b
+          (?x)(?==(?![=>])|[\p{Pe}\p{Po}\p{Pd}\p{S}&&[^<=>&|^~!?]]|\s*\b
           (in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|
           to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|
           until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|
@@ -3869,7 +3870,7 @@ repository:
         patterns:
           - comment: built-in operators need to be surrounded with spaces
             match: |-
-              (?x)(?<=^|\p{Ps}|\s)(?:
+              (?x)(?<=^|\p{Ps}|\p{Z})(?:
                 ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=) #1
                 |(\+\+|--) #2
                 |(\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*) #3
@@ -3885,7 +3886,7 @@ repository:
                 |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
                 |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
                 |(=<|</?>) #24
-              )(?=$|\p{Pe}|\s)
+              )(?=$|\p{Pe}|\p{Z})
             name: keyword.operator.builtin.somra
             captures:
               1: {name: keyword.operator.assignment.augmented.somra}
@@ -3912,12 +3913,6 @@ repository:
               22: {name: keyword.operator.accessor.somra}
               23: {name: keyword.operator.assignment.somra}
               24: {name: keyword.operator.regexp.somra}
-          - match: (?:(\?\.)|(~\.)|(!\.)|(\.))
-            captures:
-              1: {name: keyword.operator.existential.somra}
-              2: {name: keyword.operator.cascade.somra}
-              3: {name: keyword.operator.assertion.somra}
-              4: {name: keyword.operator.accessor.somra}
           - comment: |-
               custom operators
               (#7) /(<//+>|<//+|//+>|<{2,}|(?<!</)>{2,}|/+)(?!=)/ does not work
@@ -3999,6 +3994,12 @@ repository:
               - include: '#core'
       unary-ops:
         patterns:
+          - match: (?:(\?\.)|(~\.)|(!\.)|(\.))
+            captures:
+              1: {name: keyword.operator.existential.somra}
+              2: {name: keyword.operator.cascade.somra}
+              3: {name: keyword.operator.assertion.somra}
+              4: {name: keyword.operator.accessor.somra}
           - comment: Unary prefix operators
             match: |-
               (?x)
@@ -4345,26 +4346,13 @@ repository:
       - comment: Accepts arbitrary expressions
         match: |-
           (?xi)
-          (?<!\\) # no preceding backslash
-          (\$) # variable prefix
-          ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable name
-          (
-            (%) # format string prefix
-            (?:
-              (?:\\?.[<=>^]?)? # fill, align
-              (?:[+-])? # sign
-              (?:\#?0?) # optional prefix
-              (?:
-                (?:
-                  \d* # width
-                  [_,]? # grouping option
-                  \.?\d* # precision
-                )
-                \w* # type
-                |%?
-              )*
-            )
-          )?
+          (?<!\\) # no backslash
+          (\$) # prefix
+          ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
+          ((%)
+            (?:\\?.[<=>^]?)?[+-]?(?:\#?0?)
+            (?:\d*[_,]?\.?\d*\w*|%?)*
+          )? # printf modifier
         captures:
           1: {name: punctuation.quasi.element.somra}
           2: {patterns: [{include: '#core'}]}
@@ -4372,25 +4360,12 @@ repository:
           4: {name: punctuation.separator.label.somra}
       - begin: (?<!\\)(\$\{)\s*
         end: |-
-          (?x)\s*
-          (\})
-          (
-            (%) # format string prefix
-            (?:
-              (?:\\?.[<=>^]?)? # fill, align
-              (?:[+-])? # sign
-              (?:\#?0?) # optional prefix
-              (?:
-                (?:
-                  \d* # width
-                  [_,]? # grouping option
-                  \.?\d* # precision
-                )
-                \w* # type
-                |%?
-              )*
-            )
-          )?
+          (?xi)\s*
+          (\}) # closing brace
+          ((%)
+            (?:\\?.[<=>^]?)?[+-]?(?:\#?0?)
+            (?:\d*[_,]?\.?\d*\w*|%?)*
+          )? # printf modifier
         name: entity.quasi.element.somra
         beginCaptures:
           1: {name: punctuation.quasi.element.begin.somra}
@@ -5066,7 +5041,7 @@ repository:
       - match: (?<![\#\.])\s*+\b(debug|assert|check)\b
         captures:
           1: {name: keyword.other.somra}
-      - match: (?<![\#\.])\s*+\b(document|window)\b
+      - match: (?<![\#\.])\s*+\b(doc|event|navi|perf|sc|win)\b
         captures:
           1: {name: support.type.object.dom.somra}
       - match: \s*+\b(ELEMENT_NODE|ATTRIBUTE_NODE|TEXT_NODE|CDATA_SECTION_NODE|ENTITY_REFERENCE_NODE|ENTITY_NODE|PROCESSING_INSTRUCTION_NODE|COMMENT_NODE|DOCUMENT_NODE|DOCUMENT_TYPE_NODE|DOCUMENT_FRAGMENT_NODE|NOTATION_NODE|INDEX_SIZE_ERR|DOMSTRING_SIZE_ERR|HIERARCHY_REQUEST_ERR|WRONG_DOCUMENT_ERR|INVALID_CHARACTER_ERR|NO_DATA_ALLOWED_ERR|NO_MODIFICATION_ALLOWED_ERR|NOT_FOUND_ERR|NOT_SUPPORTED_ERR|INUSE_ATTRIBUTE_ERR)\b
