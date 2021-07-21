@@ -171,7 +171,7 @@ repository:
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.somra
         beginCaptures:
-          1: {name: string.quoted.somra}
+          1: {name:g.quoted.somra: null}
           2: {name: punctuation.definition.string.begin.somra}
           3: {patterns: [{include: '#function-name'}]}
           4: {name: punctuation.definition.string.end.somra}
@@ -3253,9 +3253,9 @@ repository:
             defn?|func?|fn|proc|macro|con|va[rl]|const)\b
           )
         captures:
-          1: { name: storage.modifier.somra }
-          2: { name: keyword.modifier.somra }
-          3: { name: storage.type.accessor.somra }
+          1: {name: storage.modifier.somra}
+          2: {name: keyword.modifier.somra}
+          3: {name: storage.type.accessor.somra}
       - comment: Type alias keywords
         match: |-
           (?x)(?<![\#\.])\s*+\b(?:
@@ -4015,7 +4015,7 @@ repository:
               )|(\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
               )| #1-11
               [\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]+) #12
-              (?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
+              (?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}'"`])
             name: keyword.operator.prefix.somra
             captures:
               1: {name: keyword.operator.module.all.somra}
@@ -4033,7 +4033,7 @@ repository:
           - comment: Unary suffix operators
             match: |-
               (?x)
-              (?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
+              (?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}'"`])
               (?:(\*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
               )|(\+[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
               )|(\-[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
@@ -5000,6 +5000,22 @@ repository:
       - include: '#new-operators'
       - match: (\\)(?=\s*$)
         name: constant.character.escape.newline.somra
+      - match: (?i)\\o([0-7]{1,7}|{[0-7\s]+?})
+        name: constant.character.escape.octal.somra
+      - match: (?i)\\u(\h{1,6}|{[\h\s]+?})
+        name: constant.character.escape.unicode.somra
+      - match: (?i)\\d?\d{1,7}|\\d{[\d\s]+?}
+        name: constant.character.escape.decimal.somra
+      - match: (?i)\\x(\h{1,6}|{[\h\s]+?})
+        name: constant.character.escape.hexadecimal.somra
+      - match: (?i)\\z([\dabetxz]{1,6}|{[\s\dabetxz]+?})
+        name: constant.character.escape.duodecimal.somra
+      - match: (?i)\\q([0-3]{1,11}|{[0-3\s]+?})
+        name: constant.character.escape.quaternary.somra
+      - match: (?i)\\s([0-5]{1,8}|{[0-5\s]+?})
+        name: constant.character.escape.senary.somra
+      - match: (?i)\\b([01]{1,21}|{[01\s]+?})
+        name: constant.character.escape.decimal.somra
       - begin: (?i)\\j{
         end: \s*}
         name: constant.character.entity.named.somra
@@ -5010,16 +5026,8 @@ repository:
         patterns:
           - include: '#implicit-call'
           - include: '#regexp-patterns'
-      - match: \\o{[0-7\s]*?}
-        name: constant.character.escape.octal.somra
-      - match: \\[anrtbfveclzp\p{S}\p{P}]
+      - match: (?i)\\[\P{L}\P{N}anrtbfveclzp]
         name: constant.character.escape.somra
-      - match: \\u({[\h\s]*?}|\h{4})|\\U\h{8}
-        name: constant.character.escape.unicode.somra
-      - match: \\\d+|\\d{[\d\s]*?}
-        name: constant.character.escape.decimal.somra
-      - match: \\x\h{2}
-        name: constant.character.escape.hex.somra
       - match: '''''|""|``'
         name: constant.character.escape.somra
       - match: \\.
