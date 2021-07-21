@@ -171,7 +171,7 @@ repository:
         end: ((?<=})|(?:\s*(=>)(?!\s*{)))
         name: meta.function.json.arrow.somra
         beginCaptures:
-          1: {name:g.quoted.somra: null}
+          1: {name: string.quoted.somra}
           2: {name: punctuation.definition.string.begin.somra}
           3: {patterns: [{include: '#function-name'}]}
           4: {name: punctuation.definition.string.end.somra}
@@ -4997,7 +4997,6 @@ repository:
           - include: '#string-content'
   string-content:
     patterns:
-      - include: '#new-operators'
       - match: (\\)(?=\s*$)
         name: constant.character.escape.newline.somra
       - match: (?i)\\o([0-7]{1,7}|{[0-7\s]+?})
