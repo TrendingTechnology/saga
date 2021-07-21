@@ -3507,12 +3507,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.binary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.binary.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0b
@@ -3524,12 +3524,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.binary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.binary.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0q
@@ -3541,12 +3541,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.quaternary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.quaternary.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0q
@@ -3558,12 +3558,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.quaternary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.quaternary.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0s
@@ -3575,12 +3575,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.senary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.senary.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0s
@@ -3592,12 +3592,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.senary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.senary.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0o
@@ -3609,12 +3609,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.octal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.octal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0o
@@ -3626,12 +3626,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.octal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.octal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0z
@@ -3643,12 +3643,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.duodecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.duodecimal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0z
@@ -3660,12 +3660,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.duodecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.duodecimal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0x
@@ -3677,12 +3677,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.hexadecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.hexadecimal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           0x
@@ -3694,12 +3694,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.hexadecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.hexadecimal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           (?:\d [\d_]* \d?)?
@@ -3710,12 +3710,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.decimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.decimal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           \d [\d_]* \d?
@@ -3726,12 +3726,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.decimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.decimal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           \d\w
@@ -3743,12 +3743,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.illegal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.illegal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
       - match: |-
           (?xi)\s*\b
           \d\w
@@ -3760,12 +3760,12 @@ repository:
           (?:(k) \w+)?
           \b
         captures:
-          0: {name: constant.numeric.illegal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
+          0: {name: constant.numeric.illegal.somra}
+          1: {name: meta.delimiter.decimal.period.somra}
+          2: {name: storage.type.numeric.bigint.somra}
+          3: {name: storage.type.numeric.bigint.somra}
+          4: {name: storage.type.numeric.bigint.somra}
+          5: {name: storage.type.numeric.bigint.somra}
   object:
     begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*({)
     comment: obj lteral ({ or ,{ or [{ or ={ or return { or default {
