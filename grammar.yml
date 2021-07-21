@@ -2574,8 +2574,8 @@ repository:
           1: {name: variable.graphql}
   heregexp:
     patterns:
-      - include: '#regexp-patterns'
       - include: '#comments'
+      - include: '#regexp-patterns'
   html-template:
     begin: (?:(?:^|(?<=,|{))\s*\b((template))\b\s*(:)\s*(`))
     comment: 'Assume object properties of template: `some html` contain html'
@@ -4343,34 +4343,54 @@ repository:
   quasi-embedded:
     patterns:
       - comment: Accepts arbitrary expressions
-        match: (?<!\\)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)((%)(?:[-\w/.%#<^>+*=!]+))?
+        match: |-
+          (?xi)
+          (?<!\\) # no preceding backslash
+          (\$) # variable prefix
+          ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable name
+          (
+            (%) # format string prefix
+            (?:
+              (?:\\?.[<=>^]?)? # fill, align
+              (?:[+-])? # sign
+              (?:\#?0?) # optional prefix
+              (?:
+                (?:
+                  \d* # width
+                  [_,]? # grouping option
+                  \.?\d* # precision
+                )
+                \w* # type
+                |%?
+              )*
+            )
+          )?
         captures:
           1: {name: punctuation.quasi.element.somra}
           2: {patterns: [{include: '#core'}]}
           3: {name: storage.type.format.somra}
           4: {name: punctuation.separator.label.somra}
       - begin: (?<!\\)(\$\{)\s*
-        end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
-        name: entity.quasi.element.somra
-        beginCaptures:
-          1: {name: punctuation.quasi.element.begin.somra}
-        endCaptures:
-          1: {name: punctuation.quasi.element.end.somra}
-          2: {name: storage.type.format.somra}
-          3: {name: punctuation.separator.label.somra}
-        patterns:
-          - include: '#core'
-  quasi-embedded-regexp:
-    patterns:
-      - comment: Accepts arbitrary expressions
-        match: (?<!\\)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)((%)[-\w/.%#<^>+*=!]+)?
-        captures:
-          1: {name: punctuation.quasi.element.somra}
-          2: {patterns: [{include: '#core'}]}
-          3: {name: storage.type.format.somra}
-          4: {name: punctuation.separator.label.somra}
-      - begin: (?<!\\)(\$\{)\s*
-        end: \s*(\})((%)[-\w/.%#<^>+*=!]+)?
+        end: |-
+          (?x)\s*
+          (\})
+          (
+            (%) # format string prefix
+            (?:
+              (?:\\?.[<=>^]?)? # fill, align
+              (?:[+-])? # sign
+              (?:\#?0?) # optional prefix
+              (?:
+                (?:
+                  \d* # width
+                  [_,]? # grouping option
+                  \.?\d* # precision
+                )
+                \w* # type
+                |%?
+              )*
+            )
+          )?
         name: entity.quasi.element.somra
         beginCaptures:
           1: {name: punctuation.quasi.element.begin.somra}
@@ -4502,7 +4522,11 @@ repository:
           - include: '#backreferences'
   regexp-patterns:
     patterns:
-      - include: '#quasi-embedded-regexp'
+      - include: '#quasi-embedded'
+      - match: (?<!\\)(\#).*$\n?
+        name: comment.line.shebang.somra
+        captures:
+          1: {name: punctuation.definition.comment.somra}
       - match: \|
         name: keyword.operator.or.somra
       - match: (?i)\\[abyz]
@@ -4722,57 +4746,6 @@ repository:
           7: {name: storage.type.function.arrow.somra}
           8: {name: punctuation.definition.string.begin.somra}
           9: {name: punctuation.definition.quasi.begin.somra}
-      - comment: built-in operators need to be surrounded with spaces
-        match: |-
-          (?x)(?<=^|\s)(?:
-            ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=) #1
-            |(\+\+|--) #2
-            |(\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*) #3
-            |(&&|\|\||\^\^|\\/|/\\) #4
-            |([&^]|\|(?!>)|~(?![!=<>])) #5
-            |(=\.\.|\.\.=|=\.=|\.\.(?!\.)) #6
-            |(<[|+]|[|+]>)|(<<+|>>+) #7-8
-            |([<>]:|:[<>]|[<>]:[<>]) #9
-            |([!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+) #10
-            |(->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?) #11-13
-            |(!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.) #14-18
-            |(\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
-            |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
-            |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
-            |(=<|</?>) #24
-          )(?=$|\s)
-        name: keyword.operator.builtin.somra
-        captures:
-          1: {name: keyword.operator.assignment.augmented.somra}
-          2: {name: keyword.operator.crement.somra}
-          3: {name: keyword.operator.arithmetic.somra}
-          4: {name: keyword.operator.logical.somra}
-          5: {name: keyword.operator.bitwise.somra}
-          6: {name: keyword.operator.range.somra}
-          7: {name: keyword.operator.pipeline.somra}
-          8: {name: keyword.operator.bitwise.shift.somra}
-          9: {name: keyword.operator.class.somra}
-          10: {name: keyword.operator.similarity.somra}
-          11: {name: keyword.operator.then.somra}
-          12: {name: keyword.operator.relational.somra}
-          13: {name: keyword.operator.comparison.somra}
-          14: {name: keyword.operator.nonnull.somra}
-          15: {name: keyword.operator.nullcoalesce.somra}
-          16: {name: keyword.operator.ternary.somra}
-          17: {name: keyword.operator.quasiternary.somra}
-          18: {name: keyword.operator.spread.somra}
-          19: {name: keyword.operator.existential.somra}
-          20: {name: keyword.operator.assertion.somra}
-          21: {name: keyword.operator.cascade.somra}
-          22: {name: keyword.operator.accessor.somra}
-          23: {name: keyword.operator.assignment.somra}
-          24: {name: keyword.operator.regexp.somra}
-      - match: (?:(\?\.)|(~\.)|(!\.)|(\.))
-        captures:
-          1: {name: keyword.operator.existential.somra}
-          2: {name: keyword.operator.cascade.somra}
-          3: {name: keyword.operator.assertion.somra}
-          4: {name: keyword.operator.accessor.somra}
       - include: '#number'
       - include: '#comments'
     repository:
@@ -4788,8 +4761,10 @@ repository:
             endCaptures:
               1: {name: constant.other.character-class.unicode.somra}
             patterns:
+              - include: '#keywords'
               - include: '#implicit-call'
-              - include: '#regexp-patterns'
+              - include: '#operator'
+              - include: '#operators'
           - match: \\x\h{2}|\\U\h{8}
             name: constant.character.escape.hex.somra
           - match: \\[cCmM][[:alpha:]]|\R
@@ -4999,7 +4974,7 @@ repository:
     patterns:
       - match: (\\)(?=\s*$)
         name: constant.character.escape.newline.somra
-      - match: |
+      - match: |-
           (?xi)
           (\\b(?:[01]{1,21}|{[01\s]+?})) # base 2
           |(\\q(?:[0-3]{1,11}|{[0-3\s]+?})) # base 4
@@ -5009,7 +4984,7 @@ repository:
           |(\\z(?:[\dabetxz]{1,6}|{[\s\dabetxz]+?})) # base 12
           |(\\x(?:\h{1,6}|{[\h\s]+?})) # base 14 
           |(\\u(?:\h{1,6}|{[\h\s]+?})) # base 16
-        captures: 
+        captures:
           1: {name: constant.character.escape.binary.somra}
           2: {name: constant.character.escape.quaternary.somra}
           3: {name: constant.character.escape.senary.somra}
