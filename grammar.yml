@@ -3777,7 +3777,7 @@ repository:
           ))? # printf modifier
         captures:
           1: {name: punctuation.quasi.element.somra}
-          2: {patterns: [{include: '#core'}]}
+          2: {patterns: [{include: '#variable'}]}
           3: {name: punctuation.separator.label.somra}
           4: {name: storage.type.format.somra}
       - begin: (?<!\\)(\$\{)\s*
@@ -5311,9 +5311,9 @@ repository:
         name: punctuation.type.somra
         captures:
           1: {name: support.type.builtin.primitive.somra}
-      - match: \s*(=>)
-        captures:
-          1: {name: storage.type.function.arrow.somra}
+      # - match: \s*(=>)
+      #   captures:
+      #     1: {name: storage.type.function.arrow.somra}
       - comment: call back with a form () => type
         match: (?<=\))\s*+(=>)
         captures:
@@ -5551,7 +5551,7 @@ repository:
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.property.somra}
-      - match: \s*+(\#?)([\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+      - match: \s*+(\#?)([\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|\\)
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.readwrite.somra}
