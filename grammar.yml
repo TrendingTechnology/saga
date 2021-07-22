@@ -1061,7 +1061,7 @@ repository:
   comments:
     patterns:
       - include: '#typed-comments'
-      - include: '#special-commentyped-conditional-compilation'
+      - include: '#special-comments-conditional-compilation'
       - begin: \s*+((/\*\*))(?!/|\*)
         contentName: comment.block.documentation.somra
         end: (\s*(\*/))
@@ -4281,7 +4281,7 @@ repository:
       - match: \s*+(;)
         captures:
           1: {name: punctuation.terminator.statement.somra}
-  special-commentyped-conditional-compilation:
+  special-comments-conditional-compilation:
     patterns:
       - begin: \s*+((/\*))(?=@)
         contentName: comment.block.conditional.somra
@@ -5003,7 +5003,7 @@ repository:
         endCaptures:
           1: {name: punctuation.definition.comment.somra}
         patterns:
-          - include: '#typed-commentyped-optional-parameter'
+          - include: '#typed-comments-optional-parameter'
           - include: '#module'
           - include: '#typed-keywords'
           - include: '#typed-predicate'
@@ -5019,7 +5019,7 @@ repository:
         endCaptures:
           1: {name: punctuation.definition.comment.somra}
         patterns:
-          - include: '#typed-commentyped-optional-parameter'
+          - include: '#typed-comments-optional-parameter'
           - include: '#module'
           - include: '#typed-keywords'
           - include: '#typed-predicate'
@@ -5037,7 +5037,7 @@ repository:
         patterns:
           - include: '#typed-predicate'
           - include: '#typed-parse-types'
-  typed-commentyped-optional-parameter:
+  typed-comments-optional-parameter:
     patterns:
       - match: (?<=::|flow-include)\s*(\?)
         captures:
