@@ -330,7 +330,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -364,7 +364,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -399,7 +399,7 @@ repository:
                   - include: '#core'
           - include: '#of-clause'
           - include: '#comments'
-          - include: '#types-polymorphs'
+          - include: '#typed-polymorphs'
           - include: '#type-argument-brackets'
           - include: '#operator'
           - include: '#operators'
@@ -413,7 +413,7 @@ repository:
             endCaptures:
               1: {name: keyword.operator.assignment.somra}
             patterns:
-              - include: '#types-parse-types'
+              - include: '#typed-parse-types'
       extension:
         begin: (?<![\#\.])\s*+\b(extend|extn)(\s+|$)
         end: \s*(=(?!=|>))|\s*(?<=})
@@ -442,7 +442,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -476,7 +476,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -510,7 +510,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -544,7 +544,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -578,7 +578,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -612,7 +612,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -749,7 +749,7 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
           - match: \s*(\.)
             captures:
@@ -764,14 +764,14 @@ repository:
     match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*?[_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
     captures:
       1: {name: punctuation.definition.cast.begin.somra}
-      2: {patterns: [{include: '#types-parse-types'}]}
+      2: {patterns: [{include: '#typed-parse-types'}]}
       3: {name: punctuation.definition.cast.end.somra}
   class-body:
     patterns:
       - include: '#core'
       - include: '#attributes'
       - include: '#modifiers'
-      - include: '#types-keywords'
+      - include: '#typed-keywords'
       - include: '#arrow-expression'
       - include: '#arrow-function-simple-assignments'
       - include: '#arrow-function'
@@ -794,7 +794,7 @@ repository:
       - match: (?<![\#\.])\s*+\b(static)\b(?!\.)
         captures:
           1: {name: storage.modifier.somra}
-      - include: '#types-variable'
+      - include: '#typed-variable'
       - include: '#semi-colon'
   clauses:
     patterns:
@@ -948,7 +948,7 @@ repository:
               - include: '#match-clause'
               - include: '#as-clause'
               - include: '#case-separator'
-              - include: '#types-parse-types'
+              - include: '#typed-parse-types'
           case-separator:
             begin: ([,;])
             end: (?<![\#\.])\s*\b(?=as|with|if|unless|where)|\s*(?=->)
@@ -1060,8 +1060,8 @@ repository:
           1: {name: meta.delimiter.comma.somra}
   comments:
     patterns:
-      - include: '#types-comments'
-      - include: '#special-commentypes-conditional-compilation'
+      - include: '#typed-comments'
+      - include: '#special-commentyped-conditional-compilation'
       - begin: \s*+((/\*\*))(?!/|\*)
         contentName: comment.block.documentation.somra
         end: (\s*(\*/))
@@ -1143,8 +1143,8 @@ repository:
       - include: '#blocks'
       - include: '#modifiers'
       - include: '#keyword-storage'
-      - include: '#types-keywords'
-      - include: '#types-trap'
+      - include: '#typed-keywords'
+      - include: '#typed-trap'
       - include: '#keywords'
       - include: '#method-call'
       - include: '#function-call'
@@ -2337,7 +2337,7 @@ repository:
         beginCaptures:
           1: {name: storage.type.somra}
         patterns:
-          - include: '#types-variable'
+          - include: '#typed-variable'
   keywords:
     patterns:
       - include: '#new'
@@ -2546,7 +2546,7 @@ repository:
         endCaptures:
           1: {name: keyword.operator.assignment.somra}
         patterns:
-          - include: '#types-parse-array'
+          - include: '#typed-parse-array'
           - include: '#string'
           - include: '#types'
           - include: '#square-brackets'
@@ -2751,8 +2751,8 @@ repository:
         patterns:
           - include: '#string-content'
       - include: '#keyword-storage'
-      - include: '#types-keywords'
-      - include: '#types-parse-types'
+      - include: '#typed-keywords'
+      - include: '#typed-parse-types'
       - include: '#operator'
       - include: '#operators'
       - include: '#punctuation'
@@ -3203,7 +3203,7 @@ repository:
       - include: '#object-body'
   object-body:
     patterns:
-      - include: '#types-keywords'
+      - include: '#typed-keywords'
       - include: languagebabel.ttlextension
       - include: '#html-template'
       - include: '#object-brace-property'
@@ -3250,7 +3250,7 @@ repository:
           1: {name: variable.other.readwrite.shorthandpropertyname.somra}
   operator:
     patterns:
-      - begin: \s*(:\?[<=>]?|:(?![:=]))\s*
+      - begin: \s*(:\?[<=>]?|:(?![:<=>]))\s*
         comment: Type assertion/conversion/coercion/casting operator
         end: |-
           (?x)(?==(?![=>])|[\p{Pe}\p{Po}\p{Pd}\p{S}&&[^<=>&|^~!?]]|\s*\b
@@ -3265,14 +3265,14 @@ repository:
         beginCaptures:
           1: {name: keyword.operator.type.somra}
         patterns:
-          - include: '#types-parse-types'
+          - include: '#typed-parse-types'
       - match: \s*(\.=|::?=)\s*
         name: keyword.operator.assignment.somra
       - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
         name: keyword.operator.range.somra
       - match: \s*(/\\)|(\\/)\s*
         name: keyword.operator.logical.somra
-      - match: \s*(?:(::+)|([<>]:+|:+[<>]|[<>]:+[<>]))\s*
+      - match: \s*(?:(::+)|([<>][:!]+|[:!]+[<>]|[<>][:!]+[<>]))\s*
         captures:
           1: {name: keyword.operator.accessor.somra}
           2: {name: keyword.operator.class.somra}
@@ -3373,7 +3373,7 @@ repository:
             endCaptures:
               1: {patterns: [{include: '#core'}]}
             patterns:
-              - include: '#types-parse-types'
+              - include: '#typed-parse-types'
           - begin: \s*+(\?)(?!\.[^\d]|[?=])(?=\s)
             comment: 'ternary operator - make sure end : is consumed to avoid mistake as flow type'
             end: \s*(:)((?=::)|(?!:|=))
@@ -3928,7 +3928,7 @@ repository:
           1: {name: punctuation.definition.comment.somra}
       - match: \|
         name: keyword.operator.or.somra
-      - match: (?i)\\[abyz]
+      - match: (?i)\\[abyz]({.*?})?
         name: keyword.control.anchor.somra
       - match: \^
         name: keyword.control.begin.somra
@@ -4281,7 +4281,7 @@ repository:
       - match: \s*+(;)
         captures:
           1: {name: punctuation.terminator.statement.somra}
-  special-commentypes-conditional-compilation:
+  special-commentyped-conditional-compilation:
     patterns:
       - begin: \s*+((/\*))(?=@)
         contentName: comment.block.conditional.somra
@@ -4313,7 +4313,7 @@ repository:
         endCaptures:
           1: {name: meta.brace.square.somra}
         patterns:
-          - match: \s*:(?![:=])\s*
+          - match: \s*:(?![:<=>])\s*
             name: keyword.operator.slice.somra
           - include: '#object'
           - include: '#core'
@@ -4324,7 +4324,7 @@ repository:
         endCaptures:
           1: {name: meta.brace.square.somra}
         patterns:
-          - match: \s*:(?![:=])\s*
+          - match: \s*:(?![:<=>])\s*
             name: keyword.operator.slice.somra
           - include: '#object'
           - include: '#core'
@@ -4940,15 +4940,15 @@ repository:
         endCaptures:
           1: {name: punctuation.somra}
         patterns:
-          - include: '#types-parse-types'
+          - include: '#typed-parse-types'
           - include: '#comma'
   types:
     patterns:
       - include: '#comments'
-      - include: '#types-return'
-      - include: '#types-polymorphs'
-      - include: '#types-bracketed-args'
-  types-bracketed-args:
+      - include: '#typed-return'
+      - include: '#typed-polymorphs'
+      - include: '#typed-bracketed-args'
+  typed-bracketed-args:
     patterns:
       - begin: (?<!}|return|await|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
         comment: Get parameters within a function/method call
@@ -4962,9 +4962,9 @@ repository:
           2: {name: meta.brace.round.somra}
         patterns:
           - include: '#modifiers'
-          - include: '#types-polymorphs'
-          - include: '#types-variable'
-  types-bracketed-parameters:
+          - include: '#typed-polymorphs'
+          - include: '#typed-variable'
+  typed-bracketed-parameters:
     patterns:
       - applyEndPatternLast: 1
         begin: \s*+(?=(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(?!\.|:|=>|{|/\*\s*:))
@@ -4978,7 +4978,7 @@ repository:
             endCaptures:
               1: {name: meta.brace.round.somra}
             patterns:
-              - include: '#types-parse-types'
+              - include: '#typed-parse-types'
       - begin: (?<!}|return|await|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
         comment: Get parameters within a function/method call
         contentName: meta.function.parameters.somra
@@ -4990,9 +4990,9 @@ repository:
           1: {name: punctuation.definition.parameters.end.somra}
           2: {name: meta.brace.round.somra}
         patterns:
-          - include: '#types-polymorphs'
-          - include: '#types-variable'
-  types-comments:
+          - include: '#typed-polymorphs'
+          - include: '#typed-variable'
+  typed-comments:
     patterns:
       - begin: \s*+(/\*)\s*(::)
         end: \s*(\*/)
@@ -5003,11 +5003,11 @@ repository:
         endCaptures:
           1: {name: punctuation.definition.comment.somra}
         patterns:
-          - include: '#types-commentypes-optional-parameter'
+          - include: '#typed-commentyped-optional-parameter'
           - include: '#module'
-          - include: '#types-keywords'
-          - include: '#types-predicate'
-          - include: '#types-parse-types'
+          - include: '#typed-keywords'
+          - include: '#typed-predicate'
+          - include: '#typed-parse-types'
           - include: '#function'
           - include: '#keyword-storage'
       - begin: \s*+(/\*)\s*(flow-include)\b
@@ -5019,11 +5019,11 @@ repository:
         endCaptures:
           1: {name: punctuation.definition.comment.somra}
         patterns:
-          - include: '#types-commentypes-optional-parameter'
+          - include: '#typed-commentyped-optional-parameter'
           - include: '#module'
-          - include: '#types-keywords'
-          - include: '#types-predicate'
-          - include: '#types-parse-types'
+          - include: '#typed-keywords'
+          - include: '#typed-predicate'
+          - include: '#typed-parse-types'
           - include: '#function'
           - include: '#keyword-storage'
       - begin: \s*+(/\*)\s*(:)((?=::)|(?!:))
@@ -5035,14 +5035,14 @@ repository:
         endCaptures:
           1: {name: punctuation.definition.comment.somra}
         patterns:
-          - include: '#types-predicate'
-          - include: '#types-parse-types'
-  types-commentypes-optional-parameter:
+          - include: '#typed-predicate'
+          - include: '#typed-parse-types'
+  typed-commentyped-optional-parameter:
     patterns:
       - match: (?<=::|flow-include)\s*(\?)
         captures:
           1: {name: keyword.operator.optional.parameter.somra}
-  types-declare:
+  typed-declare:
     patterns:
       - match: (?<![\#\.])\s*+\b(decl?|def)\b\s*+
         captures:
@@ -5058,8 +5058,8 @@ repository:
           4: {name: storage.type.module.somra}
           5: {name: punctuation.type.somra}
         patterns:
-          - include: '#types-parse-objects'
-          - include: '#types-parse-types'
+          - include: '#typed-parse-objects'
+          - include: '#typed-parse-types'
       - begin: (?<![\#\.])\s*+\b(decl?|def)\b\s*+\b(module)(\s|$)
         comment: declare modules
         end: \s*(?<=})
@@ -5067,7 +5067,7 @@ repository:
           1: {name: keyword.other.declare.somra}
           2: {name: storage.type.module.somra}
         patterns:
-          - include: '#types-polymorphs'
+          - include: '#typed-polymorphs'
           - comment: look for module names but don't assume uppercase start char
             match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
             captures:
@@ -5082,8 +5082,8 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-keywords'
-              - include: '#types-method'
+              - include: '#typed-keywords'
+              - include: '#typed-method'
               - include: '#core'
       - begin: (?<![\#\.])\s*+\b(decl?|def)\b\s*+(\bexport\b)?\s*+\b(class)\b
         comment: declare classes
@@ -5120,14 +5120,14 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.somra}
             patterns:
-              - include: '#types-method'
+              - include: '#typed-method'
               - include: '#core'
-          - include: '#types-polymorphs'
+          - include: '#typed-polymorphs'
           - include: '#comma'
           - match: \s*(\.)
             captures:
               1: {name: keyword.operator.accessor.somra}
-  types-interface:
+  typed-interface:
     begin: (?<![\#\.])\s*+\b(inter|schema|struct)(\s+|$)
     end: \s*(=(?!=|>))|\s*(?<=})
     beginCaptures:
@@ -5154,18 +5154,18 @@ repository:
         endCaptures:
           1: {name: punctuation.section.class.end.somra}
         patterns:
-          - include: '#types-method'
+          - include: '#typed-method'
           - include: '#core'
       - match: \s*(\.)
         captures:
           1: {name: keyword.operator.accessor.somra}
       - include: '#core'
-  types-keywords:
+  typed-keywords:
     patterns:
-      - include: '#types-declare'
-      - include: '#types-type-aliases'
-      - include: '#types-interface'
-  types-method:
+      - include: '#typed-declare'
+      - include: '#typed-type-aliases'
+      - include: '#typed-interface'
+  typed-method:
     applyEndPatternLast: 1
     begin: (?<!:)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
     comment: 'trap methods without a name  e.g.   <Key, Value>(): Map<Key, Value>'
@@ -5176,7 +5176,7 @@ repository:
       3: {name: keyword.generator.asterisk.somra}
     patterns:
       - include: '#types'
-  types-object-property:
+  typed-object-property:
     patterns:
       - comment: Only these props syntax {| |}
         match: ((\|)(?={|))|(\s*(\|)(?=}))
@@ -5185,8 +5185,8 @@ repository:
           4: {name: keyword.operator.only.somra}
       - include: '#method'
       - include: '#comments'
-      - include: '#types-variable'
-  types-parse-array:
+      - include: '#typed-variable'
+  typed-parse-array:
     patterns:
       - begin: (?<!=|[$_A-Za-z\d])\s*+(#\[)
         comment: 'arrays such as [name: string, dob: Date]'
@@ -5201,10 +5201,10 @@ repository:
             comment: destructring in arrays requires vars parse before types
             end: (?=.)
             patterns:
-              - include: '#types-variable'
-              - include: '#types-parse-types'
-          - include: '#types-parse-types'
-          - include: '#types-variable'
+              - include: '#typed-variable'
+              - include: '#typed-parse-types'
+          - include: '#typed-parse-types'
+          - include: '#typed-variable'
       - begin: (?<!=|[$_A-Za-z\d])\s*+(\[)
         comment: 'arrays such as [name: string, dob: Date]'
         end: \s*(\])
@@ -5218,11 +5218,11 @@ repository:
             comment: destructring in arrays requires vars parse before types
             end: (?=.)
             patterns:
-              - include: '#types-variable'
-              - include: '#types-parse-types'
-          - include: '#types-parse-types'
-          - include: '#types-variable'
-  types-parse-objects:
+              - include: '#typed-variable'
+              - include: '#typed-parse-types'
+          - include: '#typed-parse-types'
+          - include: '#typed-variable'
+  typed-parse-objects:
     patterns:
       - applyEndPatternLast: 1
         begin: (?<=:|\||&|\?|=>|<|\()\s*+(\#{)
@@ -5234,7 +5234,7 @@ repository:
         endCaptures:
           1: {name: meta.brace.curly.close.somra}
         patterns:
-          - include: '#types-object-property'
+          - include: '#typed-object-property'
       - applyEndPatternLast: 1
         begin: (?<=:|\||&|\?|=>|<|\()\s*+({)
         comment: 'object literal ts  preceded by either => : | & ? symbols'
@@ -5245,8 +5245,8 @@ repository:
         endCaptures:
           1: {name: meta.brace.curly.close.somra}
         patterns:
-          - include: '#types-object-property'
-  types-parse-types:
+          - include: '#typed-object-property'
+  typed-parse-types:
     patterns:
       - include: '#for-all-clause'
       - include: '#modifiers'
@@ -5331,10 +5331,10 @@ repository:
           2: {name: support.type.builtin.class.somra}
           4: {name: keyword.operator.accessor.somra}
           5: {name: support.type.builtin.class.somra}
-      - include: '#types-polymorphs'
-      - include: '#types-bracketed-parameters'
-      - include: '#types-parse-objects'
-      - include: '#types-parse-array'
+      - include: '#typed-polymorphs'
+      - include: '#typed-bracketed-parameters'
+      - include: '#typed-parse-objects'
+      - include: '#typed-parse-array'
       - include: '#comments'
     repository:
       as-clause:
@@ -5347,7 +5347,7 @@ repository:
         patterns:
           - include: '#as-clause'
           - include: '#case-separator'
-          - include: '#types-parse-types'
+          - include: '#typed-parse-types'
       case-separator:
         begin: ([,;])
         end: (?<![\#\.])\s*\b(?=as|where)
@@ -5377,7 +5377,7 @@ repository:
             name: storage.type.somra
           - include: '#as-clause'
           - include: '#core'
-  types-polymorphs:
+  typed-polymorphs:
     comment: Support Bounded Polymorphism http://ts.org/blog/2015/03/12/Bounded-Polymorphism.html
     patterns:
       - begin: \s*+\b((?>Array|Class|Map|Promise|Set|WeakMap|WeakSet))\s*+(<)
@@ -5393,7 +5393,7 @@ repository:
           - match: \s*+(\+|-)
             captures:
               1: {name: support.type.variant.somra}
-          - include: '#types-parse-types'
+          - include: '#typed-parse-types'
       - begin: \s*+(<)
         comment: just the polymorph bit like this <K,V>(arg,arg)
         end: \s*(>)
@@ -5406,8 +5406,8 @@ repository:
           - match: \s*+(\+|-)
             captures:
               1: {name: support.type.variant.somra}
-          - include: '#types-parse-types'
-  types-predicate:
+          - include: '#typed-parse-types'
+  typed-predicate:
     applyEndPatternLast: 1
     begin: \s*+(?<=\s)(%checks)\b
     comment: flow predicate checks
@@ -5416,7 +5416,7 @@ repository:
       1: {name: entity.name.function.predicate.somra}
     patterns:
       - include: '#round-brackets'
-  types-return:
+  typed-return:
     patterns:
       - applyEndPatternLast: 1
         begin: (?<=\))\s*+(:)((?=::)|(?!:))
@@ -5425,23 +5425,23 @@ repository:
         beginCaptures:
           1: {name: punctuation.type.somra}
         patterns:
-          - include: '#types-predicate'
-          - include: '#types-parse-types'
-      - include: '#types-predicate'
-  types-trap:
+          - include: '#typed-predicate'
+          - include: '#typed-parse-types'
+      - include: '#typed-predicate'
+  typed-trap:
     comment: traps ts vars that aren't caught normally - e.g. multi-line arrow funcs
     patterns:
       - applyEndPatternLast: 1
         begin: (?<=\))\s*(?=:)
         end: (?=.)
         patterns:
-          - include: '#types-return'
+          - include: '#typed-return'
       - applyEndPatternLast: 1
         begin: \s*:(?!:)
         end: (?=.)
         patterns:
-          - include: '#types-parse-types'
-  types-type-aliases:
+          - include: '#typed-parse-types'
+  typed-type-aliases:
     applyEndPatternLast: 1
     begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type|alias)\b\s+(?!(i[sn])\b)(?=[$_A-Za-z{\[])
     comment: type aliases for export but avoid type instaceof or type in operators
@@ -5450,17 +5450,17 @@ repository:
       1: {name: keyword.other.typedef.somra}
       2: {name: keyword.other.typedef.somra}
     patterns:
-      - include: '#types-parse-types'
+      - include: '#typed-parse-types'
       - include: '#types'
       - include: '#comments'
-      - include: '#types-function-name'
+      - include: '#typed-function-name'
       - include: '#operator'
       - include: '#operators'
       - match: \s*+(=)(?!=|>)
         captures:
           1: {name: keyword.operator.assignment.somra}
       - include: '#punctuation'
-  types-variable:
+  typed-variable:
     patterns:
       - comment: 'e.g. let a: ()=>null  =  function() {return null}'
         match: (?<![\#\.])\s*+(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
@@ -5475,8 +5475,8 @@ repository:
           2: {name: keyword.operator.private.somra}
           3: {name: variable.other.readwrite.somra}
           4: {name: keyword.operator.optional.parameter.somra}
-      - include: '#types-vars-and-props'
-  types-vars-and-props:
+      - include: '#typed-vars-and-props'
+  typed-vars-and-props:
     patterns:
       - comment: 'ts optional arg/parameter e.g. protocol? : string'
         match: \s*+(\?)
@@ -5497,7 +5497,7 @@ repository:
         beginCaptures:
           1: {name: punctuation.type.somra}
         patterns:
-          - include: '#types-parse-types'
+          - include: '#typed-parse-types'
       - include: '#comma'
       - comment: An Iterator prefix?
         match: \s*+(@@)
@@ -5507,7 +5507,7 @@ repository:
         beginCaptures:
           1: {name: storage.type.function.arrow.somra}
         patterns:
-          - include: '#types-parse-types'
+          - include: '#typed-parse-types'
       - begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
         comment: varname of|in
         end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert))
@@ -5518,8 +5518,8 @@ repository:
         end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
         patterns:
           - include: '#core'
-      - include: '#types-bracketed-parameters'
-      - include: '#types-parse-array'
+      - include: '#typed-bracketed-parameters'
+      - include: '#typed-parse-array'
       - include: '#core'
   variable:
     patterns:
@@ -5562,19 +5562,19 @@ repository:
         beginCaptures:
           3: {name: punctuation.somra}
         patterns:
-          - include: '#types-variable'
+          - include: '#typed-variable'
       - begin: (?<=^|,|\()\s*+(?="[^"]"\s*(:))
         comment: Assume this is a flow typed var
         end: \s*(?>=|\))
         beginCaptures:
           3: {name: punctuation.somra}
         patterns:
-          - include: '#types-variable'
+          - include: '#typed-variable'
       - begin: (?<=^|,|\()\s*+(?='[^']'\s*(:))
         comment: Assume this is a flow typed var
         end: \s*(?>=|\))
         beginCaptures:
           3: {name: punctuation.somra}
         patterns:
-          - include: '#types-variable'
+          - include: '#typed-variable'
 limitLineLength: false
