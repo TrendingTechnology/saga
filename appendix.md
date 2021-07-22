@@ -18,15 +18,14 @@ This serves as an appendix or reference for the syntax, mainly operators and lit
 
 #### Operators
 
-<!-- prettier-ignore -->
-| Operator | Meaning |
-| :-: | --- |
-| `!`_`expr`_ | Inverts a boolean value |
-| `&&` `/\` | Logical and |
-| `!:` | _Short-circuit_ logical and |
-| `||` `\/` | Logical or |
-| `?:` | _Short-circuit_ logical or |
-| `^^` | Logical xor |
+|  Operator   | Meaning                     |
+| :---------: | --------------------------- |
+| `!`_`expr`_ | Inverts a boolean value     |
+|  `&&` `/\`  | Logical and                 |
+|    `!:`     | _Short-circuit_ logical and |
+| `\|\|` `\/` | Logical or                  |
+|    `?:`     | _Short-circuit_ logical or  |
+|    `^^`     | Logical xor                 |
 
 ### Numbers
 
@@ -93,15 +92,14 @@ Optional suffixes can be placed after numbers to indicate additional properties,
 
 You can manipulate the individual bits of numbers in Somra. Bitwise and shift operators work only with integers. Do take note all numbers are signed.
 
-<!-- prettier-ignore -->
-| Operator | Meaning |
-| :-: | --- |
-| `&` | And |
-| `|` | Or |
-| `^` | Xor |
-| `~`_`expr`_ | Not |
-| `>>` | Right shift |
-| `<<` | Left shift  |
+|  Operator   | Meaning     |
+| :---------: | ----------- |
+|     `&`     | And         |
+|    `\|`     | Or          |
+|     `^`     | Xor         |
+| `~`_`expr`_ | Not         |
+|    `>>`     | Right shift |
+|    `<<`     | Left shift  |
 
 ### Strings
 
@@ -163,7 +161,7 @@ The following section serves as a summary to the regular expression syntax of So
 | Syntax      | Description                           |
 | ----------- | ------------------------------------- |
 | `\`         | Escape (disable) a metacharacter      |
-| `|`         | Alternation                           |
+| `\|`         | Alternation                           |
 | `(...)`     | Capturing group                       |
 | `[...]`     | Character class (can be nested)       |
 | `${...}`    | Embedded expression                   |
@@ -283,7 +281,7 @@ A set `[...]` can include nested sets. The operators below are listed in increas
 | --- | --- |
 | `^...` | Negated (complement) character class |
 | `x-y` | Range (from x to y) |
-| `||` | Union (`x || y` means "x or y") |
+| `\|\|` | Union (`x \|\| y` means "x or y") |
 | `&&` | Intersection (`x && y` means "x and y" ) |
 | `^^` | Symmetric difference (`x ^^ y` means "x and y, but not both") |
 | `~~` | Difference (`x ~~ y` means "x but not y") |
@@ -315,25 +313,24 @@ A set `[...]` can include nested sets. The operators below are listed in increas
 
 #### Groups
 
-<!-- prettier-ignore -->
-| Syntax | Description |
-| --- | --- |
-| `(?#...)` | Comment |
-| `(?x-y:...)`<br>`(?x-y)...` | Mode modifier |
-| `(?:...)` | Non-capturing (passive) group |
-| `(...)` | Capturing group (numbered from 1) |
-| `(?<name>...)` | Named capturing group |
-| `(?=...)` | Positive lookahead |
-| `(?!...)` | Negative lookahead |
-| `(?<=...)` | Positive lookbehind |
-| `(?<!...)` | Negative lookbehind |
-| `(?>...)` | Atomic group (no backtracking) |
-| `(?~...)` | Sub-expression |
-| `(?()|...|...)` | Conditional branching |
-| `(?~|...|...)` | Absent expression |
-| `(?~|...)` | Absent repeater |
-| `(?~...)` | Absent stopper |
-| `(?~|)` | Range clear |
+| Syntax                      | Description                       |
+| --------------------------- | --------------------------------- |
+| `(?#...)`                   | Comment                           |
+| `(?x-y:...)`<br>`(?x-y)...` | Mode modifier                     |
+| `(?:...)`                   | Non-capturing (passive) group     |
+| `(...)`                     | Capturing group (numbered from 1) |
+| `(?<name>...)`              | Named capturing group             |
+| `(?=...)`                   | Positive lookahead                |
+| `(?!...)`                   | Negative lookahead                |
+| `(?<=...)`                  | Positive lookbehind               |
+| `(?<!...)`                  | Negative lookbehind               |
+| `(?>...)`                   | Atomic group (no backtracking)    |
+| `(?~...)`                   | Sub-expression                    |
+| `(?()\|...\|...)`           | Conditional branching             |
+| `(?~\|...\|...)`            | Absent expression                 |
+| `(?~\|...)`                 | Absent repeater                   |
+| `(?~...)`                   | Absent stopper                    |
+| `(?~\|)`                    | Range clear                       |
 
 #### Backreferences and Calls
 
@@ -415,32 +412,30 @@ This syntax applies to the right hand side of the regex literal in compound rege
 
 #### Set operations
 
-<!-- prettier-ignore -->
-| Operator | Meaning |
-| :-: | --- |
-| `+` | Add an element |
-| `-` | Calculate difference of two sets |   
-| `--` | Remove an element |     
-| `&` | Calculate intersection of two sets |
-| `|` | Calculate union of two sets |
-| `^` | Calculate symmetric difference of two sets |
-| `<:` `<!` | Test for element presence |
+| Operator  | Meaning                                    |
+| :-------: | ------------------------------------------ |
+|    `+`    | Add an element                             |
+|    `-`    | Calculate difference of two sets           |
+|   `--`    | Remove an element                          |
+|    `&`    | Calculate intersection of two sets         |
+|   `\|`    | Calculate union of two sets                |
+|    `^`    | Calculate symmetric difference of two sets |
+| `<:` `<!` | Test for element presence                  |
 
 #### Map Operations
 
-<!-- prettier-ignore -->
-|Operator| Meaning|
-| :-: | --- |
-`.`|Access a property
-`?.`|Access a property; returns `nil` if property does not exist 
-`!.`|Access a property; throws if property does not exist
-|`.=` | Set (create or update) a property |
-|`.-`_`obj`_ | Remove a property |
-| `:<`  `!<`  | Test for key presence|
-`<:` `!<` | Test for value presence| 
-|`&`| Intersect two maps |
-|`|`| Unify two maps | 
-|`^`| Take the keywise symmetric difference of two maps |
+|  Operator   | Meaning                                                     |
+| :---------: | ----------------------------------------------------------- |
+|     `.`     | Access a property                                           |
+|    `?.`     | Access a property; returns `nil` if property does not exist |
+|    `!.`     | Access a property; throws if property does not exist        |
+|    `.=`     | Set (create or update) a property                           |
+| `.-`_`obj`_ | Remove a property                                           |
+|  `:<` `!<`  | Test for key presence                                       |
+|  `<:` `!<`  | Test for value presence                                     |
+|     `&`     | Intersect two maps                                          |
+|    `\|`     | Unify two maps                                              |
+|     `^`     | Take the keywise symmetric difference of two maps           |
 
 ## Operators
 
