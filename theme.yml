@@ -109,9 +109,7 @@ tokenColors:
   - scope: string
     settings:
       foreground: '#F6F6F5'
-  - scope:
-      string.unquoted.html, string.quoted.double, string.quoted.single.html,
-      constant.other.symbol, entity.other.inherited-class
+  - scope: string.unquoted.html, string.quoted.double, string.quoted.single.html, constant.other.symbol, entity.other.inherited-class
     settings:
       foreground: '#B3D667'
   - scope: string.quoted.single
@@ -120,9 +118,7 @@ tokenColors:
   - scope: support.variable.dom
     settings:
       foreground: '#59F2F7'
-  - scope:
-      variable.other.constant, variable.other.constant.object,
-      variable.other.constant.property
+  - scope: variable.other.constant, variable.other.constant.object, variable.other.constant.property
     settings:
       foreground: '#E9B684'
   - scope: constant.numeric
@@ -158,15 +154,10 @@ tokenColors:
   - scope: entity.name.tag
     settings:
       foreground: '#E76572'
-  - scope:
-      entity.other.attribute-name, entity.other.attribute-name.class.css,
-      string.quoted.double.json
+  - scope: entity.other.attribute-name, entity.other.attribute-name.class.css, string.quoted.double.json
     settings:
       foreground: '#EAB780'
-  - scope:
-      meta.tag.other, entity.name.tag.style, entity.name.tag.script,
-      meta.tag.block.script, source.embedded punctuation.definition.tag.html,
-      source.css.embedded punctuation.definition.tag.html
+  - scope: meta.tag.other, entity.name.tag.style, entity.name.tag.script, meta.tag.block.script, source.embedded punctuation.definition.tag.html, source.css.embedded punctuation.definition.tag.html
     settings:
       foreground: '#E26674'
   - scope: variable.language.this, variable.language.this, entity.name.type
@@ -175,20 +166,13 @@ tokenColors:
   - scope: entity.other.attribute-name.id.html
     settings:
       foreground: '#FFFA9E'
-  - scope:
-      entity.name.function, entity.name.function.method, entity.name.accessor,
-      entity.name.class
+  - scope: entity.name.function, entity.name.function.method, entity.name.accessor, entity.name.class
     settings:
       foreground: '#71B1FE'
   - scope: support.class.builtin, entity.name.type.class
     settings:
       foreground: '#FFFA9E'
-  - scope:
-      variable.parameter, constant.other.object.key, variable.other.readwrite,
-      punctuation.definition.parameters.begin,
-      punctuation.definition.parameters.end, meta.object-literal.key,
-      meta.array.literal, meta.brace.round, punctuation.definition.block,
-      meta.objectliteral
+  - scope: variable.parameter, constant.other.object.key, variable.other.readwrite, punctuation.definition.parameters.begin, punctuation.definition.parameters.end, meta.object-literal.key, meta.array.literal, meta.brace.round, punctuation.definition.block, meta.objectliteral
     settings:
       foreground: '#97A7C8'
   - scope: constant.language.boolean.false, constant.language.boolean.true
@@ -197,27 +181,19 @@ tokenColors:
   - scope: support.variable.property.dom, entity.name.type.new
     settings:
       foreground: '#E76572'
-  - scope:
-      punctuation.definition.tag.html, punctuation.definition.tag.begin,
-      punctuation.definition.tag.end
+  - scope: punctuation.definition.tag.html, punctuation.definition.tag.begin, punctuation.definition.tag.end
     settings:
       foreground: '#E26674'
-  - scope:
-      meta.tag string -source -punctuation, text source text meta.tag string
-      -punctuation
+  - scope: meta.tag string -source -punctuation, text source text meta.tag string -punctuation
     settings:
       foreground: '#82BAF2'
-  - scope:
-      punctuation.section.embedded -(source string source
-      punctuation.section.embedded), meta.brace.erb.html
+  - scope: punctuation.section.embedded -(source string source punctuation.section.embedded), meta.brace.erb.html
     settings:
       foreground: '#D0B344'
   - scope: meta.toc-list.id
     settings:
       foreground: '#88F2AF'
-  - scope:
-      string.quoted.double.html, punctuation.definition.string.begin.html,
-      punctuation.definition.string.end.html, string.quoted.double.handlebars
+  - scope: string.quoted.double.html, punctuation.definition.string.begin.html, punctuation.definition.string.end.html, string.quoted.double.handlebars
     settings:
       foreground: '#56A3B1'
   - scope: entity.other.attribute-name.id
@@ -232,9 +208,7 @@ tokenColors:
   - scope: constant.other.color.rgb-value.hex.css
     settings:
       foreground: '#4FF2F8'
-  - scope:
-      meta.property-group support.constant.property-value.css,
-      meta.property-value support.constant.property-value.css
+  - scope: meta.property-group support.constant.property-value.css, meta.property-value support.constant.property-value.css
     settings:
       foreground: '#85AC3A'
   - scope: support.function
@@ -246,10 +220,7 @@ tokenColors:
   - scope: support.type, support.class
     settings:
       foreground: '#4DB1D8'
-  - scope:
-      punctuation.definition.string, punctuation.definition.variable,
-      punctuation.definition.string, punctuation.definition.parameters,
-      punctuation.definition.string, punctuation.definition.array
+  - scope: punctuation.definition.string, punctuation.definition.variable, punctuation.definition.string, punctuation.definition.parameters, punctuation.definition.string, punctuation.definition.array
     settings:
       foreground: '#D8D8D8'
   - scope: none
@@ -629,9 +600,7 @@ tokenColors:
   - scope: string
     settings:
       foreground: '#F6F6F5'
-  - scope:
-      string.unquoted.html, string.quoted.double, string.quoted.single.html,
-      constant.other.symbol, entity.other.inherited-class
+  - scope: string.unquoted.html, string.quoted.double, string.quoted.single.html, constant.other.symbol, entity.other.inherited-class
     settings:
       foreground: '#B3D667'
   - scope: string.quoted.single
@@ -640,9 +609,7 @@ tokenColors:
   - scope: support.variable.dom
     settings:
       foreground: '#59F2F7'
-  - scope:
-      variable.other.constant, variable.other.constant.object,
-      variable.other.constant.property
+  - scope: variable.other.constant, variable.other.constant.object, variable.other.constant.property
     settings:
       foreground: '#E9B684'
   - scope: constant.numeric
@@ -678,15 +645,10 @@ tokenColors:
   - scope: entity.name.tag
     settings:
       foreground: '#E76572'
-  - scope:
-      entity.other.attribute-name, entity.other.attribute-name.class.css,
-      string.quoted.double.json
+  - scope: entity.other.attribute-name, entity.other.attribute-name.class.css, string.quoted.double.json
     settings:
       foreground: '#EAB780'
-  - scope:
-      meta.tag.other, entity.name.tag.style, entity.name.tag.script,
-      meta.tag.block.script, source.embedded punctuation.definition.tag.html,
-      source.css.embedded punctuation.definition.tag.html
+  - scope: meta.tag.other, entity.name.tag.style, entity.name.tag.script, meta.tag.block.script, source.embedded punctuation.definition.tag.html, source.css.embedded punctuation.definition.tag.html
     settings:
       foreground: '#E26674'
   - scope: variable.language.this, variable.language.this, entity.name.type
@@ -695,20 +657,13 @@ tokenColors:
   - scope: entity.other.attribute-name.id.html
     settings:
       foreground: '#FFFA9E'
-  - scope:
-      entity.name.function, entity.name.function.method, entity.name.accessor,
-      entity.name.class
+  - scope: entity.name.function, entity.name.function.method, entity.name.accessor, entity.name.class
     settings:
       foreground: '#71B1FE'
   - scope: support.class.builtin, entity.name.type.class
     settings:
       foreground: '#FFFA9E'
-  - scope:
-      variable.parameter, constant.other.object.key, variable.other.readwrite,
-      punctuation.definition.parameters.begin,
-      punctuation.definition.parameters.end, meta.object-literal.key,
-      meta.array.literal, meta.brace.round, punctuation.definition.block,
-      meta.objectliteral
+  - scope: variable.parameter, constant.other.object.key, variable.other.readwrite, punctuation.definition.parameters.begin, punctuation.definition.parameters.end, meta.object-literal.key, meta.array.literal, meta.brace.round, punctuation.definition.block, meta.objectliteral
     settings:
       foreground: '#97A7C8'
   - scope: constant.language.boolean.false, constant.language.boolean.true
@@ -717,27 +672,19 @@ tokenColors:
   - scope: support.variable.property.dom, entity.name.type.new
     settings:
       foreground: '#E76572'
-  - scope:
-      punctuation.definition.tag.html, punctuation.definition.tag.begin,
-      punctuation.definition.tag.end
+  - scope: punctuation.definition.tag.html, punctuation.definition.tag.begin, punctuation.definition.tag.end
     settings:
       foreground: '#E26674'
-  - scope:
-      meta.tag string -source -punctuation, text source text meta.tag string
-      -punctuation
+  - scope: meta.tag string -source -punctuation, text source text meta.tag string -punctuation
     settings:
       foreground: '#82BAF2'
-  - scope:
-      punctuation.section.embedded -(source string source
-      punctuation.section.embedded), meta.brace.erb.html
+  - scope: punctuation.section.embedded -(source string source punctuation.section.embedded), meta.brace.erb.html
     settings:
       foreground: '#D0B344'
   - scope: meta.toc-list.id
     settings:
       foreground: '#88F2AF'
-  - scope:
-      string.quoted.double.html, punctuation.definition.string.begin,
-      punctuation.definition.string.end, string.quoted.double.handlebars
+  - scope: string.quoted.double.html, punctuation.definition.string.begin, punctuation.definition.string.end, string.quoted.double.handlebars
     settings:
       foreground: '#56A3B1'
   - scope:
@@ -753,9 +700,7 @@ tokenColors:
   - scope: constant.other.color.rgb-value.hex.css
     settings:
       foreground: '#4FF2F8'
-  - scope:
-      meta.property-group support.constant.property-value.css,
-      meta.property-value support.constant.property-value.css
+  - scope: meta.property-group support.constant.property-value.css, meta.property-value support.constant.property-value.css
     settings:
       foreground: '#85AC3A'
   - scope: support.function
@@ -767,10 +712,7 @@ tokenColors:
   - scope: support.type, support.class
     settings:
       foreground: '#4DB1D8'
-  - scope:
-      punctuation.definition.string, punctuation.definition.variable,
-      punctuation.definition.string, punctuation.definition.parameters,
-      punctuation.definition.string, punctuation.definition.array
+  - scope: punctuation.definition.string, punctuation.definition.variable, punctuation.definition.string, punctuation.definition.parameters, punctuation.definition.string, punctuation.definition.array
     settings:
       foreground: '#D8D8D8'
   - scope: none
@@ -1293,7 +1235,7 @@ tokenColors:
       foreground: '#7274F4'
   - scope: punctuation.definition.comment
     settings:
-      foreground: '#6B7089'
+      foreground: '#676E95'
   - scope: punctuation.definition.tag
     settings:
       foreground: '#56B6C2'
@@ -1335,7 +1277,9 @@ tokenColors:
   - scope: punctuation.type
     settings:
       foreground: '#9F9FED'
-  - scope: keyword.operator.or
+  - scope:
+      - keyword.operator.or
+      - meta.match keyword.operator
     settings:
       foreground: '#4E94CE'
   - scope: variable.other.object
@@ -1386,7 +1330,7 @@ tokenColors:
       foreground: '#B7B784'
   - scope:
       - support.class.builtin
-      - keyword.operator.slice.exclusive
+      - keyword.operator.slice
       - variable.other.language
     settings:
       foreground: '#CADE59'
@@ -1394,7 +1338,7 @@ tokenColors:
       - meta.definition.property
       - meta.field.declaration
       - constant.other.object.key
-      - keyword.operator.slice.inclusive
+      - keyword.operator.slice
     settings:
       foreground: '#9EE37D'
   - scope:
@@ -1418,8 +1362,7 @@ tokenColors:
     settings:
       foreground: '#9AA5CE'
   - scope:
-      - keyword.other.this
-      - variable.language.this
+      - keyword.operator.optional.parameter.somra
     settings:
       foreground: '#1D9ABA'
   - scope: support.type.variant
@@ -1486,6 +1429,12 @@ tokenColors:
       - meta.do meta.brace.curly
     settings:
       foreground: '#7A82DA'
+  - scope:
+      - meta.parallel meta.brace.round
+      - meta.parallel meta.brace.square
+      - meta.parallel meta.brace.curly
+    settings:
+      foreground: '#A170C6'
   - scope: meta.var.expr
     settings:
       foreground: '#4CC9F0'
@@ -1534,8 +1483,10 @@ tokenColors:
       foreground: '#D19A66'
   - scope: comment.line.shebang
     settings:
-      foreground: '#E74C3C'
-  - scope: constant.language.access-type
+      foreground: '#EE3F4D'
+  - scope:
+      - constant.language.access-type
+      - constant.numeric.illegal
     settings:
       foreground: '#F1453D'
   - scope: constant.language.symbol-type
@@ -1544,7 +1495,9 @@ tokenColors:
   - scope: constant.other.description
     settings:
       foreground: '#9096A2'
-  - scope: constant.other.email.link.underline
+  - scope:
+      - constant.other.email.link.underline
+      - storage.type.format.somra
     settings:
       foreground: '#EDB54B'
   - scope: constant.other.caps
@@ -1562,10 +1515,10 @@ tokenColors:
       - constant.numeric.json
       - constant.int
       - constant.numeric.decimal
-      - constant.numeric.decimal
       - constant.numeric.dec
       - constant.numeric.integer
       - constant.numeric.bigint
+      - constant.character.escape.decimal
     settings:
       foreground: '#46AFE3'
   - scope:
@@ -1579,32 +1532,38 @@ tokenColors:
       - constant.numeric.binary
       - constant.numeric.bin
       - constant.freq.units
+      - constant.character.escape.binary
     settings:
       foreground: '#E3CF65'
   - scope:
       - constant.numeric.octal
       - constant.numeric.oct
       - constant.length.units
+      - constant.character.escape.octal
     settings:
       foreground: '#D8985F'
   - scope:
       - constant.numeric.hexadecimal
       - constant.numeric.hex
+      - constant.character.escape.hexadecimal
     settings:
       foreground: '#819AFF'
   - scope:
       - constant.numeric.quaternary
       - constant.numeric.qua
+      - constant.character.escape.quaternary
     settings:
       foreground: '#86BBD8'
   - scope:
       - constant.numeric.senary
       - constant.numeric.sen
+      - constant.character.escape.senary
     settings:
       foreground: '#E39695'
   - scope:
       - constant.numeric.duodecimal
       - constant.numeric.doz
+      - constant.character.escape.duodecimal
     settings:
       foreground: '#23C4B6'
   - scope:
@@ -1612,24 +1571,26 @@ tokenColors:
       - constant.language.boolean
       - constant.language.boolean.true
       - constant.percentage.units
+      - constant.character.escape.unicode
     settings:
       foreground: '#89CA78'
   - scope:
       - constant.language.boolean.false
-      - constant.language.boolean.false
+      - constant.character.escape.illegal
     settings:
       foreground: '#E07267'
   - scope:
       - constant.language.null
-      - constant.language.null
       - constant.language.nil
       - constant.resolution.units
+      - constant.character.escape.symbol
     settings:
       foreground: '#EE64AC'
   - scope:
       - constant.language.undefined
       - constant.language.merge
       - constant.time.units
+      - constant.character.all
     settings:
       foreground: '#B877DB'
   - scope:
@@ -1644,6 +1605,9 @@ tokenColors:
       - support.constant.property-value.css
     settings:
       foreground: '#1ABC9C'
+  - scope: constant.other.character-class
+    settings:
+      foreground: '#E373CE'
   - scope: constant.other.character-class
     settings:
       foreground: '#1ADEBA'
@@ -1674,21 +1638,9 @@ tokenColors:
   - scope: constant.character.escape.unicode.name
     settings:
       foreground: '#3BB273'
-  - scope: constant.character.escape.octal
-    settings:
-      foreground: '#CF7D34'
-  - scope: constant.character.escape.hex
-    settings:
-      foreground: '#C651E5'
-  - scope: constant.character.escape.unicode
-    settings:
-      foreground: '#5294E2'
-  - scope: constant.character.escape.decimal
-    settings:
-      foreground: '#3FC4DE'
   - scope: constant.character.escape.newline
     settings:
-      foreground: '#17C984'
+      foreground: '#40C8AE'
   - scope: constant.character.escape
     settings:
       foreground: '#21BFC2'
@@ -1697,9 +1649,6 @@ tokenColors:
       - constant.character.escape.double-quoted.newline
     settings:
       foreground: '#E06C75'
-  - scope: constant.other.character-class
-    settings:
-      foreground: '#E373CE'
   - scope: constant.other.character-class.range
     settings:
       foreground: '#C2D94C'
@@ -1734,7 +1683,7 @@ tokenColors:
       - string.quasi
       - string.quoted.raw
     settings:
-      foreground: '#ABE4BB'
+      foreground: '#29D398'
   - scope: string.quoted.double
     settings:
       foreground: '#B3D667'
@@ -1771,15 +1720,18 @@ tokenColors:
       - storage.type.function.arrow
       - storage.type.function.arrow
     settings:
-      foreground: '#FFC501'
+      foreground: '#FCC04F'
   - scope:
-      - keyword.control.conditional
       - keyword.control.conditional
       - keyword.control.if
       - keyword.control.elseif
       - keyword.control.else
     settings:
       foreground: '#E4B227'
+  - scope:
+      - keyword.control.parallel
+    settings:
+      foreground: '#C57BDB'
   - scope:
       - keyword.control.loop
       - keyword.control.for
@@ -1788,13 +1740,18 @@ tokenColors:
       foreground: '#21BFC2'
   - scope:
       - keyword.control.switch
-      - keyword.control.switch
       - keyword.control.case
       - keyword.control.default
     settings:
       foreground: '#35BA66'
   - scope:
       - keyword.control.trycatch
+      - keyword.control.try
+      - keyword.control.catch
+      - keyword.control.finally
+    settings:
+      foreground: '#E66255'
+  - scope:
       - keyword.control.trycatch
       - keyword.control.try
       - keyword.control.catch
@@ -1860,24 +1817,6 @@ tokenColors:
       - keyword.other.assert
     settings:
       foreground: '#A786DA'
-  - scope: keyword.control.anchor
-    settings:
-      foreground: '#6DBDFA'
-  - scope: keyword.other.back-reference
-    settings:
-      foreground: '#829AEE'
-  - scope: keyword.other.logical
-    settings:
-      foreground: '#4CC9F0'
-  - scope: keyword.operator.quantifier
-    settings:
-      foreground: '#43AA8B'
-  - scope: keyword.control.or
-    settings:
-      foreground: '#59F2F7'
-  - scope: keyword.operator.negation
-    settings:
-      foreground: '#83ACFF'
   - scope:
       - keyword.operator.cascade
     settings:
@@ -1923,7 +1862,9 @@ tokenColors:
   - scope: keyword.operator.comparison
     settings:
       foreground: '#D2945D'
-  - scope: keyword.control.range
+  - scope:
+      - keyword.operator.range
+      - keyword.operator.expression.range
     settings:
       foreground: '#4DB1D8'
   - scope: keyword.operator.logical
@@ -1988,6 +1929,42 @@ tokenColors:
   - scope: keyword.operator.modifier.greedy
     settings:
       foreground: '#9F86C0'
+  - scope: keyword.operator.quantifier
+    settings:
+      foreground: '#5AD2A0'
+  - scope: keyword.operator.prefix
+    settings:
+      foreground: '#CD9731'
+  - scope: keyword.operator.suffix
+    settings:
+      foreground: '#CE9178'
+  - scope: keyword.operator.infix
+    settings:
+      foreground: '#8693A5'
+  - scope: keyword.control.begin
+    settings:
+      foreground: '#8F9D6A'
+  - scope: keyword.control.end
+    settings:
+      foreground: '#578BB3'
+  - scope: keyword.control.anchor
+    settings:
+      foreground: '#35AD68'
+  - scope: keyword.other.back-reference
+    settings:
+      foreground: '#829AEE'
+  - scope: keyword.other.logical
+    settings:
+      foreground: '#4CC9F0'
+  - scope: keyword.operator.function
+    settings:
+      foreground: '#43AA8B'
+  - scope: keyword.control.disjunction
+    settings:
+      foreground: '#59F2F7'
+  - scope: keyword.operator.negation
+    settings:
+      foreground: '#83ACFF'
   - scope: keyword.operator.crement
     settings:
       foreground: '#EECA56'
@@ -2004,6 +1981,7 @@ tokenColors:
       foreground: '#E9F818'
   - scope:
       - keyword.operator.new
+      - keyword.operator.expression.new
       - keyword.control.new
     settings:
       foreground: '#DB7F8E'
@@ -2014,7 +1992,7 @@ tokenColors:
       - keyword.operator.type
       - meta.identifier.css
     settings:
-      foreground: '#59A5D8'
+      foreground: '#99A7E2'
   - scope: keyword.operator.type.modifier
     settings:
       foreground: '#21C7A8'
@@ -2023,9 +2001,9 @@ tokenColors:
       - support.constant.color.w3c-standard-color-name.css
     settings:
       foreground: '#22DA6E'
-  - scope: keyword.operator.type.modifier
+  - scope: keyword.operator.regexp
     settings:
-      foreground: '#BB9AF7'
+      foreground: '#219FD5'
   - scope: keyword.operator.existential
     settings:
       foreground: '#FD4C87'
@@ -2036,7 +2014,6 @@ tokenColors:
       foreground: '#F9D367'
   - scope:
       - keyword.operator.range
-      - keyword.operator.expression.range
     settings:
       foreground: '#9BC53D'
   - scope:
@@ -2047,8 +2024,7 @@ tokenColors:
     settings:
       foreground: '#BAE67E'
   - scope:
-      - keyword.operator.expression.forall
-      - keyword.operator.forall
+      - keyword.control.forall
     settings:
       foreground: '#F4A066'
   - scope:
@@ -2076,10 +2052,14 @@ tokenColors:
       - keyword.operator.infer
     settings:
       foreground: '#DDBB88'
-  - scope: keyword.operator.sizeof
+  - scope:
+      - keyword.operator.expression.sizeof
+      - keyword.operator.sizeof
     settings:
       foreground: '#04D895'
-  - scope: keyword.operator.length
+  - scope:
+      - keyword.operator.expression.length
+      - keyword.operator.length
     settings:
       foreground: '#E57EB3'
   - scope:
@@ -2499,7 +2479,7 @@ tokenColors:
       - entity.name.function.r
       - entity.name.function.method.r
     settings:
-      foreground: '#449DAB'
+      foreground: '#57ADB8'
   - scope:
       - entity.name.function.s
       - entity.name.function.method.s
@@ -2529,7 +2509,7 @@ tokenColors:
       - entity.name.function.x
       - entity.name.function.method.x
     settings:
-      foreground: '#B267E6'
+      foreground: '#C576BB'
   - scope:
       - entity.name.function.y
       - entity.name.function.method.y
@@ -2672,9 +2652,8 @@ tokenColors:
       foreground: '#A599E9'
   - scope:
       - support.function.mutator
-      - support.function.mutator
     settings:
-      foreground: '#219EBC'
+      foreground: '#09CBDD'
   - scope: support.type.builtin.primitive
     settings:
       foreground: '#98C378'
@@ -2689,7 +2668,10 @@ tokenColors:
   - scope:
       - support.type.builtin
     settings:
-      foreground: '#53BDFA'
+      foreground: '#40A6FF'
+  - scope: support.type.class
+    settings:
+      foreground: '#6796E6'
   - scope: support.constant.math
     settings:
       foreground: '#608B4E'
@@ -2934,7 +2916,6 @@ tokenColors:
       - keyword.operator.extends
       - keyword.operator.sizeof
       - keyword.operator.length
-      - keyword.operator.forall
       - keyword.operator.expression
       - entity.other.attribute-name
     settings:
@@ -2943,44 +2924,44 @@ tokenColors:
       - markup.bold
       - markup.bold.markdown
     settings:
-      foreground: '#04D895'
       fontStyle: bold
+      foreground: '#04D895'
   - scope:
       - markup.italic
       - markup.italic.markdown
     settings:
-      foreground: '#E57EB3'
       fontStyle: italic
+      foreground: '#E57EB3'
   - scope:
       - markup.underline
       - markup.underline.markdown
     settings:
-      foreground: '#37B5B4'
       fontStyle: underline
+      foreground: '#37B5B4'
   - scope:
       - markup.bold markup.italic
       - markup.italic markup.bold
       - markup.bold.markdown markup.italic.markdown
       - markup.italic.markdown markup.bold.markdown
     settings:
-      foreground: '#D9993B'
       fontStyle: bold italic
+      foreground: '#D9993B'
   - scope:
       - markup.bold markup.underline
       - markup.underline markup.bold
       - markup.bold.markdown markup.underline.markdown
       - markup.underline.markdown markup.bold.markdown
     settings:
-      foreground: '#E75A52'
       fontStyle: bold underline
+      foreground: '#E75A52'
   - scope:
       - markup.italic markup.underline
       - markup.underline markup.italic
       - markup.italic.markdown markup.underline.markdown
       - markup.underline.markdown markup.italic.markdown
     settings:
-      foreground: '#2DA8D6'
       fontStyle: italic underline
+      foreground: '#2DA8D6'
   - scope:
       - markup.bold markup.italic markup.underline
       - markup.italic markup.bold markup.underline
@@ -2995,188 +2976,53 @@ tokenColors:
       - markup.bold.markdown markup.underline.markdown markup.italic.markdown
       - markup.italic.markdown markup.underline.markdown markup.bold.markdown
     settings:
-      foreground: '#EDB935'
       fontStyle: bold italic underline
+      foreground: '#EDB935'
   - scope: source.json support.type.property-name.json
     settings:
       foreground: '#7AA2F7'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#0DB9D7'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#7DCFFF'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#BB9AF7'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: '#E0AF68'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+      foreground: '#D7BA7D'
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#73DACA'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#F7768E'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#9ECE6A'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: '#FFE957'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+      foreground: '#FAE994'
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
-      foreground: '#E1AF4B'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+      foreground: '#F29668'
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#70F49C'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#A887E3'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#39CA74'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#BF9277'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#B6BCC4'
-  - scope:
-      source.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json meta.structure.dictionary.json
-      meta.structure.dictionary.value.json support.type.property-name.json
+  - scope: source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json support.type.property-name.json
     settings:
       foreground: '#FA9D99'
