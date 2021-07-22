@@ -2362,13 +2362,13 @@ repository:
             # not(of|in)?|(is)no?t)#8-11
           )\b
         captures:
-          1: {name: keyword.operator.$1.somra}
-          2: {name: keyword.operator.sizeof.somra}
-          3: {name: keyword.operator.length.somra}
-          4: {name: keyword.operator.delete.somra}
-          5: {name: keyword.operator.instanceof.somra}
-          6: {name: keyword.control.range.somra}
-          7: {name: keyword.control.then.somra}
+          1: {name: keyword.operator.expression.$1.somra}
+          2: {name: keyword.operator.expression.sizeof.somra}
+          3: {name: keyword.operator.expression.length.somra}
+          4: {name: keyword.operator.expression.delete.somra}
+          5: {name: keyword.operator.expression.instanceof.somra}
+          6: {name: keyword.control.expression.range.somra}
+          7: {name: keyword.control.expression.then.somra}
           8: {name: keyword.other.logical.somra}
           9: {name: keyword.operator.$9.somra}
           10: {name: keyword.operator.instanceof.somra}
@@ -3293,7 +3293,7 @@ repository:
             match: |-
               (?x)(?<=^|\p{Ps}|\p{Z})(?:
                 ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>])=) #1
-                |(\+\+|--) #2
+                |(\+\++|--+) #2
                 |(\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*) #3
                 |(&&|\|\||\^\^|\\/|/\\) #4
                 |([&^]|\|(?!>)|~(?![!=<>])) #5
@@ -3306,7 +3306,7 @@ repository:
                 |(\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
                 |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
                 |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
-                |(=<|</?>) #24
+                |(=<|<[/*+]?>) #24
               )(?=$|\p{Pe}|\p{Z})
             name: keyword.operator.builtin.somra
             captures:
@@ -3921,7 +3921,8 @@ repository:
   regexp-patterns:
     patterns:
       - include: '#quasi-embedded'
-      - match: (?<!\\)(\#).*$\n?
+      - include: '#comments'
+      - match: (?<!\\)(\//).*$\n?
         name: comment.line.shebang.somra
         captures:
           1: {name: punctuation.definition.comment.somra}
@@ -4136,8 +4137,6 @@ repository:
           1: {name: keyword.operator.quantifier.lazy.somra}
           2: {name: keyword.operator.quantifier.eager.somra}
           3: {name: keyword.operator.quantifier.greedy.somra}
-      - include: '#number'
-      - include: '#comments'
     repository:
       regex-character-class:
         patterns:
@@ -4314,8 +4313,8 @@ repository:
         endCaptures:
           1: {name: meta.brace.square.somra}
         patterns:
-          - match: ;
-            name: punctuation.separator.slice.somra
+          - match: \s*:(?![:=])\s*
+            name: keyword.operator.slice.somra
           - include: '#object'
           - include: '#core'
       - begin: \s*+(\[)
@@ -4325,8 +4324,8 @@ repository:
         endCaptures:
           1: {name: meta.brace.square.somra}
         patterns:
-          - match: ;
-            name: punctuation.separator.slice.somra
+          - match: \s*:(?![:=])\s*
+            name: keyword.operator.slice.somra
           - include: '#object'
           - include: '#core'
   string:
@@ -5258,7 +5257,7 @@ repository:
       - include: '#regexp-multiline'
       - match: (?<![\#\.])\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+
         captures:
-          1: {name: keyword.operator.$1.somra}
+          1: {name: keyword.operator.expression.$1.somra}
       - include: '#language-constant'
       - comment: primitive tss
         match: (?i)(?<![\#\.])\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
