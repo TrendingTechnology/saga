@@ -37,14 +37,12 @@ Somra is going to be a big project, and there's so many things that would need t
 
 - [ ] Documentation (this document)
 - [ ] Language reference
-- [ ] Syntax highlighting (need to touch up, see `grammar.yml`)
-  - Fix some minor errors with end of line semicolons and variable type declarations
-- [ ] A theme (see `theme.yml`)
+- [ ] Syntax highlighting and theme
 - [ ] Parser and compiler
-- [ ] _Nyxus_ the package manager
-- [ ] Standard Library (Python StdLib &rArr; JS)
-- [ ] VSCode and Atom editor support
-- [ ] Website and logo
+- [ ] Package manager
+- [ ] Standard library
+- [ ] Editor support for VS Code and more
+- [ ] Logo and online documentation website
 
 \*Backus-Naur Form (BNF): https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 
@@ -54,7 +52,7 @@ Somra is a language designed for hackability and scalability. Use it for whateve
 
 > _**Disclaimer**: This language serves as a quick and informative guide for existing JavaScript developers, or also as a cheat sheet to all the language features of Somra. Should you feel something is not right and needs to be corrected, feel free to make a pull request. Currently not taking issues at the moment, I'm only a single person._
 
-> _**Trivia**: This language was previously named "Sombra", as in the Overwatch character ("shadow" in Spanish). All releases are based on the surnames of Overwatch characters, starting with R:Amari._
+> _**Trivia**: This language was previously named "Sombra", as in the Overwatch character ("shadow" in Spanish). All releases are based on the surnames of Overwatch characters, beginning with R:Amari (Ana)._
 
 ### Installation and Architecture
 
@@ -162,7 +160,7 @@ Everything is an expression, period. Even JSX, CSS, type declarations, interface
 
 ```so
 def mymethod(x: int): str = if (x > 2) "yay!" else "too low!"
-var x = type for all [x, y] as [int, int] where x + y < 5;
+var x = type for all x as int, y as int where x + y < 5
 ```
 
 Statements and expressions are never distinguished, and all blocks, delimited in between curly brackets, automatically return their last statement unless there is one.
@@ -201,9 +199,9 @@ double x = x * 2
 All variables are block scoped, meaning they can be accessed on the same scope and inner scopes. Scopes are grouped by curly braces which delimit blocks.
 
 ```so
-var message = do {
-  var part1 = "hello"
-  var part2 = "world"
+let message = do {
+  let part1 = "hello"
+  let part2 = "world"
   part1 ++ " " ++ part2
 }
 // part1 and part2 are not accessible from the outside!
@@ -213,7 +211,7 @@ Statements in control expressions, functions and other closures all use the same
 
 ```so
 if displayGreeting {
-  var message = 'Enjoying the docs so far?'
+  let message = 'Enjoying the docs so far?'
   print(message)
 }
 // `message` not accessible here!
@@ -245,9 +243,9 @@ x = 2 // Error - x cannot be reassigned
 **Mutable** means you can change the underlying value in-place once you declare it.
 
 ```so
-var x = new JSArray([1])
+var x = [1]
 x.push(1) // [1, 1]
-val x = new JSArray([])
+val x = []
 x.push(1) // Error - x cannot be modified in-place
 ```
 
@@ -270,29 +268,31 @@ All variables have the same type throughout its lifetime. A value binding with t
 dyn var x: int = 1 + 1
 var x: any = 1 + 1
 x = str(x) // x is now of type 'str'
-x: (int | str) # = 10
+x: int | str ++= 10
 var x: int | str = 10 // 'int' or 'str'
 x = str(x) ++ '10' // x is now of type 'str'
 ```
 
 #### Regular identifiers
 
-Regular identifiers start with an alphabetic Unicode character, underscore `_` or a backslash `\`. Further characters can also include combining character marks which are Unicode normalized, followed by by
-
-For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
+Identifiers in Somra begin with a letter, backslash or underscore. Further characters can also contain numbers. For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
 
 ```so
 var _set\\_() = 10
 ```
 
-Identifiers in Somra begin with a letter, backslash, dash or underscore. Further characters can contain numbers. Somra has tons of keywords, shown below, so a hash sign is used to suppress their meaning. This is known as _stropping_. Properties, beginning with `.` automatically are stropped.
+Somra has tons of keywords, shown below, so a hash sign is used to suppress their meaning. This is known as _stropping_.
 
 ```
 in of as void to til by new len del is size typeof nameof keyof sizeof infer if then else elif eless unless guard for while until repeat switch case def match when pass try throw raise catch rescue finally with as use from import export out goto label await return fallthru yield halt skip break continue query where join equals into order group fold scan take drop select
 
 const let var val con fn fun func macro proc decl class data enum extend frag given inter module nspace object raw record style struct trait
+```
 
-// Modifiers (prefixed after a declaration):
+Modifiers prefix a declaration, such as a function, variable or class.
+
+```
+// Modifiers (prefix a declaration):
 pub prot pvt ronly intl extl over abs stat dyn vol sync async immut mut part seal final dele ref tran impl expl ext sign safe check size unsign unsafe uncheck unsize rec gen inline prefix infix suffix unary binary ternary nary get set prev next lock fixed laxy eager greedy unique handle
 ```
 
@@ -300,7 +300,7 @@ pub prot pvt ronly intl extl over abs stat dyn vol sync async immut mut part sea
 var #var = 'Happy stropping'
 var #type = type [int, int]
 
-let #object = new #type(int := 9)
+let #object = new #type(&int = 9)
 assert #object is #type
 assert #object.int == 9
 
@@ -321,8 +321,8 @@ Two identifiers are considered equal if the following algorithm returns true:
 
 ```so
 def identEqual(a: str, b: str): bool = a[0] == b[0] &&
-  (a[1..] =< (/(\p{S|P})//g)).lower() ==
-  (b[1..] =< (/(\p{S|P})//g)).lower()
+  (a[1..] =< /[\pS\pP]/ /g).lower ==
+  (b[1..] =< /[\pS\pP]/ /g).lower
 ```
 
 That means only the first letters are compared in a case-sensitive manner. Other letters are compared case-insentitively, ignoring any delimiters. This rather unorthodox way to do identifier comparisons is called _partial case-insensitivity_ and has some advantages over the conventional:
@@ -335,24 +335,23 @@ This rule does not apply to quoted identifiers (`#""`) which are case-insensitiv
 
 ## Literals
 
-Somra comes with a number of built-in primitive types and data structures, which represent the lowest level of the language. Primitives are immutable and have a special "literal" syntax, and are divided into two main types: _scalar_ (single values) or _vector_ (multiple values grouped together in some way).
-
-The initial value of untyped variables is by default `nil`, or one of the following for those declared with types. Default values fall back to `false` when converted into booleans, including `nil` and the special numeric constant `nan`.
+Somra comes with familiar primitive types such as `str`, `int`, `float`, etc. They are initialized to a default value which yields `false` when converted into booleans.
 
 | Type | Default Value | Description | JavaScript equivalent (class) |
 | --- | --- | --- | --- |
-| `nil` | `nil` | A singular value | `undefined` |
-| `bool` | `false` | A binary value | `Boolean` |
-| `int`, `char` | `0`, ` char`` ` | An arbitrary-precision integer | `BigInt` |
-| `float` | `0.` | A 64-bit floating point | `Number` |
-| `str` | `''`, `""`, ` `` ` | A string | `String` |
-| `regex` | `/ /` | A regular expression | `RegExp` |
-| `func` | `() => ()` | A function | `Function` |
-| `seq` | `#()` | An infinite sequence | `Generator` |
-| `bits` | ` bits`` ` | A bit stream | `Buffer` |
-| `list` | `#[]` | An immutable list or array | `Array` |
-| `set` | `#{}` | An immutable set | `Set` |
-| `map` | `#{:}` | A dictionary | `Object`, `Map` |
+| `nil` | `nil` | The constant `nil` | `undefined` |
+| `bool` | `false` | A boolean value | `Boolean` |
+| `int` | `0` | 32-bit integer | `Number` |
+| `float` | `0.` | 64-bit floating point | `Number` |
+| `char` | `'\0'` | 16-bit character | `String` |
+| `str` | `''` `""` ` `` ` | String | `String` |
+| `regex` | `/ /` | Regular expression | `RegExp` |
+| `func` | `() => ()` | Function | `Function` |
+| `seq` | `#()` | Generator sequence | `Generator` |
+| `bits` | ` bits`` ` | Bit stream | `Buffer` |
+| `list` | `#[]` | List | `Array` |
+| `set` | `#{}` | Set | `Set` |
+| `map` | `#{:}` | Hash map or dictionary | `Object`, `Map` |
 
 ### Nil and Undefined
 
@@ -360,404 +359,278 @@ An empty value is of type `nil` and is composed of a single value. Nil can eithe
 
 ```so
 nil
-() '\d'
+()
 ```
+
+Common operations are:
+
+|     Operator      | Meaning                  |
+| :---------------: | ------------------------ |
+|    _`expr`_`?`    | Checks if a value is nil |
+|       `??`        | Nil coalescing           |
+|       `!?`        | Non-nil coalescing       |
+|       `?.`        | Optional chaining        |
+| _`expr`_`!`, `!.` | Assertion                |
 
 ### Booleans
 
-A boolean has the type `bool` and can be either `true` or `false`, and are primarily used in control flow statements such as `if`, `for` and more.
+A boolean has the type `bool` and can be either `true` or `false`, and are primarily used in control flow statements such as `if`, `while` and more.
 
 ```so
 bool('1') // true
-!!'1' // true
-!!'' // false
+!(!'1') // true
+!(!'') // false
 ```
+
+Common operations are:
+
+<!-- prettier-ignore -->
+| Operator | Meaning |
+| :-: | --- |
+| `!`_`expr`_ | Inverts a boolean value |
+| `&&`, `/\` | Logical and |
+| `!:` | Short-circuit logical and |
+| `||`, `\/` | Logical or |
+| `?:` | Short-circuit logical or |
+| `^^` | Logical xor |
 
 ### Numbers
 
-Numerical constants are of a single type and start with a decimal digit `Nd`, or a dot followed by a digit. Numeric literals can be one of the following forms:
+Numerical constants are of a single type and begin with a decimal digit, or a dot followed by one. Even though Somra supports the _full set of numbers_ in the core language, two types are used a lot they are worth mentioning: **integers** (signed or unsigned) and **floating points**. Integers and floating points are distinguished by the decimal point.
 
-- No prefix: `1`, `.01`,
-- `0` prefix: `0xFF`, `0b01_00`, `0z0X0Zp1`, and so on
-<!-- - Prefix of the form `xb`, where 2 &le; `x` &le; 36: `2b101`, `16b40` (_to be implemented_) -->
+```so
+let int: int = 123
+let float: float = 0x.1
+```
 
-There are only two numeric types in Somra: **integers** `int` and 64-bit **floating points** `float`. Integers compile to JavaScript's `bigint` while floating points compile to regular JavaScript `number`s.
+Both integers and floats compile to JavaScript numbers, with type assertions such as `~~`, `| 0`, `+` and `>>> 0`.
 
-A leading or trailing `+` or `-` is not considered part of the literal, however `.` is. All numeric literals are case-insensitive, and underscores in numeric literals are tolerated, except immediately after the decimal point or modifiers (shown in the next table below).
+All numeric literals are case-insensitive, and can include leading zeroes and underscores which are removed. Exponents are always delimited with **`p`**, not `e`, so to maintain consistent across different bases. Floating-point precision is controlled with `s`.
 
-There are six prefixed numeric literals for the even bases up to 16 but not including 14:
+Different radix literals can be created using prefixes `0x`, `0o`, `0b`, `0s`, `0q`, `0z`:
 
-| Base | Prefix | Digits |
-| --- | --- | --- |
-| 2 (Binary) | `0b` | `0` and `1` |
-| 4 (Quaternary) | `0q` | `0` to `3` |
-| 6 (Senary) | `0s` | `0` to `5` |
-| 8 (Octal) | `0o` | `0` to `7` |
-| 10 (Decimal) | none | `0` to `9` |
-| 12 (Duodecimal) | `0z` | `0` to `9`, then `A`/`T`/`X` as 10 and `B`/`E`/`Z` as 11\* |
-| 16 (Hexadecimal) | `0x` | `0` to `9` then `A` to `F` |
+```so
+let base2 = 0b101010111100000100100011
+let base4 = 0q320210213202
+let base6 = 0s125423
+let base8 = 0o52740443
+let base10 = 11256099
+let base12 = 0z10a37b547ab97
+let base16 = 0xabcdef123
+```
 
-[duodecimal notation]: https://en.wikipedia.org/wiki/Duodecimal#Transdecimal_symbols
+Common operations include:
 
-\*The reason why so many letters represent digits 10 to 12 in duodecimal is to be in line with [ASCII notations][duodecimal notation] for duodecimal digits.
+|  Operator   | Meaning                                                  |
+| :---------: | -------------------------------------------------------- |
+|     `+`     | Add                                                      |
+| `+`_`expr`_ | Convert to a number                                      |
+|     `–`     | Subtract                                                 |
+| `-`_`expr`_ | Negate (reverse the sign of the expression)              |
+|     `*`     | Multiply                                                 |
+|     `/`     | Divide                                                   |
+|    `~/`     | Divide, returning an integer result                      |
+|    `**`     | Exponentiate                                             |
+|    `***`    | Exponentiate, returning an integer result                |
+|     `%`     | Signed remainder (sign depends on dividend)              |
+|    `%%`     | Mathematical modulo (result is between `0` and dividend) |
 
-Numeric literals can have optional modifiers, in this order:
+`a %% b` compiles to `((a % b) + b) % b`.
 
-| Modifier suffix | Digits | Meaning |
-| --- | --- | --- |
-| `r` | Corresponding base | Indicates a repeating block of digits |
-| `p` | `0-9` | Indicates an exponent. Can have an optional `+`/`-` sign: `p+34`. |
-| `s` | `0-9` | Formats a number with the specified number of digits after the point |
-| `k` | `a-z` or `0-9` | Type suffix used to indicate the resultant data type |
+You can manipulate the individual bits of numbers in Somra. Bitwise and shift operators work only with integers.
 
-Modifiers after the `k` can be in these specified combinations:
-
-| Type suffix | Meaning |
+<!-- prettier-ignore -->
+| Operator | Meaning |
 | :-: | --- |
-| `b`, `ub`, `i8`, `u8` | 8-bit (un)signed integer |
-| `s`, `us`, `i16`, `u16` | 16-bit (un)signed integer |
-| `i`, `ui`, `i32`, `u32` | 32-bit (un)signed integer `int32` |
-| `l`, `ul`, `i64`, `u64` | 64-bit (un)signed integer |
-| `c`, `uc`, `i128`, `128` | 128-bit (un)signed integer |
-| `h`, `f16` | 16-bit floating point |
-| `f`, `f32` | 32-bit floating point |
-| `d`, `f64` | 64-bit floating point |
-| `m`, `f128` | 128-bit floating point |
-| `n` | natural number &Nopf; |
-| `z` | integer (`int`) &Zopf; |
-| `q` | rational number `q` &Qopf; |
-| `r` | irrational number `r` &Ropf; |
-| `a` | algebraic irrational number `a` &Aopf;<sub>&Ropf;</sub> |
-| `j` | complex number `a` &Copf; |
-
-- An optional `u` parameter to indicate the literal is unsigned:
-  - `b` (`byte` or `sbyte`), an 8-bit integer,
-  - `s` (`short` or `ushort`), a 16-bit integer,
-  - `i` (`int` or `uint`), a 32-bit integer,
-  - `l` (`long` or `ulong`), a 64-bit integer,
-  - `c` (`cent` or `ucent`), a 128-bit integer;
-- One of the following letters to indicate floating point numbers:
-  - `h` (`half`), a 16-bit floating point number,
-  - `f` (`float`), a 32-bit floating point number,
-  - `d` (`double`), a 64-bit floating point number,
-  - `m` (`decimal`), a 128-bit floating point number.
-- An optional `j` modifier to indicate the literal is complex:
-  - `n` (natural) to represent all natural numbers.
-  - `i` (integer) to represent all integers,
-  - `f` (fraction) to represent all rational numbers.
-  - `r` (real) to represent all real numbers.
-  - `a` (algebraic) to represent all algebraic irrational numbers.
-  - `j` (imaginary) to represent all complex numbers.
+| `&` | And |
+| `|` | Or |
+| `^` | Xor |
+| `~`_`expr`_ | Not |
+| `>>` | Right shift |
+| `<<` | Left shift  |
 
 ### Strings
 
-String literals can be delimited by matching single or double quotes.
+String literals can be delimited by matching single or double quotes. Strings compile to their equivalent in JavaScript, though with notable differences.
 
 ```so
 let greeting = 'Hello World!'
 let dialog = "I said, \"Can you hear me?\""
 ```
 
-and can contain the following escape sequences, beginning with a backslash:
+#### Escape Sequences
 
-| Escape Sequence | Meaning |
-| --- | --- |
-| `\p` | platform specific newline: CRLF on Windows, LF on Unix |
-| `\r`, `\c` | carriage return |
-| `\n`, `\l` | line feed (often called newline) |
-| `\f` | form feed |
-| `\t` | tabulator |
-| `\v` | vertical tabulator |
-| `\d{d}` | character with decimal code point vlue `d` |
-| `\d` | character with decimal value `d`; all decimal digits are used for the character |
-| `\a` | alert |
-| `\b` | backspace |
-| `\e` | escape [ESC] |
-| `\z` | null character |
-| `\o{o}` | character with octal value `0` |
-| `\xHH` | character with hex value `HH`; exactly two hex digits are allowed |
-| `\uHHHH` | Unicode codepoint with hex value `HHHH`; exactly four hex digits are allowed |
-| `\[ux]{h}` | Unicode codepoint `h` |
-| `\N{name}` | A named Unicode character with name `name`. |
-| `\h{name}` | A named HTML alphanumeric character entity, such as `THORN`. |
-
-A backslash followed by a `u` denotes a unicode codepoint. It can either be followed by exactly four hexadecimal characters representing the unicode bytes (`\u0000` to `\uFFFF`) or a number of one to six hexadecimal characters wrapped in curly braces (`\u{0}` to` \u{10FFFF}`).
-
-Other radixes include decimals, which can be followed by up to 7 digits, or octal which can be followed by up to 8 digits, both within curly brackets. Escapes can also start with a string of decimal digits, where all the digits are used for the code point.
+All escape sequences begin with a backslash, and any character can be escaped, including the backslash, so `\'` is interpreted as `'` and `\\` as `\`. Some characters such as `\n`, `\r`, `\t`, `\v`, `\f`, `\a`, `\e`, begin with a letter or a number, to indicate Unicode code points.
 
 ```so
 "\d{1114111}" == "\1114111" == "\o{4177777}"
 ```
 
-One curly brace can contain multiple Unicode code points each separated by a whitespace.
+Somra supports escapes in many bases without curly brackets. The same escapes with curly brackets allow you to insert many code points inside, with each character or code unit separated by spaces for a more compact notation.
 
 ```so
-"\u{48 45 4C 4C 4F}" // "HELLO"
+// "HELLO"
+"\u48\u45\u4c\u4c\u4f" == "\u{48 45 4c 4c 4f}"
+"\d{72 69 76 76 69}" == "\72\69\76\76\79"
 ```
 
-Any escape sequence where the second character is a symbol or punctuation mark such as `\'` is interpreted as the character itself, so `\[` is the same as simply writing `[`, and `\\` is the same as `\`.
+Backslashes are used very frequently in regular expressions too. The escapes `\n`, `\r`, `\t`, `\v`, `\f`, and even backslash-symbol/punctuation escapes, mean the same thing inside regular expressions.
 
-## Regular expressions
+#### String Interpolation and Formatting
 
-Somra has two forms of regex literals, one delimited between slashes `x/r/g` and another multiline form delimited between slashes and angle brackets `x/>a</s`. Both regex syntaxes allow interpolation, but multiline regexes allow free spacing, traditional line and block comments.
+`$` begins an interpolation sequence, prefixing a `$variable` or `${expression}`, the latter enclosed in curly brackets. Variable/expression references can also be followed by a `printf`-style format string like `%d`.
 
-Somra's regular expression engine is back-compatible with JavaScript regexes, though many of its features are based heavily on other regex flavors such as Perl, Ruby (Oniguruma), Python and PCRE.
+```so
+val height: float = 1.9, name: str = 'James'
+print('$name%s is $height%2.2f meters tall') // James is 1.90 meters tall
+```
+
+#### Indexing
+
+Strings and lists are **zero and negative indexed**, similar to Python. Strings are indexed by code point and not by code units.
+
+All valid indices range from `-(len s)` to `s - 1`. So given a string `s` of length `5`, the first element, `s[0]` is also represented as `[-5]`, and `s[1]` to `s[-4]`, and so on.
+
+All indices are calculated with this formula.
+
+```so
+def clamp(#index: float, #len: int): int = int(#index) %% #len ?: 0;
+```
+
+|       Notation       | Expansion                    |
+| :------------------: | ---------------------------- |
+|         `0`          | `[0]`                        |
+|        `1,2`         | `[1, 2]`                     |
+| `:`<br>`0:`<br>`:-1` | `[0, 1, 2, 3, 4, 5 ... n-1]` |
+|         `1;`         | `[1, 2, 3, 4, 5, 6 ... n-1]` |
+|    `0:7`<br>`:7`     | `[0, 1, 2, 3, 4, 5, 6]`      |
+|       `0:7,7`        | `[0, 1, 2, 3, 4, 5, 6, 7]`   |
+|        `7:0`         | `[7, 6, 5, 4, 3, 2, 1]`      |
+
+You cannot slice a string or list out of bounds, as the indices are calcluated first before the range.
+
+```so
+let s = 'abcde'
+s[0:5 * len s] == s[:] == 'abcde'
+```
+
+Splicing is the same as slicing, but with a pseudo-assignment syntax. The characters or elements are replaced by the elements yielded by the range on the left one by one, until reaching the end of the replacement string/list. ALl
+
+All remaining indices are discarded. Only one splicing pair is allowed.
+
+```so
+var s: str = 'hello'
+s[2 = '2'] // 'he2lo'
+```
+
+You can chain splicing pairs:
+
+```so
+var s: str = 'hello'
+s[2 = ''][2 = ''][2 = ''] // 'he'
+```
+
+Common string operations are as follows:
+
+| Operator | Meaning | Perl | Usage |
+| :-: | --- | :-: | --- |
+| `++` | Concatenate | `.` | `'a' ++ 'b' -> 'ab'` |
+| `=~`<br>`!~` (inverse) | Test | `=~` | `'a' =~ 'ab' -> true` |
+| `**` | Repeat | `x` | `'ab' ** 3 -> 'ababab'` |
+| `***` | Join | `join` | `['a', 'b'] *** 'a' -> 'aab'` |
+| `~/` | Split | `split` | `'a' ~/ /b/ -> ['b']` |
+| `<>` | Match | `m/` | `'a' <> /b/ -> ['a']` |
+| `=<` | Replace | `s/` | `'abba' =< /b/a/ -> 'aaaa'` |
+| `<+>` | Transliterate | `tr/` | `'dcba' <+> /abcd/1234/ -> '4321'` |
+| `%%` | Format | `sprintf` | `'%x' %% [12] -> 'c'` |
+| `[]` | Index |  | `'abcde'[-1] -> 'e'` |
+| `[:]` | Slice |  | `'abcde'[::-1] -> 'edcba'` |
+| `[:=]` | Splice |  | `'abcde'[:='b'] -> 'b'` |
+
+### Regular expressions
+
+Somra's regular expressions are backward-compatible with JavaScript regular expressions, but is fully compliant with PCRE and other regex flavors. Inline `/pattern/flags` and multiline `/>pattern</flags` are supported, with multiline regexes supporting free spacing, comments and interpolation, as well as embedded code.
 
 ```so
 // Matches all compound assignment operators
-def isDecimal(x: str): bool = x <> / \b\d[\d_]*\d?(?:(\.)\d[\d_]*\d?)?(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(k)\w+)?\b /x
+def formatString(x: str): bool = x <> /(?<!\\)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(%)(\(.+?\)|\\?.[<=>^]?[+-]?\#?0?(?:\d*[-.,/_]?\.?\d*\w*%?)*)?/i
 
-def isDecimal(x: str): bool = x <> />
-  \b
-  \d [\d_]* \d?           // integer part
-  (?:(\.) \d [\d_]* \d?)? // fractional part
-  (?:(r) \d [\d_]* \d?)?  // repeating part
-  (?:(p[+-]?) \d+)?       // exponent part
-  (?:(s) \d+)?            // significant part
-  (?:(k) \w+)?            // type part
-  \b
+def formatString(x: str): bool = x <> />
+  (?<!\\) // no backslash
+  (\$) // prefix
+  ([_\\\p{L}\p{Nl}] // leading char of identifier
+  [_\\\p{L}\p{M}\p{N}]*) // rest of identifier
+  (%)(
+    \(.+?\)|
+    \\?.[<=>^]?[+-]?\#?0?
+    (?:\d*[-.,/_]?\.?\d*\w*%?)*
+  )? // printf modifier
 </i
 ```
 
-Somra's regexes also include an optional replacement section after the pattern, and is used with the match `<>`, substitute `=<` or translate `</>` operators, similar to Perl's `s`, `m` and `tr` modifiers.
+Somra's regular expressions also include a right hand, replacement section immediately following the pattern, and is used with the match `<>`, substitute `=<` or translate `</>` operators, similar to Perl's `s`, `m` and `tr` modifiers.
 
 ```so
-let str = 'John Smith'
-let newstr = str </> /(\w+)\s(\w+)/$2, $1/g
-/* Smith, John */
+let str = 'Alex Ross'
+let newstr = str =< /(\w+)\s(\w+)/$2, $1/g
+// Ross, Alex
+
+let str1 = 'Diana Kerrigan'
+let newStr = str =< />
+  (\w+)\s(\w+)
+</>
+  $2, $1
+</g // Kerrigan, Diana
 ```
 
 > **Note**: Stick around for a full guide on how to write and manipulate regular expressions.
 
-Interpolation works in regular expression literals just as it does in stringl literals. Note this feature might cause an exception to be raised if the resulting string results in an invalid regular expression.
+Interpolation works in regular expression literals just as it does in string literals. Note this feature might cause an exception to be raised if the resulting string results in an invalid regular expression.
 
-The following section serves as a summary to the regular expression syntax of Somra, as well as some of the more unique features that Somra has over other regex flavors.
+Common string operations include:
 
-#### Basic Syntax Elements
+### Lists, Maps and Sets
 
-<!-- prettier-ignore -->
-| Syntax          | Description                         |
-| --------------- | ----------------------------------- |
-| `\`             | Escape (disable) a metacharacter    |
-| `|`             | Alternation                         |
-| `(...)`         | Capturing group                     |
-| `[...]`         | Character class (can be nested)     |
-| `{...}`         | Embedded expression                 |
-| `{\d*,\d*}`     | Quantifier token                    |
-| `\Q...\E`       | Raw quoted literal                  |
-| `\q...\e`       | Quoted literal                      |
-| `\0` onward     | Numeric backreference (0-indexed)   |
-| `$...%...`      | Interpolation with `sprintf` syntax |
+Lists, maps, sets are very similar to their JavaScript counterparts, but they are immutable by default and have fixed fields.
 
-#### Characters
+```so
+let list: list = #[1, 2, 3, 4]
+let set: set = #{1, 2, 3, 4}
+let map: map<int, int> = #{1: 1, 2: 2, 3: 3, 4: 4}
+```
 
-Most of these characters also appear the same way as in string literals.
+Operations on lists include:
 
-| Syntax | Description and Use |
-| --- | --- |
-| `\a` | \*Alert/bell character (inside `[]`) |
-| `\b` | \*Backspace character (inside `[]`) |
-| `\B` | \*Backslash (inside `[]`) |
-| `\e` | Escape character (Unicode `U+`) |
-| `\f` | Form feed (Unicode `U+`) |
-| `\n` | New line (Unicode `U+`) |
-| `\r` | Carriage return (Unicode `U+`) |
-| `\t` | Horizontal tab (Unicode `U+`) |
-| `\v` | Vertical tab (Unicode `U+`) |
-| `\cA`...`\cZ`<br>`\ca`...`\cz` | Control character from `U+01` to `U+1A` |
-| `\x00` | Unicode character from `U+00` to `U+FF` |
-| `\u0000` | Unicode character from `U+00` to `U+FFFF` |
-| `\U00000000` | Unicode character from `U+00` to `U+10FFFF` |
-| `\u{7HHHHHHH}`<br>`\x{7HHHHHHH}` | Unicode character (1-8 digits) |
-| `\o{17777777777}` | Octal Unicode codepoint (1-11 digits) |
+| Operator | Meaning |
+| :-: | --- |
+| `+` | Add an element |
+| `++` | Concatenate two lists |
+| `--` | Remove an element at a specified index |
+| `---` | Remove all elements that match the value on the right |
+| `<-`<br>`!<-` (inverse) | Test for element presence |
+| `**` | Repeat a list a number of times |
+| `***` | Flatten a nested list a specified level deep |
+| `~/` | Chunk a list with the specified length(s) |
+| `<>` | Filter an array based on a predicate function |
+| `=<` | Replace elements based on their index |
+| `<+>` | Map elements based on return values from a function |
+| `%%` | Groups elements of an array into keyed collections |
+| `[]` | Retrieve an element at a specified index |
+| `[:]` | Slice |
+| `[:=]` | Splice |
 
-#### Character Sequences
-
-| Syntax                | Description                              |
-| --------------------- | ---------------------------------------- |
-| `\x{7F 7F ... 7F}`    | Hexadecimal code point (1-8 digits)      |
-| `\o{100 100 ... 100}` | Octal code point (1-11 digits)           |
-| `\j{alpha beta}`      | `j`-expansion (full documentation later) |
-
-#### Character Classes
-
-| Syntax     | Inverse | Description                              |
-| ---------- | ------- | ---------------------------------------- |
-| `.`        | None    | Hexadecimal code point (1-8 digits)      |
-| `\w`       | `\W`    | Word character `[\d]`                    |
-| `\d`       | `\D`    | Digit character `[0-9]`                  |
-| `\s`       | `\S`    | Space character `[\t\n\v\f\r ]`          |
-| `\h`       | `\H`    | Hexadecimal digit character `[\da-fA-F]` |
-| `\u`       | `\U`    | Uppercase letter `[A-Z]`                 |
-| `\l`       | `\L`    | Lowercase letter `[a-z]`                 |
-| `\f`       | `\F`    | Form feed `[\f]`                         |
-| `\t`       | `\T`    | Horizontal tab `[\t]`                    |
-| `\v`       | `\V`    | Form feed `[\v]`                         |
-| `\n`       | `\N`    | Newline `[\n]`                           |
-|            | `\O`    | Any character `[^]`                      |
-| `\R`       |         | General line break (CR + LF, etc)        |
-| `\x`, `\X` |         | Extended Grapheme Cluster                |
-| `\c`       | `\C`    | Extended Grapheme Cluster                |
-| `\i`       | `\I`    | Extended Grapheme Cluster                |
-
-##### Unicode Properties
-
-Properties are case-insensitive. Logical operators such as `&&`, `||`, `^^` and `!` (`and`, `or`, `xor`, `not`), as well as `==` and `!=`, unary `in` and `!in` (`notin`), `is` and `!is` (`isnt`) can work.
-
-A short form starting with `Is` indicates a script or binary property:
-
-- `is Latin`, &rarr; `Script=Latin`.
-- `is Alphabetic`, &rarr; `Alphabetic=Yes`.
-
-A short form starting with `In` indicates a block property:
-
-- `InBasicLatin`, &rarr; `Block=BasicLatin` .
-- `\p{in Alphabetic && is Latin}` - all Latin characters in Unicode
-
-| Syntax | Description |
-| --- | --- |
-| `\p{property=value}`<br>`\p{property:value}`<br>`\p{property==value}` | Unicode binary property |
-| `\p{property!=value}`<br>`\P{property:value}`<br>`\p{!(property==value)}` | Negated binary property |
-| `\p{in basicLatin}`<br>`\P{block==basicLatin}` | Block property |
-| `\p{is latin}`<br>`\p{script==latin}` | Script property (shorthand `is`) |
-| `\p{value}` | Short form\* |
-| `\p{Cc}` | Unicode character categories^ |
-
-\*Properties are checked in the order: `General_Category`, `Script`, `Block`, binary property:
-
-- `Latin` &rarr; (`Script=Latin`).
-- `BasicLatin` &rarr; (`Block=BasicLatin`).
-- `Alphabetic` &rarr; (`Alphabetic=Yes`).
-
-##### POSIX Classes
-
-| Syntax | ASCII | Unicode (`/u` flag enabled) | Description |
-| --- | --- | --- | --- |
-| `[:alnum:]` | `[a-zA-Z0-9]` | `[\p{L}\p{Nl}\p{Nd}]` | Alphanumeric characters |
-| `[:alpha:]` | `[a-zA-Z]` | `[\p{L}\p{Nl}]` | Alphabetic characters |
-| `[:ascii:]` | `[\x00-\x7F]` | `[\x00-\xFF]` | ASCII characters |
-| `[:blank:]` | `[ \t]` | `[\p{Zs}\t]` | Space and tab |
-| `[:cntrl:]` | `[\x00-\x1F\x7F]` | `\p{Cc}` | Control characters |
-| `[:digit:]` | `[0-9]` | `\p{Nd}` | Digits |
-| `[:graph:]` | `[\x21-\x7E]` | `[^\p{Z}\p{C}]` | Visible characters (anything except spaces and control characters) |
-| `[:lower:]` | `[a-z]` | `\p{Ll}` | Lowercase letters |
-| `[:number:]` | `[0-9]` | `\p{N}` | Numeric characters |
-| `[:print:]` | `[\x20-\x7E] ` | `\P{C}` | Visible characters and spaces (anything except control characters) |
-| `[:punct:]` | `[!"\#$%&'()\*+,\-./:;<=>?@\[\\\]^\_‘{\|}~]` | `\p{P}` | Punctuation (and symbols). |
-| `[:space:]` | `[ \t\r\n\v\f]` | `[\p{Z}\t\r\n\v\f]` | Spacing characters |
-| `[:symbol:]` | `[\p{S}&&\p{ASCII}]` | `\p{S}` | Symbols |
-| `[:upper:]` | `[A-Z]` | `\p{Lu}` | Uppercase letters |
-| `[:word:]` | `[A-Za-z0-9_]` | `[\p{L}\p{Nl}\p{Nd}\p{Pc}]` | Word characters |
-| `[:xdigit:]` | `[A-Fa-f0-9] ` | `[A-Fa-f0-9]` | Hexadecimal digits |
-
-#### Character Sets
-
-A set `[...]` can include nested sets. The operators below are listed in increasing precedence, meaning they are evaluated first.
+Common set operations include:
 
 <!-- prettier-ignore -->
-| Syntax | Description |
-| --- | --- |
-| `^...` | Negated (complement) character class |
-| `x-y` | Range (from x to y) |
-| `||` | Union (`x || y` means "x or y") |
-| `&&` | Intersection (`x && y` means "x and y" ) |
-| `^^` | Symmetric difference (`x ^^ y` means "x and y, but not both") |
-| `~~` | Difference (`x ~~ y` means "x but not y") |
-
-#### Anchors
-
-| Syntax | Inverse | Description                                  |
-| ------ | ------- | -------------------------------------------- |
-| `^`    | None    | Beginning of the string/line                 |
-| `$`    | None    | End of the string/line                       |
-| `\b`   | `\B`    | Word boundary                                |
-| `\a`   | `\A`    | Beginning of the string/line                 |
-| `\z`   | `\Z`    | End of the string/before new line            |
-| `\g`   | `\G`    | Where the current search attempt begins/ends |
-| `\k`   | `\K`    | Keep start/end position of the result string |
-| `\y`   | `\Y`    | Text segment boundary                        |
-
-#### Quantifiers
-
-| Syntax | Reluctant (`?`) | Possessive (`+`) | Greedy (`*`) | Description |
-| --- | --- | --- | --- | --- |
-| `?` | `??` | `?+` | `?*` | 1 or 0 times |
-| `+` | `+?` | `++` | `+*` | 1 or more times |
-| `*`, `{,}` | `*?`, `{,}?` | `*+`, `{,}+` | `**`, `{,}*` | 0 or more times |
-| `{n,m}` | `{n,m}?` | `{n,m}+` | `{n,m}*` | At least `n` but no more than `m` times |
-| `{n,}` | `{n,}?` | `{n,}+` | `{n,}*` | At least `n` times |
-| `{,m}` | `{,m}?` | `{,m}+` | `{,m}*` | Up to `m` times |
-| `{n}` | `{n}?` | `{n}+` | `{n}*` | Exactly `n` times |
-
-#### Groups
-
-<!-- prettier-ignore -->
-| Syntax | Description |
-| --- | --- |
-| `(?#...)` | Comment |
-| `(?x-y:...)`<br>`(?x-y)...` | Mode modifier |
-| `(?:...)` | Non-capturing (passive) group |
-| `(...)` | Capturing group (numbered from 1) |
-| `(?<name>...)` | Named capturing group |
-| `(?=...)` | Positive lookahead |
-| `(?!...)` | Negative lookahead |
-| `(?<=...)` | Positive lookbehind |
-| `(?<!...)` | Negative lookbehind |
-| `(?>...)` | Atomic group (no backtracking) |
-| `(?~...)` | Sub-expression |
-| `(?()|...|...)` | Conditional branching |
-| `(?~|...|...)` | Absent expression |
-| `(?~|...)` | Absent repeater |
-| `(?~...)` | Absent stopper |
-| `(?~|)` | Range clear |
-
-#### Backreferences and Calls
-
-| Syntax     | Description                                               |
-| ---------- | --------------------------------------------------------- |
-| `\1`       | Specific numbered backreference                           |
-| `\k<1>`    | Specific numbered backreference                           |
-| `\k<-1>`   | Relative numbered backreference (`+` ahead, `-` behind)   |
-| `\k<name>` | Specific named backreference                              |
-| `\g<1>`    | Specific numbered subroutine call                         |
-| `\g<-1>`   | Relative numbered subroutine call (`+` ahead, `-` behind) |
-| `\g<name>` | Specific named subroutine call                            |
-
-#### Flags
-
-These flags go after the regex literal.
-
-| Flag | Description |
-| --- | --- |
-| `a` | Astral mode - `\p` supports the past the BMP |
-| `c` | Case-sensitive |
-| `d` | Treat only `\n` as a line break |
-| `e` | Safe mode - escape all interpolations |
-| `g` | Global. Enabled by default |
-| `i` | Case-insensitive |
-| `j` | Allows duplicate named groups |
-| `m` | Multiline - `^`/`$` match at every line |
-| `n` | Named capturing groups only - all unnamed groups become non-capturing |
-| `p` | `^` and `$` match at the start/end of line, `.` matches all characters |
-| `q` | Quote all metacharacters |
-| `s` | "Dot-all" - `.` matches all possible characters |
-| `t` | Turns off free-spacing mode |
-| `u` | Unicode mode |
-| `w` | `^` and `$` match at the start/end of string, `.` does not match line breaks |
-| `y` | Sticky mode - search begins from specified index |
-
-#### Replacement String
-
-This syntax applies to the right hand side of the regex literal in compound regex operations: substitution `=<` and translation `<>`.
-
-| x | y |
-| --- | --- |
-| `$$` | Inserts a literal "$". |
-| `$0` | Inserts the entire matched substring into the output |
-| `$-` | Inserts the portion of the string that precedes the matched substring. |
-| `$+` | Inserts the portion of the string that follows the matched substring. |
-| `$n` | Where `n` is a positive integer, inserts the `n`th parenthesized submatch string. If `n` refers to an invalid group, the result is inserted literally. |
-| `$<name>` | Where name is a capturing group name. If the group is invalid, it is inserted literally. |
+| Operator | Meaning |                                    
+| :-: | --- |
+| `+` | Add an element |
+| `-` | Calculate difference of two sets |   
+| `--` | Remove an element |     
+| `&` | Calculate intersection of two sets |
+| `|` | Calculate union of two sets |
+| `^` | Calculate symmetric difference of two sets |
+| `<-` | Test for element presence |
 
 ## Operators
 
@@ -778,24 +651,6 @@ An operator is not a punctuation mark. The following graphemes and grapheme expr
 - any opening or closing brace (Unicode `Ps` and `Pe` and balanced quotes).
 
 ### Compound operators
-
-<!--prettier-ignore-->
-| Operator | Name/Description |
-| --- | --- |
-| Postfix `?` | _Existential:_ Checks at runtime if a value is `nil` |
-| Postfix `!`, `!.` | _Non-nil assertion:_ Checks if a value or property is `nil`, if so, would panic |
-| `??` | _Nil coalescing:_ Defaults to RHS if LHS is `nil` |
-| `!?` | _Non-nil coalescing:_ Defaults to RHS if LHS is not `nil` |
-| `?.` | _Optional chaining:_ If value/property is `nil` |
-| Prefix `!` | _Logical not:_ Negates the boolean value of its operand |
-| `||` | _Logical or:_ Returns `true` if either is `true` |
-| `&&` | _Logical and:_ Returns `true` if both are `true` |
-| `^^` | _Logical exclusive or / 'xor':_ Returns `true` if LHS and RHS are not the same (LHS &ne; RHS) |
-| `?:` | _Falsy coalescing:_ Evaluates RHS if LHS yields `false` |
-| `!:` | _Truthy coalescing:_ Evaluates RHS if LHS yields `true` |
-| `? :` | _Falsy coalescing:_ Returns middle if LHS condition is `true`, else return the right |
-
-#### Comparison Operators
 
 All comparison operators have the same precedence and can be chained: `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
 
@@ -841,14 +696,14 @@ Suffix operators are evaluated first, followed by prefix and infix operators. In
 | 7 | Bitwise xor |`^` | `^` |
 | 8 | Bitwise or |`|` | `|` |
 | 9 | Bitwise shift |`<<` `>>` |  |
-| 10 | Minimum/maximum | `<*` `*>` |  |
+| 10 | Min/max | `<*` `*>` |  |
 | 11 | Range | `..` `..=` `=..` `=.=` | | 
 | 12 | Comparison & equality | `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `===` `!==` | `<` `>` `=` `!` `~` |
-| 13 | Membership & class| `<-` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` | |
-| 14 | Type casting, property setting & regex operators | `as` `:?` <br> `set` `.=` <br> `<>` `=<` `</>` | |
-| 15 | Logical and | `&&` | |
+| 13 | Membership & class | `<-` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` | |
+| 14 | Type, object and regex | `as` `:?` <br> `set` `.=` <br> `<>` `=<` `</>` | |
+| 15 | Logical and | `&&` `/\` | |
 | 16 | Logical xor | `^^` | |
-| 17 | Bitwise or | `||` | | 
+| 17 | Bitwise or | `||` `\/` | | 
 | 18 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
 | 19 | Function | `|>` `<|` `<+` `+>` | |
 | 20 | Conditional | `? :` `! :` | |
