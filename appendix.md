@@ -2,17 +2,35 @@
 
 This serves as an appendix or reference for the syntax, mainly operators and literals of the language, and acts as a supplement to the main documentation.
 
+## Operators
+
+Operators consist entirely of symbols and punctuation marks that are not brackets, diacritical or quotation marks, or the "delimiters" shown below. For example, `+`, `*`, `<>` and `>>` are all valid operators, but standalone `:`, `;`, or `,` are not. Operators are in a way identifiers, whose type and precedence are hard-coded in the language's standard library.
+
+The following symbols or sets of symbols are considered _part_ of the grammar, and are not parsed as regular operators.
+
+- `:` (begins a type annotation),
+- `;` (delimits statements),
+- `,` (delimits elements),
+- `/`, `/>`, `</`, `</>` (delimits regexes),
+- prefix `<` and suffix `>` (delimits JSX tags),
+- `=>` (function literals),
+- `->` ("then" or "imply", only in `match` statements),
+- `$` (infix function delimiter),
+- prefix `#`, `&`, `@`, `|`, `^` and `*`,
+- any quotation mark (Unicode `Pi` and `Pf`),
+- any opening or closing brace (Unicode `Ps` and `Pe`).
+
 ### Nil
 
 #### Operators
 
-|     Operator      | Meaning                  |
-| :---------------: | ------------------------ |
-|    _`expr`_`?`    | Checks if a value is nil |
-|       `??`        | Nil coalescing           |
-|       `!?`        | Non-nil coalescing       |
-|       `?.`        | Optional chaining        |
-| _`expr`_`!`, `!.` | Assertion                |
+|   Operator    | Meaning                  |
+| :-----------: | ------------------------ |
+|    `expr?`    | Checks if a value is nil |
+|     `??`      | Nil coalescing           |
+|     `!?`      | Non-nil coalescing       |
+|     `?.`      | Optional chaining        |
+| `expr!`, `!.` | Assertion                |
 
 ### Booleans
 
@@ -20,7 +38,7 @@ This serves as an appendix or reference for the syntax, mainly operators and lit
 
 |  Operator   | Meaning                     |
 | :---------: | --------------------------- |
-| `!`_`expr`_ | Inverts a boolean value     |
+|   `!expr`   | Inverts a boolean value     |
 |  `&&` `/\`  | Logical and                 |
 |    `!:`     | _Short-circuit_ logical and |
 | `\|\|` `\/` | Logical or                  |
@@ -41,7 +59,7 @@ Valid bases include 2, 4, 6, 8, 10, 12 and 16, with many ASCII-based notations f
 | 12 (Duodecimal) | `0z` | `0` to `9`, then `A`/`T`/`X` as 10 and `B`/`E`/`Z` as 11\* |
 | 16 (Hexadecimal) | `0x` | `0` to `9` then `A` to `F` |
 
-Optional suffixes can be placed after numbers to indicate additional properties, such as precision, exponents in scientific notation, and type modifiers in both C and Rust-style suffixes.
+Optional suffixes can be placed after numbers to indicate additional properties, such as precision, exponents in scientific notation,
 
 | Modifier suffix | Characters/Digit | Meaning |
 | --- | --- | --- |
@@ -49,6 +67,8 @@ Optional suffixes can be placed after numbers to indicate additional properties,
 | `p` | `0-9` | Indicates a (signed) exponent. |
 | `s` | `0-9` | Indices the digit precision of the number. |
 | `k` | See below | Optional type suffix. |
+
+Somra also support type modifiers beginning with `k`, in both C and Rust-style suffixes.
 
 | C-style suffix | Rust-style suffix | Meaning |
 | :-: | :-: | --- |
@@ -70,21 +90,21 @@ Optional suffixes can be placed after numbers to indicate additional properties,
 
 #### Arithmetic Operators
 
-|  Operator   | Meaning                                        |
-| :---------: | ---------------------------------------------- |
-|     `+`     | Add                                            |
-| `+`_`expr`_ | Convert to a number                            |
-|     `–`     | Subtract                                       |
-| `-`_`expr`_ | Negate (reverse the sign of the expression)    |
-|     `*`     | Multiply                                       |
-|     `/`     | Divide                                         |
-|    `~/`     | Divide, returning an integer result            |
-|    `**`     | Exponentiate                                   |
-|    `***`    | Exponentiate, returning an integer result      |
-|     `%`     | Signed remainder (sign depends on RHS)         |
-|    `%%`     | Mathematical modulo (sign always non-negative) |
-|    `*>`     | Maximum (returns whichever is larger)          |
-|    `<*`     | Minimum (returns whichever is smaller)         |
+| Operator | Meaning                                        |
+| :------: | ---------------------------------------------- |
+|   `+`    | Add                                            |
+| `+expr`  | Convert to a number                            |
+|   `–`    | Subtract                                       |
+| `-expr`  | Negate (reverse the sign of the expression)    |
+|   `*`    | Multiply                                       |
+|   `/`    | Divide                                         |
+|   `~/`   | Divide, returning an integer result            |
+|   `**`   | Exponentiate                                   |
+|  `***`   | Exponentiate, returning an integer result      |
+|   `%`    | Signed remainder (sign depends on RHS)         |
+|   `%%`   | Mathematical modulo (sign always non-negative) |
+|   `*>`   | Maximum (returns whichever is larger)          |
+|   `<*`   | Minimum (returns whichever is smaller)         |
 
 `a %% b` compiles to `((a % b) + b) % b`.
 
@@ -92,14 +112,14 @@ Optional suffixes can be placed after numbers to indicate additional properties,
 
 You can manipulate the individual bits of numbers in Somra. Bitwise and shift operators work only with integers. Do take note all numbers are signed.
 
-|  Operator   | Meaning     |
-| :---------: | ----------- |
-|     `&`     | And         |
-|    `\|`     | Or          |
-|     `^`     | Xor         |
-| `~`_`expr`_ | Not         |
-|    `>>`     | Right shift |
-|    `<<`     | Left shift  |
+| Operator | Meaning     |
+| :------: | ----------- |
+|   `&`    | And         |
+|   `\|`   | Or          |
+|   `^`    | Xor         |
+| `~expr`  | Not         |
+|   `>>`   | Right shift |
+|   `<<`   | Left shift  |
 
 ### Strings
 
@@ -128,24 +148,24 @@ You can manipulate the individual bits of numbers in Somra. Bitwise and shift op
 
 #### String Operations
 
-|    Operator    | Meaning                                         |
-| :------------: | ----------------------------------------------- |
-|    `+` `++`    | Concatenate two strings                         |
-|   `<:` `<!`    | Test for a substring                            |
-|  `=~`<br>`!~`  | Test for a substring with a regex               |
-|      `*`       | Repeat a string                                 |
-|      `**`      | Join a list into a string                       |
-|      `/`       | Split a string by matches                       |
-|      `<>`      | Match a string against a regex                  |
-|      `=<`      | Replace a string with a replacement regex       |
-|     `<+>`      | Transliterate a string against a regex or map   |
-|     `</>`      | Execute a string against a regex                |
-|      `%`       | Format an argument list against a format string |
-|  _`str`_`[]`   | Access a character at an index                  |
-|  _`str`_`[:]`  | Slice a string                                  |
-| _`str`_`[:=]`  | Splice a string with a replacement string       |
-| `len` _`str`_  | Get the length\* of the string                  |
-| `size` _`str`_ | Get the length\* of the string                  |
+|   Operator   | Meaning                                         |
+| :----------: | ----------------------------------------------- |
+|   `+` `++`   | Concatenate two strings                         |
+|  `<:` `<!`   | Test for a substring                            |
+| `=~`<br>`!~` | Test for a substring with a regex               |
+|     `*`      | Repeat a string                                 |
+|     `**`     | Join a list into a string                       |
+|     `/`      | Split a string by matches                       |
+|     `<>`     | Match a string against a regex                  |
+|     `=<`     | Replace a string with a replacement regex       |
+|    `<+>`     | Transliterate a string against a regex or map   |
+|    `</>`     | Execute a string against a regex                |
+|     `%`      | Format an argument list against a format string |
+|   `str[]`    | Access a character at an index                  |
+|   `str[:]`   | Slice a string                                  |
+|   `str:=]`   | Splice a string with a replacement string       |
+| `len str`\_  | Get the length\* of the string                  |
+| `size str`\_ | Get the length\* of the string                  |
 
 #### Format Specification Mini-Language
 
@@ -388,27 +408,27 @@ This syntax applies to the right hand side of the regex literal in compound rege
 
 #### List Operations
 
-|    Operator    | Meaning                                                    |
-| :------------: | ---------------------------------------------------------- |
-|      `+`       | Add an element                                             |
-|      `++`      | Concatenate two lists                                      |
-|      `--`      | Remove an element by index                                 |
-|     `---`      | Remove all instances of a given element                    |
-|   `<:` `<!`    | Test for element presence                                  |
-|      `*`       | Repeat a list a given number of times                      |
-|      `**`      | Intersperse each element with the elements of another list |
-|     `***`      | Flatten a nested list at a given depth                     |
-|      `~/`      | Chunk a list at a given length                             |
-|      `<>`      | Filter a list based on a predicate                         |
-|      `=<`      | Replace elements based on their index                      |
-|     `<+>`      | Map elements based on a function                           |
-|     `</>`      | Reduce a list based on a function                          |
-|     `<*>`      | Reduce a list keeping intermediate results                 |
-|      `%%`      | Groups elements based on a function                        |
-|  _`list`_`[]`  | Access an element from a list by index                     |
-| _`list`_`[:]`  | Slices a list                                              |
-| _`list`_`[:=]` | Splices a list                                             |
-| `len` _`list`_ | Returns the length of the list                             |
+|  Operator  | Meaning                                                    |
+| :--------: | ---------------------------------------------------------- |
+|    `+`     | Add an element                                             |
+|    `++`    | Concatenate two lists                                      |
+|    `--`    | Remove an element by index                                 |
+|   `---`    | Remove all instances of a given element                    |
+| `<:` `<!`  | Test for element presence                                  |
+|    `*`     | Repeat a list a given number of times                      |
+|    `**`    | Intersperse each element with the elements of another list |
+|   `***`    | Flatten a nested list at a given depth                     |
+|    `~/`    | Chunk a list at a given length                             |
+|    `<>`    | Filter a list based on a predicate                         |
+|    `=<`    | Replace elements based on their index                      |
+|   `<+>`    | Map elements based on a function                           |
+|   `</>`    | Reduce a list based on a function                          |
+|   `<*>`    | Reduce a list keeping intermediate results                 |
+|    `%%`    | Groups elements based on a function                        |
+|  `list[]`  | Access an element from a list by index                     |
+| `list[:]`  | Slices a list                                              |
+| `list[:=]` | Splices a list                                             |
+| `len list` | Returns the length of the list                             |
 
 #### Set operations
 
@@ -424,36 +444,18 @@ This syntax applies to the right hand side of the regex literal in compound rege
 
 #### Map Operations
 
-|  Operator   | Meaning                                                     |
-| :---------: | ----------------------------------------------------------- |
-|     `.`     | Access a property                                           |
-|    `?.`     | Access a property; returns `nil` if property does not exist |
-|    `!.`     | Access a property; throws if property does not exist        |
-|    `.=`     | Set (create or update) a property                           |
-| `.-`_`obj`_ | Remove a property                                           |
-|  `:<` `!<`  | Test for key presence                                       |
-|  `<:` `!<`  | Test for value presence                                     |
-|     `&`     | Intersect two maps                                          |
-|    `\|`     | Unify two maps                                              |
-|     `^`     | Take the keywise symmetric difference of two maps           |
-
-## Operators
-
-Operators consist entirely of symbols and punctuation marks that are not brackets, diacritical or quotation marks, those on the list below. For example, `+`, `*`, `<>` and `>>` are all valid operators. No operator should contain `:`,
-
-An operator is not a punctuation mark. The following graphemes and grapheme expressions are:
-
-- `:` (type annotations and assertions),
-- `;` (delimits statements),
-- `,` (delimits elements),
-- `/`, `/>`, `</`, `</>` (delimits regexes),
-- prefix `<` and suffix `>` (delimits JSX tags),
-- `=>` (function literals),
-- `->` ("then" or "imply", only in `match` statements),
-- `$` (infix function delimiter),
-- prefix `#`, `&`, `@`, `|`, `^` and `*`,
-- any quotation mark (Unicode `Pi` and `Pf` and balanced quotes),
-- any opening or closing brace (Unicode `Ps` and `Pe` and balanced quotes).
+| Operator  | Meaning                                                     |
+| :-------: | ----------------------------------------------------------- |
+|    `.`    | Access a property                                           |
+|   `?.`    | Access a property; returns `nil` if property does not exist |
+|   `!.`    | Access a property; throws if property does not exist        |
+|   `.=`    | Set (create or update) a property                           |
+|  `.-obj`  | Remove a property                                           |
+| `:<` `!<` | Test for key presence                                       |
+| `<:` `!<` | Test for value presence                                     |
+|    `&`    | Intersect two maps                                          |
+|   `\|`    | Unify two maps                                              |
+|    `^`    | Take the keywise symmetric difference of two maps           |
 
 ### Compound operators
 
@@ -483,47 +485,4 @@ x + 1 // infix
 x- // suffix
 +x // prefix
 x++1 // syntax error
-```
-
-### Operator precedence and evaluation order
-
-Suffix operators are evaluated first, followed by prefix and infix operators. Infix operators have a special order of precedence:
-
-| Precedence | Description | Built-In | Leading character |
-| --- | --- | :-: | :-: | --- |
-| 1 | Property access | `.` `?.` `!.` `~.` | `.` |
-| 2 | Binding & prototype | `::` `->` | `:` |
-| 3 | Exponentiative | `**` | (non-ASCII symbols) |
-| 4 | Multiplicative | `*` `/` `#` `%` `%%` | `*` `/` `#` `%` |
-| 5 | Additive | `+` `-` | `+` `-` |
-| 6 | Bitwise and | `&` | `&` |
-| 7 | Bitwise xor | `^` | `^` |
-| 8 | Bitwise or | `\|` | `\|` |
-| 9 | Bitwise shift | `<<` `>>` |  |
-| 10 | Min/max | `<*` `*>` |  |
-| 11 | Range | `..` `..=` `=..` `=.=` |  |
-| 12 | Comparison & equality | `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `===` `!==` | `<` `>` `=` `!` `~` |
-| 13 | Membership & class | `<:` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` |  |
-| 14 | Type, object and regex | `as` `:?` <br> `set` `.=` <br> `<>` `=<` `</>` |  |
-| 15 | Logical and | `&&` `/\` |  |
-| 16 | Logical xor | `^^` |  |
-| 17 | Bitwise or | `\|\|` `\/` |  |
-| 18 | Coalescing | `?!` `?:` `!?` `!:` | `?` |  |
-| 19 | Function | `\|>` `<\|` `<+` `+>` |  |
-| 20 | Conditional | `? :` `! :` |  |
-| 21 | Assignment | `=` `:=` `::=` `+=` `-=` etc. |  |
-
-```so
-var [a, b, c, d] = [20, 10, 15, 5]
-var e = 0
-
-// operators with the highest precedence
-// will operate first
-e = a + b * c / d
-
-/*step 1: 20 + (10 * 15) /5
-  step 2: 20 + (150 /5)
-  step 3:(20 + 30)*/
-
-print("Value of a + b * c / d is : $e")
 ```
