@@ -4,11 +4,7 @@
 
 JavaScript is weird. Let's fix it and make something better.
 
-This is Somra, an experimental programming language with a big stack, designed for flexiblity, scalability and awesomeness. Use it to build serious programs and software for the web, without all that pesky and complicated quirks of JavaScript, with a fast compiler and package manager that allows for easy access to bustling ecosystems of libraries.
-
-- Inspired by Python.
-- Compiles to JavaScript.
-- Functional like Scala.
+This is Somra, a new and experimental programming language with a big stack, designed for flexiblity, scalability and awesomeness. Use it in projects small and big, without the pesky and complicated quirks of JavaScript. All while leveraging on a fast compiler and package manager that allows for easy access to bustling ecosystems of libraries.
 
 ```so
 // Constrain a range.
@@ -60,6 +56,7 @@ Somra is written in Python and is distributed as a single executable shipped wit
 
 - Lodash
 - Yargs
+- Chevrotain
 - ...is that it?
 
 To install Somra, you actually need one command.
@@ -70,31 +67,18 @@ npm i -g somra
 
 That's it.
 
-But that's only half the story. Somra installs and builds Python modules too.
-
-That's why you would need a copy of Visual Studio C++ installed, in order to interface native C++ libraries through Node's native API.
-
-If you know Node you should probably know this command:
-
-```sh
-npm config set msvs_version 2019 # Set your Visual Studio version
-```
-
-Somra compiles your code, be it Somra ihei to JavaScript.
-
-Somra's executable is dubbed `somra` (duh). `.so` is the file extension. Here are a few simple single-letter commands you would use all the time:
+Somra's executable is dubbed `so`, and `.so` is the file extension (pun intended). Here are a few simple single-letter commands you would use all the time:
 
 - `i` (install) to install all dependencies, or add new ones
 - `r` (remove) to remove dependencies
 - `u` (update) to update them
 - `b` (build) to recompile and build your project
 - `s` (serve) to serve your project on a platform
-- `-p` (Python) to install and manage Python dependencies
 
 ```sh
 # Install multiple packages
-somra i lodash date-fns rxjs
-somra i -p numpy pandas gensim
+npx so i lodash date-fns rxjs
+npx so i -p numpy pandas gensim
 ```
 
 Running `so i` for the first time would also initialize a Python and JavaScript project/virtual environment at the same time.
@@ -325,10 +309,10 @@ def identEqual(a: str, b: str): bool = a[0] == b[0] &&
   (b[1..] =< /[\pS\pP]/ /g).lower
 ```
 
-That means only the first letters are compared in a case-sensitive manner. Other letters are compared case-insentitively, ignoring any delimiters. This rather unorthodox way to do identifier comparisons is called _partial case-insensitivity_ and has some advantages over the conventional:
+The first letters are compared as is, case-insensitively. The other letters are compared with no regard for case or delimiters. This rather unorthodox way to compare identifiers is called "partial case insensitivity" and has some advantages:
 
-- It allows programmers to mostly use their own preferred naming convention, be it snake case, camel-case and more.
-- Libraries written by different programmers cannot use incompatible conventions.
+- Programmers can use their own preferred naming convention as wanted
+- Libraries written by different programmers cannot use different conventions
 - Frees the programmer from remembering the exact spelling of an identifier.
 
 This rule does not apply to quoted identifiers (`#""`) which are case-insensitive or keywords such as `goto`, which are written in all lowercase.
@@ -362,16 +346,6 @@ nil
 ()
 ```
 
-Common operations are:
-
-|     Operator      | Meaning                  |
-| :---------------: | ------------------------ |
-|    _`expr`_`?`    | Checks if a value is nil |
-|       `??`        | Nil coalescing           |
-|       `!?`        | Non-nil coalescing       |
-|       `?.`        | Optional chaining        |
-| _`expr`_`!`, `!.` | Assertion                |
-
 ### Booleans
 
 A boolean has the type `bool` and can be either `true` or `false`, and are primarily used in control flow statements such as `if`, `while` and more.
@@ -381,18 +355,6 @@ bool('1') // true
 !(!'1') // true
 !(!'') // false
 ```
-
-Common operations are:
-
-<!-- prettier-ignore -->
-| Operator | Meaning |
-| :-: | --- |
-| `!`_`expr`_ | Inverts a boolean value |
-| `&&`, `/\` | Logical and |
-| `!:` | Short-circuit logical and |
-| `||`, `\/` | Logical or |
-| `?:` | Short-circuit logical or |
-| `^^` | Logical xor |
 
 ### Numbers
 
@@ -419,39 +381,13 @@ let base12 = 0z10a37b547ab97
 let base16 = 0xabcdef123
 ```
 
-Common operations include:
+Many operations such as `+`, `-`, `*`, `/`, `**` and `%` are supported. Do take note that both `/` and `**` would return floats, so use `~/` and `***` in place of `/` and `**` to truncate the result into an integer.
 
-|  Operator   | Meaning                                                  |
-| :---------: | -------------------------------------------------------- |
-|     `+`     | Add                                                      |
-| `+`_`expr`_ | Convert to a number                                      |
-|     `–`     | Subtract                                                 |
-| `-`_`expr`_ | Negate (reverse the sign of the expression)              |
-|     `*`     | Multiply                                                 |
-|     `/`     | Divide                                                   |
-|    `~/`     | Divide, returning an integer result                      |
-|    `**`     | Exponentiate                                             |
-|    `***`    | Exponentiate, returning an integer result                |
-|     `%`     | Signed remainder (sign depends on dividend)              |
-|    `%%`     | Mathematical modulo (result is between `0` and dividend) |
-
-`a %% b` compiles to `((a % b) + b) % b`.
-
-You can manipulate the individual bits of numbers in Somra. Bitwise and shift operators work only with integers.
-
-<!-- prettier-ignore -->
-| Operator | Meaning |
-| :-: | --- |
-| `&` | And |
-| `|` | Or |
-| `^` | Xor |
-| `~`_`expr`_ | Not |
-| `>>` | Right shift |
-| `<<` | Left shift  |
+The sign of `%` depends on its right hand side, so the sign of `%%` is either 0 or positive.
 
 ### Strings
 
-String literals can be delimited by matching single or double quotes. Strings compile to their equivalent in JavaScript, though with notable differences.
+String literals can be delimited by matching single or double quotes. Strings compile to their equivalent in JavaScript, and are encoded as sequences of UTF-16 code units, though with notable differences.
 
 ```so
 let greeting = 'Hello World!'
@@ -481,7 +417,7 @@ Backslashes are used very frequently in regular expressions too. The escapes `\n
 `$` begins an interpolation sequence, prefixing a `$variable` or `${expression}`, the latter enclosed in curly brackets. Variable/expression references can also be followed by a `printf`-style format string like `%d`.
 
 ```so
-val height: float = 1.9, name: str = 'James'
+let height: float = 1.9, name: str = 'James'
 print('$name%s is $height%2.2f meters tall') // James is 1.90 meters tall
 ```
 
@@ -497,75 +433,58 @@ All indices are calculated with this formula.
 def clamp(#index: float, #len: int): int = int(#index) %% #len ?: 0;
 ```
 
-|       Notation       | Expansion                    |
+Use Python extended slicing notation to retrieve indices.
+
+|       Notation       | Expansion (`n` is length)    |
 | :------------------: | ---------------------------- |
 |         `0`          | `[0]`                        |
 |        `1,2`         | `[1, 2]`                     |
 | `:`<br>`0:`<br>`:-1` | `[0, 1, 2, 3, 4, 5 ... n-1]` |
 |         `1;`         | `[1, 2, 3, 4, 5, 6 ... n-1]` |
-|    `0:7`<br>`:7`     | `[0, 1, 2, 3, 4, 5, 6]`      |
-|       `0:7,7`        | `[0, 1, 2, 3, 4, 5, 6, 7]`   |
+|    `0:5`<br>`:5`     | `[0, 1, 2, 3, 4]`            |
+|       `0:5,5`        | `[0, 1, 2, 3, 4, 5]`         |
 |        `7:0`         | `[7, 6, 5, 4, 3, 2, 1]`      |
 
 You cannot slice a string or list out of bounds, as the indices are calcluated first before the range.
 
 ```so
-let s = 'abcde'
+let s = 'abcde' // len s == 5
 s[0:5 * len s] == s[:] == 'abcde'
 ```
 
-Splicing is the same as slicing, but with a pseudo-assignment syntax. The characters or elements are replaced by the elements yielded by the range on the left one by one, until reaching the end of the replacement string/list. ALl
-
-All remaining indices are discarded. Only one splicing pair is allowed.
+Splicing is the same as slicing, but with a pseudo-assignment syntax. The characters or elements are replaced by the indices yielded on the left one by one, until reaching the end of the replacement string. All remaining characters are discarded at their indices.
 
 ```so
 var s: str = 'hello'
 s[2 = '2'] // 'he2lo'
 ```
 
-You can chain splicing pairs:
+The `len` operator would always return the number of (Unicode) characters in the string. (compiles to `string.split('').length]`). `size` on the other hand would return the number of code units (compiles to `string.length`).
 
 ```so
-var s: str = 'hello'
-s[2 = ''][2 = ''][2 = ''] // 'he'
+len '12345' // 5
+len '\u10001\u10001' // 2
+
+size '12345' // 5
+size '\u10001\u10001' // 4
 ```
-
-Common string operations are as follows:
-
-| Operator | Meaning | Perl | Usage |
-| :-: | --- | :-: | --- |
-| `++` | Concatenate | `.` | `'a' ++ 'b' -> 'ab'` |
-| `=~`<br>`!~` (inverse) | Test | `=~` | `'a' =~ 'ab' -> true` |
-| `**` | Repeat | `x` | `'ab' ** 3 -> 'ababab'` |
-| `***` | Join | `join` | `['a', 'b'] *** 'a' -> 'aab'` |
-| `~/` | Split | `split` | `'a' ~/ /b/ -> ['b']` |
-| `<>` | Match | `m/` | `'a' <> /b/ -> ['a']` |
-| `=<` | Replace | `s/` | `'abba' =< /b/a/ -> 'aaaa'` |
-| `<+>` | Transliterate | `tr/` | `'dcba' <+> /abcd/1234/ -> '4321'` |
-| `%%` | Format | `sprintf` | `'%x' %% [12] -> 'c'` |
-| `[]` | Index |  | `'abcde'[-1] -> 'e'` |
-| `[:]` | Slice |  | `'abcde'[::-1] -> 'edcba'` |
-| `[:=]` | Splice |  | `'abcde'[:='b'] -> 'b'` |
 
 ### Regular expressions
 
 Somra's regular expressions are backward-compatible with JavaScript regular expressions, but is fully compliant with PCRE and other regex flavors. Inline `/pattern/flags` and multiline `/>pattern</flags` are supported, with multiline regexes supporting free spacing, comments and interpolation, as well as embedded code.
 
 ```so
-// Matches all compound assignment operators
-def formatString(x: str): bool = x <> /(?<!\\)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(%)(\(.+?\)|\\?.[<=>^]?[+-]?\#?0?(?:\d*[-.,/_]?\.?\d*\w*%?)*)?/i
+/>\b{wb}(fee|fie|foe|fum)\b{wb}</
+/[ ! @ " # $ % ^ & * () = ? <> ' ]/x
 
-def formatString(x: str): bool = x <> />
-  (?<!\\) // no backslash
-  (\$) // prefix
-  ([_\\\p{L}\p{Nl}] // leading char of identifier
-  [_\\\p{L}\p{M}\p{N}]*) // rest of identifier
-  (%)(
-    \(.+?\)|
-    \\?.[<=>^]?[+-]?\#?0?
-    (?:\d*[-.,/_]?\.?\d*\w*%?)*
-  )? // printf modifier
-</i
+/>
+  (Y)         // group 1
+  (           // group 2
+      (X)     // group 3
+      \g<-1>  // backref to group 3
+      \g<-3>  // backref to group 1
+  )
+</x
 ```
 
 Somra's regular expressions also include a right hand, replacement section immediately following the pattern, and is used with the match `<>`, substitute `=<` or translate `</>` operators, similar to Perl's `s`, `m` and `tr` modifiers.
@@ -583,145 +502,90 @@ let newStr = str =< />
 </g // Kerrigan, Diana
 ```
 
+Using the sticky modifier:
+
+```so
+let str = 'table football'
+let regex = 6/foo/y
+regex.y // true
+regex =~ str // true
+regex =~ str // false
+```
+
 > **Note**: Stick around for a full guide on how to write and manipulate regular expressions.
 
 Interpolation works in regular expression literals just as it does in string literals. Note this feature might cause an exception to be raised if the resulting string results in an invalid regular expression.
 
-Common string operations include:
+### Collections: Lists, Maps and Sets
 
-### Lists, Maps and Sets
+Lists, maps and sets are very similar to their JavaScript counterparts, but they are immutable by default and have fixed fields. All three of them have immutable and mutable counterparts, where the immutable versions are prefixed with a hash sign `#`.
 
-Lists, maps, sets are very similar to their JavaScript counterparts, but they are immutable by default and have fixed fields.
+All collections are heterogeneous, though they can be made homogeneous with the help of generics. Declare a list as `list<int>` or `int[]` to constrain a list from having values other than integers.
+
+- Lists are ordered (indexed) and finite sequences of values.
+- Sets are finite, unordered collections of unique values.
+- Maps are finite, unordered collections of values each assigned to a unique key. A key-value pair is considered an "attribute" or "property".
+
+Sets and maps are both delimited with curly brackets, so an empty map has a compulsory colon: `{:}`.
 
 ```so
-let list: list = #[1, 2, 3, 4]
-let set: set = #{1, 2, 3, 4}
+let list: list<int> = #[1, 2, 3, 4]
+let set: set<int> = #{1, 2, 3, 4}
 let map: map<int, int> = #{1: 1, 2: 2, 3: 3, 4: 4}
+
+let mlist: mlist<int> = [1, 2, 3, 4]
+let mset: mset<int> = {1, 2, 3, 4}
+let mmap: mmap<int, int> = {1: 1, 2: 2, 3: 3, 4: 4}
 ```
 
-Operations on lists include:
-
-| Operator | Meaning |
-| :-: | --- |
-| `+` | Add an element |
-| `++` | Concatenate two lists |
-| `--` | Remove an element at a specified index |
-| `---` | Remove all elements that match the value on the right |
-| `<-`<br>`!<-` (inverse) | Test for element presence |
-| `**` | Repeat a list a number of times |
-| `***` | Flatten a nested list a specified level deep |
-| `~/` | Chunk a list with the specified length(s) |
-| `<>` | Filter an array based on a predicate function |
-| `=<` | Replace elements based on their index |
-| `<+>` | Map elements based on return values from a function |
-| `%%` | Groups elements of an array into keyed collections |
-| `[]` | Retrieve an element at a specified index |
-| `[:]` | Slice |
-| `[:=]` | Splice |
-
-Common set operations include:
-
-<!-- prettier-ignore -->
-| Operator | Meaning |                                    
-| :-: | --- |
-| `+` | Add an element |
-| `-` | Calculate difference of two sets |   
-| `--` | Remove an element |     
-| `&` | Calculate intersection of two sets |
-| `|` | Calculate union of two sets |
-| `^` | Calculate symmetric difference of two sets |
-| `<-` | Test for element presence |
-
-## Operators
-
-Operators consist entirely of symbols and punctuation marks that are not brackets, diacritical or quotation marks, those on the list below. For example, `+`, `*`, `<>` and `>>` are all valid operators. No operator should contain `:`,
-
-An operator is not a punctuation mark. The following graphemes and grapheme expressions are:
-
-- `:` (type annotations and assertions),
-- `;` (delimits statements),
-- `,` (delimits elements),
-- `/`, `/>`, `</`, `</>` (delimits regexes),
-- prefix `<` and suffix `>` (delimits JSX tags),
-- `=>` (function literals),
-- `->` ("then" or "imply", only in `match` statements),
-- `$` (infix function delimiter),
-- prefix `#`, `&`, `@`, `|`, `^` and `*`,
-- any quotation mark (Unicode `Pi` and `Pf` and balanced quotes),
-- any opening or closing brace (Unicode `Ps` and `Pe` and balanced quotes).
-
-### Compound operators
-
-All comparison operators have the same precedence and can be chained: `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
-
-- Abstract comparison performs type conversion before performing comparison.
-- Structural comparison operators perform comparison directly.
-- Referential equality operators compare shallowly and by reference `#[1] === #[1]`.
-
-<!--prettier-ignore-->
-| Operator         | Abstract   | Structural | Referential |
-| ---------------- | ---------- | ---------- | ----------- |
-| Greater          | `~>`       | `>`        |             |
-| Lesser           | `~<`       | `<`        |             |
-| Greater or equal | `>~`       | `>=`       |             |
-| Lesser or equal  | `<~`       | `<=`       |             |
-| Equal to         | `~=`, `=~` | `==`       | `===`       |
-| Not equal        | `~!`, `!~` | `!=`       | `!==`       |
-| Three-way        | `<~>`      | `<=>`      |             |
-
-Somra parses operators differently than in most languages. Any Somra parses operators differently than in most languages. Any string of symbols excluding the above are parsed as operators, so they have to be clearly distinguished from one another through the use of spaces.
-
-Operators that end in `=`, excluding those that begin with `:`, `!`, `=`, `~`, `<` or `>`, are parsed as compound assignment operators. Compound assignment operators perform the operation of the corresponding operator on both operands, and reassigns the result of the operation onto the left, which can be any reassignable variable or property.
+Add elements, concatenate and repeat lists:
 
 ```so
-x + 1 // infix
-x- // suffix
-+x // prefix
-x++1 // syntax error
+var arr = [1, 2, 3]
+arr += 1 // [1, 2, 3, 4]
+
+arr ++= [5, 6, 7, 8] // [1, 2, 3, 4, 5, 6, 7, 8]
+
+arr *= 3 /*
+[1, 2, 3, 4, 5, 6, 7, 8,
+ 1, 2, 3, 4, 5, 6, 7, 8,
+ 1, 2, 3, 4, 5, 6, 7, 8] */
 ```
 
-### Operator precedence and evaluation order
+Set operations such as `&` (intersection), `|` (union), `-` (difference) and `^` (symmetric difference).
 
-Suffix operators are evaluated first, followed by prefix and infix operators. Infix operators have a special order of precedence:
-
-<!-- prettier-ignore -->
-| Precedence |Description| Built-In | Leading character |
-| --- | --- | :-: |:-: |
-| 1 | Property access |`.` `?.` `!.` `~.` | `.` |
-| 2 | Binding & prototype |`::` `->` | `:` |
-| 3 | Exponentiative |`**` | (non-ASCII symbols) |
-| 4 | Multiplicative |`*` `/` `#` `%` `%%` | `*` `/` `#` `%` |
-| 5 | Additive |`+` `-` | `+` `-` |
-| 6 | Bitwise and |`&` | `&` |
-| 7 | Bitwise xor |`^` | `^` |
-| 8 | Bitwise or |`|` | `|` |
-| 9 | Bitwise shift |`<<` `>>` |  |
-| 10 | Min/max | `<*` `*>` |  |
-| 11 | Range | `..` `..=` `=..` `=.=` | | 
-| 12 | Comparison & equality | `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `===` `!==` | `<` `>` `=` `!` `~` |
-| 13 | Membership & class | `<-` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` | |
-| 14 | Type, object and regex | `as` `:?` <br> `set` `.=` <br> `<>` `=<` `</>` | |
-| 15 | Logical and | `&&` `/\` | |
-| 16 | Logical xor | `^^` | |
-| 17 | Bitwise or | `||` `\/` | | 
-| 18 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
-| 19 | Function | `|>` `<|` `<+` `+>` | |
-| 20 | Conditional | `? :` `! :` | |
-| 21 | Assignment | `=` `:=` `::=` `+=` `-=` etc. |  |
+Those same operators also work on maps, but the operations are only performed on keys, overriding any values if necessary.
 
 ```so
-var [a, b, c, d] = [20, 10, 15, 5]
-var e = 0
+A = {1, 2, 3, 4, 5}
+B = {4, 5, 6, 7, 8}
 
-// operators with the highest precedence
-// will operate first
-e = a + b * c / d
+A | B == {1, 2, 3, 4, 5, 6, 7, 8}
+A & B == {4, 5}
+A ^ B == {1, 2, 3, 6, 7, 8}
+A - B == {1, 2, 3}
+```
 
-/*step 1: 20 + (10 * 15) /5
-  step 2: 20 + (150 /5)
-  step 3:(20 + 30)*/
+Set a property on a map with `.=` or `=` (in place), and delete it with `.-` or `del` (in place). Access properties normally with `.` or `[]`, unknown properties with `?.` or `?[]`, or assert these properties exist with `!.` or `![]`.
 
-print("Value of a + b * c / d is : $e")
+Do take note dot-notation can also work with numeric and literal string properties.
+
+```so
+var map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
+map.4 = [4] // {1: 1, 2: 2, 3: 3, 4: [4]}
+del map[4] // {1: 1, 2: 2, 3: 3}
+
+// Immutable map
+var map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
+map = map.4 .= [4] // #{1: 1, 2: 2, 3: 3, 4: [4]}
+map = .-map[4] // #{1: 1, 2: 2, 3: 3}
+
+var map: {[str]: int} = { 'text-align': 'left' }
+map.'text-align' = 'right' // Use dot-notation on string properties
+map['text-align'] = 'center' // or angle-bracket notation
+
+map?['font-size'] // nil
+map.'font-size' = 'inherit' // map.font-size is now 'inherit'
 ```
 
 <style>body{text-align:justify;}</style>
