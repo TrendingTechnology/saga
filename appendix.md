@@ -489,29 +489,28 @@ x++1 // syntax error
 
 Suffix operators are evaluated first, followed by prefix and infix operators. Infix operators have a special order of precedence:
 
-<!-- prettier-ignore -->
-| Precedence |Description| Built-In | Leading character |
-| --- | --- | :-: |:-: |
-| 1 | Property access |`.` `?.` `!.` `~.` | `.` |
-| 2 | Binding & prototype |`::` `->` | `:` |
-| 3 | Exponentiative |`**` | (non-ASCII symbols) |
-| 4 | Multiplicative |`*` `/` `#` `%` `%%` | `*` `/` `#` `%` |
-| 5 | Additive |`+` `-` | `+` `-` |
-| 6 | Bitwise and |`&` | `&` |
-| 7 | Bitwise xor |`^` | `^` |
-| 8 | Bitwise or |`|` | `|` |
-| 9 | Bitwise shift |`<<` `>>` |  |
+| Precedence | Description | Built-In | Leading character |
+| --- | --- | :-: | :-: | --- |
+| 1 | Property access | `.` `?.` `!.` `~.` | `.` |
+| 2 | Binding & prototype | `::` `->` | `:` |
+| 3 | Exponentiative | `**` | (non-ASCII symbols) |
+| 4 | Multiplicative | `*` `/` `#` `%` `%%` | `*` `/` `#` `%` |
+| 5 | Additive | `+` `-` | `+` `-` |
+| 6 | Bitwise and | `&` | `&` |
+| 7 | Bitwise xor | `^` | `^` |
+| 8 | Bitwise or | `\|` | `\|` |
+| 9 | Bitwise shift | `<<` `>>` |  |
 | 10 | Min/max | `<*` `*>` |  |
-| 11 | Range | `..` `..=` `=..` `=.=` | | 
+| 11 | Range | `..` `..=` `=..` `=.=` |  |
 | 12 | Comparison & equality | `<~` `>~` `~<` `~>` `<~>` `=~` `!~` <br> `<` `>` `<=` `>=` `<=>` `==` `!=` <br> `===` `!==` | `<` `>` `=` `!` `~` |
-| 13 | Membership & class | `<:` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` | |
-| 14 | Type, object and regex | `as` `:?` <br> `set` `.=` <br> `<>` `=<` `</>` | |
-| 15 | Logical and | `&&` `/\` | |
-| 16 | Logical xor | `^^` | |
-| 17 | Bitwise or | `||` `\/` | | 
-| 18 | Coalescing | `?!` `?:` `!?` `!:` | `?` | |
-| 19 | Function | `|>` `<|` `<+` `+>` | |
-| 20 | Conditional | `? :` `! :` | |
+| 13 | Membership & class | `<:` `<:` `<!` `<?` <br> `in` `!in` `of` `!of` `is` `is!` <br> `:<` `:>` |  |
+| 14 | Type, object and regex | `as` `:?` <br> `set` `.=` <br> `<>` `=<` `</>` |  |
+| 15 | Logical and | `&&` `/\` |  |
+| 16 | Logical xor | `^^` |  |
+| 17 | Bitwise or | `\|\|` `\/` |  |
+| 18 | Coalescing | `?!` `?:` `!?` `!:` | `?` |  |
+| 19 | Function | `\|>` `<\|` `<+` `+>` |  |
+| 20 | Conditional | `? :` `! :` |  |
 | 21 | Assignment | `=` `:=` `::=` `+=` `-=` etc. |  |
 
 ```so
