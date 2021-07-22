@@ -5539,7 +5539,7 @@ repository:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.class.somra}
       - comment: e.g. obj.property
-        match: (?<![\#\.])\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+\[|\s*+[!?~]?\.|->)
+        match: (?<![\#\.])\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+[!?~]?\[|\s*+[!?~]?\.|->)
         name: variable.other.object.somra
         captures:
           1: {name: keyword.operator.private.somra}
@@ -5578,3 +5578,4 @@ repository:
         patterns:
           - include: '#typed-variable'
 limitLineLength: false
+=
