@@ -4942,12 +4942,6 @@ repository:
         patterns:
           - include: '#typed-parse-types'
           - include: '#comma'
-  types:
-    patterns:
-      - include: '#comments'
-      - include: '#typed-return'
-      - include: '#typed-polymorphs'
-      - include: '#typed-bracketed-args'
   typed-bracketed-args:
     patterns:
       - begin: (?<!}|return|await|unless|els?if|ell?ess|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
@@ -5310,9 +5304,6 @@ repository:
         name: punctuation.type.somra
         captures:
           1: {name: support.type.builtin.primitive.somra}
-      # - match: \s*(=>)
-      #   captures:
-      #     1: {name: storage.type.function.arrow.somra}
       - comment: call back with a form () => type
         match: (?<=\))\s*+(=>)
         captures:
@@ -5521,6 +5512,12 @@ repository:
       - include: '#typed-bracketed-parameters'
       - include: '#typed-parse-array'
       - include: '#core'
+  types:
+    patterns:
+      - include: '#comments'
+      - include: '#typed-return'
+      - include: '#typed-polymorphs'
+      - include: '#typed-bracketed-args'
   variable:
     patterns:
       - comment: e.g. dollar vars
