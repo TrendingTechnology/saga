@@ -2367,8 +2367,8 @@ repository:
           3: {name: keyword.operator.expression.length.somra}
           4: {name: keyword.operator.expression.delete.somra}
           5: {name: keyword.operator.expression.instanceof.somra}
-          6: {name: keyword.control.expression.range.somra}
-          7: {name: keyword.control.expression.then.somra}
+          6: {name: keyword.operator.expression.range.somra}
+          7: {name: keyword.control.then.somra}
           8: {name: keyword.other.logical.somra}
           9: {name: keyword.operator.$9.somra}
           10: {name: keyword.operator.instanceof.somra}
@@ -2667,9 +2667,12 @@ repository:
             (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|
             trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
-            prev|next|lock|fixed|lazy|eager|greedy|unique|handle) #3
+            prev|next|lock|fixed|lazy|eager|greedy|unique|handle)| #3
+            (n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|
+            not(of|in)?|(is)no?t) #4
           )\s*+(?=\b
-            (\s*\b(pub|prot|pvt|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size)|rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle)\b\s*)*\s*\b
+            (\s*\b(pub|prot|pvt|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size)|rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|
+            not(of|in)?|(is)no?t)\b\s*)*\s*\b
             (ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
             struct|data|schema|module|nspace|object|record|raw|style|trait|
             defn?|func?|fn|proc|macro|con|va[rl]|let|const)\b
@@ -2678,6 +2681,9 @@ repository:
           1: {name: storage.modifier.somra}
           2: {name: keyword.modifier.somra}
           3: {name: storage.type.accessor.somra}
+          4: {name: keyword.other.logical.somra}
+          5: {name: keyword.operator.$5.somra}
+          6: {name: keyword.operator.instanceof.somra}
       - comment: Type alias keywords
         match: |-
           (?x)(?<![\#\.])\s*+\b(?:
@@ -3302,7 +3308,7 @@ repository:
                 |([<>]:|:[<>]|[<>]:[<>]) #9
                 |([!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+) #10
                 |(->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?) #11-13
-                |(!\?|\?!)|(\?\??)|(\?:)|(!:)|(\.\.\.) #14-18
+                |(!\?|\?!|!!)|(\?\??)|(\?:)|(!:)|(\.\.\.) #14-18
                 |(\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
                 |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
                 |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
