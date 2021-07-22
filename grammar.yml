@@ -1015,7 +1015,7 @@ repository:
                   1: {name: meta.brace.curly.switchStart.somra}
                 patterns:
                   - begin: (?<![\#\.])\s*+\b(case|def)\b
-                    end: \s*(:)((?=::)|(?!:))
+                    end: \s*(:)((?=::)|(?![:<=>]))
                     beginCaptures:
                       1: {name: keyword.control.switch.somra}
                     endCaptures:
@@ -2402,7 +2402,7 @@ repository:
   labels:
     patterns:
       - comment: string as a property name
-        match: (?<!\.|\?)\s*+(((")(\\.|[^\\"])*("))|((')(\\.|[^\\'])*(')))\s*+(:)((?=::)|(?!:))
+        match: (?<!\.|\?)\s*+(((")(\\.|[^\\"])*("))|((')(\\.|[^\\'])*(')))\s*+(:)((?=::)|(?![:<=>]))
         name: meta.object.member.somra meta.object-literal.key.somra
         captures:
           1: {name: constant.other.object.key.somra}
@@ -2415,14 +2415,14 @@ repository:
           10: {name: punctuation.separator.key-value.somra}
       - begin: (?<!\.|\?)\s*+(?=(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+:\s*+[\S&&[^:]])
         comment: '[some expression] : as  property name'
-        end: \s*(:)((?=::)|(?!:))
+        end: \s*(:)((?=::)|(?![:<=>]))
         name: meta.object.member.somra meta.object-literal.key.somra
         endCaptures:
           1: {name: punctuation.separator.key-value.somra}
         patterns:
           - include: '#core'
       - include: '#js-label'
-      - match: (?<!\.|\?)\s*+(([_\\\p{L}\p{M}\p{N}]*))\s*+(:)((?=::)|(?!:))
+      - match: (?<!\.|\?)\s*+(([_\\\p{L}\p{M}\p{N}]*))\s*+(:)((?=::)|(?![:<=>]))
         name: meta.object.member.somra meta.object-literal.key.somra
         captures:
           1: {name: constant.other.object.key.somra, patterns: [{include: '#number'}]}
@@ -5020,7 +5020,7 @@ repository:
           - include: '#typed-parse-types'
           - include: '#function'
           - include: '#keyword-storage'
-      - begin: \s*+(/\*)\s*(:)((?=::)|(?!:))
+      - begin: \s*+(/\*)\s*(:)((?=::)|(?![:<=>]))
         end: \s*(\*/)
         name: meta.comments.somra
         beginCaptures:
@@ -5042,7 +5042,7 @@ repository:
         captures:
           1: {name: keyword.other.declare.somra}
       - applyEndPatternLast: 1
-        begin: (?<![\#\.])\s*+\b(decl?|def)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?!:))
+        begin: (?<![\#\.])\s*+\b(decl?|def)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?![:<=>]))
         comment: 'declare module.exports:'
         end: (?=.)
         beginCaptures:
@@ -5300,7 +5300,7 @@ repository:
         captures:
           1: {name: keyword.operator.existential.somra}
       - comment: 'types of type marker e.g. <T: number | string>'
-        match: \s*+(:)((?=::)|(?!:))
+        match: \s*+(:)((?=::)|(?![:<=>]))
         name: punctuation.type.somra
         captures:
           1: {name: support.type.builtin.primitive.somra}
@@ -5410,7 +5410,7 @@ repository:
   typed-return:
     patterns:
       - applyEndPatternLast: 1
-        begin: (?<=\))\s*+(:)((?=::)|(?!:))
+        begin: (?<=\))\s*+(:)((?=::)|(?![:<=>]))
         comment: maybe an issue if a object literal is returned and the start of func block isn't on same line!
         end: (?=.)
         beginCaptures:
@@ -5482,7 +5482,7 @@ repository:
         captures:
           1: {name: keyword.operator.intersection.somra}
       - applyEndPatternLast: 1
-        begin: \s*+(:)((?=::)|(?!:))
+        begin: \s*+(:)((?=::)|(?![:<=>]))
         comment: 'typed entity :'
         end: (?=.)
         beginCaptures:
@@ -5553,7 +5553,7 @@ repository:
           2: {name: variable.other.readwrite.somra}
   variable-ts:
     patterns:
-      - begin: (?<=^|,|\()\s*+(?=(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?!:)))
+      - begin: (?<=^|,|\()\s*+(?=(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?![:<=>])))
         comment: Assume this is a flow typed var
         end: \s*(?=,|\))
         beginCaptures:
