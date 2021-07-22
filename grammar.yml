@@ -5578,4 +5578,3 @@ repository:
         patterns:
           - include: '#typed-variable'
 limitLineLength: false
-=
