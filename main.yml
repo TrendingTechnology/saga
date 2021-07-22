@@ -869,6 +869,7 @@ repository:
                 patterns:
                   - match: (?<![\#\.])\s*+\b(in|of|by|to|til)\b
                     name: keyword.control.loop.somra
+                  - include: '#let-clause'
                   - include: '#core'
               - include: '#curly-brackets'
               - include: $self
