@@ -170,7 +170,7 @@ Comments start anywhere outside a string or single-line regex literal with two s
 A variable binding consists of one or several prefix keywords, an optional list of arguments in brackets, a type signature after the colon and the definition after the assignment operator, `=`.
 
 ```so
-var double(val x): int => int = x * 2
+var double: (val x: int) => int = (val x) => x * 2
 ```
 
 This is equivalent to the following in Haskell:
@@ -346,6 +346,12 @@ nil
 ()
 ```
 
+Here's some operators you would need to know about `nil`:
+
+- `??` coalesces `nil` values into defaults.
+- `?.` determines if a nested property is `nil` or does not exist, and if so, returns `nil`.
+- Postfix `?` checks if a variable or property does not exist or is set to `nil`, and returns a boolean.
+
 ### Booleans
 
 A boolean has the type `bool` and can be either `true` or `false`, and are primarily used in control flow statements such as `if`, `while` and more.
@@ -355,6 +361,8 @@ bool('1') // true
 !(!'1') // true
 !(!'') // false
 ```
+
+Operations such as `&&`, `||`, `^^` (exclusive or) and `!` are supported, as well as tons of other expressions performed on other types which return booleans, such as comparison, membership, string matching, etc.
 
 ### Numbers
 
@@ -491,10 +499,10 @@ Somra's regular expressions also include a right hand, replacement section immed
 
 ```so
 let str = 'Alex Ross'
-let newstr = str =< /(\w+)\s(\w+)/$2, $1/g
+let newStr = str =< /(\w+)\s(\w+)/$2, $1/g
 // Ross, Alex
 
-let str1 = 'Diana Kerrigan'
+let str = 'Diana Kerrigan'
 let newStr = str =< />
   (\w+)\s(\w+)
 </>
@@ -529,13 +537,13 @@ All collections are heterogeneous, though they can be made homogeneous with the 
 Sets and maps are both delimited with curly brackets, so an empty map has a compulsory colon: `{:}`.
 
 ```so
-let list: list<int> = #[1, 2, 3, 4]
-let set: set<int> = #{1, 2, 3, 4}
-let map: map<int, int> = #{1: 1, 2: 2, 3: 3, 4: 4}
+let list: int#[] = #[1, 2, 3, 4]
+let set: int#{} = #{1, 2, 3, 4}
+let map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
 
-let mlist: mlist<int> = [1, 2, 3, 4]
-let mset: mset<int> = {1, 2, 3, 4}
-let mmap: mmap<int, int> = {1: 1, 2: 2, 3: 3, 4: 4}
+let mlist: int[] = [1, 2, 3, 4]
+let mset: int[] = {1, 2, 3, 4}
+let mmap: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
 ```
 
 Add elements, concatenate and repeat lists:
@@ -557,13 +565,13 @@ Set operations such as `&` (intersection), `|` (union), `-` (difference) and `^`
 Those same operators also work on maps, but the operations are only performed on keys, overriding any values if necessary.
 
 ```so
-A = {1, 2, 3, 4, 5}
-B = {4, 5, 6, 7, 8}
+let a = {1, 2, 3, 4, 5},
+    b = {4, 5, 6, 7, 8}
 
-A | B == {1, 2, 3, 4, 5, 6, 7, 8}
-A & B == {4, 5}
-A ^ B == {1, 2, 3, 6, 7, 8}
-A - B == {1, 2, 3}
+a | b == {1, 2, 3, 4, 5, 6, 7, 8}
+a & b == {4, 5}
+a ^ b == {1, 2, 3, 6, 7, 8}
+a - b == {1, 2, 3}
 ```
 
 Set a property on a map with `.=` or `=` (in place), and delete it with `.-` or `del` (in place). Access properties normally with `.` or `[]`, unknown properties with `?.` or `?[]`, or assert these properties exist with `!.` or `![]`.
@@ -580,12 +588,210 @@ var map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
 map = map.4 .= [4] // #{1: 1, 2: 2, 3: 3, 4: [4]}
 map = .-map[4] // #{1: 1, 2: 2, 3: 3}
 
-var map: {[str]: int} = { 'text-align': 'left' }
-map.'text-align' = 'right' // Use dot-notation on string properties
-map['text-align'] = 'center' // or angle-bracket notation
+var map: {[str]: int} = {'text-align': 'left'}
+// Use angle-bracket or dot-notation on string properties
+map.'text-align' = 'right'
+map['text-align'] = 'center'
 
-map?['font-size'] // nil
-map.'font-size' = 'inherit' // map.font-size is now 'inherit'
+map?.['font-size'] // nil
+
+// Use angle brackets for property expressions
+map['font' ++ '-' ++ 'size'] = 'inherit'
+```
+
+## Control Flow
+
+Control flow blocks are expressions. A general rule: if the body of your control statement is a single expression, it is compulsory for you to write parentheses to separate expressions (there is no `then` keyword). But if you have multiple statements around in the body, then you can leave them out. One or the other.
+
+```so
+if (a == b) doSomething()
+if a == b {
+  doSomething()
+  doSomethingElse()
+}
+```
+
+### Conditionals
+
+A basic `if` statement looks like this. `if` is an expression; they evaluate to their body's content:
+
+```so
+let message = if (isMorning) "Good Morning!" else 'Hello!'
+let message = if isMorning {
+  "Good Morning"
+} else {
+  "Hello!"
+}
+```
+
+The complete `if` expression looks like this. Statements can have more `elif` clauses. Note `elif`, not `else if`.
+
+```so
+if (test1) doX() elif (test2) doY() else doZ()
+
+if test1 {
+  doX()
+} elif test2 {
+  doY()
+} else {
+  doZ()
+}
+```
+
+Replace `if` with `unless`, and `elif` for `eless` to negate their effect, which means they would run only if their statements are `false`.
+
+A standalone `if` is considered a _statement_ as they are only intended to run for their _side-effects_. Statements like this do not return values.
+
+```so
+if (a == b) doSomething()
+print("Hello")
+```
+
+Even a single value on its own line that does not do anything is considered a statement:
+
+```so
+'Hello World!'
+```
+
+An `if`-`else` expression without the final else branch implicitly gives `nil`.So this:
+
+```so
+if showMenu {
+  displayMenu()
+}
+```
+
+is equal to this:
+
+```so
+if (showMenu) displayMenu() else nil
+```
+
+This is tolerable as long as `displayMenu()` does not return. This is wrong, as the empty `else` branch has the type `nil` whereas the `if` branch has type `int`.
+
+```so
+let result = if showMenu {
+  1 + 2
+} // Type error: result should be `int`, received `nil`
+```
+
+We also have ternary sugar, but we encourage you to prefer `if`-`else` when possible so it's more clearer.
+
+```so
+let message = isMorning ? "Good morning!" : "Hello!"
+let message = isNight ! "Good morning" : "Hello!"
+```
+
+## Functions
+
+Functions are declared with an arrow `=>` and return an expression, just like JS functions. Functions come in many shapes and sizes:
+
+```so
+let greet = name => "Hello $name"
+let greet = (name) =>  "Hello $name"
+let greet = (name) => { "Hello $name" }
+let greet = def (name) = "Hello $name"
+let greet = def (name) { "Hello $name" }
+let greet = def greet(name) = "Hello $name"
+let greet = def greet(name) { "Hello $name" }
+```
+
+This declares a function and assigns to it the name `greet`, which you can call like so:
+
+```so
+greet("world!") // "Hello world!"
+```
+
+Multi-argument functions have arguments separated by comma:
+
+```so
+let add = (x, y, z) => x + y + z
+add(1, 2, 3) // 6
+```
+
+and for longer functions, you would surround the body with a block. The last block is always returned.
+
+```so
+let greetMore = (name) => {
+  let part1 = "Hello"
+  part1 ++ " " ++ name
+}
+
+// No arguments
+let greetMore = () => {}
+```
+
+Multi-arguments functions, especially those whose arguments are of the same type, can be confusing to call.
+
+```so
+let addCoords = (x, y) => {/*...*/}
+addCoords(5, 6) // which is x, which is y?
+```
+
+You can attach labels to an argument by prefixing the name with the `&` symbol, or refer to them by a different name for conciseness with `as`:
+
+```so
+let addCoords = (&x, &y) => {/*...*/}
+// arguments can be provided in any order
+addCoords(&x = 5, &y = 6)
+addCoords(&y = 5, &x = 6)
+
+let drawCircle = def (&radius as r: int,&color as c: int): unit = do {
+  setColor(c)
+  startAt(r, r)
+}
+
+drawCircle(&radius = 10, &color = red)
+```
+
+Mark fields as optional with a postfix `?`, and assign a default value to them:
+
+```so
+// `radius` can be omitted
+let drawCircle = (&color?: int = 0xfff, &radius?: int = 1): unit => {
+  setColor(color)
+  match radius {
+    case () -> startAt(1, 1)
+    case \r -> startAt(\r, \r)
+  }
+}
+
+// with type declaration
+let drawCircle: (&color?: int, &radius?: int) => unit =
+  (&color? = 0xfff, &radius? = 1) => {
+    setColor(color)
+    match radius {
+      case () -> startAt(1, 1)
+      case \r -> startAt(\r, \r)
+    }
+  }
+```
+
+The `rec` modifier marks a function as recursive (a prefix `*` is a "splat", similar to JavaScript's `...`).
+
+```so
+rec let listHas = (list, item) => match list {
+  case [] -> false
+  case [a, *rest] -> a == item || listHas(rest, item)
+}
+
+// Mutually recursive functions
+rec let call1 = () => call2()
+and let call2 = () => call1()
+```
+
+Curried functions are explicit, and depends entirely on the placement of parentheses or arrows. Only the `def` or `fn` keyword supports multiple parentheses.
+
+```so
+def add(x)(y): x = x + y
+let add = x => y => x + y
+
+// With types:
+def add(x?: int)(y: int): int = x + y
+let add = (x: int) => (y: int) => x + y
+
+let add: (x: int) => (y: int) => int = x => y => x + y
+add(3)(4) // 7
 ```
 
 <style>body{text-align:justify;}</style>
