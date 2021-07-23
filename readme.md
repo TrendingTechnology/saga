@@ -19,7 +19,7 @@ val fibonacci = (&nums: int, &terms: int): int[] => {
 
 Sombra is going to be a big project, and there's so many things that would need to be done in order to make this a reality. The steps are in order.
 
-- [ ] Documentation (this document)
+- [ ] Documentation & Wiki
 - [ ] Language reference
 - [ ] Syntax highlighting and theme
 - [ ] Parser and compiler
@@ -507,7 +507,7 @@ def clamp(index: float, len: int): int =
 
 Use Python extended slicing notation to retrieve indices. `:` behaves like `until`, counting from the starting number until the stop point. `:` can take a third number which specifies how many characters to skip over.
 
-You cannot slice a string or list out of bounds.
+Like Python, you cannot slice a string or list out of bounds.
 
 ```so
 val s = 'abcde' // len s == 5
@@ -534,7 +534,7 @@ size '\u10001\u10001' // 4
 
 ### Regular expressions
 
-Sombra's regular expressions are backward-compatible with JavaScript regular expressions, but is fully compliant with PCRE and other regex flavors. Inline `/pattern/flags` and multiline `/>pattern</flags` are supported, with multiline regexes supporting free spacing, comments and interpolation, as well as embedded code.
+Sombra's regular expressions are both PCRE and . Inline `/pattern/flags` and multiline `/>pattern</flags` are supported, with multiline regexes supporting free spacing, comments and interpolation, as well as embedded code.
 
 ```so
 />\b{wb}(fee|fie|foe|fum)\b{wb}</
@@ -806,7 +806,7 @@ Ranges compile to JavaScript generator functions.
 ```so
 // Alternatively:
 for (let n: int in 1 to 3) print(n)
-for (let n: int in 1 ..= 3) print(n)
+for (let n: int in 1..=3) print(n)
 ```
 
 For keyed collections such as maps, you can use the `of` keyword instead of `in`. To resolve confusion, `for`-`of` loops in Sombra compile to JavaScript `for`-`in` loops, and vice versa.
@@ -913,7 +913,7 @@ let i = 0, j = 50; while i += 1; i < 100 {
   }
 }
 
-print "i = $i"
+print 'i = $i'
 label next
 print 'j hit 17'
 ```
@@ -929,9 +929,7 @@ let i = 0, j = 50; while i += 1; i < 100 {
 }
 ```
 
-A `switch` statement runs the first case whose value is equal to the condition expression, unlike the one in a lot of languages. The first case that succeeds is ran and returned, and so does the block it follows.
-
-`switch` statements like all others return expressions.
+A `switch` expression executes and returns the first `case` block that matches the expression provided after the `switch` keyword.
 
 ```so
 import time
@@ -947,7 +945,7 @@ print '${switch time.sat {
 }}'
 ```
 
-`switch` without a condition is the same as `switch`ing on `true`.
+`switch` without an expression is the same as `switch`ing on `true`.
 
 ```so
 switch {
@@ -955,9 +953,16 @@ switch {
   case t.hour() < 17: print 'Good afternoon.'
   def: print 'Good evening.'
 }
+
+// Similarly:
+match t.hour() {
+  case (< 12) -> print 'Good morning!'
+  case (< 17) -> print 'Good afternoon.'
+  def -> print 'Good evening.'
+}
 ```
 
-All fall-throughs are explicit, yes, marked with `fallthru`:
+A `case` can have multiple test statements, separated by commas:
 
 ```so
 switch value {
@@ -966,8 +971,8 @@ switch value {
   case 3: goto x
   /* equivalent to defining individual cases
   with explicit fallthough */
-  label x 
-  case 4; 5; 6:
+  label x
+  case 4, 5, 6:
     // ends execution of the entire block
     break
   def: x
