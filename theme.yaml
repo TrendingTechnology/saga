@@ -1415,7 +1415,7 @@ tokenColors:
     settings:
       foreground: "#9AA5CE"
   - scope:
-      - keyword.operator.optional.parameter.sombra
+      - keyword.operator.optional.parameter
     settings:
       foreground: "#1D9ABA"
   - scope: support.type.variant
@@ -1550,7 +1550,7 @@ tokenColors:
       foreground: "#9096A2"
   - scope:
       - constant.other.email.link.underline
-      - storage.type.format.sombra
+      - storage.type.format
     settings:
       foreground: "#EDB54B"
   - scope: constant.other.caps
