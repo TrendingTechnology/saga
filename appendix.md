@@ -2,6 +2,14 @@
 
 This serves as an appendix or reference for the syntax, mainly operators and literals of the language, and acts as a supplement to the main documentation.
 
+## Variable Keywords
+
+|              | `var`    | `let`    | `val`    | `con`    |
+| ------------ | -------- | -------- | -------- | -------- |
+| Reassignable | &#x2713; | &#x2717; | &#x2717; | &#x2717; |
+| Mutable      | &#x2713; | &#x2713; | &#x2717; | &#x2717; |
+| Shadowable   | &#x2713; | &#x2713; | &#x2713; | &#x2717; |
+
 ## Operators
 
 Operators consist entirely of symbols and punctuation marks that are not brackets, diacritical or quotation marks, or the "delimiters" shown below. For example, `+`, `*`, `<>` and `>>` are all valid operators, but standalone `:`, `;`, or `,` are not. Operators are in a way identifiers, whose type and precedence are hard-coded in the language's standard library.
@@ -68,7 +76,7 @@ Optional suffixes can be placed after numbers to indicate additional properties,
 | `s` | `0-9` | Indices the digit precision of the number. |
 | `k` | See below | Optional type suffix. |
 
-Somra also support type modifiers beginning with `k`, in both C and Rust-style suffixes.
+Sombra also support type modifiers beginning with `k`, in both C and Rust-style suffixes.
 
 | C-style suffix | Rust-style suffix | Meaning |
 | :-: | :-: | --- |
@@ -110,7 +118,7 @@ Somra also support type modifiers beginning with `k`, in both C and Rust-style s
 
 #### Bitwise Operators
 
-You can manipulate the individual bits of numbers in Somra. Bitwise and shift operators work only with integers. Do take note all numbers are signed.
+You can manipulate the individual bits of numbers in Sombra. Bitwise and shift operators work only with integers. Do take note all numbers are signed.
 
 | Operator | Meaning     |
 | :------: | ----------- |
@@ -173,7 +181,7 @@ You can manipulate the individual bits of numbers in Somra. Bitwise and shift op
 
 ### Regular Expressions
 
-The following section serves as a summary to the regular expression syntax of Somra, as well as some of the more unique features that Somra has over other regex flavors.
+The following section serves as a summary to the regular expression syntax of Sombra, as well as some of the more unique features that Sombra has over other regex flavors.
 
 #### Basic Syntax Elements
 
@@ -476,7 +484,7 @@ All comparison operators have the same precedence and can be chained: `2 < 3 < 4
 | Not equal        | `~!`, `!~` | `!=`       | `!==`       |
 | Three-way        | `<~>`      | `<=>`      |             |
 
-Somra parses operators differently than in most languages. Any Somra parses operators differently than in most languages. Any string of symbols excluding the above are parsed as operators, so they have to be clearly distinguished from one another through the use of spaces.
+Sombra parses operators differently than in most languages. Any Sombra parses operators differently than in most languages. Any string of symbols excluding the above are parsed as operators, so they have to be clearly distinguished from one another through the use of spaces.
 
 Operators that end in `=`, excluding those that begin with `:`, `!`, `=`, `~`, `<` or `>`, are parsed as compound assignment operators. Compound assignment operators perform the operation of the corresponding operator on both operands, and reassigns the result of the operation onto the left, which can be any reassignable variable or property.
 
