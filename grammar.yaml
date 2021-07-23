@@ -890,7 +890,7 @@ repository:
               1: {name: meta.brace.round.somra}
             patterns:
               - include: '#curly-brackets'
-              - include: '#type-argument-brackets'
+              - include: '#round-brackets'
               - include: $self
       match-block:
         patterns:
@@ -902,7 +902,7 @@ repository:
             endCaptures:
               1: {name: meta.brace.curly.matchEnd.somra}
             patterns:
-              - include: '#type-argument-brackets'
+              - include: '#round-brackets'
               - begin: \s*+({)
                 end: \s*(?=})
                 beginCaptures:
@@ -1009,7 +1009,7 @@ repository:
             endCaptures:
               1: {name: meta.brace.curly.switchEnd.somra}
             patterns:
-              - include: '#type-argument-brackets'
+              - include: '#round-brackets'
               - begin: \s*+({)
                 end: \s*(?=})
                 beginCaptures:
@@ -3269,12 +3269,12 @@ repository:
           do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|
           from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|
           select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|
-          hide|debug|check|assert)\b)
+          hide|debug|check|assert)\b|$)
         beginCaptures:
           1: {name: keyword.operator.type.somra}
         patterns:
           - include: '#typed-parse-types'
-      - match: \s*(\.=|::?=)\s*
+      - match: \s*(\.?=|::?=)(?![<~>=])\s*
         name: keyword.operator.assignment.somra
       - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
         name: keyword.operator.range.somra
@@ -3432,20 +3432,20 @@ repository:
           - comment: Unary prefix operators
             match: |-
               (?x)
-              (?:(\*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\+[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\-[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\&[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\|[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\^[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\![\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\#[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\@[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\~[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )| #1-11
-              [\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]+) #12
-              (?=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}'"`])
+              (?:(\*) #1
+              |(\+) #2
+              |(\-) #3
+              |(\&) #4
+              |(\|) #5
+              |(\^) #6
+              |(\!) #7
+              |(\#) #8
+              |(\@) #9
+              |(\~) #10
+              |(\?) #11
+              |[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]) #12
+              (?=[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              [\p{L}\p{M}\p{N}\p{Ps}\p{Pe}'"`])
             name: keyword.operator.prefix.somra
             captures:
               1: {name: keyword.operator.module.all.somra}
@@ -3463,20 +3463,20 @@ repository:
           - comment: Unary suffix operators
             match: |-
               (?x)
-              (?<=[\p{L}\p{M}\p{N}\p{Ps}\p{Pe}'"`])
-              (?:(\*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\+[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\-[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\&[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\|[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\^[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\![\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\#[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\@[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\~[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )|(\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
-              )| #1-11
-              [\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]+) #12
+              (?<=[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
+              [\p{L}\p{M}\p{N}\p{Ps}\p{Pe}'"`])
+              (?:(\*) #1
+              |(\+) #2
+              |(\-) #3
+              |(\&) #4
+              |(\|) #5
+              |(\^) #6
+              |(\!) #7
+              |(\#) #8
+              |(\@) #9
+              |(\~) #10
+              |(\?) #11
+              |[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]) #12
             name: keyword.operator.suffix.somra
             captures:
               1: {name: keyword.operator.module.all.somra}
@@ -5503,7 +5503,7 @@ repository:
       - applyEndPatternLast: 1
         begin: \s*+(:)((?=::)|(?![:<=>]))
         comment: 'typed entity :'
-        end: (?=.)
+        end: (?=.)|$
         beginCaptures:
           1: {name: punctuation.type.somra}
         patterns:
@@ -5513,7 +5513,7 @@ repository:
         match: \s*+(@@)
       - applyEndPatternLast: 1
         begin: \s*+(=>)
-        end: (?=.)
+        end: (?=.)|$
         beginCaptures:
           1: {name: storage.type.function.arrow.somra}
         patterns:
@@ -5570,7 +5570,7 @@ repository:
         captures:
           1: {name: keyword.operator.private.somra}
           2: {name: variable.other.readwrite.somra}
-  variable-ts:
+  variable-typed:
     patterns:
       - begin: (?<=^|,|\()\s*+(?=(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?![:<=>])))
         comment: Assume this is a flow typed var
