@@ -924,7 +924,7 @@ repository:
                       0: {patterns: [{include: '#core'}]}
                     patterns:
                       - include: $self
-                  - begin: (?<![\#\.])\s*+\b(when|case)\b
+                  - begin: (?<![\#\.])\s*+\b(case)\b
                     end: \s*->
                     beginCaptures:
                       1: {name: keyword.control.match.somra}
@@ -952,7 +952,7 @@ repository:
               - include: '#typed-parse-types'
           case-separator:
             begin: ([,;])
-            end: (?<![\#\.])\s*\b(?=as|with|if|unless|where)|\s*(?=->)
+            end: (?<![\#\.])\s*\b(?=as|with|if|unless|where|when)|\s*(?=->)
             beginCaptures:
               1: {patterns: [{include: '#core'}]}
             endCaptures:
@@ -963,8 +963,8 @@ repository:
               - include: '#case-separator'
               - include: '#core'
           match-clause:
-            begin: (?<![\#\.])\s*\b(if|unless|where)\b\s*
-            end: (?<![\#\.])\s*\b(?=if|unless|where)|\s*(?=->)
+            begin: (?<![\#\.])\s*\b(if|unless|where|when)\b\s*
+            end: (?<![\#\.])\s*\b(?=if|unless|where|when)|\s*(?=->)
             beginCaptures:
               1: {name: keyword.control.match.somra}
             endCaptures:
@@ -3274,7 +3274,7 @@ repository:
           1: {name: keyword.operator.type.somra}
         patterns:
           - include: '#typed-parse-types'
-      - match: \s*(\.=|::?=)(?![<~>=])\s*
+      - match: \s*(\.?=|::?=)(?![<~>=])\s*
         name: keyword.operator.assignment.somra
     patterns:
       - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
@@ -5261,6 +5261,11 @@ repository:
           - include: '#typed-object-property'
   typed-parse-types:
     patterns:
+      - comment: sometypename of|in
+        begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+        end: \s*(?=[,;\p{Pe}]|\*/)
+        patterns:
+          - include: '#core'
       - include: '#for-all-clause'
       - include: '#modifiers'
       - include: '#keywords'
@@ -5443,13 +5448,17 @@ repository:
     comment: traps ts vars that aren't caught normally - e.g. multi-line arrow funcs
     patterns:
       - applyEndPatternLast: 1
-        begin: (?<=\))\s*(?=:)
+        begin: (?<=\))(:)((?=::)|(?![:<=>]))
         end: (?=.)
+        beginCaptures:
+          1: {name: punctuation.type.somra}
         patterns:
           - include: '#typed-return'
       - applyEndPatternLast: 1
-        begin: \s*:(?!:)
+        begin: \s*+(:)((?=::)|(?![:<=>]))
         end: (?=.)
+        beginCaptures:
+          1: {name: punctuation.type.somra}
         patterns:
           - include: '#typed-parse-types'
   typed-type-aliases:
@@ -5519,14 +5528,14 @@ repository:
           1: {name: storage.type.function.arrow.somra}
         patterns:
           - include: '#typed-parse-types'
-      - begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=\b(?:of|in)\b)
+      - begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
         comment: varname of|in
-        end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert))
+        end: \s*(?=[,;\p{Pe}]|\*/)
         patterns:
           - include: '#core'
-      - begin: (?<!:)\s*+(?=((\#?)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*=)(?!=>|==)
+      - begin: (?<!:)\s*+(?=((\#?)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*(::?|\.)?=)(?!=>|==)
         comment: assignment var = or =
-        end: \s*(?=[,;\p{Pe}]|\*/|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+        end:  \s*(?=[,;\p{Pe}]|\*/)
         patterns:
           - include: '#core'
       - include: '#typed-bracketed-parameters'
