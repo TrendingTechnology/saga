@@ -2,22 +2,16 @@
 
 > The language for coders without deadlines.
 
-JavaScript is weird. val's fix it and make something better.
+JavaScript is weird. Let's fix it and make something better.
 
 This is Sombra, a new and experimental programming language with a big stack, designed for flexiblity, scalability and awesomeness. Use it in projects small and big, without the pesky and complicated quirks of JavaScript. All while leveraging on a fast compiler and package manager that allows for easy access to bustling ecosystems of libraries.
 
 ```so
-val Functions = module {
-  val rotl = (x, n) => (x << n) | (x >>> (64 - n | 0)) | 0
-  val change = (x, y, z) => x & y ^ ~x & z
-  val majority = (x, y, z) => x & y ^ x & z ^ y & z
-  val parity = (x, y, z) => x ^ y ^ z
-  val f = (t, x, y, z) => match t {
-    case 0..=19 -> change (x, y, z)
-    case 20..=39, 60..=79 -> parity(x, y, z)
-    case 40..=59 -> majority(x, y, z)
-    else -> 0
-  }
+val fibonacci = (&nums, &terms): int[] => {
+  val #len = len #seq
+  until (len #seq == terms)
+    #seq.push(#seq[-#len:] </> ((+), 0))
+  return #seq[0:terms]
 }
 ```
 
@@ -44,11 +38,10 @@ Sombra is a language designed for hackability and scalability. Use it for whatev
 
 ### Installation and Architecture
 
-Sombra is written in Python and is distributed as a single executable shipped with an NPM module, `@sombra/core`. This package by default also would install:
+Sombra is written in JavaScript and is inclued inside a single NPM module, `@sombra/core` which includes a copy of Sombra's core libraries, compiler and command-line utility. This package only needs five dependencies:
 
 - Lodash
 - XRegExp
-- Jison
 - Yargs
 - Chevrotain
 - ...is that it?
@@ -56,23 +49,14 @@ Sombra is written in Python and is distributed as a single executable shipped wi
 To install Sombra, you actually need one command.
 
 ```sh
-npm i -g @sombra/cli
+# Install locally for a project:
+npm i --save-dev @sombra/core
+
+# Install globally to execute .so files anywhere:
+npm i -g @sombra/core
 ```
 
 That's it.
-
-Sombra's executable is dubbed `so`, and `.so` is the file extension (pun intended). Here are a few simple single-letter commands you would use all the time:
-
-- `i` (install) to install all dependencies, or add new ones
-- `r` (remove) to remove dependencies
-- `u` (update) to update them
-- `b` (build) to recompile and build your project
-- `s` (serve) to serve your project on a platform
-
-```sh
-# Install multiple packages
-npx so i lodash date-fns rxjs
-```
 
 Running `so i` for the first time would also initialize a Python and JavaScript project/virtual environment at the same time.
 
@@ -85,15 +69,11 @@ from 'module' import x
 from ./dir/'module' import R, S, T
 ```
 
-## A note on syntax
+## A Little Note
 
-Like all programming languages, Sombra programs are not text as in source code, but rather a structured representation as an AST. This document describes Sombra in terms of its default (and currently, only) textual rendering as source code.
+This reference is structured so that it can be read from top to bottom, if you want. Later sections use ideas and syntax previously introduced. Familiarity with JavaScript is assumed. Sombra's syntax is heavily influenced by modern languages like Scala, Go, Rust and Kotlin.
 
-Sombra's syntax is derived heavily from JavaScript and other modern curly-brace languages, like Go, Scala, Kotlin, ReScript (formerly Reason) and Rust. Sombra programs are encoded as UTF-8 or ASCII and never anything else, so to stay as small as possible.
-
-## Basic Syntax
-
-Trailing semicolons and commas are optional, and are only used to separate individual statements, arguments or elements. A semicolon is automatically inserted if the line does not end in a keyword such as `return`, and can be removed before a closing bracket.
+You don't need to use semicolons `;` or `,` to terminate expressions, ending the line will do just as well (although they can be used to fit multiple expressions in a single line). You still would need to use curly braces to surround blocks of code.
 
 ```so
 val arr = [1
@@ -109,14 +89,9 @@ def x()
 def x() { return () }
 ```
 
-Everything is an expression, period. Even JSX, CSS, type declarations, interfaces and more.
+## Basic Syntax
 
-```so
-def mymethod(x: int): str = if (x > 2) "yay!" else "too low!"
-var x: int = type forall x as int, y as int where x + y < 5
-```
-
-Statements and expressions are never distinguished, and all blocks, delimited in between curly brackets, automatically return their last statement unless there is one.
+Blocks return their last statement.
 
 ```so
 var helloWorld = do {
@@ -136,26 +111,20 @@ Comments start anywhere outside a string or single-line regex literal with two s
 
 ### Variables
 
-A variable binding consists of one or several prefix keywords, an optional list of arguments in brackets, a type signature after the colon and the definition after the assignment operator, `=`.
+Declare variables like you normally would in JavaScript. You normally wouldn't need to declare types, the compiler is smart enough to declare them for you.
 
 ```so
-var double: (val x: int) => int = (val x) => x * 2
+var x = 1 // int
+var double = x => x * 2 // int => int
 ```
 
-This is equivalent to the following in Haskell:
-
-```hs
-double :: Int -> Int
-double x = x * 2
-```
-
-All variables are block scoped, meaning they can be accessed on the same scope and inner scopes. Scopes are grouped by curly braces which delimit blocks.
+All variables are block scoped, meaning they can be accessed on the same scope and inner scopes, which again are grouped by curly brackets. In Sombra, `var` is mutable, like `let`, and `val` is like `const`.
 
 ```so
 val message = do {
   val part1 = "hello"
   val part2 = "world"
-  part1 ++ " " ++ part2
+  "$part1 $part2"
 }
 // part1 and part2 are not accessible from the outside!
 ```
@@ -170,9 +139,7 @@ if displayGreeting {
 // `message` not accessible here!
 ```
 
-`val` would declare an immutable constant, which means it cannot be reassigned nor modified in place. However, both `var` and `val` variables can be shadowed in the same or inner scopes.
-
-The `def` keyword is used to declare functions, with an optional name and type signature. Named functions declared with `def` are hoisted to scope and cannot be overridden.
+The `def` keyword is used to declare functions, with an optional name and type signature. Named functions declared with `def` are hoisted, like regular `function` declarations.
 
 ```so
 def hello(name: str): unit = "Hello, $name"
@@ -180,13 +147,17 @@ def hello(name: str): unit = "Hello, $name"
 
 ### Type Annotations
 
-All variables have the same type throughout its lifetime. A value binding with type signature `int | str` is restricted to types `int` or `str`. Don't worry, we'll get to types soon. The `dyn` modifier allows variables to be dynamically typed.
+All variables have the same type throughout its lifetime.
 
 ```so
-dyn var x: int = 1 + 1
-var x: any = 1 + 1
+var x: mix = 1 + 1
 x = str(x) // x is now of type 'str'
-x: int | str ++= 10
+```
+
+A value binding with type signature `int | str` is restricted to types `int` or `str`.
+
+```so
+var x: int | str ++= 10
 var x: int | str = 10 // 'int' or 'str'
 x = str(x) ++ '10' // x is now of type 'str'
 ```
@@ -199,20 +170,7 @@ Identifiers in Sombra begin with a letter, backslash or underscore. Further char
 var _set\\_() = 10
 ```
 
-Sombra has tons of keywords, shown below, so a hash sign is used to suppress their meaning. This is known as _stropping_.
-
-```
-in of as void to til by new len del is size typeof nameof keyof sizeof infer if then else elif eless unless guard for while until repeat switch case def match when pass try throw raise catch rescue finally with as use from import export out goto label await return fallthru yield halt skip break continue query where join equals into order group fold scan take drop select
-
-const let var val con fn fun func macro proc decl class data enum extend frag given inter module nspace object raw record style struct trait
-```
-
-Modifiers prefix a declaration, such as a function, variable or class.
-
-```
-// Modifiers (prefix a declaration):
-pub prot pvt ronly intl extl over abs stat dyn vol sync async immut mut part seal final dele ref tran impl expl ext sign safe check size unsign unsafe uncheck unsize rec gen inline prefix infix suffix unary binary ternary nary get set prev next lock fixed laxy eager greedy unique handle
-```
+A hash sign is used to suppress their meaning. This is known as _stropping_.
 
 ```so
 var #var = 'Happy stropping'
@@ -224,6 +182,21 @@ assert #object.int == 9
 
 var #assert = true
 assert #assert
+```
+
+Sombra has a lot of keywords:
+
+```
+in of as void to til by new len del is size typeof nameof keyof sizeof infer if then else elif eless unless guard for while until repeat switch case def match when pass try throw raise catch rescue finally with as use from import export out goto label await return fallthru yield halt skip break continue query where join equals into order group fold scan take drop select
+
+const let var val con fn fun func macro proc decl class data enum extend frag given inter module nspace object raw record style struct trait
+```
+
+Modifiers prefix a declaration, such as a function, variable or class.
+
+```
+// Modifiers (prefix a declaration):
+pub prot pvt ronly intl extl over abs stat dyn vol sync async immut mut part seal final dele ref tran impl expl ext sign safe check size unsign unsafe uncheck unsize rec gen inline prefix infix suffix unary binary ternary nary get set prev next lock fixed lazy eager greedy unique handle
 ```
 
 Identifiers with illegal characters such as spaces and symbols must be quoted inside a string literal and prefixed with a hash.
@@ -239,17 +212,13 @@ Two identifiers are considered equal if the following algorithm returns true:
 
 ```so
 def identEqual(a: str, b: str): bool = a[0] == b[0] &&
-  (a[1..] =< /[\pS\pP]/ /g).lower ==
-  (b[1..] =< /[\pS\pP]/ /g).lower
+  (a[1..] =< /[\pS\pP]/ /g).latin.lower ==
+  (b[1..] =< /[\pS\pP]/ /g).latin.lower
 ```
 
-The first letters are compared as is, case-insensitively. The other letters are compared with no regard for case or delimiters. This rather unorthodox way to compare identifiers is called "partial case insensitivity" and has some advantages:
+Variables are compared with complete disregard for case and delimiters, except the first character. You don't need to worry about having to remember the exact spelling of an identifier, and everyone can use their own styles no matter what.
 
-- Programmers can use their own preferred naming convention as wanted
-- Libraries written by different programmers cannot use different conventions
-- Frees the programmer from remembering the exact spelling of an identifier.
-
-This rule does not apply to quoted identifiers (`#""`) which are case-insensitive or keywords such as `goto`, which are written in all lowercase.
+This rule at the moment does not apply to quoted identifiers (`#""`) which are case-insensitive or keywords such as `goto`, which are written in all lowercase.
 
 ## Literals
 
@@ -300,32 +269,26 @@ Operations such as `&&`, `||`, `^^` (exclusive or) and `!` are supported, as wel
 
 ### Numbers
 
-Numerical constants are of a single type and begin with a decimal digit, or a dot followed by one. Even though Sombra supports the _full set of numbers_ in the core language, two types are used a lot they are worth mentioning: **integers** (signed or unsigned) and **floating points**. Integers and floating points are distinguished by the decimal point.
+Sombra supports integers and floating-point numbers. Floats compile to regular JavaScript `number`s, while integers compile to `bigint`, and are differentiated with a dot. All numeric literals are case-insensitive, and can include leading zeroes and underscores.
 
 ```so
 val int: int = 123
 val float: float = 0x.1
 ```
 
-Both integers and floats compile to JavaScript numbers, with type assertions such as `~~`, `| 0`, `+` and `>>> 0`.
-
-All numeric literals are case-insensitive, and can include leading zeroes and underscores which are removed. Exponents are always delimited with **`p`**, not `e`, so to maintain consistent across different bases. Floating-point precision is controlled with `s`.
-
-Different radix literals can be created using prefixes `0x`, `0o`, `0b`, `0s`, `0q`, `0z`:
+Exponents are always delimited with **`p`**, not `e`, so to maintain consistency across different bases. Fractional precision is controlled with `s`. Different radix literals can be created using prefixes `0x`, `0o`, `0b`, `0s`, `0q`, `0z`:
 
 ```so
 val base2 = 0b101010111100000100100011
 val base4 = 0q320210213202
 val base6 = 0s125423
 val base8 = 0o52740443
-val base10 = 11256099
+val base10 = 0011256099
 val base12 = 0z10a37b547ab97
 val base16 = 0xabcdef123
 ```
 
-Many operations such as `+`, `-`, `*`, `/`, `**` and `%` are supported. Do take note that both `/` and `**` would return floats, so use `~/` and `***` in place of `/` and `**` to truncate the result into an integer.
-
-The sign of `%` depends on its right hand side, so the sign of `%%` is either 0 or positive.
+Many operations such as `+`, `-`, `*`, `/`, `**` and `%` are supported. Do take note that both `/` and `**` would return floats, so use `~/` and `***` in place of `/` and `**` to truncate the result into an integer. The sign of `%` depends on its right hand side, so the sign of `%%` is either 0 or positive.
 
 ### Strings
 
@@ -344,7 +307,7 @@ All escape sequences begin with a backslash, and any character can be escaped, i
 "\d{1114111}" == "\1114111" == "\o{4177777}"
 ```
 
-Sombra supports escapes in many bases without curly brackets. The same escapes with curly brackets allow you to insert many code points inside, with each character or code unit separated by spaces for a more compact notation.
+Sombra supports escapes in many bases without curly brackets. The same escapes with curly brackets allow you to insert many code points inside, with each character or code unit separated by spaces.
 
 ```so
 // "HELLO"
@@ -352,7 +315,7 @@ Sombra supports escapes in many bases without curly brackets. The same escapes w
 "\d{72 69 76 76 69}" == "\72\69\76\76\79"
 ```
 
-Backslashes are used very frequently in regular expressions too. The escapes `\n`, `\r`, `\t`, `\v`, `\f`, and even backslash-symbol/punctuation escapes, mean the same thing inside regular expressions.
+Backslashes are used very frequently in regular expressions too. Many escape sequences have the same meaning inside regular expressions.
 
 #### String Interpolation and Formatting
 
@@ -372,31 +335,20 @@ All valid indices range from `-(len s)` to `s - 1`. So given a string `s` of len
 All indices are calculated with this formula.
 
 ```so
-def clamp(#index: float, #len: int): int = int(#index) %% #len ?: 0
+def clamp(index: float, len: int): int =
+  int(#index) %% #len ?: 0
 ```
 
-Use Python extended slicing notation to retrieve indices. `:` behaves like `until`, counting from the starting number until the stop point.
+Use Python extended slicing notation to retrieve indices. `:` behaves like `until`, counting from the starting number until the stop point. `:` can take a third number which specifies how many characters to skip over.
 
-|       Notation       | Expansion (`n` is length)    |
-| :------------------: | ---------------------------- |
-|         `0`          | `[0]`                        |
-|        `1,2`         | `[1, 2]`                     |
-| `:`<br>`0:`<br>`:-1` | `[0, 1, 2, 3, 4, 5 ... n-1]` |
-|         `1:`         | `[1, 2, 3, 4, 5, 6 ... n-1]` |
-|    `0:5`<br>`:5`     | `[0, 1, 2, 3, 4]`            |
-|       `0:5,5`        | `[0, 1, 2, 3, 4, 5]`         |
-|        `7:0`         | `[7, 6, 5, 4, 3, 2, 1]`      |
-| `7:0:1`<br>`7:0:-1`  | `[7, 6, 5, 4, 3, 2, 1]`      |
-| `7:0:2`<br>`7:0:-2`  | `[7, 5, 3, 1]`               |
-
-You cannot slice a string or list out of bounds, as the indices are calcluated first before the range.
+You cannot slice a string or list out of bounds.
 
 ```so
 val s = 'abcde' // len s == 5
 s[0:5 * len s] == s[:] == 'abcde'
 ```
 
-Splicing is the same as slicing, but with a pseudo-assignment syntax. The characters or elements are replaced by the indices yielded on the left one by one, until reaching the end of the replacement string. All remaining characters are discarded at their indices.
+Splicing is the same as slicing, but with a pseudo-assignment syntax. The characters or elements are replaced by the indices yielded on the left until the end is reached, discarding any remaining indices.
 
 ```so
 var s: str = 'hello'
@@ -468,9 +420,9 @@ All collections are heterogeneous, though they can be made homogeneous with the 
 
 - Lists are ordered (indexed) and finite sequences of values.
 - Sets are finite, unordered collections of unique values.
-- Maps are finite, unordered collections of values each assigned to a unique key. A key-value pair is considered an "attribute" or "property".
+- Maps are finite, unordered collections of values each assigned to a unique key.
 
-Maps compile to objects but their keys are serialized.
+Maps compile to regular JavaScript objects but their keys are YAML-serialized.
 
 Sets and maps are both delimited with curly brackets, so an empty map has a compulsory colon: `{:}`.
 
@@ -479,9 +431,9 @@ val list: int#[] = #[1, 2, 3, 4]
 val set: int#{} = #{1, 2, 3, 4}
 val map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
 
-val mlist: int[] = [1, 2, 3, 4]
-val mset: int[] = {1, 2, 3, 4}
-val mmap: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
+val list: int[] = [1, 2, 3, 4]
+val set: int[] = {1, 2, 3, 4}
+val map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
 ```
 
 Add elements, concatenate and repeat lists:
@@ -512,7 +464,7 @@ a ^ b == {1, 2, 3, 6, 7, 8}
 a - b == {1, 2, 3}
 ```
 
-Set a property on a map either with `.=`, and delete it with `.-` or `del` in place. Do take note dot-notation can also work with numeric and literal string properties.
+Set a property on a map either in-place with `=` and the `del` command, or use operators like `.=` and `.-`.
 
 ```so
 var map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
@@ -525,15 +477,13 @@ map = map.4 .= [4] // #{1: 1, 2: 2, 3: 3, 4: [4]}
 map = .-map[4] // #{1: 1, 2: 2, 3: 3}
 ```
 
-Access properties with dots or angle brackets, prefixing them with `?` to return `nil` if a property happens to be `nil` or nonexistent, or `!` to throw an error if so.
+Access properties with dots or angle brackets, prefixing them with `?` to return `nil` if a key does not exist or its value is `nil`, or `!` to throw an error if so.
 
 ```so
-var map: {[str]: int} = {'text-align': 'left'}
-// Use angle-bracket or dot-notation on string properties
 map.'text-align' = 'right'
 map['text-align'] = 'center'
 
-map?.['font-size'] // nil
+map?.'font-size' // nil
 
 // Use angle brackets for property expressions
 map['font' ++ '-' ++ 'size'] = 'inherit'
@@ -543,15 +493,14 @@ Use interfaces to describe the types of objects:
 
 ```so
 inter font {
-  pub val fontFamily: str | str[]
-  pub val fontSize: int[]
-  pub val
+  fontFamily: str | str[]
+  fontSize: int
 }
 ```
 
 ### Ranges and Generators
 
-Ranges expand to sequences of numbers in an arithmetic progression. The left-hand side defaults to 0, and the right-hand side &pm;&infin;. You can leave out both or either sides if you wish. `..` counts **until** (not including) the end, while `..=` counts up **to** (including) the end.
+Ranges expand to sequences of numbers in an arithmetic progression. The left-hand side defaults to 0, and the right-hand side &pm;&infin;. You can leave out both or either sides if you wish. `..` counts **til** (not including) the end, while `..=` counts up **to** (including) the end.
 
 ```so
 1..=10; 1 to 10 // #(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
