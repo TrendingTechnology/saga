@@ -3257,7 +3257,21 @@ repository:
         captures:
           1: {name: variable.other.readwrite.shorthandpropertyname.somra}
   operator:
-    repository: 
+    patterns:
+      - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
+        name: keyword.operator.range.somra
+      - match: \s*(/\\)|(\\/)\s*
+        name: keyword.operator.logical.somra
+      - match: \s*(?:(::+)|([<>][:!]+|[:!]+[<>]|[<>][:!]+[<>]))\s*
+        captures:
+          1: {name: keyword.operator.accessor.somra}
+          2: {name: keyword.operator.class.somra}
+          3: {name: keyword.operator.accessor.somra}
+      - match: \s*\\\s*($|(?=/[/*]))
+        name: constant.character.escape.newline.somra
+      - match: \s*(<-+|-+>)\s*
+        name: keyword.operator.then.somra
+    repository:
       - begin: \s*(:\?[<=>]?|:(?![:<=>]))\s*
         comment: Type assertion/conversion/coercion/casting operator
         end: |-
@@ -3276,20 +3290,6 @@ repository:
           - include: '#typed-parse-types'
       - match: \s*(\.?=|::?=)(?![<~>=])\s*
         name: keyword.operator.assignment.somra
-    patterns:
-      - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
-        name: keyword.operator.range.somra
-      - match: \s*(/\\)|(\\/)\s*
-        name: keyword.operator.logical.somra
-      - match: \s*(?:(::+)|([<>][:!]+|[:!]+[<>]|[<>][:!]+[<>]))\s*
-        captures:
-          1: {name: keyword.operator.accessor.somra}
-          2: {name: keyword.operator.class.somra}
-          3: {name: keyword.operator.accessor.somra}
-      - match: \s*\\\s*($|(?=/[/*]))
-        name: constant.character.escape.newline.somra
-      - match: \s*(<-+|-+>)\s*
-        name: keyword.operator.then.somra
   operators:
     patterns:
       - include: '#unary-ops'
@@ -5261,8 +5261,8 @@ repository:
           - include: '#typed-object-property'
   typed-parse-types:
     patterns:
-      - comment: sometypename of|in
-        begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+      - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+        comment: sometypename of|in
         end: \s*(?=[,;\p{Pe}]|\*/)
         patterns:
           - include: '#core'
@@ -5535,7 +5535,7 @@ repository:
           - include: '#core'
       - begin: (?<!:)\s*+(?=((\#?)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*(::?|\.)?=)(?!=>|==)
         comment: assignment var = or =
-        end:  \s*(?=[,;\p{Pe}]|\*/)
+        end: \s*(?=[,;\p{Pe}]|\*/)
         patterns:
           - include: '#core'
       - include: '#typed-bracketed-parameters'
