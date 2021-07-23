@@ -7,7 +7,7 @@ JavaScript is weird. Let's fix it and make something better.
 This is Sombra, a new and experimental programming language with a big stack, designed for flexiblity, scalability and awesomeness. Use it in projects small and big, without the pesky and complicated quirks of JavaScript. All while leveraging on a fast compiler and package manager that allows for easy access to bustling ecosystems of libraries.
 
 ```so
-val fibonacci = (&nums, &terms): int[] => {
+val fibonacci = (&nums: int, &terms: int): int[] => {
   val #len = len #seq
   until (len #seq == terms)
     #seq.push(#seq[-#len:] </> ((+), 0))
@@ -88,6 +88,173 @@ def x()
 
 def x() { return () }
 ```
+
+| JavaScript         | Saga        |
+| ------------------ | ----------- |
+| Enforced by linter | None needed |
+
+#### Variables
+
+A variable must start with a letter and end with an ishei
+
+| JavaScript          | Saga                |
+| ------------------- | ------------------- |
+| `const x = 5`       | `let x = 5`         |
+| `var x = 5`         | Same                |
+| `let x = 5; x += 1` | `var x = 5; x += 1` |
+
+#### Strings
+
+| JavaScript                    | Saga                                 |
+| ----------------------------- | ------------------------------------ |
+| `"Hello world!"`              | Same                                 |
+| `'Hello world!'`              | Same                                 |
+| `"hello " + "world"`          | `hello" + "world"`                   |
+| `'hello'.repeat(3)`           | `hello" * 3`                         |
+| `` `hello ${message}` ``      | `` `hello $message` ``               |
+| `\u03B1`                      | `\h{alpha}`                          |
+| `${msg.toUpperCase()}`        | `$msg:su`                            |
+| `'hello'[1]`                  | Same                                 |
+| `'hello'['hello'.length - 1]` | `'hello'[-1]`                        |
+| `/x/.test('next')`            | `'x' in 'next'`<br>`(/x/) in 'next'` |
+| `'hello'.replace('l', 'r')`   | `'hello' <> />l</>r</g`              |
+| `[...hello].length`           | `len 'hello'`                        |
+| `'hello'.length`              | `size 'hello'`                       |
+| chalk`{blue hello world}`     | Same                                 |
+
+#### Booleans
+
+| JavaScript | Saga |
+| --- | --- |
+| `null`, `undefined` | `nil` |
+| `true`, `false` | Same |
+| `!`, `&&`, `\|\|` | Same |
+| `!x != !y` | `x ^^ y` |
+| `x && y` (short-circuit) | `x !: y` |
+| `x \|\| y` (short-circuit) | `x ?: y` |
+| `a ?? b` | Same |
+| `a == nil ? a : b` | `a !? b` |
+| `===`, `!==` | `===`, `!==` (Referential)<br>`==`, `!=` (Structural) |
+| `==`, `!=` | `=~`, `!~` |
+| `<`, `>`, `<=`, `>=` | Same, but no type coercion |
+| `a < b ? -1 : a > b ? 1 : 0` | `a <=> b` |
+
+#### Numbers
+
+| JavaScript                        | Saga              |
+| --------------------------------- | ----------------- |
+| `1`, `0x10`, `0o40`, `0b10_10`    | Same              |
+| `1e40`                            | Same              |
+| `13.1875`                         | Same              |
+| No complex number support         | `1j`              |
+| `144`, `36`                       | `0z100`, `0z30`   |
+| `Infinity`, `NaN`                 | `inf`, `nan`      |
+| No fraction support               | `1 / 3`, `0.r3`   |
+| `+`, `-`, `*`, `/`, `%`           | Same              |
+| `1 / 4 \| 0`                      | `1 ~/ 4`          |
+| `((1 % 4) + 4) % 4`               | `1 %% 4`          |
+| `Math.max(3, 4); Math.min(3, 4)`  | `3 *> 4; 3 <* 4`; |
+| `&`, `\|`, `^`, `~`               | same              |
+| `>>`, `<<`, `>>>`                 | same; no `>>>`    |
+| `x++; x--; ++x; --x`              | `x += 1; x -= 1;` |
+| `1 >>> -20`                       | `1 <<< 20`        |
+| `[...Array(100).keys()]`          | `..100`           |
+| `[...Array(102).keys()].slice(1)` | `1..=100`         |
+
+#### Lists, Sets and Maps
+
+Saga's JavaScript runtime uses Immutable.JS for its internal data structures, which use structural sharing to minimize copy times and improve performance.
+
+| JavaScript                         | Saga                       |
+| ---------------------------------- | -------------------------- |
+| `[1, 2, 3]`                        | Same                       |
+| `[1, 2, 3].concat([4])`            | `[1, 2, 3] + 4`            |
+| `Array(3).fill([1, 2, 3]).flat(1)` | `[1, 2, 3] * 3`            |
+| `[1, 2, 3].filter(x => x === 1)`   | `[1, 2, 3].filter(# == 1)` |
+| `arr.indexOf(ele) >= 0`            | `ele in arr`               |
+| `arr.indexOf(ele) < 0`             | `ele !in arr`              |
+| `var [x, y] = [1, 2]`              | Same                       |
+| `[...x, ...y]`                     | `[*x, *y]`                 |
+| `tuple()` (Python)                 | `#[]`                      |
+| `(1, 2, 3)` (Python)               | `#[1, 2, 3]`               |
+
+<!--  -->
+
+| JavaScript                                    | Saga                |
+| --------------------------------------------- | ------------------- |
+| `new Set([1, 2, 3])`                          | `{1, 2, 3}`         |
+| `new Set('hello')`                            | `{*'hello'}`        |
+| `new Set('hello').has('h')`                   | `'h' in {*'hello'}` |
+| Intersection<br>Union<br>Symmetric difference | `&`<br>`\|`<br>`^`  |
+| Superset, subset                              | `>=`, `<=`          |
+| Strict superset, subset                       | `>`, `<`            |
+
+<!--  -->
+
+| JavaScript | Saga |
+| --- | --- |
+| `{}` | `{:}` (mandatory colon) |
+| `{a: 1, b: 2, c: 3}` | Same |
+| `map?.prop; map?.method()` | Same |
+| `map.prop = 10` | `map.prop set 10` or `.= 10` returns new map; otherwise same |
+| `'prop' in map` | `'prop' of map` |
+| `!('prop' in map)` | `'prop' !of map` |
+| `delete map.prop` | `del map.prop` returns new map |
+| `map.prop` | `map!.prop` would throw if it does not exist |
+| `{...details, prop, let: 2}` | `{*details, :prop, let: 2}`; |
+| `{...details, let: 2}` | `details \| {let: 2}` |
+| `{a: 1, b: 2, c: 3}` (ReScript) | `#{a: 1, b: 2, c: 3}`; |
+| `Object.keys({})` | `{}.keys()` (Same for values and entries) |
+| `map.y = 40; map.x()` | `map.y = 40; ~.x()`; |
+
+#### Functions
+
+| JavaScript | Saga |
+| --- | --- |
+| `function () { return 10 }` | `def () = 10` |
+| `function named () {}` | `def named() {}` |
+| `x => x + 1` | Same |
+| `x = function*(x) { yield x; return }` | `x =>* x` |
+| `const f = function(arg) {}` | `let f = arg => ()` |
+| `const f: () => void = () => {}` | `let f = (): void => ()` |
+| `add(4, add(5, 6))` | Same |
+| `function x({ name }) {}` | `def x(#name) {}` |
+| `add({left: 1, right: 4})` | `add(#left = 1, #right = 4)` |
+| `function x(name: number): number { return 3 }` | `def x(name: num): num = 3` |
+| `function x(...args: number[]): number[] {}` | `def x(*args: num[]): num[] = {}` |
+| `Math.imul(1, 2)` | `1 $Math.imul$ 2` |
+| `Math.sqrt(2)` | `(Math.sqrt) 2` |
+
+#### Constructs
+
+Our constructs are always expressions! You can write expressions such as:
+
+```so
+var result = if (a) 'hello' else 'bye'
+var file = with fs.run('./test.Saga', 'utf8') as (let file) {
+  file.close()
+}
+```
+
+| JavaScript | Saga |
+| --- | --- |
+| `a ? b : c` | Same |
+| `if ()` | Same (no brackets needed) |
+| `if (!expr)` | `unless expr` |
+| `else if` | `elif` |
+| `for (var i = 1; i <= 10; i++)` | `for (var i in 1 .. 10)` |
+| `for (var i = 1; i < 10; i++)` | `for (var i in 1 ..= 10)` |
+| `for (var i of map)`<br>`for (var i in map)` | `in` and `of` are swapped |
+| `switch` | Same, explicit fallthrough + go-to |
+| `try` | Same |
+| `throw`, `catch` | `raise`, `rescue` |
+| `break`, `continue` | `halt`, `skip` |
+| _(deprecated)_ | `with fs.readFile() as (let file) {}` |
+| `while (true) {}` | `repeat {}` |
+| `while (x < 10) { x++ } ` | Same |
+| `while (x != 10) { x++ }` | `until x == 10 { x += 1 }` |
+| `do { x++ } while (x < 10) ` | `repeat while x < 10 { x += 1 } ` |
+| `do { x++ } while (x != 10) ` | `repeat until x == 10 { x += 1 } ` |
 
 ## Basic Syntax
 
@@ -187,16 +354,15 @@ assert #assert
 Sombra has a lot of keywords:
 
 ```
-in of as void to til by new len del is size typeof nameof keyof sizeof infer if then else elif eless unless guard for while until repeat switch case def match when pass try throw raise catch rescue finally with as use from import export out goto label await return fallthru yield halt skip break continue query where join equals into order group fold scan take drop select
-
-const let var val con fn fun func macro proc decl class data enum extend frag given inter module nspace object raw record style struct trait
+as as await break by case catch continue def del drop eless elif else equals export fallthru finally fold for from goto group guard halt if import in infer into is join keyof label len match nameof new of order out pass query raise repeat rescue return scan select size sizeof skip switch take then throw til to try typeof unless until use void when where while with yield
+class con const data decl enum extend fn frag fun func given inter let macro module nspace object proc raw record struct style trait val var
 ```
 
 Modifiers prefix a declaration, such as a function, variable or class.
 
 ```
 // Modifiers (prefix a declaration):
-pub prot pvt ronly intl extl over abs stat dyn vol sync async immut mut part seal final dele ref tran impl expl ext sign safe check size unsign unsafe uncheck unsize rec gen inline prefix infix suffix unary binary ternary nary get set prev next lock fixed lazy eager greedy unique handle
+abs async binary check dele dyn eager expl ext extl final fixed gen get greedy handle immut impl infix inline intl lazy lock mut nary next over part prefix prev prot pub pvt rec ref ronly safe seal set sign size stat suffix sync ternary tran unary uncheck unique unsafe unsign unsize vol
 ```
 
 Identifiers with illegal characters such as spaces and symbols must be quoted inside a string literal and prefixed with a hash.
@@ -328,7 +494,7 @@ print('$name%s is $height%2.2f meters tall') // James is 1.90 meters tall
 
 #### Indexing
 
-Strings and lists are **zero and negative indexed**, similar to Python. Strings are indexed by code point and not by code units.
+Strings and lists are **zero and negative indexed**, similar to Python. Strings are indexed by code point and not by code units. Strings are immutable.
 
 All valid indices range from `-(len s)` to `s - 1`. So given a string `s` of length `5`, the first element, `s[0]` is also represented as `[-5]`, and `s[1]` to `s[-4]`, and so on.
 
@@ -353,6 +519,7 @@ Splicing is the same as slicing, but with a pseudo-assignment syntax. The charac
 ```so
 var s: str = 'hello'
 s[2 = '2'] // 'he2lo'
+s[3: = ''] // 'hel'
 ```
 
 The `len` operator would always return the number of (Unicode) characters in the string. (compiles to `string.split('').length]`). `size` on the other hand would return the number of code units (compiles to `string.length`).
@@ -615,9 +782,7 @@ online ?: getData // false
 In its most simple use, a Sombra `for`-loop can be used to iterate over the elements (values) in a collection. For example, given a sequence of integers (`#()` is a sequence literal):
 
 ```so
-val numbers: int = #[
-
-]
+val numbers: int = #(1, 2, 3)
 
 // Compilation output
 raw {
@@ -661,15 +826,152 @@ Use destructuring and the `pairs` method to iterate over the keys and values in 
 // ...continued from above
 var intl = import intl
 for (let [name, index] in names.pairs())
-  print('$name%s is ${intl.ord(&index,
-    &locale='en-us',
-    &length='short')}%s in line')
+  print'$name%s is ${intl.ord(&index
+    &locale = 'en-us'
+    &length = 'short')}%s in line'
 
 // Alex is 1st in line
 // Diana is 2nd in line
 // Scott is 3rd in line
 // Evelyn is 4th in line
 // Neville is 5th in line
+```
+
+If you want the traditional `for`-loop,
+
+```js
+for (let i = 0; i < items.length; i++) {
+  // body here
+}
+```
+
+use a `while` instead. The last statement is the condition. The statements after the `while` would execute before reaching and evaluating the condition on the right.
+
+```so
+let i = 0; while i += 1; i < len items {
+  // body here
+}
+```
+
+While loops execute its body code block while its condition is `true`.
+
+```so
+while testCondition {
+  // body here
+}
+```
+
+Same for `until` loops, but the opposite: runs its block while its condition is `false`.
+
+```so
+until !testCondition {
+  // body here
+}
+```
+
+There's `repeat`-`until` and `repeat`-`while`, which would test its condition at the _end_ of each iteration rather than at the beginning.
+
+```so
+repeat while testCondition {}
+repeat until !testCondition {}
+```
+
+A `repeat` block runs unconditionally; you would have to manually insert a `halt` (`break`) somewhere. Don't worry, we got your back.
+
+```so
+repeat {} // Error: infinite loop detected.
+
+x = 1
+repeat {
+  halt
+} // Runs once.
+```
+
+```so
+
+```
+
+`skip` does what it says; it skips the current iteration of the block and moves on to the next.
+
+```so
+let text = ''
+
+for let i in til 10 {
+  if (i === 3) skip
+  text += i
+}
+
+text // "012456789"
+```
+
+The `goto` command can be used to jump to another section in the program.
+
+```so
+let i = 0, j = 50; while i += 1; i < 100 {
+  while j -= 1 {
+    if j == 17 { goto next }
+  }
+}
+
+print "i = $i"
+label next
+print 'j hit 17'
+```
+
+You can't jump into a nested statement, that wouldn't work:
+
+```so
+goto x
+let i = 0, j = 50; while i += 1; i < 100 {
+  while j -= 1 {
+    if j == 17 { label x }
+  }
+}
+```
+
+A `switch` statement runs the first case whose value is equal to the condition expression, unlike the one in a lot of languages. The first case that succeeds is ran and returned, and so does the block it follows.
+
+`switch` statements like all others return expressions.
+
+```so
+import time
+
+print "When's Saturday?"
+let today: int = time.now().inDays()
+
+print '${switch time.sat {
+  case today + 0: "Today."
+  case today + 1: "Tomorrow."
+  case today + 2: "In two days."
+  def: "Too far away."
+}}'
+```
+
+`switch` without a condition is the same as `switch`ing on `true`.
+
+```so
+switch {
+  case t.hour() < 12: print 'Good morning!'
+  case t.hour() < 17: print 'Good afternoon.'
+  def: print 'Good evening.'
+}
+```
+
+All fall-throughs are explicit, yes, marked with `fallthru`:
+
+```so
+switch value {
+  case 1: // breaks
+  case 2: fallthru
+  case 3: goto x
+  /* equivalent to defining individual cases
+  with explicit fallthough */
+  label x 
+  case 4; 5; 6:
+    // ends execution of the entire block
+    break
+  def: x
+}
 ```
 
 ## Functions
@@ -679,7 +981,7 @@ Functions are declared with an arrow `=>` and return an expression, just like JS
 ```so
 val greet = name => "Hello $name"
 val greet = (name) => { "Hello $name" }
-val greet = def(name) { "Hello $name" }
+val greet = def(name) = "Hello $name"
 ```
 
 This declares a function and assigns to it the name `greet`, which you can call like so:
