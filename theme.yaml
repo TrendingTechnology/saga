@@ -1,5 +1,6 @@
 type: dark
 name: Sombra
+$schema: vscode://schemas/color-theme
 colors:
   activityBar.background: "#232e33"
   activityBar.foreground: "#ffffff"
