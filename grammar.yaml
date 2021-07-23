@@ -764,7 +764,7 @@ repository:
     match: (?x)(\()\s*(.*)\s*(\))(?=\s*[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*?[_\\\p{L}\p{M}\p{N}\p{Ps}\p{Pe}])
     captures:
       1: {name: punctuation.definition.cast.begin.sombra}
-      2: {patterns: [{include: '#typed-parse-types'}]}
+      2: {patterns: [{include: '#function-name'}, {include: $self}]}
       3: {name: punctuation.definition.cast.end.sombra}
   class-body:
     patterns:
@@ -1145,9 +1145,9 @@ repository:
       - include: '#blocks'
       - include: '#modifiers'
       - include: '#keyword-storage'
+      - include: '#keywords'
       - include: '#typed-keywords'
       - include: '#typed-trap'
-      - include: '#keywords'
       - include: '#method-call'
       - include: '#function-call'
       - include: '#multiline-arrow-function-generics'
@@ -5355,6 +5355,7 @@ repository:
       - include: '#typed-parse-array'
       - include: '#square-brackets'
       - include: '#comments'
+      - include: '#operators'
     repository:
       as-clause:
         begin: (?<![\#\.])\s*\b(as)\b\s*
