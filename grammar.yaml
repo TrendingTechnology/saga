@@ -1131,6 +1131,7 @@ repository:
   core:
     patterns:
       - include: '#operator'
+      - include: '#sigils'
       - include: '#clauses'
       - comment: before module as it traps default {
         include: '#object'
@@ -1559,10 +1560,10 @@ repository:
     patterns:
       - include: '#support-functions'
       - include: '#support-methods'
-      - comment: primitive tss
+      - comment: primitive types
         match: (?i)\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
         name: support.type.builtin.primitive.somra
-      - comment: primitive tss
+      - comment: primitive types
         match: (?i)\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
         name: support.type.builtin.somra
       - match: \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
@@ -4288,6 +4289,16 @@ repository:
       - match: \s*+(;)
         captures:
           1: {name: punctuation.terminator.statement.somra}
+  sigils:
+    patterns:
+      - match: \^[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        name: constant.other.symbol.somra
+      - match: '&[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*'
+        name: constant.other.label.somra
+      - match: '%[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*'
+        name: constant.other.global.somra
+      - match: \*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        name: constant.other.rest.somra
   special-comments-conditional-compilation:
     patterns:
       - begin: \s*+((/\*))(?=@)
@@ -4578,7 +4589,7 @@ repository:
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(addLocale|addUnits|advance|beginningOfISOWeek|beginningOfUnit|clone|create|daysInMonth|endOfISOWeek|endOfUnit|format|full|get|getAllLocaleCodes|getAllLocales|getDate|getDay|getFullYear|getHours|getISOWeek|getLocale|getMilliseconds|getMinutes|getMonth|getOption|getSeconds|getTime|getTimezoneOffset|getUTCDate|getUTCDay|getUTCFullYear|getUTCHours|getUTCMilliseconds|getUTCMinutes|getUTCMonth|getUTCOffset|getUTCSeconds|getUTCWeekday|getWeekday|getYear|is|isAfter|isBefore|isBetween|isDay|isFuture|isLastUnit|isLeapYear|isNextUnit|iso|isPast|isThisUnit|isUTC|isValid|long|medium|now|parse|range|relative|relativeTo|removeLocale|reset|rewind|set|setDate|setFullYear|setHours|setISOWeek|setLocale|setMilliseconds|setMinutes|setMonth|setOption|setSeconds|setTime|setUTC|setUTCDate|setUTCFullYear|setUTCHours|setUTCMilliseconds|setUTCMinutes|setUTCMonth|setUTCSeconds|setWeekday|setYear|short|toDateString|toGMTString|toISOString|toJSON|toLocaleDateString|toLocaleString|toLocaleTimeString|toSource|toString|toTimeString|toUTCString|unitsAgo|unitsFromNow|unitsSince|unitsUntil|UTC|valueOf)\b
+        begin: \s*+(addLocale|addUnits|advance|beginningOfISOWeek|beginningOfUnit|clone|create|daysInMonth|endOfISOWeek|endOfUnit|format|full|get|getAllLocaleCodes|getAllLocales|getDate|getDay|getFullYear|getHours|getISOWeek|getLocale|getMilliseconds|getMinutes|getMonth|getOption|getSeconds|getTime|getTimezoneOffset|getUTCDate|getUTCDay|getUTCFullYear|getUTCHours|getUTCMilliseconds|getUTCMinutes|getUTCMonth|getUTCOffset|getUTCSeconds|getUTCWeekday|getWeekday|getYear|is|isAfter|isBefore|isBetween|isDay|isFuture|isLastUnit|isLeapYear|isNextUnit|iso|isPast|isThisUnit|isUTC|isValid|long|medium|now|parse|range|relative|relativeTo|removeLocale|reset|rewind|set|setDate|setFullYear|setHours|setISOWeek|setLocale|setMilliseconds|setMinutes|setMonth|setOption|setSeconds|setTime|setUTC|setUTCDate|setUTCFullYear|setUTCHours|setUTCMilliseconds|setUTCMinutes|setUTCMonth|setUTCSeconds|setWeekday|setYear|short|toDateString|toGMTString|toISOString|toJSON|toLocaleDateString|toLocaleString|toLocaleTimeString|toSource|toString|toTimeString|toUTCString|unitsAgo|unitsFromNow|unitypesince|unitsUntil|UTC|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.date.somra}
@@ -5260,11 +5271,11 @@ repository:
         captures:
           1: {name: keyword.operator.expression.$1.somra}
       - include: '#language-constant'
-      - comment: primitive tss
+      - comment: primitive types
         match: (?i)(?<![\#\.])\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
         captures:
           1: {name: support.type.builtin.primitive.somra}
-      - comment: built-in variable tss
+      - comment: built-in variable types
         match: (?i)(?<![\#\.])\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff))\b
         captures:
           1: {name: support.type.builtin.somra}
@@ -5333,6 +5344,7 @@ repository:
       - include: '#typed-bracketed-parameters'
       - include: '#typed-parse-objects'
       - include: '#typed-parse-array'
+      - include: '#brackets'
       - include: '#comments'
     repository:
       as-clause:
