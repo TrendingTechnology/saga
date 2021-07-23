@@ -4589,7 +4589,7 @@ repository:
         patterns:
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(addLocale|addUnits|advance|beginningOfISOWeek|beginningOfUnit|clone|create|daysInMonth|endOfISOWeek|endOfUnit|format|full|get|getAllLocaleCodes|getAllLocales|getDate|getDay|getFullYear|getHours|getISOWeek|getLocale|getMilliseconds|getMinutes|getMonth|getOption|getSeconds|getTime|getTimezoneOffset|getUTCDate|getUTCDay|getUTCFullYear|getUTCHours|getUTCMilliseconds|getUTCMinutes|getUTCMonth|getUTCOffset|getUTCSeconds|getUTCWeekday|getWeekday|getYear|is|isAfter|isBefore|isBetween|isDay|isFuture|isLastUnit|isLeapYear|isNextUnit|iso|isPast|isThisUnit|isUTC|isValid|long|medium|now|parse|range|relative|relativeTo|removeLocale|reset|rewind|set|setDate|setFullYear|setHours|setISOWeek|setLocale|setMilliseconds|setMinutes|setMonth|setOption|setSeconds|setTime|setUTC|setUTCDate|setUTCFullYear|setUTCHours|setUTCMilliseconds|setUTCMinutes|setUTCMonth|setUTCSeconds|setWeekday|setYear|short|toDateString|toGMTString|toISOString|toJSON|toLocaleDateString|toLocaleString|toLocaleTimeString|toSource|toString|toTimeString|toUTCString|unitsAgo|unitsFromNow|unitypesince|unitsUntil|UTC|valueOf)\b
+        begin: \s*+(addLocale|addUnits|advance|beginningOfISOWeek|beginningOfUnit|clone|create|daysInMonth|endOfISOWeek|endOfUnit|format|full|get|getAllLocaleCodes|getAllLocales|getDate|getDay|getFullYear|getHours|getISOWeek|getLocale|getMilliseconds|getMinutes|getMonth|getOption|getSeconds|getTime|getTimezoneOffset|getUTCDate|getUTCDay|getUTCFullYear|getUTCHours|getUTCMilliseconds|getUTCMinutes|getUTCMonth|getUTCOffset|getUTCSeconds|getUTCWeekday|getWeekday|getYear|is|isAfter|isBefore|isBetween|isDay|isFuture|isLastUnit|isLeapYear|isNextUnit|iso|isPast|isThisUnit|isUTC|isValid|long|medium|now|parse|range|relative|relativeTo|removeLocale|reset|rewind|set|setDate|setFullYear|setHours|setISOWeek|setLocale|setMilliseconds|setMinutes|setMonth|setOption|setSeconds|setTime|setUTC|setUTCDate|setUTCFullYear|setUTCHours|setUTCMilliseconds|setUTCMinutes|setUTCMonth|setUTCSeconds|setWeekday|setYear|short|toDateString|toGMTString|toISOString|toJSON|toLocaleDateString|toLocaleString|toLocaleTimeString|toSource|toString|toTimeString|toUTCString|unitsAgo|unitsFromNow|unitsSince|unitsUntil|UTC|valueOf)\b
         end: (?=.)
         beginCaptures:
           1: {name: support.function.method.date.somra}
@@ -5344,7 +5344,7 @@ repository:
       - include: '#typed-bracketed-parameters'
       - include: '#typed-parse-objects'
       - include: '#typed-parse-array'
-      - include: '#brackets'
+      - include: '#square-brackets'
       - include: '#comments'
     repository:
       as-clause:
