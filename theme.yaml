@@ -1,5 +1,5 @@
 type: dark
-name: Somra
+name: Sombra
 colors:
   activityBar.background: "#232e33"
   activityBar.foreground: "#ffffff"
@@ -1197,13 +1197,32 @@ tokenColors:
   - scope:
       - string.unquoted.html
       - string.quoted.double
+    settings:
+      foreground: "#C5E478"
+  - scope:
       - constant.other.symbol
       - entity.other.inherited-class
     settings:
-      foreground: "#B3D667"
+      foreground: "#6AB0F3"
+  - scope:
+      - constant.other.label
+    settings:
+      foreground: "#F2777A"
+  - scope:
+      - constant.other.global
+    settings:
+      foreground: "#62CFCF"
+  - scope:
+      - constant.other.pin
+    settings:
+      foreground: "#E1A6F2"
+  - scope:
+      - constant.other.rest
+    settings:
+      foreground: "#FCA369"
   - scope: string.quoted.single
     settings:
-      foreground: "#70F49C"
+      foreground: "#82F0A6"
   - scope:
       - meta.brace.square
       - punctuation.definition.array
@@ -1367,14 +1386,14 @@ tokenColors:
       - keyword.operator.slice
       - variable.other.language
     settings:
-      foreground: "#CADE59"
+      foreground: "#86DE74"
   - scope:
       - meta.definition.property
       - meta.field.declaration
       - constant.other.object.key
       - keyword.operator.slice
     settings:
-      foreground: "#9EE37D"
+      foreground: "#75BFFF"
   - scope:
       - storage.type.property
       - keyword.operator.extends
@@ -1396,7 +1415,7 @@ tokenColors:
     settings:
       foreground: "#9AA5CE"
   - scope:
-      - keyword.operator.optional.parameter.somra
+      - keyword.operator.optional.parameter.sombra
     settings:
       foreground: "#1D9ABA"
   - scope: support.type.variant
@@ -1531,7 +1550,7 @@ tokenColors:
       foreground: "#9096A2"
   - scope:
       - constant.other.email.link.underline
-      - storage.type.format.somra
+      - storage.type.format.sombra
     settings:
       foreground: "#EDB54B"
   - scope: constant.other.caps
@@ -1703,7 +1722,6 @@ tokenColors:
     settings:
       foreground: "#61AFEF"
   - scope:
-      - constant.other.label
       - constant.other.inline-data
     settings:
       foreground: "#80CBC4"
@@ -1874,13 +1892,13 @@ tokenColors:
       foreground: "#748AA6"
   - scope: keyword.operator.increment
     settings:
-      foreground: "#70F49C"
+      foreground: "#FFAE57"
   - scope: keyword.operator.decrement
     settings:
-      foreground: "#FFCC95"
+      foreground: "#53DF83"
   - scope: keyword.operator.decorator
     settings:
-      foreground: "#07D4B5"
+      foreground: "#599CAB"
   - scope: keyword.operator.bitwise
     settings:
       foreground: "#2BBAC5"
@@ -2805,6 +2823,9 @@ tokenColors:
   - scope: support.function.dom
     settings:
       foreground: "#118AB2"
+  - scope: variable.legacy.builtin
+    settings:
+      foreground: "#3AD900"
   - scope: variable.language.arguments
     settings:
       foreground: "#F29668"
@@ -2895,9 +2916,6 @@ tokenColors:
   - scope: variable.other.global
     settings:
       foreground: "#D7DCE2"
-  - scope: variable.legacy.builtin
-    settings:
-      foreground: "#D9F5DD"
   - scope: variable.other.index
     settings:
       foreground: "#CAECE6"
