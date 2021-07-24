@@ -1158,6 +1158,7 @@ repository:
       - include: '#support'
       - include: '#implicit-call'
       - include: '#support-properties'
+      - include: '#variable-typed'
       - include: '#variable'
       - include: '#brackets'
       - include: '#operators'
@@ -1166,8 +1167,8 @@ repository:
       - include: '#fat-arrow'
   curly-brackets:
     patterns:
-      - begin: \s*+(\#\{)
-        end: \s*(\})
+      - begin: \s*+(#?\{\|)
+        end: \s*(\|\})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         endCaptures:
@@ -1176,8 +1177,8 @@ repository:
           - include: '#object-body'
           - include: '#labels'
           - include: '#core'
-      - begin: \s*+(\{\|)
-        end: \s*(\|\})
+      - begin: \s*+(\#\{)
+        end: \s*(\})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         endCaptures:
@@ -3200,9 +3201,9 @@ repository:
           5: {name: storage.type.numeric.bigint.nova}
   object:
     patterns:
-      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*(#{)
+      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*(#?{\|)
         comment: obj lteral ({ or ,{ or [{ or ={ or return { or default {
-        end: \s*+(})
+        end: \s*+(\|})
         beginCaptures:
           1: {name: keyword.operator.assignment.nova}
           2: {name: keyword.control.module.nova}
@@ -3213,9 +3214,9 @@ repository:
           1: {name: meta.brace.curly.litobj.nova}
         patterns:
           - include: '#object-body'
-      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*({\|)
+      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*(#{)
         comment: obj lteral ({ or ,{ or [{ or ={ or return { or default {
-        end: \s*+(\|})
+        end: \s*+(})
         beginCaptures:
           1: {name: keyword.operator.assignment.nova}
           2: {name: keyword.control.module.nova}
@@ -3258,18 +3259,18 @@ repository:
       - include: '#punctuation'
   object-brace:
     patterns:
-      - begin: \s*(#{)
+      - begin: \s*(#?{\|)
         comment: nested obj literal found inside other objects like arrays
-        end: \s*+(})
+        end: \s*+(\|})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         endCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         patterns:
           - include: '#object-body'
-      - begin: \s*({\|)
+      - begin: \s*(#{)
         comment: nested obj literal found inside other objects like arrays
-        end: \s*+(\|})
+        end: \s*+(})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         endCaptures:
@@ -3287,18 +3288,18 @@ repository:
           - include: '#object-body'
   object-brace-property:
     patterns:
-      - begin: (?<=:)\s*(#{)
+      - begin: (?<=:)\s*(#?{\|)
         comment: 'nested obj literal key: {object}'
-        end: \s*+(})
+        end: \s*+(\|})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         endCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         patterns:
           - include: '#object-body'
-      - begin: (?<=:)\s*({\|)
+      - begin: (?<=:)\s*(#{)
         comment: 'nested obj literal key: {object}'
-        end: \s*+(\|})
+        end: \s*+(})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nova}
         endCaptures:
@@ -4337,16 +4338,16 @@ repository:
             name: constant.character.escape.other.nova
   round-brackets:
     patterns:
-      - begin: \s*+(\#\()
-        end: \s*(\))
+      - begin: \s*+(#?\(\|)
+        end: \s*(\|\))
         beginCaptures:
           1: {name: meta.brace.round.nova}
         endCaptures:
           1: {name: meta.brace.round.nova}
         patterns:
           - include: '#core'
-      - begin: \s*+(\(\|)
-        end: \s*(\|\))
+      - begin: \s*+(\#\()
+        end: \s*(\))
         beginCaptures:
           1: {name: meta.brace.round.nova}
         endCaptures:
@@ -4401,8 +4402,8 @@ repository:
           1: {name: punctuation.definition.variable.nova}
   square-brackets:
     patterns:
-      - begin: \s*+(\#\[)
-        end: \s*(\])
+      - begin: \s*+(#?\[\|)
+        end: \s*(\|\])
         beginCaptures:
           1: {name: meta.brace.square.nova}
         endCaptures:
@@ -4412,8 +4413,8 @@ repository:
             name: keyword.operator.slice.nova
           - include: '#object'
           - include: '#core'
-      - begin: \s*+(\[\|)
-        end: \s*(\|\])
+      - begin: \s*+(\#\[)
+        end: \s*(\])
         beginCaptures:
           1: {name: meta.brace.square.nova}
         endCaptures:
