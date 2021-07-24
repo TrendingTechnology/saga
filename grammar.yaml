@@ -1355,7 +1355,7 @@ repository:
           - include: '#core'
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
@@ -1380,7 +1380,7 @@ repository:
           - include: '#core'
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         name: meta.function.static.nova
@@ -2044,7 +2044,7 @@ repository:
           1: {patterns: [{include: '#function-name'}]}
   js-label:
     comment: 'jslabel: $|for|each|while|do'
-    match: (?:^|(?<=;))\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|each|while|do|if|switch|match|repeat)\b))
+    match: (?:^|(?<=;))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|each|while|do|if|switch|match|repeat)\b))
     captures:
       1: {name: constant.other.label.nova}
       2: {name: punctuation.separator.label.nova}
@@ -2581,7 +2581,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.without-arguments.nova
@@ -2617,7 +2617,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.with-arguments.nova
@@ -2671,7 +2671,7 @@ repository:
       - comment: Modifier keywords - activated when only next to each other
         match: |-
           (?x)(?<![\#\.])\s*+\b(?:
-            (pub|prot|pvt|ronly|(?:in|ex)tl)| #1
+            (pub|prot|pvt|priv|ronly|(?:in|ex)tl)| #1
             (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|
             trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size))| #2
             (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
@@ -2679,8 +2679,12 @@ repository:
             (n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|
             not(of|in)?|(is)no?t) #4
           )\s*+(?=\b
-            (\s*\b(pub|prot|pvt|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size)|rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle|n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|
-            not(of|in)?|(is)no?t)\b\s*)*\s*\b
+            (\s*\b(pub|prot|pvt|priv|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|
+            (?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?
+            (?:sign|safe|check|size)|rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)
+            nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle|n?and|
+            x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(of|in)?|(is)no?t)
+            \b\s*)*\s*\b
             (ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
             struct|data|schema|module|nspace|object|record|raw|style|trait|
             defn?|func?|fn|proc|macro|con|va[rl]|let|const)\b
@@ -2804,7 +2808,7 @@ repository:
         match: (?<![\#\.])\s*+\b(export)(?!\s*:)\b(?=\s++(const|con|let|opaque|va[rl]|type|typeof)\s++(?:[_\\\p{L}\p{Nl}]))
         captures:
           1: {name: keyword.control.module.nova}
-      - begin: (?<![\#\.])\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
+      - begin: (?<![\#\.])\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
         comment: export {  or  export * or export var or export type {} from module
         end: \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|}))
         beginCaptures:
@@ -3320,7 +3324,7 @@ repository:
   object-prop-shorthand:
     comment: give an alternate scope name to shorthand object literals
     patterns:
-      - match: (?<=^|,|{)(?<!:|\.)\s*+(((?:[_\\\p{Lu}\p{Nl}])(?:[_\\\p{Lu}\p{Nl}])*+))\s*+(?=$|,|})
+      - match: (?<=^|,|{)(?<!:|\.)\s*+(((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])*+))\s*+(?=$|,|})
         captures:
           1: {name: constant.other.object.key.nova}
           2: {name: variable.other.constant.shorthandpropertyname.nova}
