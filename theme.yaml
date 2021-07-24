@@ -1,5 +1,5 @@
 type: dark
-name: Sombra
+name: Nova
 $schema: vscode://schemas/color-theme
 colors:
   activityBar.background: "#232e33"
@@ -1416,7 +1416,7 @@ tokenColors:
     settings:
       foreground: "#9AA5CE"
   - scope:
-      - keyword.operator.optional.parameter
+      - keyword.operator.optional.parameter.sombra
     settings:
       foreground: "#1D9ABA"
   - scope: support.type.variant
@@ -1551,7 +1551,7 @@ tokenColors:
       foreground: "#9096A2"
   - scope:
       - constant.other.email.link.underline
-      - storage.type.format
+      - storage.type.format.sombra
     settings:
       foreground: "#EDB54B"
   - scope: constant.other.caps
@@ -1994,6 +1994,9 @@ tokenColors:
   - scope: keyword.operator.infix
     settings:
       foreground: "#8693A5"
+  - scope: keyword.operator.callout
+    settings:
+      foreground: "#38A4C9"
   - scope: keyword.control.begin
     settings:
       foreground: "#8F9D6A"
@@ -2953,22 +2956,6 @@ tokenColors:
       - keyword.other
       - keyword.modifier
       - keyword.query
-      - keyword.operator.instanceof
-      - keyword.operator.typeof
-      - keyword.operator.void
-      - keyword.operator.delete
-      - keyword.operator.in
-      - keyword.operator.of
-      - keyword.operator.with
-      - keyword.operator.new
-      - keyword.operator.infer
-      - keyword.operator.keyof
-      - keyword.operator.nameof
-      - keyword.operator.as
-      - keyword.operator.is
-      - keyword.operator.extends
-      - keyword.operator.sizeof
-      - keyword.operator.length
       - keyword.operator.expression
       - entity.other.attribute-name
     settings:
