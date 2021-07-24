@@ -96,7 +96,7 @@ Nova is developed by an humble college programmer who is obsessed with programmi
 
 Contents
 
-1.  Reignite Your Code - A Formal Introduction
+1.  A Formal Introduction
 2.  The Basics
     1. Your First Program
     2. Code Structure
@@ -134,44 +134,53 @@ Contents
     5. Pattern Matching
     6. Errors
 6.  Functions
-    1. Function Literals
-    2. Recursion
-    3. Piping and Composition
-    4. Currying
-    5. Generators
-7.  Types
+    1. An Introduction to FP
+    2. Named and Anonymous Functions
+    3. Recursive Functions
+    4. Piping and Composition
+    5. Currying
+    6. Generators
+7.  Classes
+    1. An Introduction to OOP
+    2. Constructors
+    3. Methods and Attributes
+    4. Getters and Setters
+    5. Traits and Extensions
+    6. Objects and Records
+8.  Modules
+    1.  Imports and Exports
+    2.  Using Node Modules
+    3.  The Module System
+    4.  Namespaces vs Modules
+9.  Concurrency
+    1.  Callbacks
+    2.  Promises
+    3.  The Sequence and Parallel Blocks
+10. Types
     1. `any`, `mixed` and `empty`
     2. Typed Aliases
     3. Literal Types
     4. Type Operators
     5. Data Structures
     6. Interfaces
-8.  Classes
-    1. Class Literals
-    2. Constructors
-    3. Methods and Attributes
-    4. Traits
-    5. Extensions (Anonymous Classes)
-    6. Objects and Records
-9.  Enumerations `enum`
-    1.  Default
-    2.  Ranged Values
-    3.  Non-Numeric Values
-10. Modules
-    1.  Imports and Exports
-    2.  Using Node Modules
-    3.  The Module System
-    4.  Namespaces
-11. Concurrency
-    1.  Callbacks
-    2.  Promises
-    3.  The Sequence and Parallel Blocks
-12. Advanced Topics
+11. Advanced Topics
     1.  Advanced Types
+        1.  Enumerations
+        2.  Fragments and Structures
+        3.  Constraints
+        4.  Recursive Types
     2.  Advanced Math
-    3.  Advanced Regex
-    4.  Date and Time
-13. The Standard Library
+    3.  Domain-Specific Extensions
+        1.  Custom Operators
+        2.  Custom Blocks
+        3.  Macros and Procedures
+    4.  Advanced Regex
+        1.  Regex Operations
+        2.  Text Processing
+    5.  Date and Time
+    6.  The File System
+    7.  JSX, CSS and GraphQL
+12. The Standard Library
 
 ```so
 val arr = [1
