@@ -7,12 +7,16 @@ JavaScript is weird. Let's fix it and make something better.
 This is Nova, a new and experimental programming language with a big stack, designed for flexiblity, scalability and awesomeness. Use it in projects small and big, without the pesky and complicated quirks of JavaScript. All while leveraging on a fast compiler and package manager that allows for easy access to bustling ecosystems of libraries.
 
 ```so
-val fibonacci = (&nums: int, &terms: int): int[] => {
+val fibonacci = (&seq: int, &terms: int): int[] => {
   val #len = len #seq
   until (len #seq == terms)
-    #seq.push(#seq[-#len:] </> ((+), 0))
+    #seq.=push(#seq[-#len:] </> (( + ), 0))
   return #seq[0:terms]
 }
+
+let x: str = {|
+  x: {| |}
+|}
 
 /(?{}[])/
 ```
@@ -72,79 +76,102 @@ from ./dir/'module' import R, S, T
 
 ## A Little Note
 
-Nova is a language designed to address concerns and criticisms with the most popular programming language. JavaScript is known _quite well_ for its number of questionable design decisions and seemingly chaotic runtime behavior that made JavaScript pretty much subject to tons of criticism, and tons of devs "ranting" about JavaScript on Quora, GitHub and Medium. It only shows that ten days was too short a release schedule, and it only shows.
+JavaScript is known _quite well_ for its number of questionable design decisions and seemingly chaotic runtime behavior that made JavaScript pretty much subject to tons of criticism, and tons of rants about JavaScript on Quora, GitHub and Medium. It only shows that ten days was too short a release schedule, and seems like the damage has been done.
 
-The sloppy nature of the language meant developers adopted many bad habits and practices. This resulted in tons and tons of bad code that can be seen in JavaScript's ecosystem of libraries and frameworks. JavaScript has nothing but a core library, just an slew of random functions and features, and a "black market" of community-made packages and libraries of varying quality. And remember that ordeal of `left-pad`?
+The sloppy nature of JavaScript allowed developers to adopt many bad habits and practices, resulting in tons upon tons of bad code seen in JavaScript's ecosystem of libraries and frameworks. There's no core library, just a slew of functions and features scattered across built-in libraries, and tons of packages being circulated around on the NPM, many of which do only a single thing, leading to tons of dead code and an internet built on a house of cards. And remember that `left-pad` ordeal? For now, everyone is forced to stick with JavaScript, and be forced to comply.
 
-One of the biggest topics of interest is weak typing (not to be confused with dynamic typing), which lead to countless implicit type coercions and weird quirks that tried to make it as forgiving, but have rather made it the butt of jokes for years. You can find countless examples on the internet, but here's a couple for you:
+The language is becoming more bloated with new features, too many features and still no core libaries. And the thing everyone's talking about and the #1 cause of concern for many developers is weak typing, causing too many warts and gotchas. There's tons of freewheeling coercions, and their weirdly inconsistent semantics. Entire encoding methods such as JSF[censored] were invented, plus dozens of programming languages that claim to compile to JavaScript but produce tons of; mostly unreadable boilerplate in the process.
 
-```js
-typeof NaN == 'number';
-0.1 + 0.2 != 0.3;
-Math.max() == Infinity;
-Math.min() == -Infinity;
-[] + [] == '';
-[] + {} == '[object Object]';
-0 == {} + [];
-true + true + true == 3;
-true - true == 0;
-9 + '1' == 91;
-'7' * '13' == 91;
-// and countless others...
-```
+The thing is, everything is _forced_ - if you want to develop something for the web, you've got _no other choice_ besides JavaScript.
 
-And the language itself is becoming more bloated with new features, especially through the incoming proposals to the language. The thing is, everything is _forced_ - if you want to develop something for the web, you've got _no other choice_ besides JavaScript, and the myriad of transpiled languages, such as CoffeeScript.
+#### Introducing Nova
 
-![](https://qph.fs.quoracdn.net/main-qimg-8346ecaf5f7c348f7548e7ce6c7070e0)
+Nova is a language that looks like JavaScript and compiles to JavaScript. It's the language for folks who are in a love-hate relationship with it, but who still acknowledge its role in the development ecosystem. Nova builds on a subset of JavaScript features, and improves on them by combining features from other programming languages.
 
-So here's Nova, one of them. Nova is developed by an amateur programmer, who knows only JavaScript, a bit of Python, and learning Scala, and is obsessed with programming languagesi as he hes
+Another language, TypeScript has grown in use due to a need for static types, but given the fact that it is a superset of JavaScript, and only adds noisy annotations to JavaScript's syntax, thereby making it more verbose. And given the very nature of JavaScript, the problems only seem to increase.
 
-Nova does not add new concepts to modern programming, but selects and builds on those
-
-Nova's syntax takes inspiration by modern languages such as Go, Rust, Dart, Go, Kotlin and Reason, though with many influences from Scala.
-
-Designed to be concise,[9] many of Scala's design decisions are aimed to address criticisms of Java
-
-Like all new and modern languages, Saga is designed to interoperate with other ecosystems in scale. With Saga, you can leverage on the JS and Python ecosystems in a single language, all whie introducing a new yet familiar and powerful syntax that is both concise, expressive and elegant.
-
-## Introducing Saga
-
-**Saga** is a language that looks kinda like JavaScript, compiles and runs faster, outputs clean and readable JavaScript, and _rhymes_ with JavaScript. Saga is the language for folks who don't necessarily love JavaScript, but who still acknowledge its importance in the ecosystem.
-
-### Saga is Fast
-
-Saga is created to be fast, thereby allowing you to focus on the code and not on the build times. Its compiler is a small executable which not oonly compiles and builds your code or any modules you install, but also acts as a type checker, pretty printer or language server, which can integrate with our own editor extensions. Saga's compiler is so fast, it whips out JavaScript in fractions of a seconod.
-
-### Saga is Reliable
-
-Saga is designed to be easy to learn and use, flexible and strong, as a multi-paradigm languuage. Saga combines the best features and concepts from object-oriented and functional programming. In addition, Saga also has a rich language of types for describing values throughout your program, and language mechanisms for you to add new language constructs makign it easier for developing DSLs.
-
-### Saga Interoperates
-
-Saga comes with all the tools you would need to build reliable JavaScript applications regardless of the framework, browser or platform. Use any library from JavaScript, export Python or Saga libraries and modules to JavaScript, and automatically generate TypeScript and Flow bindings. And if you're thinking of moving away from Saga, no problem. Just leave its clean JavaScript output behind.
-
-> **Note:** To learn more about Saga's core and extension libraries, see the **Libraries** page, and if you want an in-depth formal explanation of Saga's syntax, consult the **Language Specification**. As of the moment, the language only exists on paper. Both will be written soon.
-
-This document is a quick and informal reference for the Saga programming language.meant as an aid for existing JavaScript, TypeScript and ReScript developers. This is not a tutorial nor a full documentation of the language, but more like a cheat sheet you consult when you have questions about some aaspect of it.
-
-The sections below show you how to use each major Saga feature presuming you already know those concepts coming from other programming languages. This reference is a work in progress and will be improved over time. Contributions and corrections are welcome, visit Saga's GitHub link.
-
-You don't need to use semicolons `;` or `,` to terminate expressions, ending the line will do just as well (although they can be used to fit multiple expressions in a single line). You still would need to use curly braces to surround blocks of code.
+Nova is developed by an humble college programmer who is obsessed with programming, and has made this a hobby project that he sometimes dedicates time to. This is one of them. This reference is a work in progress and will be improved over time. Contributions and corrections are welcome, visit Saga's GitHub link.
 
 # Language Manual
 
 Contents
 
-1. Installing Saga
-2. The REPL
-3. Language Features
-4. The Basics
-5. Control Structures
-6. Functions
-7. Collections
-8. Classes and Traits
-9. Types
-10. Advanced Topics
+1.  Reignite Your Code - A Formal Introduction
+2.  The Basics
+    1. Your First Program
+    2. Code Structure
+    3. Comments
+    4. Embedding Raw Code
+3.  Variables
+    1. `var` and `val`
+    2. Destructuring
+4.  Data Types
+    1. the Type System
+    2. Booleans `bool`
+    3. Integers and Floats
+       1. Arithmetic and Bitwise Operations
+    4. Strings `str`
+       1. String Operations
+       2. Template Strings
+       3. Basic and Extended Slicing
+       4. Regular Expressions
+    5. Data Structures
+       1. Lists (Arrays)
+       2. Sets and Maps
+       3. Immutable Collections
+       4. Destructuring
+    6. Regular Expressions
+       1. Block Regexes
+       2. Syntax Reference
+5.  Control Flow and Operators
+    1. Code Blocks
+    2. Decision Making
+    3. Loops
+       1. For Loops
+       2. The While Family
+       3. Control Transfer Statements
+    4. Switch, Debunked
+    5. Pattern Matching
+    6. Errors
+6.  Functions
+    1. Function Literals
+    2. Recursion
+    3. Piping and Composition
+    4. Currying
+    5. Generators
+7.  Types
+    1. `any`, `mixed` and `empty`
+    2. Typed Aliases
+    3. Literal Types
+    4. Type Operators
+    5. Data Structures
+    6. Interfaces
+8.  Classes
+    1. Class Literals
+    2. Constructors
+    3. Methods and Attributes
+    4. Traits
+    5. Extensions (Anonymous Classes)
+    6. Objects and Records
+9.  Enumerations `enum`
+    1.  Default
+    2.  Ranged Values
+    3.  Non-Numeric Values
+10. Modules
+    1.  Imports and Exports
+    2.  Using Node Modules
+    3.  The Module System
+    4.  Namespaces
+11. Concurrency
+    1.  Callbacks
+    2.  Promises
+    3.  The Sequence and Parallel Blocks
+12. Advanced Topics
+    1.  Advanced Types
+    2.  Advanced Math
+    3.  Advanced Regex
+    4.  Date and Time
+13. The Standard Library
 
 ```so
 val arr = [1
@@ -160,9 +187,22 @@ def x()
 def x() { return () }
 ```
 
+This chapter serves as a quick reference for the Nova programming language, and is a small comparison of features from both Nova and JavaScript.
+
+This document is a quick and informal reference for the Saga programming language, meant as an aid for existing JavaScript, TypeScript and ReScript developers.
+
+#### Semicolons
+
 | JavaScript         | Saga        |
 | ------------------ | ----------- |
 | Enforced by linter | None needed |
+
+#### Comments
+
+| JavaScript            | Saga |
+| --------------------- | ---- |
+| `// line comment`     | Same |
+| `/* block comment */` | Same |
 
 #### Variables
 
@@ -171,6 +211,24 @@ def x() { return () }
 | `const x = 5`       | `val x = 5`         |
 | `var x = 5`         | Same                |
 | `let x = 5; x += 1` | `var x = 5; x += 1` |
+
+#### Data Types
+
+| Type | Default Value | Description | JavaScript equivalent (class) |
+| --- | --- | --- | --- |
+| `nil` | `nil` | The constant `nil` | `undefined` |
+| `bool` | `false` | A boolean value | `Boolean` |
+| `int` | `0` | 32-bit integer | `Number` |
+| `float` | `0.` | 64-bit floating point | `Number` |
+| `char` | `'\0'` | 16-bit character | `String` |
+| `str` | `''` `""` ` `` ` | String | `String` |
+| `regex` | `/ /` | Regular expression | `RegExp` |
+| `func` | `() => ()` | Function | `Function` |
+| `seq` | `#()` | Generator sequence | `Generator` |
+| `bits` | ` bits`` ` | Bit stream | `Buffer` |
+| `list` | `#[]` | List | `Array` |
+| `set` | `#{}` | Set | `Set` |
+| `map` | `#{:}` | Hash map or dictionary | `Object`, `Map` |
 
 #### Strings
 
@@ -185,8 +243,9 @@ def x() { return () }
 | `${msg.toUpperCase()}`        | `$msg:su`                            |
 | `'hello'[1]`                  | Same                                 |
 | `'hello'['hello'.length - 1]` | `'hello'[-1]`                        |
+| `'hello'.slice(3, 4)`         | `'hello'[3:4]`                       |
 | `/x/.test('next')`            | `'x' in 'next'`<br>`(/x/) in 'next'` |
-| `'hello'.replace('l', 'r')`   | `'hello' <> />l</>r</g`              |
+| `'hello'.replace('l', 'r')`   | `'hello' =< /l/r/`                   |
 | `[...hello].length`           | `len 'hello'`                        |
 | `'hello'.length`              | `size 'hello'`                       |
 | chalk`{blue hello world}`     | Same                                 |
