@@ -2119,22 +2119,22 @@ repository:
               - include: '#jsdoc-name-scopes'
       jsdoc-namepath-scopes:
         patterns:
-          - match: \s*\b(as)\b\s*(?=[$_A-Za-z])
+          - match: \s*\b(as)\b\s*(?=[_\\p{L}\p{Nl}])
             captures:
               1: {name: keyword.as.jsdoc}
-          - match: \s*(?:([A-Z][$_A-Za-z\d]*)|([$_A-Za-z][$_A-Za-z\d]*))(?=[\s\-~.#]|$)
+          - match: \s*(?:([\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?=[\s\-~.#]|$)
             captures:
               1: {name: entity.name.class.jsdoc}
               2: {name: entity.name.function.jsdoc}
-          - match: (\.)([$_A-Za-z][$_A-Za-z\d]*)(?=\s|$|\")
+          - match: (\.)([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
             captures:
               1: {name: keyword.operator.accessor.jsdoc}
               2: {name: entity.name.function.method.static.jsdoc}
-          - match: (\#)([$_A-Za-z][$_A-Za-z\d]*)(?=\s|$|\")
+          - match: (\#)([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
             captures:
               1: {name: keyword.operator.accessor.jsdoc}
               2: {name: entity.name.function.method.instance.jsdoc}
-          - match: (~|-)([$_A-Za-z][$_A-Za-z\d]*)(?=\s|$|\")
+          - match: (~|-)([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
             captures:
               1: {name: keyword.operator.accessor.jsdoc}
               2: {name: entity.name.function.method.inner.jsdoc}
@@ -2191,7 +2191,7 @@ repository:
           0: {name: meta.brace.curly.jsdoc}
         patterns:
           - include: '#jsdoc-typedef-primitives'
-          - match: \b([$_A-Za-z][$_A-Za-z\d]*)\s*(:)
+          - match: \b([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(:)
             captures:
               1: {name: variable.other.readwrite.jsdoc}
           - include: '#jsdoc-namepath-scopes'
@@ -5291,7 +5291,7 @@ repository:
       - include: '#typed-variable'
   typed-parse-array:
     patterns:
-      - begin: (?<!=|[$_A-Za-z\d])\s*+(#\[)
+      - begin: (?<!=|[_\\\p{L}\p{M}\p{N}])\s*+(#\[)
         comment: 'arrays such as [name: string, dob: Date]'
         end: \s*(\])
         beginCaptures:
@@ -5308,7 +5308,7 @@ repository:
               - include: '#typed-parse-types'
           - include: '#typed-parse-types'
           - include: '#typed-variable'
-      - begin: (?<!=|[$_A-Za-z\d])\s*+(\[)
+      - begin: (?<!=|[_\\\p{L}\p{M}\p{N}])\s*+(\[)
         comment: 'arrays such as [name: string, dob: Date]'
         end: \s*(\])
         beginCaptures:
@@ -5554,7 +5554,7 @@ repository:
           - include: '#typed-parse-types'
   typed-type-aliases:
     applyEndPatternLast: 1
-    begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type|alias)\b\s+(?!(i[sn])\b)(?=[$_A-Za-z{\[])
+    begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type|alias)\b\s+(?!(i[sn])\b)(?=[_\\p{L}\p{Nl}{\[])
     comment: type aliases for export but avoid type instaceof or type in operators
     end: $|(?=;|,|\p{Pe})
     beginCaptures:
