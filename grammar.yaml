@@ -778,7 +778,7 @@ repository:
           2: {name: variable.other.readwrite.nova}
       - begin: \s*+(?==[^=>])
         comment: a line starts with a static, [, name(, name:, name=, } or a semi-colon anywhere
-        end: ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\p{L}\p{Nl}])(?:[(\#?)_\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
+        end: ((?=^\s*(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+\??\s*+(:|=(?!^==|=>))|\[|((?:(\#?)[_\\\p{L}\p{Nl}])(?:[(\#?)_\\\p{L}\p{M}\p{N}])*+)\s*+\(|\b(static|async)\b)|}))|\s*(;)
         endCaptures:
           9: {name: punctuation.terminator.statement.nova}
         patterns:
@@ -1355,7 +1355,7 @@ repository:
           - include: '#core'
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
@@ -1380,7 +1380,7 @@ repository:
           - include: '#core'
           - include: '#curly-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         name: meta.function.static.nova
@@ -2044,7 +2044,7 @@ repository:
           1: {patterns: [{include: '#function-name'}]}
   js-label:
     comment: 'jslabel: $|for|each|while|do'
-    match: (?:^|(?<=;))\s*([_\\p{L}\p{Nl}][-_\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|each|while|do|if|switch|match|repeat)\b))
+    match: (?:^|(?<=;))\s*([_\\\p{L}\p{Nl}][-_\\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|each|while|do|if|switch|match|repeat)\b))
     captures:
       1: {name: constant.other.label.nova}
       2: {name: punctuation.separator.label.nova}
@@ -2119,22 +2119,22 @@ repository:
               - include: '#jsdoc-name-scopes'
       jsdoc-namepath-scopes:
         patterns:
-          - match: \s*\b(as)\b\s*(?=[_\\p{L}\p{Nl}])
+          - match: \s*\b(as)\b\s*(?=[_\\\p{L}\p{Nl}])
             captures:
               1: {name: keyword.as.jsdoc}
-          - match: \s*(?:([\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?=[\s\-~.#]|$)
+          - match: \s*(?:([\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?=[\s\-~.#]|$)
             captures:
               1: {name: entity.name.class.jsdoc}
               2: {name: entity.name.function.jsdoc}
-          - match: (\.)([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
+          - match: (\.)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
             captures:
               1: {name: keyword.operator.accessor.jsdoc}
               2: {name: entity.name.function.method.static.jsdoc}
-          - match: (\#)([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
+          - match: (\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
             captures:
               1: {name: keyword.operator.accessor.jsdoc}
               2: {name: entity.name.function.method.instance.jsdoc}
-          - match: (~|-)([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
+          - match: (~|-)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s|$|\")
             captures:
               1: {name: keyword.operator.accessor.jsdoc}
               2: {name: entity.name.function.method.inner.jsdoc}
@@ -2191,7 +2191,7 @@ repository:
           0: {name: meta.brace.curly.jsdoc}
         patterns:
           - include: '#jsdoc-typedef-primitives'
-          - match: \b([_\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(:)
+          - match: \b([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(:)
             captures:
               1: {name: variable.other.readwrite.jsdoc}
           - include: '#jsdoc-namepath-scopes'
@@ -2581,7 +2581,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.without-arguments.nova
@@ -2617,7 +2617,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         comment: e.g Abc.aaa()
         end: (?=.)
         name: meta.method-call.with-arguments.nova
@@ -2801,10 +2801,10 @@ repository:
   module-export:
     patterns:
       - comment: e.g. export let variable =, export type a=
-        match: (?<![\#\.])\s*+\b(export)(?!\s*:)\b(?=\s++(const|con|let|opaque|va[rl]|type|typeof)\s++(?:[_\\p{L}\p{Nl}]))
+        match: (?<![\#\.])\s*+\b(export)(?!\s*:)\b(?=\s++(const|con|let|opaque|va[rl]|type|typeof)\s++(?:[_\\\p{L}\p{Nl}]))
         captures:
           1: {name: keyword.control.module.nova}
-      - begin: (?<![\#\.])\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
+      - begin: (?<![\#\.])\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\\p{L}\p{Nl}])(?:[-_\\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
         comment: export {  or  export * or export var or export type {} from module
         end: \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|}))
         beginCaptures:
@@ -2859,7 +2859,7 @@ repository:
           - include: '#comments'
           - include: '#comma'
   module-typeof:
-    match: \s*\b(typeof|type)\b\s++(?={|\*|(?:[_\\p{L}\p{Nl}]))(?!\b(i[sn]|as)\b|,)
+    match: \s*\b(typeof|type)\b\s++(?={|\*|(?:[_\\\p{L}\p{Nl}]))(?!\b(i[sn]|as)\b|,)
     captures:
       1: {name: keyword.other.typedef.nova}
   multiline-arrow-function-generics:
@@ -3320,7 +3320,7 @@ repository:
   object-prop-shorthand:
     comment: give an alternate scope name to shorthand object literals
     patterns:
-      - match: (?<=^|,|{)(?<!:|\.)\s*+(((?:[_\\p{Lu}\p{Nl}])(?:[_\\p{Lu}\p{Nl}])*+))\s*+(?=$|,|})
+      - match: (?<=^|,|{)(?<!:|\.)\s*+(((?:[_\\\p{Lu}\p{Nl}])(?:[_\\\p{Lu}\p{Nl}])*+))\s*+(?=$|,|})
         captures:
           1: {name: constant.other.object.key.nova}
           2: {name: variable.other.constant.shorthandpropertyname.nova}
@@ -4083,7 +4083,7 @@ repository:
           1: {name: punctuation.definition.string.end.nova}
         patterns:
           - include: '#string-content'
-      - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\p{L}\p{Nl}][_\\d\p{L}\p{M}\p{N}]*)|([+-]?\d*)))(:)?
+      - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\\p{L}\p{Nl}][_\\d\p{L}\p{M}\p{N}]*)|([+-]?\d*)))(:)?
         end: \s*(\))
         name: meta.group.nova
         beginCaptures:
@@ -5554,7 +5554,7 @@ repository:
           - include: '#typed-parse-types'
   typed-type-aliases:
     applyEndPatternLast: 1
-    begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type|alias)\b\s+(?!(i[sn])\b)(?=[_\\p{L}\p{Nl}{\[])
+    begin: (?<=^|;|\S)\s*+\b(opaque)?\s*+\b(type|alias)\b\s+(?!(i[sn])\b)(?=[_\\\p{L}\p{Nl}{\[])
     comment: type aliases for export but avoid type instaceof or type in operators
     end: $|(?=;|,|\p{Pe})
     beginCaptures:
@@ -5574,7 +5574,7 @@ repository:
   typed-variable:
     patterns:
       - comment: 'e.g. let a: ()=>null  =  function() {return null}'
-        match: (?<![\#\.])\s*+(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
+        match: (?<![\#\.])\s*+(\#?)((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: storage.type.function.nova}
@@ -5619,7 +5619,7 @@ repository:
           1: {name: storage.type.function.arrow.nova}
         patterns:
           - include: '#typed-parse-types'
-      - begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=(?<![\#\.])\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+      - begin: (?<!let|const|var|val|def|con)(?<=[_\\\p{L}\p{M}\p{N}])\s+(?=(?<![\#\.])\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
         comment: varname of|in
         end: \s*(?=[,;\p{Pe}]|\*/)
         patterns:
