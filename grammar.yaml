@@ -1041,7 +1041,7 @@ repository:
                 beginCaptures:
                   1: {name: meta.brace.round.nova}
                 endCaptures:
-                  0: {patterns: [{include: '#core'}]}
+                  1: {name: meta.brace.round.nova}
                 patterns:
                   - match: (?<![\#\.])\s*+\b(as)\b
                     name: keyword.control.with.nova
@@ -1166,7 +1166,7 @@ repository:
       - include: '#fat-arrow'
   curly-brackets:
     patterns:
-      - begin: \s*+(#{)
+      - begin: \s*+(\#\{)
         end: \s*(\})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nova}
@@ -1176,7 +1176,17 @@ repository:
           - include: '#object-body'
           - include: '#labels'
           - include: '#core'
-      - begin: \s*+({)
+      - begin: \s*+(\{\|)
+        end: \s*(\|\})
+        beginCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
+          - include: '#labels'
+          - include: '#core'
+      - begin: \s*+(\{)
         end: \s*(\})
         beginCaptures:
           1: {name: meta.brace.curly.nova}
@@ -3189,19 +3199,46 @@ repository:
           4: {name: storage.type.numeric.bigint.nova}
           5: {name: storage.type.numeric.bigint.nova}
   object:
-    begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*({)
-    comment: obj lteral ({ or ,{ or [{ or ={ or return { or default {
-    end: \s*+(})
-    beginCaptures:
-      1: {name: keyword.operator.assignment.nova}
-      2: {name: keyword.control.module.nova}
-      3: {name: keyword.control.flow.nova}
-      4: {name: meta.delimiter.comma.nova}
-      5: {name: meta.brace.curly.litobj.nova}
-    endCaptures:
-      1: {name: meta.brace.curly.litobj.nova}
     patterns:
-      - include: '#object-body'
+      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*(#{)
+        comment: obj lteral ({ or ,{ or [{ or ={ or return { or default {
+        end: \s*+(})
+        beginCaptures:
+          1: {name: keyword.operator.assignment.nova}
+          2: {name: keyword.control.module.nova}
+          3: {name: keyword.control.flow.nova}
+          4: {name: meta.delimiter.comma.nova}
+          5: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
+      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*({\|)
+        comment: obj lteral ({ or ,{ or [{ or ={ or return { or default {
+        end: \s*+(\|})
+        beginCaptures:
+          1: {name: keyword.operator.assignment.nova}
+          2: {name: keyword.control.module.nova}
+          3: {name: keyword.control.flow.nova}
+          4: {name: meta.delimiter.comma.nova}
+          5: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
+      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*({)
+        comment: obj lteral ({ or ,{ or [{ or ={ or return { or default {
+        end: \s*+(})
+        beginCaptures:
+          1: {name: keyword.operator.assignment.nova}
+          2: {name: keyword.control.module.nova}
+          3: {name: keyword.control.flow.nova}
+          4: {name: meta.delimiter.comma.nova}
+          5: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
   object-body:
     patterns:
       - include: '#typed-keywords'
@@ -3220,25 +3257,63 @@ repository:
       - include: '#core'
       - include: '#punctuation'
   object-brace:
-    begin: \s*({)
-    comment: nested obj literal found inside other objects like arrays
-    end: \s*+(})
-    beginCaptures:
-      1: {name: meta.brace.curly.litobj.nova}
-    endCaptures:
-      1: {name: meta.brace.curly.litobj.nova}
     patterns:
-      - include: '#object-body'
+      - begin: \s*(#{)
+        comment: nested obj literal found inside other objects like arrays
+        end: \s*+(})
+        beginCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
+      - begin: \s*({\|)
+        comment: nested obj literal found inside other objects like arrays
+        end: \s*+(\|})
+        beginCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
+      - begin: \s*({)
+        comment: nested obj literal found inside other objects like arrays
+        end: \s*+(})
+        beginCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
   object-brace-property:
-    begin: (?<=:)\s*({)
-    comment: 'nested obj literal key: {object}'
-    end: \s*+(})
-    beginCaptures:
-      1: {name: meta.brace.curly.litobj.nova}
-    endCaptures:
-      1: {name: meta.brace.curly.litobj.nova}
     patterns:
-      - include: '#object-body'
+      - begin: (?<=:)\s*(#{)
+        comment: 'nested obj literal key: {object}'
+        end: \s*+(})
+        beginCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
+      - begin: (?<=:)\s*({\|)
+        comment: 'nested obj literal key: {object}'
+        end: \s*+(\|})
+        beginCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
+      - begin: (?<=:)\s*({)
+        comment: 'nested obj literal key: {object}'
+        end: \s*+(})
+        beginCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        endCaptures:
+          1: {name: meta.brace.curly.litobj.nova}
+        patterns:
+          - include: '#object-body'
   object-prop-shorthand:
     comment: give an alternate scope name to shorthand object literals
     patterns:
@@ -4262,8 +4337,16 @@ repository:
             name: constant.character.escape.other.nova
   round-brackets:
     patterns:
-      - begin: \s*+(#\()
+      - begin: \s*+(\#\()
         end: \s*(\))
+        beginCaptures:
+          1: {name: meta.brace.round.nova}
+        endCaptures:
+          1: {name: meta.brace.round.nova}
+        patterns:
+          - include: '#core'
+      - begin: \s*+(\(\|)
+        end: \s*(\|\))
         beginCaptures:
           1: {name: meta.brace.round.nova}
         endCaptures:
@@ -4318,8 +4401,19 @@ repository:
           1: {name: punctuation.definition.variable.nova}
   square-brackets:
     patterns:
-      - begin: \s*+(#\[)
+      - begin: \s*+(\#\[)
         end: \s*(\])
+        beginCaptures:
+          1: {name: meta.brace.square.nova}
+        endCaptures:
+          1: {name: meta.brace.square.nova}
+        patterns:
+          - match: \s*:(?![:<=>])\s*
+            name: keyword.operator.slice.nova
+          - include: '#object'
+          - include: '#core'
+      - begin: \s*+(\[\|)
+        end: \s*(\|\])
         beginCaptures:
           1: {name: meta.brace.square.nova}
         endCaptures:
