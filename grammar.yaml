@@ -4,14 +4,8 @@ foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 Information for Contributors: |-
   This file is a fork of the Babel JavaScript TextMate grammar and features many 
-    customizations for Nova, whose syntax derives from JavaScript and many other 
-    modern programing languages. This file is constantly regenerated with a custom 
-    build pipeline.
-  Nova is a programming language for developers to build reliable and efficient 
-    software and apps for the web, desktop and mobile, that ain't gonna crash. It has 
-    strong and honest types, compiles to efficient and boilerplate-free JavaScript and
-    Python, and comes with a fast compiler that scales to any codebase size, with easy 
-    access to bustling ecosystems of libraries.
+    customizations for Nova, another programming language that compiles to JavaScript.  
+    This file is constantly regenerated with a custom build pipeline.
   Should you want to provide a fix or improvement, or even a new feature,
     please create a pull request against this repo: https://github.com/NoxUltima/nova,
     and I will be very happy to receive them.
