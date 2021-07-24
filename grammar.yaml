@@ -1009,11 +1009,11 @@ repository:
                   1: {name: meta.brace.curly.switchStart.nova}
                 patterns:
                   - begin: (?<![\#\.])\s*+\b(case|def)\b
-                    end: \s*(:)((?=::)|(?![:<=>]))
+                    end: \s*->
                     beginCaptures:
                       1: {name: keyword.control.switch.nova}
                     endCaptures:
-                      1: {name: keyword.operator.nova}
+                      0: {name: keyword.operator.nova}
                     patterns:
                       - include: '#core'
                   - include: $self
@@ -1041,7 +1041,7 @@ repository:
                 beginCaptures:
                   1: {name: meta.brace.round.nova}
                 endCaptures:
-                  1: {name: meta.brace.round.nova}
+                  0: {patterns: [{include: '#core'}]}
                 patterns:
                   - match: (?<![\#\.])\s*+\b(as)\b
                     name: keyword.control.with.nova
