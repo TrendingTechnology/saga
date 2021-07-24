@@ -12,9 +12,7 @@ Information for Contributors: |-
 name: Nova
 scopeName: source.nearley
 Bugfixes:
-  - Fix trailing semicolon issue in type declarations/imports and functions
-  - All operators are colored differently based on their type.
-  - Functions and methods are scoped to their initial starting letter, in the meantime.
+  - Functions and methods are scoped to their initial starting letter, in the meantime, until the StdLib is out.
   - Fixed modifier keyword parsing (technically). They should activate only before a declaration, say `dyn val x = 1`, or other modifiers.
   - Fixed operator parsing in JSX and regex literals. Inline regexes should wherever possible be spaced out on both sides. This is intentional.
 Bugs:
@@ -26,12 +24,14 @@ Changes:
   - Added Scala `match` and `with` clauses.
   - Added tons of new keywords and operators; as well as support for space-delimited unary and binary operators.
   - Numeric literals support every possible even base except 14, as well as extended numeric notation for all bases.
+  - All operators are colored differently based on their type.
 fileTypes:
   - nova
   - ne
 Fixes:
   - Revamp regex syntax (more syntax scopes for constructs)
   - Add TypeScript, ReScript and JavaScript to raw code blocks
+  - Fix trailing semicolon issue in type declarations/imports and functions
 patterns:
   - include: '#core'
 repository:
