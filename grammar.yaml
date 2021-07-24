@@ -1,5 +1,5 @@
 comment: ([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
-firstLineMatch: ^#!\s*/.*\b(so|nova)$\n?
+firstLineMatch: ^#!\s*/.*\b(nova)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 Information for Contributors: |-
