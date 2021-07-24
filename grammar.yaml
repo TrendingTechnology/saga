@@ -841,7 +841,7 @@ repository:
               - include: $self
       for-block:
         patterns:
-          - begin: (?<![\#\.])\s*+\b(for|foreach|each|while|until)\b\s*(await)?\b
+          - begin: (?<![\#\.])\s*+\b(for|each|while|until)\b\s*(await)?\b
             end: \s*(?<=[})])
             name: meta.for.nova
             beginCaptures:
@@ -1254,17 +1254,17 @@ repository:
         beginCaptures:
           1: {name: keyword.operator.pipeline.nova}
         patterns:
-          - match: (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.nova}
               3: {name: meta.function-call.without-arguments.nova}
               4: {patterns: [{include: '#function-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.nova}
               3: {name: meta.method-call.without-arguments.nova}
               4: {patterns: [{include: '#method-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.nova}
               3: {name: variable.other.object.nova}
@@ -1277,17 +1277,17 @@ repository:
         beginCaptures:
           1: {name: keyword.operator.pipeline.nova}
         patterns:
-          - match: (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.nova}
               3: {name: meta.function-call.without-arguments.nova}
               4: {patterns: [{include: '#function-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
             captures:
               2: {name: keyword.operator.private.nova}
               3: {name: meta.method-call.without-arguments.nova}
               4: {patterns: [{include: '#method-name'}]}
-          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+          - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
             captures:
               2: {name: keyword.operator.private.nova}
               3: {name: variable.other.object.nova}
@@ -1324,7 +1324,7 @@ repository:
       - applyEndPatternLast: 1
         begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<![\#\.]))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. function play<T>(arg1, arg2) { }
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.nova}
           2: {name: storage.type.function.nova}
@@ -1339,7 +1339,7 @@ repository:
       - applyEndPatternLast: 1
         begin: \s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. play = function(arg1, arg2) { }
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: keyword.operator.private.nova}
           2: {patterns: [{include: '#function-name'}]}
@@ -1357,7 +1357,7 @@ repository:
       - applyEndPatternLast: 1
         begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.prototype.play = function(arg1, arg2) { }
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: keyword.operator.private.nova}
           2: {name: entity.name.class.nova}
@@ -1382,7 +1382,7 @@ repository:
       - applyEndPatternLast: 1
         begin: \s*+(\#?)((?:[_\\p{Lu}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])\s*+(=)\s*+(?:(async)\s+)?\s*+((?<![\#\.])\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'.*?'|".*?"|\[.*?\])?(?=\s*+(\(|<))
         comment: e.g. Sound.play = function(arg1, arg2) { }
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         name: meta.function.static.nova
         beginCaptures:
           1: {name: keyword.operator.private.nova}
@@ -1565,11 +1565,13 @@ repository:
       - include: '#support-functions'
       - include: '#support-methods'
       - comment: primitive types
-        match: (?i)\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
-        name: support.type.builtin.primitive.nova
-      - comment: primitive types
-        match: (?i)\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff|mixed|mix))\b
-        name: support.type.builtin.nova
+        match: (?i)(?<![\#\.])\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
+        captures:
+          1: {name: support.type.builtin.primitive.nova}
+      - comment: built-in variable types
+        match: (?i)(?<![\#\.])\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff|mixed|mix))\b
+        captures:
+          1: {name: support.type.builtin.nova}
       - match: \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
         name: support.type.builtin.class.nova
       - match: (([a-zA-Z])[_\\\p{L}\p{M}\p{N}]*)
@@ -2041,8 +2043,8 @@ repository:
         captures:
           1: {patterns: [{include: '#function-name'}]}
   js-label:
-    comment: 'jslabel: $|for|while|do'
-    match: (?:^|(?<=;))\s*([_\\p{L}\p{Nl}][-_\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|while|do|if|switch|match|repeat)\b))
+    comment: 'jslabel: $|for|each|while|do'
+    match: (?:^|(?<=;))\s*([_\\p{L}\p{Nl}][-_\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|each|while|do|if|switch|match|repeat)\b))
     captures:
       1: {name: constant.other.label.nova}
       2: {name: punctuation.separator.label.nova}
@@ -2212,7 +2214,7 @@ repository:
     comment: Avoid < operator expressions as best we can using Zertosh's regex
     patterns:
       - applyEndPatternLast: 1
-        begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
+        begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
         end: (?=.)
         patterns:
           - include: '#jsx-tag-element-name'
@@ -2339,7 +2341,7 @@ repository:
   keyword-storage:
     patterns:
       - begin: (?<![\#\.])\s*+\b(const|con|let|var|val)\b
-        end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|for|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+        end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|for|each|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.nova}
         patterns:
@@ -2349,7 +2351,7 @@ repository:
       - include: '#new'
       - include: '#query'
       - begin: (?<![\#\.])\s*+\b(halt|skip|break|continue|goto|label)\b
-        end: ^\s*|\s*(?=,|;|:|//|$|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\p{Pe})
+        end: ^\s*|\s*(?=,|;|:|//|$|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\p{Pe})
         beginCaptures:
           1: {name: keyword.control.flow.nova}
         patterns:
@@ -2381,7 +2383,7 @@ repository:
       - comment: Control flow keywords
         match: |-
           (?x)(?<![\#\.])\s*+\b(?:
-            (if|else|els?if|ell?ess?|unless?|guard)|(for|while|until|repeat)| #1,2
+            (if|else|els?if|ell?ess?|unless?|guard)|(for|each|while|until|repeat)| #1,2
             (switch|case|def)|(match|when|pass)| #3,4
             (try|throw|raise|catch|rescue|finally)|(with|as)| #5,6
             (defn?|func?|fn|macro|proc)|(let|va[rl]|con|const)| #7,8
@@ -2804,7 +2806,7 @@ repository:
           1: {name: keyword.control.module.nova}
       - begin: (?<![\#\.])\s*+\b(export)\b\s*(\btype\b)?(?=\s++({|\*|((?:[_\\p{L}\p{Nl}])(?:[-_\\p{L}\p{M}\p{N}])*+)(\s++from\b|\s*,)))
         comment: export {  or  export * or export var or export type {} from module
-        end: \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|}))
+        end: \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|}))
         beginCaptures:
           1: {name: keyword.control.module.nova}
           2: {name: keyword.control.module.nova}
@@ -2836,7 +2838,7 @@ repository:
         patterns:
           - include: '#round-brackets'
       - begin: (?<![\#\.])\s*+\b(import)(?!\s*:)\b
-        end: \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|}))
+        end: \s*(?:(?:(\bfrom\b)?+\s++(('|")([^"']*)(\k<-3>)))|(?=;|^\s*\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|}))
         beginCaptures:
           1: {name: keyword.control.module.nova}
         endCaptures:
@@ -3346,7 +3348,7 @@ repository:
         end: |-
           (?x)(?==(?![=>])|[\p{Pe}\p{Po}\p{Pd}\p{S}&&[^<=>&|^~!?]]|\s*\b
           (in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|
-          to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|
+          to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|
           until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|
           rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|
           do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|
@@ -3957,7 +3959,7 @@ repository:
       - include: '#operator'
       - include: '#operators'
   regexp:
-    begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
+    begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+([[:alnum:]]*)(/)(?![*/])(?=.*/[[:alnum:]]*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
     comment: Updated to support Perl regex syntax
     end: (/)(?:((?:\\.|.)*)(/))?([[:alnum:]]*)
     name: string.nova.nova
@@ -5349,7 +5351,7 @@ repository:
           - include: '#typed-object-property'
   typed-parse-types:
     patterns:
-      - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<![\#\.])\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+      - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<![\#\.])\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
         comment: sometypename of|in
         end: \s*(?=[,;\p{Pe}]|\*/)
         patterns:
@@ -5366,7 +5368,7 @@ repository:
           1: {name: keyword.operator.expression.$1.nova}
       - include: '#language-constant'
       - comment: primitive types
-        match: (?i)(?<![\#\.])\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func))\b
+        match: (?i)(?<![\#\.])\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
         captures:
           1: {name: support.type.builtin.primitive.nova}
       - comment: built-in variable types
@@ -5617,7 +5619,7 @@ repository:
           1: {name: storage.type.function.arrow.nova}
         patterns:
           - include: '#typed-parse-types'
-      - begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=(?<![\#\.])\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+      - begin: (?<!let|const|var|val|def|con)(?<=[_\\p{L}\p{M}\p{N}])\s+(?=(?<![\#\.])\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
         comment: varname of|in
         end: \s*(?=[,;\p{Pe}]|\*/)
         patterns:
