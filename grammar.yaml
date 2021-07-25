@@ -355,6 +355,18 @@ repository:
         endCaptures:
           1: {name: keyword.operator.assignment.nova}
         patterns:
+          - include: '#type-argument-brackets'
+          - include: '#operator'
+          - include: '#operators'
+          - match: \s*+\b((ext)|(impl)|(only))\b\s*+
+            captures:
+              1: {name: meta.class.extends.nova}
+              2: {name: storage.type.extends.nova}
+              3: {name: storage.type.implements.nova}
+              4: {name: keyword.operator.expression.only.nova}
+          - match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+            name: entity.name.enum.nova
+          - include: '#types'
           - begin: \s*+({)
             end: \s*(})
             beginCaptures:
@@ -362,33 +374,12 @@ repository:
             endCaptures:
               1: {name: punctuation.section.class.end.nova}
             patterns:
-              - include: '#comments'
-              - begin: ([_$[:alpha:]][_$[:alnum:]]*)(?:\s*(=(?!=|>)))?\s*
-                end: (?=([,;}])|$)
-                beginCaptures:
-                  1: {name: variable.other.enummember.nova}
-                  2: {name: keyword.operator.assignment.nova}
-                endCaptures:
-                  1: {patterns: [{include: "#core"}]}
-                patterns:
-                  - include: '#core'
-          - include: '#of-clause'
-          - include: '#comments'
-          - include: '#typed-polymorphs'
-          - include: '#type-argument-brackets'
-          - include: '#operator'
-          - include: '#operators'
+              - include: '#typed-method'
+              - include: '#core'
+          - match: \s*(\.)
+            captures:
+              1: {name: keyword.operator.accessor.nova}
           - include: '#core'
-        repository:
-          of-clause:
-            begin: \s*+(?<![\#\.])(of)
-            end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
-            beginCaptures:
-              1: {name: meta.enum.of.nova}
-            endCaptures:
-              1: {name: keyword.operator.assignment.nova}
-            patterns:
-              - include: '#typed-parse-types'
       extension:
         begin: (?<![\#\.])\s*+\b(extend|extn)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
@@ -2696,16 +2687,16 @@ repository:
           7: {name: constant.language.infinity.nova}
   language-variable:
     patterns:
-      - match: (?<!(?<!\.\.)\.)\s*+\b(params|args)\b
+      - match: (?<![\#\.])\s*+\b(params|args)\b
         captures:
           1: {name: variable.language.arguments.nova}
-      - match: (?<!(?<!\.\.)\.)\s*+\b(super)\b\s*+(?!\()
+      - match: (?<![\#\.])\s*+\b(super)\b\s*+(?!\()
         captures:
           1: {name: variable.language.super.nova}
-      - match: (?<!(?<!\.\.)\.)\s*+\b(this)\b
+      - match: (?<![\#\.])\s*+\b(this)\b
         captures:
           1: {name: variable.language.this.nova}
-      - match: (?<!(?<!\.\.)\.)\s*+\b(self)\b\s*+(?!\()
+      - match: (?<![\#\.])\s*+\b(self)\b\s*+(?!\()
         captures:
           1: {name: variable.language.self.nova}
       - match: (?<=\.)\s*+\b(\\proto)\b
@@ -5568,11 +5559,11 @@ repository:
       - match: (?i)(?<![\#\.])\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|unit|buff|mixed|mix))\b
         captures:
           1: {name: support.type.builtin.nova}
-      - match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)\b
+      - match: \s*+(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
         name: support.type.builtin.nova
-      - match: \s*+\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b
+      - match: \s*+((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)
         name: support.type.class.nova
-      - match: \s*+\b([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b
+      - match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
         name: support.type.primitive.nova
       - match: \s*#(?!\p{Ps})\s*
         name: keyword.operator.private.nova
@@ -5719,7 +5710,7 @@ repository:
         patterns:
           - include: '#typed-return'
       - applyEndPatternLast: 1
-        begin: \s*+(:)((?=::)|(?![:<=>]))
+        begin: \s*+(:)(?:(?=::)|(?![:<=>]))
         end: (?=.)
         beginCaptures:
           1: {name: punctuation.type.nova}
@@ -5759,6 +5750,7 @@ repository:
       - include: '#typed-vars-and-props'
   typed-vars-and-props:
     patterns:
+      - include: '#sigils'
       - match: \s*+(\?)
         captures:
           1: {name: punctuation.type.nova}
@@ -5803,29 +5795,29 @@ repository:
       - include: '#typed-bracketed-args'
   variable:
     patterns:
-      - match: \s*+(\#?)\b([_\\][_\\\p{L}\p{M}\p{N}]+)\b
+      - match: \s*+(\#?)([_\\][_\\\p{L}\p{M}\p{N}]+)
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.dollar.nova}
-      - match: \s*+(\#?)\b(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})\b
+      - match: \s*+(\#?)(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.constant.nova}
-      - match: \s*+(\#?)\b((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)\b
+      - match: \s*+(\#?)((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.class.nova}
-      - match: \s*+(\#?)\b([_\\\p{Ll}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+[!?~]?\[|\s*+[!?~]?\.|->)\b
+      - match: \s*+(\#?)([_\\\p{Ll}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+[!?~]?\[|\s*+[!?~]?\.|->)
         name: variable.other.object.nova
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.object.nova}
-      - match: (?<=\.)\s*+(\#?)\b([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b
+      - match: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
         name: meta.property.object.nova
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.property.nova}
-      - match: \s*+(\#?)(\\|[\p{Ll}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b(?!/)
+      - match: \s*+(\#?)(\\+|[\p{Ll}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?!/)
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.readwrite.nova}
