@@ -1020,21 +1020,31 @@ repository:
       - include: '#when-clause'
       - include: '#case-clause'
     repository:
+      case-clause:
+        patterns:
+          - begin: (?<![\#\.])\s*+\b(case|fail)\b
+            end: \s*(?=\p{Pe}|,|;|$|->|(?<![\#\.])\s*+\bthen\b)
+            beginCaptures:
+              1: {name: keyword.control.switch.nova}
+            endCaptures:
+              0: {name: keyword.operator.nova}
+            patterns:
+              - include: $self
       catch-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.catch.nova
             beginCaptures:
-              1: { name: keyword.control.trycatch.nova }
-              2: { name: keyword.control.flow.nova }
+              1: {name: keyword.control.trycatch.nova}
+              2: {name: keyword.control.flow.nova}
             patterns:
               - begin: \s*+(\()
                 end: \s*(\))
                 beginCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 endCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 patterns:
                   - match: (?<![\#\.])\s*+\b(as)\b
                     name: keyword.control.trycatch.nova
@@ -1049,8 +1059,8 @@ repository:
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.do.nova
             beginCaptures:
-              1: { name: keyword.control.do.nova }
-              2: { name: keyword.control.flow.nova }
+              1: {name: keyword.control.do.nova}
+              2: {name: keyword.control.flow.nova}
             patterns:
               - include: '#round-brackets'
               - include: '#curly-brackets'
@@ -1061,8 +1071,8 @@ repository:
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.for.nova
             beginCaptures:
-              1: { name: keyword.control.loop.nova }
-              2: { name: keyword.control.flow.nova }
+              1: {name: keyword.control.loop.nova}
+              2: {name: keyword.control.flow.nova}
             patterns:
               - match: (?<![\#\.])\s*+\b(in|of|by|to|til)\b
                 name: keyword.control.loop.nova
@@ -1070,9 +1080,9 @@ repository:
               - begin: \s*+(\()
                 end: \s*(\))
                 beginCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 endCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 patterns:
                   - match: (?<![\#\.])\s*+\b(in|of|by|to|til)\b
                     name: keyword.control.loop.nova
@@ -1090,8 +1100,8 @@ repository:
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.if.nova
             beginCaptures:
-              1: { name: keyword.control.conditional.nova }
-              2: { name: keyword.control.flow.nova }
+              1: {name: keyword.control.conditional.nova}
+              2: {name: keyword.control.flow.nova}
             patterns:
               - include: '#curly-brackets'
               - include: '#round-brackets'
@@ -1102,58 +1112,8 @@ repository:
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.match.nova
             beginCaptures:
-              1: { name: keyword.control.match.nova }
+              1: {name: keyword.control.match.nova}
             patterns:
-              - include: $self
-      when-clause:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(when)\b
-            end: \s*(?=\p{Pe}|,|;|$|->|(?<![\#\.])\s*+\bthen\b)
-            beginCaptures:
-              1: { name: keyword.control.match.nova }
-            endCaptures:
-              0: { patterns: [{ include: $self }] }
-            patterns:
-              - include: '#match-clause'
-              - include: '#as-clause'
-              - include: '#case-separator'
-              - include: $self
-        repository:
-          as-clause:
-            begin: (?<![\#\.])\s*\b([ai]s|with)\b\s*
-            end: (?<![\#\.])\s*\b(?=[ai]s|with)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
-            beginCaptures:
-              1: { name: keyword.control.match.nova }
-            endCaptures:
-              1: { patterns: [{ include: $self }] }
-            patterns:
-              - include: '#match-clause'
-              - include: '#as-clause'
-              - include: '#case-separator'
-              - include: '#typed-parse-types'
-          case-separator:
-            begin: ([,;])
-            end: (?<![\#\.])\s*\b(?=[ai]s|with|if|unless|where)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
-            beginCaptures:
-              1: { patterns: [{ include: $self }] }
-            endCaptures:
-              1: { patterns: [{ include: $self }] }
-            patterns:
-              - include: '#match-clause'
-              - include: '#as-clause'
-              - include: '#case-separator'
-              - include: $self
-          match-clause:
-            begin: (?<![\#\.])\s*\b(if|unless|where)\b\s*
-            end: (?<![\#\.])\s*\b(?=if|unless|where)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
-            beginCaptures:
-              1: { name: keyword.control.match.nova }
-            endCaptures:
-              1: { patterns: [{ include: $self }] }
-            patterns:
-              - include: '#match-clause'
-              - include: '#as-clause'
-              - include: '#case-separator'
               - include: $self
       parallel-clause:
         patterns:
@@ -1161,15 +1121,15 @@ repository:
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.parallel.nova
             beginCaptures:
-              1: { name: keyword.control.parallel.nova }
-              2: { name: keyword.control.flow.nova }
+              1: {name: keyword.control.parallel.nova}
+              2: {name: keyword.control.flow.nova}
             patterns:
               - begin: \s*+(\()
                 end: \s*(\))
                 beginCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 endCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 patterns:
                   - match: (?<![\#\.])\s*+\b(as)\b
                     name: keyword.control.parallel.nova
@@ -1184,28 +1144,68 @@ repository:
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.switch.nova
             beginCaptures:
-              1: { name: keyword.control.switch.nova }
+              1: {name: keyword.control.switch.nova}
             endCaptures:
-              1: { name: meta.brace.curly.switchEnd.nova }
+              1: {name: meta.brace.curly.switchEnd.nova}
             patterns:
               - include: '#round-brackets'
               - begin: \s*+({)
                 end: \s*(?=})
                 beginCaptures:
-                  1: { name: meta.brace.curly.switchStart.nova }
+                  1: {name: meta.brace.curly.switchStart.nova}
                 patterns:
                   - include: '#case-clause'
                   - include: $self
               - include: $self
-      case-clause:
+      when-clause:
         patterns:
-          - begin: (?<![\#\.])\s*+\b(case|fail)\b
+          - begin: (?<![\#\.])\s*+\b(when)\b
             end: \s*(?=\p{Pe}|,|;|$|->|(?<![\#\.])\s*+\bthen\b)
             beginCaptures:
-              1: { name: keyword.control.switch.nova }
+              1: {name: keyword.control.match.nova}
             endCaptures:
-              0: { name: keyword.operator.nova }
+              0: {patterns: [{include: $self}]}
             patterns:
+              - include: '#match-clause'
+              - include: '#as-clause'
+              - include: '#case-separator'
+              - include: $self
+        repository:
+          as-clause:
+            begin: (?<![\#\.])\s*\b([ai]s|with)\b\s*
+            end: (?<![\#\.])\s*\b(?=[ai]s|with)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
+            beginCaptures:
+              1: {name: keyword.control.match.nova}
+            endCaptures:
+              1: {patterns: [{include: $self}]}
+            patterns:
+              - include: '#match-clause'
+              - include: '#as-clause'
+              - include: '#case-separator'
+              - include: '#typed-parse-types'
+          case-separator:
+            begin: ([,;])
+            end: (?<![\#\.])\s*\b(?=[ai]s|with|if|unless|where)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
+            beginCaptures:
+              1: {patterns: [{include: $self}]}
+            endCaptures:
+              1: {patterns: [{include: $self}]}
+            patterns:
+              - include: '#match-clause'
+              - include: '#as-clause'
+              - include: '#case-separator'
+              - include: $self
+          match-clause:
+            begin: (?<![\#\.])\s*\b(if|unless|where)\b\s*
+            end: (?<![\#\.])\s*\b(?=if|unless|where)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
+            beginCaptures:
+              1: {name: keyword.control.match.nova}
+            endCaptures:
+              1: {patterns: [{include: $self}]}
+            patterns:
+              - include: '#match-clause'
+              - include: '#as-clause'
+              - include: '#case-separator'
               - include: $self
       with-clause:
         patterns:
@@ -1213,8 +1213,8 @@ repository:
             end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
             name: meta.with.nova
             beginCaptures:
-              1: { name: keyword.control.with.nova }
-              2: { name: keyword.control.flow.nova }
+              1: {name: keyword.control.with.nova}
+              2: {name: keyword.control.flow.nova}
             patterns:
               - include: '#curly-brackets'
               - begin: \s*
@@ -1226,9 +1226,9 @@ repository:
               - begin: \s*+(\()
                 end: \s*(\))
                 beginCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 endCaptures:
-                  1: { name: meta.brace.round.nova }
+                  1: {name: meta.brace.round.nova}
                 patterns:
                   - match: (?<![\#\.])\s*+\b(as)\b
                     name: keyword.control.with.nova
@@ -2956,12 +2956,12 @@ repository:
           13: {name: storage.type.trait.nova}
           14: {name: keyword.other.typedef.nova}
   module:
-    begin: (?<![\#\.])\s*+\b(from|import|export|open|close|use|using)\b\s*
+    begin: (?<![\#\.])\s*+\b(from|import|export|open|close)\b\s*
     end: (?=;|\p{Pe}|$)
     beginCaptures:
       1: {name: keyword.control.module.nova}
     patterns:
-      - match: (?<![\#\.])\s*+\b(from|import|export|open|close|as|def|use|using|show|hide)\b\s*
+      - match: (?<![\#\.])\s*+\b(from|import|export|open|close|as|def|show|hide)\b\s*
         name: keyword.control.module.nova
       - match: \s*\*
         name: keyword.operator.module.all.nova
@@ -5549,9 +5549,11 @@ repository:
       - include: '#string'
       - include: '#regexp'
       - include: '#regexp-multiline'
-      - match: (?<![\#\.])\s*+\b(typeof|nameof|infer|keyof|extends)\b\s*+
+      - match: (?<![\#\.])\s*+\b(?:(typeof|nameof|infer|keyof|only)|(ext)|(impl))\b\s*+
         captures:
           1: {name: keyword.operator.expression.$1.nova}
+          2: {name: keyword.operator.expression.extends.nova}
+          3: {name: keyword.operator.expression.implements.nova}
       - include: '#language-constant'
       - match: (?i)(?<![\#\.])\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
         captures:
@@ -5616,7 +5618,7 @@ repository:
       - include: '#operators'
     repository:
       as-clause:
-        begin: (?<![\#\.])\s*\b(as)\b\s*
+        begin: (?<![\#\.])\s*\b([ai]s)\b\s*
         end: (?<![\#\.])\s*\b(?=where)
         beginCaptures:
           1: {name: keyword.control.forall.nova}
@@ -5628,7 +5630,7 @@ repository:
           - include: '#typed-parse-types'
       case-separator:
         begin: ([,;])
-        end: (?<![\#\.])\s*\b(?=as|where)
+        end: (?<![\#\.])\s*\b(?=[ai]s|where)
         beginCaptures:
           1: {patterns: [{include: "#core"}]}
         endCaptures:
