@@ -16,7 +16,6 @@ Bugfixes:
   - Fixed operator parsing in JSX and regex literals. Inline regexes should wherever possible be spaced out on both sides. This is intentional.
 Bugs:
   - Find out how to escape keyword-like identifiers with a trailing backslash - repeat\ for example.
-  - Indentation rocks. Now all the Styles / QraphQL are broken. Template strings still work however.
 Changes:
   - Block comments can be nested thanks to Swift's codes, and can now support Markdown.
   - Same thing for JSX markup.
@@ -32,6 +31,7 @@ Fixes:
   - Revamp regex syntax (more syntax scopes for constructs)
   - Add TypeScript, ReScript and JavaScript to raw code blocks
   - Fix trailing semicolon issue in type declarations/imports and functions
+  - Added indentation. Now all the Styles / GraphQL are broken. Template strings still work however.
 patterns:
   - include: '#core'
 repository:
