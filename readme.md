@@ -2,49 +2,77 @@
 
 > The language for coders without deadlines.
 
-JavaScript is weird. Let's fix it and make something better.
-
-This is Nova, a new and experimental programming language with a big stack, designed for flexiblity, scalability and awesomeness. Use it in projects small and big, without the pesky and complicated quirks of JavaScript. All while leveraging on a fast compiler and package manager that allows for easy access to bustling ecosystems of libraries.
+Nova is a multi-paradigm and multi-platform programming language combining object-oriented and functional programming in one concise, expressive, and elegant language. Its static types help avoid type-related bugs in large and complex projects, and its C#, Python and JavaScript runtimes help you build high-performance systems with easy access to huge ecosystems of libraries.
 
 ```so
-val fibonacci = (&seq: int, &terms: int): int[] => {
-  val #len = len #seq
-  until (len #seq == terms)
-    #seq.=push(#seq[-#len:] </> (( + ), 0))
-  return #seq[0:terms]
+open Unity, Unity.UI
+
+pub class PlayerController ext MonoBehaviour {
+  pub let speed = 800kf
+  pub let scoreText: Text
+  pvt let count = 0ki
+
+  def FixedUpdate() {
+    var moveHorizontal = Input.GetAxis('Horizontal'),
+      moveVertical = Input.GetAxis('Vertical'),
+      movement = new Vector3(moveHorizontal, 0kf, moveVertical)
+    GetComponent<RigidBody>().AddForce(
+      movement * speed * Time.deltaTime
+    )
+  }
+
+  def OnTriggerEnter(val other: Collider) {
+    if other.gameObject.tag == 'PickUp' {
+      other.gameObject.SetActive(false)
+      count += 1
+      scoreText.text = 'Score: $count'
+    }
+  }
 }
-
-let x: str = {|
-  x: {| |}
-|}
-
-/(?{}[])/
 ```
+
+# Language Manual
+
+## Introduction
+
+## A Little Note
+
+JavaScript is known _really well_ for its number of questionable design decisions and seemingly chaotic runtime behaviour. The language has been criticised down to the core with tons of rants and memes circulating all around the internet about how "sloppy" its programming model or type system has been curated to be. Type coercion happens everywhere, often with unexpected results, loads of bad code habits spring up, there's tons of one-liner packages on NPM, fragmentation happens everywhere and loads of browsers still won't support the latest features of JavaScript. For now, everyone is forced to stick with JavaScript, and be forced to comply.
+
+Entire encoding methods such as JSF[censored] were invented as a direct criticism of JavaScript's weak typing, plus dozens of programming languages that claim to compile to JavaScript but produce tons of mostly _unreadable_ boilerplate in the process, or often introduce new problems that cause them to mostly die out in the process. The language _itself_ is becoming more bloated with new features, _too many_ features with no room for an API. The thing is, everything is _forced_ - if you want to develop something for the web, you've got everything but JavaScript.
+
+#### Introducing Nova
+
+Nova is a versatile language that looks like JavaScript, but targets the C#, JavaScript and Python runtimes. Nova can be used in almost _any_ scenario, including the frontend, backend, apps, games, data analytics or server-side number crunching, no matter the size, be it hobby or enterprise projects.
+
+Nova started out as an experimentation with programming language grammars, syntax highlighting and themes, and has evolved as a distinct variation of JavaScript, with influences from other curly-bracket languages like Scala, Kotlin, Rust and Go. Conceptually, Nova is heavily inspired by ReScript, a dialect of OCaml targeting the JavaScript ecosystem, Python, known best for machine learning and data science, and C#m known best for game and 3D software development.
+
+Nova's core libraries, compiler and runtime is written in JavaScript, compiles to ECMAScript 12 and runs both on the browser and Node.JS. Languages and runtimes such as Python, C# and WebAssembly would be added in the near future.
+
+Before we begin, just a little disclaimer:
+
+Nova is a language designed for hackability and scalability. Use it for whatever reason you like, be it building web, desktop or mobile application.
+
+> _**Disclaimer**: This language serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler._
 
 ## Roadmap
 
 Nova is going to be a big project, and there's so many things that would need to be done in order to make this a reality. The steps are in order.
 
 - [ ] Documentation & Wiki
-- [ ] Syntax highlighting and theme (constantly being updated)
+- [x] Syntax highlighting and theme (constantly being updated)
 - [ ] Language reference
 - [ ] Parser and compiler
 - [ ] Package manager
 - [ ] Standard library
-- [ ] Editor support for VS Code and more
+- [ ] Editor support (Visual Studio Code)
 - [ ] Logo and online documentation website
 
 \*Backus-Naur Form (BNF): https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 
-## Introduction
-
-Nova is a language designed for hackability and scalability. Use it for whatever reason you like, be it building web, desktop or mobile application.
-
-> _**Disclaimer**: This language serves as a quick and informative guide for existing JavaScript developers, or also as a cheat sheet to all the language features of Nova. Should you feel something is not right and needs to be corrected, feel free to make a pull request. Currently not taking issues at the moment, I'm only a single person._
-
 ### Installation and Architecture
 
-Nova is written in JavaScript and is inclued inside a single NPM module, `nova-lang` which includes a copy of Nova's core libraries, compiler and command-line utility. This package only needs five dependencies:
+Nova has an NPM module and CLI utility that is included in a single NPM module, `nova-lang` which includes a copy of Nova's core libraries, compiler and command-line utility.
 
 - Lodash
 - XRegExp
@@ -65,7 +93,7 @@ That's it.
 
 Running `so i` for the first time would also initialize a Python and JavaScript project/virtual environment at the same time.
 
-```so
+```nova
 import fs
 import fs.{writeFileSync: write}
 from .foo import Foo
@@ -74,131 +102,7 @@ from 'module' import x
 from ./dir/'module' import R, S, T
 ```
 
-## A Little Note
-
-JavaScript is known _quite well_ for its number of questionable design decisions and seemingly chaotic runtime behavior that made JavaScript pretty much subject to tons of criticism, and tons of rants about JavaScript on Quora, GitHub and Medium. It only shows that ten days was too short a release schedule, and seems like the damage has been done.
-
-The sloppy nature of JavaScript allowed developers to adopt many bad habits and practices, resulting in tons upon tons of bad code seen in JavaScript's ecosystem of libraries and frameworks. There's no core library, just a slew of functions and features scattered across built-in libraries, and tons of packages being circulated around on the NPM, many of which do only a single thing, leading to tons of dead code and an internet built on a house of cards. And remember that `left-pad` ordeal? For now, everyone is forced to stick with JavaScript, and be forced to comply.
-
-The language is becoming more bloated with new features, too many features and still no core libaries. And the thing everyone's talking about and the #1 cause of concern for many developers is weak typing, causing too many warts and gotchas. There's tons of freewheeling coercions, and their weirdly inconsistent semantics. Entire encoding methods such as JSF[censored] were invented, plus dozens of programming languages that claim to compile to JavaScript but produce tons of; mostly unreadable boilerplate in the process.
-
-The thing is, everything is _forced_ - if you want to develop something for the web, you've got _no other choice_ besides JavaScript.
-
-#### Introducing Nova
-
-Nova is a language that looks like JavaScript and compiles to JavaScript. It's the language for folks who are in a love-hate relationship with it, but who still acknowledge its role in the development ecosystem. Nova builds on a subset of JavaScript features, and improves on them by combining features from other programming languages.
-
-Another language, TypeScript has grown in use due to a need for static types, but given the fact that it is a superset of JavaScript, and only adds noisy annotations to JavaScript's syntax, thereby making it more verbose. And given the very nature of JavaScript, the problems only seem to increase.
-
-Nova is developed by an humble college programmer who is obsessed with programming, and has made this a hobby project that he sometimes dedicates time to. This is one of them. This reference is a work in progress and will be improved over time. Contributions and corrections are welcome, visit Saga's GitHub link.
-
-# Language Manual
-
-Contents
-
-1.  A Formal Introduction
-2.  The Basics
-    1. Your First Program
-    2. Code Structure
-    3. Comments
-    4. Embedding Raw Code
-3.  Variables
-    1. `var` and `val`
-    2. Destructuring
-4.  Data Types
-    1. the Type System
-    2. Booleans `bool`
-    3. Integers and Floats
-       1. Arithmetic and Bitwise Operations
-    4. Strings `str`
-       1. String Operations
-       2. Template Strings
-       3. Basic and Extended Slicing
-       4. Regular Expressions
-    5. Data Structures
-       1. Lists (Arrays)
-       2. Sets and Maps
-       3. Immutable Collections
-       4. Destructuring
-    6. Regular Expressions
-       1. Block Regexes
-       2. Syntax Reference
-5.  Control Flow and Operators
-    1. Code Blocks
-    2. Decision Making
-    3. Loops
-       1. For Loops
-       2. The While Family
-       3. Control Transfer Statements
-    4. Switch, Debunked
-    5. Pattern Matching
-    6. Errors
-6.  Functions
-    1. An Introduction to FP
-    2. Named and Anonymous Functions
-    3. Recursive Functions
-    4. Piping and Composition
-    5. Currying
-    6. Generators
-7.  Classes
-    1. An Introduction to OOP
-    2. Constructors
-    3. Methods and Attributes
-    4. Getters and Setters
-    5. Traits and Extensions
-    6. Objects and Records
-8.  Modules
-    1.  Imports and Exports
-    2.  Using Node Modules
-    3.  The Module System
-    4.  Namespaces vs Modules
-9.  Concurrency
-    1.  Callbacks
-    2.  Promises
-    3.  The Sequence and Parallel Blocks
-10. Types
-    1. `any`, `mixed` and `empty`
-    2. Typed Aliases
-    3. Literal Types
-    4. Type Operators
-    5. Data Structures
-    6. Interfaces
-11. Advanced Topics
-    1.  Advanced Types
-        1.  Enumerations
-        2.  Fragments and Structures
-        3.  Constraints
-        4.  Recursive Types
-    2.  Advanced Math
-    3.  Domain-Specific Extensions
-        1.  Custom Operators
-        2.  Custom Blocks
-        3.  Macros and Procedures
-    4.  Advanced Regex
-        1.  Regex Operations
-        2.  Text Processing
-    5.  Date and Time
-    6.  The File System
-    7.  JSX, CSS and GraphQL
-12. The Standard Library
-
-```so
-val arr = [1
-2]
-[1, 2] == arr // true
-
-def x()
-{
-  return
-  ()
-}
-
-def x() { return () }
-```
-
-This chapter serves as a quick reference for the Nova programming language, and is a small comparison of features from both Nova and JavaScript.
-
-This document is a quick and informal reference for the Saga programming language, meant as an aid for existing JavaScript, TypeScript and ReScript developers.
+## Overview
 
 #### Semicolons
 
@@ -270,7 +174,7 @@ This document is a quick and informal reference for the Saga programming languag
 | `x && y` (short-circuit) | `x !: y` |
 | `x \|\| y` (short-circuit) | `x ?: y` |
 | `a ?? b` | Same |
-| `a == nil ? a : b` | `a !? b` |
+| `a == null ? a : b` | `a !? b` |
 | `===`, `!==` | `===`, `!==` (Referential)<br>`==`, `!=` (Structural) |
 | `==`, `!=` | `=~`, `!~` |
 | `<`, `>`, `<=`, `>=` | Same, but no type coercion |
@@ -362,14 +266,16 @@ Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 | `Math.imul(1, 2)` | `1 $Math.imul$ 2` |
 | `Math.sqrt(2)` | `(Math.sqrt) 2` |
 
-#### Constructs
+#### Compound Expressions
 
-Our constructs are always expressions! You can write expressions such as:
+Everything is an expression!
 
-```so
+```nova
+var integer = type int | byte | short | nint | long
 var result = if (a) 'hello' else 'bye'
-var file = with fs.run('./test.Saga', 'utf8') as (let file) {
-  file.close()
+var file = match {
+  case X is int -> 1 + 1
+  else -> 0
 }
 ```
 
@@ -393,4 +299,243 @@ var file = with fs.run('./test.Saga', 'utf8') as (let file) {
 | `do { x++ } while (x < 10) ` | `repeat while x < 10 { x += 1 } ` |
 | `do { x++ } while (x != 10) ` | `repeat until x == 10 { x += 1 } ` |
 
-<style>body{text-align:justify;}</style>
+<style>p{text-align:justify;}</style>
+
+# Language Reference
+
+This document is an informal reference for the Nova programming language, intended for future Nova programmers, as well as authors of implementations of the language in other platforms like Python and C#.
+
+This is not a tutorial nor an introductory guide to the language, but something you'd want to consult when you have some questions about some aspect of the language. This reference is a work in progress and will be improved and completed over time. Contributions and corrections are welcome.
+
+## Definitions
+
+A Nova program consists of many text source files with the _extension_ or suffix `.nova`, which is processed through Nova's compiler into an executable. This executable depends on the implementation - it could either be a native binary or even source code in JavaScript or Python.
+
+Most of Nova code is compiled into the executable, and some of the code may be executed at compile time, which can include constant expressions, modules, namespaces, type definitions and procedures marked by `macro` or `proc` definitions.
+
+The compiler parses Nova source code into an internal data structure called an _abstract syntax tree_ or AST. Then before executing or compiling this code, it transforms the AST through semantic analysis, which adds important metadata such as types, scoping information and even return values from expressions. An error detected using semantic analysis is caleld a static error.
+
+This document describes Nova in terms of its _default_, and currently, _only_, textual rendering as source code, but with some formal definitions in the form of modified regular expression notation (see the section on **_Regular Expressions_**), where grammar constructs are prefixed with an unescaped `$`. Other parts of Nova, like scoping rules or runtime semantics, are described informally.
+
+Here's some definitions to take note of:
+
+- An _identifier_ is a symbol declared as a name for a variable, type, procedure, function, method, class etc.
+- The region of a variable declaration is called the _scope_. Scopes can be nested, explicitly through curly brackets. The meaning of a variable is determined by the innermost scope in which it is declared.
+- An _expression_ is a computation that produces a value. An expression consists of a mixture of identifiers, literals, punctuation and keywords.
+
+## Lexical Elements
+
+### Encoding
+
+Source code is encoded as UTF-8. Text is canonicalized, so a single accented code point is the same as a character made by combining an accent or a letter. Code points are distinct, so for instance, upper and lower case letters are completely different characters.
+
+We will define the following shorthands:
+
+### Characters
+
+The following terms are used to denote specific Unicode character classes:
+
+| Shorthand | Meaning |
+| --- | --- |
+| `\n` | A newline. `U+000A` |
+| `_` | An underscore. `U+005C` |
+| `\\` | A backslash. `U+000A` |
+| `\s` | An arbitrary Unicode code point classified as `Space, separator`, or `\pZs`. |
+| `\N` | An arbitrary Unicode code point except `\n`. `\N` is equal to `[^\n]`. |
+| `\pL` | An arbitrary Unicode code point classified as `Letter` |
+| `\pM` | A combining diacritical mark, classified as `Mark`. |
+| `\pN` | An arbitrary Unicode code point classified as `Number`. |
+| `\pNl` | An arbitrary Unicode code point classified as `Number, letter`. |
+| `\d` | A Unicode code point classified as `Number, decimal digit`, or `\pNd`. |
+| `\l` | A lowercase letter. Defined as `\pLl`. |
+| `\u` | A uppercase letter, defined as all non-lowercase letters `[\pL && \PLl]`. |
+| `\h` | A hexadecimal digit, defined as |
+| `\c` | The first character of an identifier. Defined as `[_ \\ \pL \pNl]`. |
+| `\i` | The second or following characters of an identifier. Defined as `[_ \\ \pL \pM \pN]`. |
+| `\o` | Any character. |
+
+### Letters and Digits
+
+The underscore character `_` and backslash is considered a letter.
+
+```nova
+letter = / \i /
+       = / [_ \\ \pL \pM \pN] /
+
+// Digits
+binaryDigit = / [0 1] /
+quaternaryDigit = / [0-3] /
+senaryDigit = / [0-5] /
+octalDigit = / [0-7] /
+decimalDigit = / \d /
+             = / [0-9] /
+duodecimalDigit = / [\d a b e t x z A B E T X Z] /
+hexadecimalDigit = / \h /
+                 = / [\d a-f A-F] /
+```
+
+## Lexical elements
+
+### Comments
+
+Comments serve as program documentation. There are two forms:
+
+- Line comments start with two slashes `//` and stop at the end of the line. Line comments behave like newlines.
+- Block or inline comments start with the character sequence `/*` and stop in the next `*/`. A block comment can begin inside another block comment. Block comments behave like spaces.
+- A comment cannot start inside a string or an inline regex literal.
+
+### Tokens
+
+Tokens form the vocabulary of Nova. There are four classes of tokens: identifiers, keywords, operators and punctuation. White space, which is defined in Unicode as character category `Z`, includes spaces (`U+20`), horizontal tabs (`U+09`), carriage returns (`U+0D`) and new lines (`U+0A`), and they separate tokens that would otherwise combine into a single token.
+
+A new line or end of file may trigger the insertion of a semicolon or comma, on certain occasions. While breaking the input into tokens, the next token is the longest sequence of characters that form a valid token.
+
+### Automatic Semicolon Insertion
+
+When the input is broken down into tokens, a semicolon is automatically inserted into the token stream immediately affter a lines final token if that token is:
+
+- An identifier
+- A compound identifier with a suffix operator
+- A terminating punctuation mark, such as a closing bracket
+- A literal
+- A control transfer statement, such as `halt`, or `skip`.
+
+To allow complex statements to occupy a single line, a semicolon may be omitted just before a closing bracket. Code examples in this document elide semicolons using these rules.
+
+### Identifiers and Keywords
+
+Identifiers name program entities like variables, types, functions, methods, classes and properties, and contains a sequence of one or more letters, diacritical marks, underscores, backslashes and digits. The first character of an identifier is a letter. Identifiers can also be prefixed by a hash sign to _strop_ the meaning of a keyword.
+
+Some keywords and modifiers are unused; they are reserved for future developments of the language.
+
+```nova
+firstCharacter = / \c /
+               = / [_ \\ \pL \pNl] /
+subsequentCharacters = / \i /
+       = / [_ \\ \pL \pM \pN] /
+
+identifier = />
+  (?! $keyword (\\ (c? \i*)) (\c \i*) |
+  # (\c \i*) |
+  $quotedIdentifier
+</
+
+quotedIdentifier = />
+  # (
+      (?<mark> [' "])
+        (?<ident> [^ \k<mark>] | \\ \k<mark> )*
+        \k<mark> |
+      (?<raw> `)
+        (?<ident> [^ \k<raw>] | \k<raw> {2} )*
+        \k<raw>
+  )
+</
+
+keyword = />
+  (?! [# .]) (
+    as | assert | await |
+    break | by |
+    case | catch | check | continue |
+    debug | def | del | drop |
+    eless | elif | else | equals | export |
+    fallthru | finally | fold | for | forall | from |
+    goto | group | guard | halt | if |
+    import | in | infer | into | is |
+    join |
+    keyof |
+    label | len |
+    match |
+    nameof | new |
+    of | order | out |
+    pass |
+    query |
+    raise | repeat | rescue | return |
+    scan | select | seq | size | sizeof | skip | switch |
+    take | then | throw | til | to | try | typeof |
+    unless | until | use |
+    void |
+    when | where | while | with |
+    yield |
+    $declarationKeyword
+  )
+</
+
+declarationKeyword = />
+  (?! [# .]) (
+    class | con | const | constr |
+    data | decl |
+    enum | extend |
+    fn | frag | fun | func |
+    given |
+    inter | iface
+    let |
+    macro |
+    module |
+    nspace |
+    object |
+    proc |
+    raw | record |
+    schema | struct | style |
+    trait |
+    val | var
+  )
+</
+```
+
+### Modifiers
+
+Modifiers prefix a declaration, above. For example, `pub dyn def init()`, where `pub` (public) and `dyn` (dynamic) are modifiers, and `def` declares functions.
+
+```nova
+modifier = />
+  $modifierKeywords* (?= $declarationKeyword)
+</
+
+modifierKeywords = />
+  (?! [# .]) (
+    abs | async |
+    binary |
+    check |
+    dele | dyn |
+    eager | expl | ext | extl |
+    final | fixed |
+    gen | get | greedy |
+    handle |
+    immut | impl | infix | inline | intl |
+    lazy | lock |
+    mut |
+    nary | next |
+    over |
+    part | prefix | prev | priv | prot | pub | pvt |
+    rec | ref | ronly |
+    safe | seal | set | sign | size | stat | suffix | sync |
+    ternary | trans |
+    unary | uncheck | unique | unsafe | unsign | unsize |
+    vol
+  )
+</
+```
+
+### Stropping
+
+Identifiers in Nova begin with a letter, backslash or underscore. Further characters can also contain numbers. For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
+
+```nova
+var _set\\_() = 10
+```
+
+A hash sign is used to suppress keywords of their meaning, turning them into ordinary identifiers. This is known as _stropping_.
+
+```nova
+var #var = 'Happy stropping'
+var #type = class Type(pub var &int: int) {}
+
+var #object = new #type(&int = 9)
+assert #object is #type
+assert #object.int == 9
+
+var #assert = true
+assert #assert
+```
+
+###
