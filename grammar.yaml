@@ -280,7 +280,7 @@ repository:
     repository:
       class:
         begin: (?<![\#\.])\s*+\b(class)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.class.nova}
         endCaptures:
@@ -313,7 +313,7 @@ repository:
           - include: '#core'
       constraint:
         begin: (?<![\#\.])\s*+\b(given|constr)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.constraint.nova}
         endCaptures:
@@ -346,7 +346,7 @@ repository:
           - include: '#core'
       enum:
         begin: (?<![\#\.])\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         name: meta.enum.declaration.nova
         beginCaptures:
           1: {name: storage.type.enum.nova}
@@ -381,7 +381,7 @@ repository:
         repository:
           of-clause:
             begin: \s*+(?<![\#\.])(of)
-            end: \s*(=(?!=|>))|\s*(?<=})
+            end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
             beginCaptures:
               1: {name: meta.enum.of.nova}
             endCaptures:
@@ -390,7 +390,7 @@ repository:
               - include: '#typed-parse-types'
       extension:
         begin: (?<![\#\.])\s*+\b(extend|extn)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.extension.nova}
         endCaptures:
@@ -423,7 +423,7 @@ repository:
           - include: '#core'
       fragment:
         begin: (?<![\#\.])\s*+\b(frag)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.fragment.nova}
         endCaptures:
@@ -456,7 +456,7 @@ repository:
           - include: '#core'
       interface:
         begin: (?<![\#\.])\s*+\b(inter|struct)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.interface.nova}
         endCaptures:
@@ -489,7 +489,7 @@ repository:
           - include: '#core'
       module:
         begin: (?<![\#\.])\s*+\b(module)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.module.nova}
         endCaptures:
@@ -522,7 +522,7 @@ repository:
           - include: '#core'
       namespace:
         begin: (?<![\#\.])\s*+\b(nspace)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.namespace.nova}
         endCaptures:
@@ -555,7 +555,7 @@ repository:
           - include: '#core'
       object:
         begin: (?<![\#\.])\s*+\b(object|record)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.object.nova}
         endCaptures:
@@ -588,7 +588,7 @@ repository:
           - include: '#core'
       raw:
         begin: (?<![\#\.])\s*+\b(raw)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.raw.nova}
         endCaptures:
@@ -621,7 +621,7 @@ repository:
           - include: '#core'
       schema:
         begin: (?<![\#\.])\s*+\b(data|schema)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.schema.nova}
         endCaptures:
@@ -654,7 +654,7 @@ repository:
           - include: '#core'
       style:
         begin: (?<![\#\.])\s*+\b(style)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.style.nova}
         endCaptures:
@@ -688,7 +688,7 @@ repository:
           - include: '#core'
       trait:
         begin: (?<![\#\.])\s*+\b(trait)(\s+|$)
-        end: \s*(=(?!=|>))|\s*(?<=})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
         beginCaptures:
           1: {name: storage.type.trait.nova}
         endCaptures:
@@ -900,8 +900,8 @@ repository:
               - include: $self
         repository:
           as-clause:
-            begin: (?<![\#\.])\s*\b(as|with)\b\s*
-            end: (?<![\#\.])\s*\b(?=as|with)|\s*(?=->)
+            begin: (?<![\#\.])\s*\b([ai]s|with)\b\s*
+            end: (?<![\#\.])\s*\b(?=[ai]s|with)|\s*(?=->)
             beginCaptures:
               1: {name: keyword.control.match.nova}
             endCaptures:
@@ -913,7 +913,7 @@ repository:
               - include: '#typed-parse-types'
           case-separator:
             begin: ([,;])
-            end: (?<![\#\.])\s*\b(?=as|with|if|unless|where|when)|\s*(?=->)
+            end: (?<![\#\.])\s*\b(?=[ai]s|with|if|unless|where|when)|\s*(?=->)
             beginCaptures:
               1: {patterns: [{include: '#core'}]}
             endCaptures:
@@ -2393,7 +2393,7 @@ repository:
   method:
     patterns:
       - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<![\#\.])(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
-        end: (?={|;|}|,|=)
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\)|\})
         beginCaptures:
           1: {name: storage.modifier.nova}
           2: {name: storage.type.nova}
@@ -2408,7 +2408,7 @@ repository:
           - include: '#core'
           - include: $self
       - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<![\#\.])(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
-        end: (?={|;|}|,|=)
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\)|\})
         beginCaptures:
           1: {name: storage.modifier.nova}
           2: {name: storage.type.nova}
@@ -2422,7 +2422,7 @@ repository:
           - include: '#core'
           - include: $self
       - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\]))\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\())
-        end: (?={|;|}|,|=)
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\)|\})
         beginCaptures:
           1: {name: storage.modifier.nova}
           2: {name: storage.type.nova}
@@ -2437,7 +2437,7 @@ repository:
           - include: '#core'
           - include: $self
       - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++(\#?)(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+\()
-        end: (?={|;|}|,|=)
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\)|\})
         beginCaptures:
           1: {name: storage.modifier.nova}
           2: {name: storage.type.accessor.nova}
@@ -2451,7 +2451,7 @@ repository:
           - include: '#core'
           - include: $self
       - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(((')((?:[^']|\\')*)('))|\s*+((")((?:[^"]|\\")*)("))))\s*+(\())
-        end: (?={|;|}|,|=)
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\)|\})
         beginCaptures:
           1: {name: storage.modifier.nova}
           2: {name: storage.type.accessor.nova}
@@ -3220,8 +3220,6 @@ repository:
           1: {name: keyword.operator.accessor.nova}
           2: {name: keyword.operator.class.nova}
           3: {name: keyword.operator.accessor.nova}
-      - match: \s*\\\s*($|(?=/[/*]))
-        name: constant.character.escape.newline.nova
       - match: \s*(<-+|-+>)\s*
         name: keyword.operator.then.nova
     repository:
@@ -3691,7 +3689,7 @@ repository:
           - include: '#graphql'
       - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*((`))
         contentName: string.quoted.template.nova
-        end: \s*((`))
+        end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
           1: {name: entity.name.tag.nova}
@@ -3701,8 +3699,7 @@ repository:
           1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
-          - include: '#quasi-embedded'
-          - include: '#string-content'
+          - include: '#quasi-embedded-raw'
   quasi-embedded:
     patterns:
       - match: |-
@@ -3721,6 +3718,43 @@ repository:
           3: {name: punctuation.separator.label.nova}
           4: {name: storage.type.format.nova}
       - begin: (?<!\\)(\$\{)\s*
+        end: |-
+          (?xi)\s*
+          (\}) # closing brace
+          (?:(%)(
+            \(.+?\)|
+            \\?.[<=>^]?[+-]?\#?0?
+            (?:\d*[-.,/_]?\.?\d*\w*%?)*
+          ))? # printf modifier
+        name: entity.quasi.element.nova
+        beginCaptures:
+          1: {name: punctuation.quasi.element.begin.nova}
+        endCaptures:
+          1: {name: punctuation.quasi.element.end.nova}
+          2: {name: punctuation.separator.label.nova}
+          3: {name: storage.type.format.nova}
+        patterns:
+          - include: '#core'
+  quasi-embedded-raw:
+    patterns:
+      - match: \$\$|``
+        name: constant.character.escape.nova
+      - match: |-
+          (?xi)
+          (?<!\$) # no dollar sign
+          (\$) # prefix
+          ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
+          (?:(%)(
+            \(.+?\)|
+            \\?.[<=>^]?[+-]?\#?0?
+            (?:\d*[-.,/_]?\.?\d*\w*%?)*
+          ))? # printf modifier
+        captures:
+          1: {name: punctuation.quasi.element.nova}
+          2: {patterns: [{include: '#variable'}]}
+          3: {name: punctuation.separator.label.nova}
+          4: {name: storage.type.format.nova}
+      - begin: (?<!\$)(\$\{)\s*
         end: |-
           (?xi)\s*
           (\}) # closing brace
@@ -4085,9 +4119,9 @@ repository:
               - include: '#operators'
           - match: \\x\h{2}|\\U\h{8}
             name: constant.character.escape.hex.nova
-          - match: \\[cCmM][[:alpha:]]|\R
+          - match: \\[cCmM]\p{L}|\R
             name: constant.character.control.nova
-          - match: \\[pP][[:alpha:]]|\\O
+          - match: \\[pP]\p{L}{1,2}|\\O
             name: constant.other.character-class.unicode.nova
           - match: (?i)\\[ci]
             name: constant.other.character-class.xml.nova
@@ -5065,7 +5099,7 @@ repository:
               1: {name: keyword.operator.accessor.nova}
   typed-interface:
     begin: (?<![\#\.])\s*+\b(inter|schema|struct)(\s+|$)
-    end: \s*(=(?!=|>))|\s*(?<=})
+    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
     beginCaptures:
       1: {name: keyword.other.interface.nova}
     endCaptures:
@@ -5431,29 +5465,29 @@ repository:
       - include: '#typed-bracketed-args'
   variable:
     patterns:
-      - match: \s*+(\#?)([_\\][_\\\p{L}\p{M}\p{N}]+)
+      - match: \s*+(\#?)\b([_\\][_\\\p{L}\p{M}\p{N}]+)\b
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.dollar.nova}
-      - match: \s*+(\#?)(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
+      - match: \s*+(\#?)\b(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})\b
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.constant.nova}
-      - match: \s*+(\#?)\b([_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+
+      - match: \s*+(\#?)\b((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)\b
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.class.nova}
-      - match: (?<![\#\.])\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+[!?~]?\[|\s*+[!?~]?\.|->)
+      - match: \s*+(\#?)\b([_\\\p{Ll}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+[!?~]?\[|\s*+[!?~]?\.|->)\b
         name: variable.other.object.nova
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.object.nova}
-      - match: (?<=\.)\s*+(\#?)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+      - match: (?<=\.)\s*+(\#?)\b([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b
         name: meta.property.object.nova
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.property.nova}
-      - match: \s*+(\#?)([\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|\\)
+      - match: \s*+(\#?)\b(\\|[\p{Ll}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\b
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.readwrite.nova}
