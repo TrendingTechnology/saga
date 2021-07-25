@@ -32,6 +32,7 @@ Fixes:
   - Add TypeScript, ReScript and JavaScript to raw code blocks
   - Fix trailing semicolon issue in type declarations/imports and functions
   - Added indentation. Now all the Styles / GraphQL are broken. Template strings still work however.
+  - Indented SASS and HAML code in place of CSS and HTML, plus YAML in place for JSON.
 patterns:
   - include: '#core'
 repository:
