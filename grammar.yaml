@@ -1,4 +1,4 @@
-firstLineMatch: ^#!\s*/.*\b(bc|nova)$\n?
+firstLineMatch: ^#!\s*/.*\b(nova)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
 Information for Contributors: |-
@@ -26,7 +26,6 @@ Changes:
   - All operators are colored differently based on their type.
 fileTypes:
   - nova
-  - bc
   - ne
 Fixes:
   - Revamp regex syntax (more syntax scopes for constructs)
