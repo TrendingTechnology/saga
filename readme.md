@@ -1,8 +1,8 @@
 # **Nova**
 
-> The language for coders without deadlines.
+> The deadline-focused language.
 
-Nova is a multi-paradigm and multi-platform programming language combining object-oriented and functional programming in one concise, expressive, and elegant language. Its static types help avoid type-related bugs in large and complex projects, and its C#, Python and JavaScript runtimes help you build high-performance systems with easy access to huge ecosystems of libraries.
+**Nova**: a new programming language designed to replace JavaScript. Combining object-oriented and functional programming in a single compact and expressive syntax that is both easy to read and easy to write. Its static types help avoid type-related bugs in large and complex applications, while its many runtimes help you build high-performance systems and software with easy access to existing ecosystems of libraries, even across language barriers.
 
 > Sample Code
 
@@ -78,9 +78,9 @@ pub class TouchPhaseDisplay: MonoBehaviour =
 
 ## Introduction
 
-JavaScript is known _really well_ for its number of questionable design decisions and seemingly chaotic runtime behaviour. The language has been criticised down to the core with tons of rants and memes circulating all around the internet about how "sloppy" its programming model or type system has been curated to be. Type coercion happens everywhere, often with unexpected results, loads of bad code habits spring up, there's tons of one-liner packages on NPM, fragmentation happens everywhere and loads of browsers still won't support the latest features of JavaScript. For now, everyone is forced to stick with JavaScript, and be forced to comply.
+JavaScript is known really well for having a very sloppy programming model, a lack of typing and a very weird ecosystem that reeks of "bad coding habits. It's been criticised and even mocked by people ranting about many of its questionable design decisions and seemingly chaotic runtime behaviour. Coercion happens literally everywhere, the entire ecosystem is too reliant on dependencies, a framework releases every minute, there's no standard library but a weird mix of functions, and the language itself is becoming mroe bloated with new features.
 
-Entire encoding methods such as JSF[censored] were invented as a direct criticism of JavaScript's weak typing, plus dozens of programming languages that claim to compile to JavaScript but produce tons of mostly _unreadable_ boilerplate in the process, or often introduce new problems that cause them to mostly die out in the process. The language _itself_ is becoming more bloated with new features, _too many_ features with no room for an API. The thing is, everything is _forced_ - if you want to develop something for the web, you've got everything but JavaScript.
+Entire languages were either invented as a direct criticism of JavaScript's problems, and dozens of programming languages, some well-known, that compile to JavaScript, many of them spewing out unreadable boilerplate rather than a clean and readable JavaScript output. The thing is, everything is forced, you've only got one way to develop something for the web &mdash; JavaScript.
 
 ### Introducing Nova
 
@@ -92,15 +92,11 @@ Nova code compiles to the latest version of ECMAScript which can then be picked 
 
 Conceptually, Nova is heavily inspired by ReScript, a dialect of OCaml targeting the JavaScript ecosystem, Python, known best for machine learning and data science, and C#, known best for game and 3D software development. Nova's core libraries, compiler and runtime is written in JavaScript, compiles to ECMAScript 12 and runs both on the browser and Node.JS. Languages and runtimes such as Python, C# and WebAssembly would be added in the near future.
 
-Before we begin, just a little disclaimer:
-
-Nova is a language designed for hackability and scalability. Use it for whatever reason you like, be it building web, desktop or mobile application.
-
-> _**Disclaimer**: This language serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler._
-
 ## Roadmap
 
 Nova is going to be a big project, and there's so many things that would need to be done in order to make this a reality. The steps are in order.
+
+> _**Disclaimer**: This language serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler._
 
 - [ ] Documentation & Wiki
 - [x] Syntax highlighting and theme (constantly being updated)
@@ -316,10 +312,9 @@ Everything is an expression!
 ```nova
 var integer = type int | byte | short | nint | long
 var result = if (a) 'hello' else 'bye'
-var file = match {
-  case X is int -> 1 + 1
+var file = match
+  when X is int -> 1 + 1
   else -> 0
-}
 ```
 
 | JavaScript | Saga |
