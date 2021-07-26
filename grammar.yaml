@@ -1833,45 +1833,45 @@ repository:
           bold:
             begin: |-
               (?x)
-                                  (\*\*|__)(?=\S)                                             # Open
-                                  (?=
-                                  (
-                                  <[^>]*>                                    # HTML tags
-                                  | (?<raw>`+)([^`]|(?!(?<!`)\k<raw>(?!`))`)*\k<raw>
-                                  # Raw
-                                  | \\[\\`*_{}\[\]()#.!+\->]?+                       # Escapes
-                                  | \[
-                                  (
-                                  (?<square>                            # Named group
-                                  [^\[\]\\]                               # Match most chars
-                                  | \\.                                     # Escaped chars
-                                  | \[ \g<square>* \]                 # Nested brackets
-                                  )*
-                                  \]
-                                  (
-                                  (                                       # Reference Link
-                                  [ ]?                                # Optional space
-                                  \[[^\]]*\]                          # Ref name
-                                  )
-                                  | (                                       # Inline Link
-                                  \(                                  # Opening paren
-                                  [ \t]*                          # Optional whtiespace
-                                  <?(.*?)>?                 # URL
-                                  [ \t]*                          # Optional whtiespace
-                                  (                               # Optional Title
-                                  (?<title>['"])
-                                  (.*?)
-                                  \k<title>
-                                  )?
-                                  \)
-                                  )
-                                  )
-                                  )
-                                  | (?!(?<=\S)\1).                                   # Everything besides
-                                  # style closer
-                                  )+
-                                  (?<=\S)\1                                            # Close
-                                  )
+              (\*\*|__)(?=\S)                                             # Open
+              (?=
+              (
+              <[^>]*>                                    # HTML tags
+              | (?<raw>`+)([^`]|(?!(?<!`)\k<raw>(?!`))`)*\k<raw>
+              # Raw
+              | \\[\\`*_{}\[\]()#.!+\->]?+                       # Escapes
+              | \[
+              (
+              (?<square>                            # Named group
+              [^\[\]\\]                               # Match most chars
+              | \\.                                     # Escaped chars
+              | \[ \g<square>* \]                 # Nested brackets
+              )*
+              \]
+              (
+              (                                       # Reference Link
+              [ ]?                                # Optional space
+              \[[^\]]*\]                          # Ref name
+              )
+              | (                                       # Inline Link
+              \(                                  # Opening paren
+              [ \t]*                          # Optional whtiespace
+              <?(.*?)>?                 # URL
+              [ \t]*                          # Optional whtiespace
+              (                               # Optional Title
+              (?<title>['"])
+              (.*?)
+              \k<title>
+              )?
+              \)
+              )
+              )
+              )
+              | (?!(?<=\S)\1).                                   # Everything besides
+              # style closer
+              )+
+              (?<=\S)\1                                            # Close
+              )
             end: (?<=\S)(\1)
             name: markup.bold.markdown
             captures:
@@ -1903,20 +1903,20 @@ repository:
           image-inline:
             match: |-
               (?x:
-                                  \!                                  # Images start with !
-                                  (\[)((?<square>[^\[\]\\]|\\.|\[\g<square>*\])*)(\])
-                                  # Match the link text.
-                                  ([ ])?                              # Space not allowed
-                                  (\()                                # Opening paren for url
-                                  (<?)(\S+?)(>?)                # The url
-                                  [ \t]*                              # Optional whitespace
-                                  (?:
-                                  ((\().+?(\)))                 # Match title in parens…
-                                  | ((").+?("))         # or in quotes.
-                                  )?                                  # Title is optional
-                                  \s*                                 # Optional whitespace
-                                  (\))
-                                  )
+              \!                                  # Images start with !
+              (\[)((?<square>[^\[\]\\]|\\.|\[\g<square>*\])*)(\])
+              # Match the link text.
+              ([ ])?                              # Space not allowed
+              (\()                                # Opening paren for url
+              (<?)(\S+?)(>?)                # The url
+              [ \t]*                              # Optional whitespace
+              (?:
+              ((\().+?(\)))                 # Match title in parens…
+              | ((").+?("))         # or in quotes.
+              )?                                  # Title is optional
+              \s*                                 # Optional whitespace
+              (\))
+              )
             name: meta.image.inline.markdown
             captures:
               1: {name: punctuation.definition.string.begin.markdown}
@@ -1947,46 +1947,46 @@ repository:
           italic:
             begin: |-
               (?x)
-                                      (\*|_)(?=\S)                                            # Open
-                                      (?=
-                                      (
-                                      <[^>]*>                                # HTML tags
-                                      | (?<raw>`+)([^`]|(?!(?<!`)\k<raw>(?!`))`)*\k<raw>
-                                      # Raw
-                                      | \\[\\`*_{}\[\]()#.!+\->]?+                   # Escapes
-                                      | \[
-                                      (
-                                      (?<square>                            # Named group
-                                      [^\[\]\\]                                # Match most chars
-                                      | \\.                                     # Escaped chars
-                                      | \[ \g<square>* \]                 # Nested brackets
-                                      )*
-                                      \]
-                                      (
-                                      (                                       # Reference Link
-                                      [ ]?                                # Optional space
-                                      \[[^\]]*\]                          # Ref name
-                                      )
-                                      | (                                       # Inline Link
-                                      \(                                  # Opening paren
-                                      [ \t]*                          # Optional whtiespace
-                                      <?(.*?)>?                 # URL
-                                      [ \t]*                          # Optional whtiespace
-                                      (                               # Optional Title
-                                      (?<title>['"])
-                                      (.*?)
-                                      \k<title>
-                                      )?
-                                      \)
-                                      )
-                                      )
-                                      )
-                                      | \1\1                                            # Must be bold closer
-                                      | (?!(?<=\S)\1).                               # Everything besides
-                                      # style closer
-                                      )+
-                                      (?<=\S)\1                                        # Close
-                                      )
+              (\*|_)(?=\S)                                            # Open
+              (?=
+              (
+              <[^>]*>                                # HTML tags
+              | (?<raw>`+)([^`]|(?!(?<!`)\k<raw>(?!`))`)*\k<raw>
+              # Raw
+              | \\[\\`*_{}\[\]()#.!+\->]?+                   # Escapes
+              | \[
+              (
+              (?<square>                            # Named group
+              [^\[\]\\]                                # Match most chars
+              | \\.                                     # Escaped chars
+              | \[ \g<square>* \]                 # Nested brackets
+              )*
+              \]
+              (
+              (                                       # Reference Link
+              [ ]?                                # Optional space
+              \[[^\]]*\]                          # Ref name
+              )
+              | (                                       # Inline Link
+              \(                                  # Opening paren
+              [ \t]*                          # Optional whtiespace
+              <?(.*?)>?                 # URL
+              [ \t]*                          # Optional whtiespace
+              (                               # Optional Title
+              (?<title>['"])
+              (.*?)
+              \k<title>
+              )?
+              \)
+              )
+              )
+              )
+              | \1\1                                            # Must be bold closer
+              | (?!(?<=\S)\1).                               # Everything besides
+              # style closer
+              )+
+              (?<=\S)\1                                        # Close
+              )
             end: (?<=\S)(\1)((?!\1)|(?=\1\1))
             name: markup.italic.markdown
             captures:
@@ -2031,19 +2031,19 @@ repository:
           link-inline:
             match: |-
               (?x:
-                                      (\[)((?<square>[^\[\]\\]|\\.|\[\g<square>*\])*)(\])
-                                      # Match the link text.
-                                      ([ ])?                             # Space not allowed
-                                      (\()                               # Opening paren for url
-                                      (<?)(.*?)(>?)                # The url
-                                      [ \t]*                             # Optional whitespace
-                                      (?:
-                                      ((\().+?(\)))                # Match title in parens…
-                                      | ((").+?("))        # or in quotes.
-                                      )?                                 # Title is optional
-                                      \s*                                # Optional whitespace
-                                      (\))
-                                      )
+              (\[)((?<square>[^\[\]\\]|\\.|\[\g<square>*\])*)(\])
+              # Match the link text.
+              ([ ])?                             # Space not allowed
+              (\()                               # Opening paren for url
+              (<?)(.*?)(>?)                # The url
+              [ \t]*                             # Optional whitespace
+              (?:
+              ((\().+?(\)))                # Match title in parens…
+              | ((").+?("))        # or in quotes.
+              )?                                 # Title is optional
+              \s*                                # Optional whitespace
+              (\))
+              )
             name: meta.link.inline.markdown
             captures:
               1: {name: punctuation.definition.string.begin.markdown}
@@ -5199,6 +5199,7 @@ repository:
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
           - include: '#embedded-stylus'
+          - include: '#quasi-embedded-raw'
       - begin: (?<![\#\.])\s*+(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(extend))\s*((`))
         contentName: source.inside-js.css.styled
         end: \s*((`))
@@ -5214,6 +5215,7 @@ repository:
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
           - include: '#embedded-stylus'
+          - include: '#quasi-embedded-raw'
       - applyEndPatternLast: 1
         begin: (?<![\#\.])\s*+(?:(\bstyled)|([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(withComponent))(?=\s*((\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))*\s*(`|\.extend`|$)))
         end: (?=.)
@@ -5236,6 +5238,7 @@ repository:
               2: {name: punctuation.definition.quasi.end.nova}
             patterns:
               - include: '#embedded-stylus'
+              - include: '#quasi-embedded-raw'
           - match: \s*(\.)\s*(extend)(?=\s*`)
             captures:
               1: {name: keyword.operator.accessor.nova}
@@ -5263,6 +5266,7 @@ repository:
               2: {name: punctuation.definition.quasi.end.nova}
             patterns:
               - include: '#embedded-stylus'
+              - include: '#quasi-embedded-raw'
       - applyEndPatternLast: 1
         begin: (?<![\#\.])\s*+(?:(\bstyled)\s*(?:(\?\.)|(\.))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(attrs|withConfig))(?=\s*\()
         end: (?=.|\n)
@@ -5287,6 +5291,7 @@ repository:
               2: {name: punctuation.definition.quasi.end.nova}
             patterns:
               - include: '#embedded-stylus'
+              - include: '#quasi-embedded-raw'
       - begin: \s*+(?:((Relay)(?:(\?\.)|(\.))(QL))|(gql|graphql|graphql\.experimental)|(/\* GraphQL \*/))\s*((`))
         end: \s*((`))
         beginCaptures:
@@ -5303,6 +5308,91 @@ repository:
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
           - include: '#embedded-raml'
+          - include: '#quasi-embedded-raw'
+      - begin: \s*+(haml)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: '#embedded-haml'
+          - include: '#quasi-embedded-raw'
+      - begin: \s*+(pug)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: text.pug
+          - include: '#quasi-embedded-raw'
+      - begin: \s*+(markdown|md)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: text.html.markdown
+          - include: '#quasi-embedded-raw'
+      - begin: \s*+(coffee)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: source.coffee
+          - include: '#quasi-embedded-raw'
+      - begin: \s*+(ruby|rb)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: source.ruby
+          - include: '#quasi-embedded-raw'
+      - begin: \s*+(python|py)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: source.python
+          - include: '#quasi-embedded-raw'
       - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
