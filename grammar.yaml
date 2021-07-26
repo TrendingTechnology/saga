@@ -5197,7 +5197,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: '#embedded-raml'
       - begin: \s*+(styl|stylus)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5211,7 +5211,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: '#embedded-stylus'
       - begin: \s*+(haml)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5225,7 +5225,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: '#embedded-haml'
       - begin: \s*+(haml)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5239,7 +5239,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: '#embedded-haml'
       - begin: \s*+(pug)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5253,7 +5253,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: text.pug
       - begin: \s*+(markdown|md)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5267,7 +5267,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: text.html.markdown
       - begin: \s*+(coffee)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5281,7 +5281,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: source.coffee
       - begin: \s*+(ruby|rb)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5295,7 +5295,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: source.ruby
       - begin: \s*+(python|py)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
@@ -5309,7 +5309,7 @@ repository:
           - include: '#quasi-embedded-raw'
           - include: source.python
       - begin: \s*+(ya?ml)?\s*((`))
-        contentName: string.quoted.template.nova
+        contentName: source.embedded.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
