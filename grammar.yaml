@@ -5183,216 +5183,132 @@ repository:
   quasi:
     patterns:
       - include: languagebabel.ttlextension
-      - begin: \s*+(?:(?:\b(css|injectGlobal|keyframes|createGlobalStyle|stylesheet)\b)|(?:(\bstyled)(?:(?:(\?\.)|(\.))\s*(\w+)))|(/\* CSS \*/))\s*((`))
-        contentName: source.inside-js.css.styled
-        end: \s*((`))
+      - begin: \s*+(styl|stylus)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
         beginCaptures:
-          1: {name: entity.name.tag.styledcss.nova}
-          2: {name: entity.name.tag.styledcss.nova}
-          3: {name: keyword.operator.existential.nova}
-          4: {name: keyword.operator.accessor.nova}
-          5: {name: entity.name.tag.styledcss.nova}
-          6: {name: string.quoted.template.styled.start.nova}
-          7: {name: punctuation.definition.quasi.begin.nova}
+          1: {name: entity.name.tag.$1.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
         endCaptures:
-          1: {name: string.quoted.template.styled.end.nova}
+          1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
+          - include: '#quasi-embedded-raw'
           - include: '#embedded-stylus'
-          - include: '#quasi-embedded-raw'
-      - begin: (?<![\#\.])\s*+(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(extend))\s*((`))
-        contentName: source.inside-js.css.styled
-        end: \s*((`))
-        beginCaptures:
-          1: {name: variable.other.class.nova}
-          2: {name: keyword.operator.existential.nova}
-          3: {name: keyword.operator.accessor.nova}
-          4: {name: entity.name.tag.styledcss.nova}
-          5: {name: string.quoted.template.styled.start.nova}
-          6: {name: punctuation.definition.quasi.begin.nova}
-        endCaptures:
-          1: {name: string.quoted.template.styled.end.nova}
-          2: {name: punctuation.definition.quasi.end.nova}
-        patterns:
-          - include: '#embedded-stylus'
-          - include: '#quasi-embedded-raw'
-      - applyEndPatternLast: 1
-        begin: (?<![\#\.])\s*+(?:(\bstyled)|([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(withComponent))(?=\s*((\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))*\s*(`|\.extend`|$)))
-        end: (?=.)
-        beginCaptures:
-          1: {patterns: [{include: "#function-name"}]}
-          2: {name: variable.other.class.nova}
-          3: {name: keyword.operator.existential.nova}
-          4: {name: keyword.operator.accessor.nova}
-          5: {patterns: [{include: "#function-name"}]}
-        patterns:
-          - include: '#round-brackets'
-          - begin: \s*((`))
-            contentName: source.inside-js.css.styled
-            end: \s*((`))
-            beginCaptures:
-              1: {name: string.quoted.template.styled.start.nova}
-              2: {name: punctuation.definition.quasi.begin.nova}
-            endCaptures:
-              1: {name: string.quoted.template.styled.end.nova}
-              2: {name: punctuation.definition.quasi.end.nova}
-            patterns:
-              - include: '#embedded-stylus'
-              - include: '#quasi-embedded-raw'
-          - match: \s*(\.)\s*(extend)(?=\s*`)
-            captures:
-              1: {name: keyword.operator.accessor.nova}
-              2: {name: entity.name.tag.styledcss.nova}
-      - applyEndPatternLast: 1
-        begin: (?<![\#\.])\s*+(?:(\bstyled))(?=\s*((\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))*\s*\??\.\s*attrs\s*\())
-        end: (?=.)
-        beginCaptures:
-          1: {patterns: [{include: "#function-name"}]}
-        patterns:
-          - include: '#round-brackets'
-          - match: \s*(?:(\?\.)|(\.))\s*(attrs)
-            captures:
-              1: {name: keyword.operator.existential.nova}
-              2: {name: keyword.operator.accessor.nova}
-              3: {patterns: [{include: "#function-name"}]}
-          - begin: \s*((`))
-            contentName: source.inside-js.css.styled
-            end: \s*((`))
-            beginCaptures:
-              1: {name: string.quoted.template.styled.start.nova}
-              2: {name: punctuation.definition.quasi.begin.nova}
-            endCaptures:
-              1: {name: string.quoted.template.styled.end.nova}
-              2: {name: punctuation.definition.quasi.end.nova}
-            patterns:
-              - include: '#embedded-stylus'
-              - include: '#quasi-embedded-raw'
-      - applyEndPatternLast: 1
-        begin: (?<![\#\.])\s*+(?:(\bstyled)\s*(?:(\?\.)|(\.))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\?\.)|(\.))\s*(attrs|withConfig))(?=\s*\()
-        end: (?=.|\n)
-        beginCaptures:
-          1: {name: entity.name.tag.styledcss.nova}
-          2: {name: keyword.operator.existential.nova}
-          3: {name: keyword.operator.accessor.nova}
-          4: {name: entity.name.tag.styledcss.nova}
-          5: {name: keyword.operator.existential.nova}
-          6: {name: keyword.operator.accessor.nova}
-          7: {patterns: [{include: "#function-name"}]}
-        patterns:
-          - include: '#round-brackets'
-          - begin: \s*((`))
-            contentName: source.inside-js.css.styled
-            end: \s*((`))
-            beginCaptures:
-              1: {name: string.quoted.template.styled.start.nova}
-              2: {name: punctuation.definition.quasi.begin.nova}
-            endCaptures:
-              1: {name: string.quoted.template.styled.end.nova}
-              2: {name: punctuation.definition.quasi.end.nova}
-            patterns:
-              - include: '#embedded-stylus'
-              - include: '#quasi-embedded-raw'
-      - begin: \s*+(?:((Relay)(?:(\?\.)|(\.))(QL))|(gql|graphql|graphql\.experimental)|(/\* GraphQL \*/))\s*((`))
-        end: \s*((`))
-        beginCaptures:
-          2: {name: variable.other.class.nova}
-          3: {name: keyword.operator.existential.nova}
-          4: {name: keyword.operator.accessor.nova}
-          5: {name: entity.name.tag.graphql.nova}
-          6: {name: entity.name.tag.graphql.nova}
-          7: {name: entity.name.tag.graphql.nova}
-          8: {name: string.quoted.template.nova}
-          9: {name: punctuation.definition.quasi.begin.nova}
-        endCaptures:
-          1: {name: string.quoted.template.graphql.nova}
-          2: {name: punctuation.definition.quasi.end.nova}
-        patterns:
-          - include: '#embedded-raml'
-          - include: '#quasi-embedded-raw'
       - begin: \s*+(haml)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
-          1: {name: entity.name.tag.nova}
+          1: {name: entity.name.tag.$1.nova}
           2: {name: string.quoted.template.nova}
           3: {name: punctuation.definition.quasi.begin.nova}
         endCaptures:
           1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
-          - include: '#embedded-haml'
           - include: '#quasi-embedded-raw'
+          - include: '#embedded-haml'
+      - begin: \s*+(haml)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.$1.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: '#quasi-embedded-raw'
+          - include: '#embedded-haml'
       - begin: \s*+(pug)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
-          1: {name: entity.name.tag.nova}
+          1: {name: entity.name.tag.$1.nova}
           2: {name: string.quoted.template.nova}
           3: {name: punctuation.definition.quasi.begin.nova}
         endCaptures:
           1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
-          - include: text.pug
           - include: '#quasi-embedded-raw'
+          - include: text.pug
       - begin: \s*+(markdown|md)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
-          1: {name: entity.name.tag.nova}
+          1: {name: entity.name.tag.$1.nova}
           2: {name: string.quoted.template.nova}
           3: {name: punctuation.definition.quasi.begin.nova}
         endCaptures:
           1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
-          - include: text.html.markdown
           - include: '#quasi-embedded-raw'
+          - include: text.html.markdown
       - begin: \s*+(coffee)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
-          1: {name: entity.name.tag.nova}
+          1: {name: entity.name.tag.$1.nova}
           2: {name: string.quoted.template.nova}
           3: {name: punctuation.definition.quasi.begin.nova}
         endCaptures:
           1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
-          - include: source.coffee
           - include: '#quasi-embedded-raw'
+          - include: source.coffee
       - begin: \s*+(ruby|rb)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
-          1: {name: entity.name.tag.nova}
+          1: {name: entity.name.tag.$1.nova}
           2: {name: string.quoted.template.nova}
           3: {name: punctuation.definition.quasi.begin.nova}
         endCaptures:
           1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
-          - include: source.ruby
           - include: '#quasi-embedded-raw'
+          - include: source.ruby
       - begin: \s*+(python|py)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
         name: string.quasi.nova
         beginCaptures:
-          1: {name: entity.name.tag.nova}
+          1: {name: entity.name.tag.$1.nova}
           2: {name: string.quoted.template.nova}
           3: {name: punctuation.definition.quasi.begin.nova}
         endCaptures:
           1: {name: string.quoted.template.nova}
           2: {name: punctuation.definition.quasi.end.nova}
         patterns:
-          - include: source.python
           - include: '#quasi-embedded-raw'
+          - include: source.python
+      - begin: \s*+(ya?ml)?\s*((`))
+        contentName: string.quoted.template.nova
+        end: \s*((`)(?!`))
+        name: string.quasi.nova
+        beginCaptures:
+          1: {name: entity.name.tag.$1.nova}
+          2: {name: string.quoted.template.nova}
+          3: {name: punctuation.definition.quasi.begin.nova}
+        endCaptures:
+          1: {name: string.quoted.template.nova}
+          2: {name: punctuation.definition.quasi.end.nova}
+        patterns:
+          - include: '#quasi-embedded-raw'
+          - include: source.yaml
       - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*((`))
         contentName: string.quoted.template.nova
         end: \s*((`)(?!`))
