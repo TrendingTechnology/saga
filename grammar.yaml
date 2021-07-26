@@ -1872,8 +1872,8 @@ repository:
           1: {name: meta.brace.round.directive.graphql}
         patterns:
           - include: '#graphql-comment'
-          - begin: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?:\s*(:))?
-            end: (?=\s*(?:(?:([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(:))|\)))|\s*(,)
+          - begin: \s*([_A-Za-z][_\\dA-Za-z]*)(?:\s*(:))?
+            end: (?=\s*(?:(?:([_A-Za-z][_\\dA-Za-z]*)\s*(:))|\)))|\s*(,)
             beginCaptures:
               1: {name: variable.arguments.graphql}
               2: {name: punctuation.colon.graphql}
@@ -1907,7 +1907,7 @@ repository:
               1: {name: punctuation.whitespace.comment.leading.graphql}
       graphql-directive:
         applyEndPatternLast: 1
-        begin: \s*((@)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))
+        begin: \s*((@)\s*([_A-Za-z][_\\dA-Za-z]*))
         end: (?=.)
         beginCaptures:
           1: {name: entity.name.function.directive.graphql}
@@ -1917,7 +1917,7 @@ repository:
           - include: '#quasi-embedded'
           - include: '#graphql-skip-newlines'
       graphql-enum:
-        begin: \s*+\b(enum)\b\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+        begin: \s*+\b(enum)\b\s*([_A-Za-z][_\\dA-Za-z]*)
         end: (?<=})
         name: meta.enum.graphql
         beginCaptures:
@@ -1937,15 +1937,15 @@ repository:
               - include: '#graphql-enum-value'
               - include: '#quasi-embedded'
       graphql-enum-value:
-        match: \s*(?!=\b(true|false|null)\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+        match: \s*(?!=\b(true|false|null)\b)([_A-Za-z][_\\dA-Za-z]*)
         name: constant.character.enum.graphql
       graphql-field:
         patterns:
-          - match: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(:)
+          - match: \s*([_A-Za-z][_\\dA-Za-z]*)\s*(:)
             captures:
               1: {name: string.unquoted.alias.graphql}
               2: {name: punctuation.colon.graphql}
-          - match: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+          - match: \s*([_A-Za-z][_\\dA-Za-z]*)
             captures:
               1: {name: variable.graphql}
           - include: '#graphql-arguments'
@@ -1958,7 +1958,7 @@ repository:
         captures:
           1: {name: constant.float.graphql}
       graphql-fragment-definition:
-        begin: \s*(?:(\bfragment\b)\s*(?!\bon\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?:(\bon\b)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)))
+        begin: \s*(?:(\bfragment\b)\s*(?!\bon\b)([_A-Za-z][_\\dA-Za-z]*)\s*(?:(\bon\b)\s*([_A-Za-z][_\\dA-Za-z]*)))
         end: (?<=})
         name: meta.fragment.graphql
         captures:
@@ -1974,7 +1974,7 @@ repository:
           - include: '#quasi-embedded'
       graphql-fragment-spread:
         applyEndPatternLast: 1
-        begin: \s*(\.\.\.)\s*(?!\bon\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+        begin: \s*(\.\.\.)\s*(?!\bon\b)([_A-Za-z][_\\dA-Za-z]*)
         end: (?=.)
         captures:
           1: {name: keyword.operator.spread.graphql}
@@ -1989,7 +1989,7 @@ repository:
         match: \s*
       graphql-inline-fragment:
         applyEndPatternLast: 1
-        begin: \s*(\.\.\.)\s*(?:(\bon\b)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))?
+        begin: \s*(\.\.\.)\s*(?:(\bon\b)\s*([_A-Za-z][_\\dA-Za-z]*))?
         end: (?=.)
         captures:
           1: {name: keyword.operator.spread.graphql}
@@ -2004,7 +2004,7 @@ repository:
       graphql-input-types:
         patterns:
           - include: '#graphql-scalar-type'
-          - match: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?:\s*(!))?
+          - match: \s*([_A-Za-z][_\\dA-Za-z]*)(?:\s*(!))?
             captures:
               1: {name: support.type.graphql}
               2: {name: keyword.operator.nulltype.graphql}
@@ -2035,11 +2035,11 @@ repository:
             patterns:
               - include: '#graphql-value'
       graphql-name:
-        match: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+        match: \s*([_A-Za-z][_\\dA-Za-z]*)
         captures:
           1: {name: entity.name.function.graphql}
       graphql-object-field:
-        match: \s*(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))\s*(:)
+        match: \s*(([_A-Za-z][_\\dA-Za-z]*))\s*(:)
         captures:
           1: {name: constant.object.key.graphql}
           2: {name: string.unquoted.graphql}
@@ -2068,7 +2068,7 @@ repository:
         captures:
           1: {name: keyword.operation.graphql}
       graphql-scalar:
-        match: \s*\b(scalar)\b\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+        match: \s*\b(scalar)\b\s*([_A-Za-z][_\\dA-Za-z]*)
         captures:
           1: {name: keyword.scalar.graphql}
           2: {name: entity.scalar.graphql}
@@ -2090,14 +2090,14 @@ repository:
             endCaptures:
               1: {name: punctuation.operation.graphql}
             patterns:
-              - begin: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*\(|:)
-                end: (?=\s*(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(\(|:)|(})))|\s*(,)
+              - begin: \s*([_A-Za-z][_\\dA-Za-z]*)(?=\s*\(|:)
+                end: (?=\s*(([_A-Za-z][_\\dA-Za-z]*)\s*(\(|:)|(})))|\s*(,)
                 beginCaptures:
                   1: {name: variable.arguments.graphql}
                 endCaptures:
                   5: {name: punctuation.comma.graphql}
                 patterns:
-                  - match: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+                  - match: \s*([_A-Za-z][_\\dA-Za-z]*)
                     captures:
                       1: {name: support.type.graphql}
                   - include: '#graphql-colon'
@@ -2147,8 +2147,8 @@ repository:
           - include: '#graphql-string-content'
           - include: '#quasi-embedded'
       graphql-type-definition:
-        begin: \s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*\(|:)
-        end: (?=\s*(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(\(|:)|(})))|\s*(,)
+        begin: \s*([_A-Za-z][_\\dA-Za-z]*)(?=\s*\(|:)
+        end: (?=\s*(([_A-Za-z][_\\dA-Za-z]*)\s*(\(|:)|(})))|\s*(,)
         beginCaptures:
           1: {name: variable.graphql}
         endCaptures:
@@ -2162,7 +2162,7 @@ repository:
           - include: '#quasi-embedded'
       graphql-type-interface:
         applyEndPatternLast: 1
-        begin: \s*\b(?:(extends?)?\b\s*\b(type)|(interface)|(input))\b\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?
+        begin: \s*\b(?:(extends?)?\b\s*\b(type)|(interface)|(input))\b\s*([_A-Za-z][_\\dA-Za-z]*)?
         end: (?=.)
         name: meta.type.interface.graphql
         beginCaptures:
@@ -2172,7 +2172,7 @@ repository:
           4: {name: keyword.input.graphql}
           5: {name: support.type.graphql}
         patterns:
-          - match: \s*\b(implements)\b\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+          - match: \s*\b(implements)\b\s*([_A-Za-z][_\\dA-Za-z]*)
             captures:
               1: {name: keyword.implements.graphql}
               2: {name: support.type.graphql}
@@ -2195,14 +2195,14 @@ repository:
           - include: '#quasi-embedded'
       graphql-union:
         applyEndPatternLast: 1
-        begin: \s*\b(union)\b\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+        begin: \s*\b(union)\b\s*([_A-Za-z][_\\dA-Za-z]*)
         end: (?=.)
         captures:
           1: {name: keyword.union.graphql}
           2: {name: support.type.graphql}
         patterns:
           - applyEndPatternLast: 1
-            begin: \s*(=(?!=|>))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+            begin: \s*(=(?!=|>))\s*([_A-Za-z][_\\dA-Za-z]*)
             end: (?=.)
             captures:
               1: {name: punctuation.assignment.graphql}
@@ -2211,7 +2211,7 @@ repository:
               - include: '#graphql-skip-newlines'
               - include: '#graphql-comment'
               - include: '#quasi-embedded'
-              - match: \s*(\|)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+              - match: \s*(\|)\s*([_A-Za-z][_\\dA-Za-z]*)
                 captures:
                   1: {name: punctuation.or.graphql}
                   2: {name: support.type.graphql}
@@ -2243,8 +2243,8 @@ repository:
         patterns:
           - include: '#graphql-value'
       graphql-variable-definition:
-        begin: \s*(\$?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*\(|:)
-        end: (?=\s*((\$?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(\(|:)|(}|\))))|\s*(,)
+        begin: \s*(\$?[_A-Za-z][_\\dA-Za-z]*)(?=\s*\(|:)
+        end: (?=\s*((\$?[_A-Za-z][_\\dA-Za-z]*)\s*(\(|:)|(}|\))))|\s*(,)
         name: meta.variables.graphql
         beginCaptures:
           1: {name: variable.graphql}
@@ -2267,7 +2267,7 @@ repository:
           - include: '#graphql-variable-definition'
           - include: '#quasi-embedded'
       graphql-variable-name:
-        match: \s*(\$[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+        match: \s*(\$[_A-Za-z][_\\dA-Za-z]*)
         captures:
           1: {name: variable.graphql}
   heregexp:
@@ -4300,7 +4300,7 @@ repository:
           1: {name: punctuation.definition.string.end.nova}
         patterns:
           - include: '#string-content'
-      - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\\p{L}\p{Nl}][_\\\d\p{L}\p{M}\p{N}]*)|([+-]?\d*)))(:)?
+      - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\\p{L}\p{Nl}][_\\d\p{L}\p{M}\p{N}]*)|([+-]?\d*)))(:)?
         end: \s*(\))
         name: meta.group.nova
         beginCaptures:
@@ -5800,7 +5800,7 @@ repository:
       - include: '#typed-bracketed-args'
   variable:
     patterns:
-      - match: \s*+(\#?)([_\\\][_\\\p{L}\p{M}\p{N}]+)
+      - match: \s*+(\#?)([_\\][_\\\p{L}\p{M}\p{N}]+)
         captures:
           1: {name: keyword.operator.private.nova}
           2: {name: variable.other.dollar.nova}
