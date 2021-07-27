@@ -753,263 +753,6 @@ repository:
       - include: '#semi-colon'
   clauses:
     patterns:
-      - include: '#for-block'
-      - include: '#if-block'
-      - include: '#switch-block'
-      - include: '#match-block'
-      - include: '#catch-block'
-      - include: '#with-block'
-      - include: '#parallel-block'
-      - include: '#do-block'
-    repository:
-      catch-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
-            end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally|then|para|seq)\b))
-            name: meta.catch.nova
-            beginCaptures:
-              1: {name: keyword.control.trycatch.nova}
-              2: {name: keyword.control.flow.nova}
-            endCaptures:
-              1: {name: meta.brace.round.nova}
-            patterns:
-              - begin: \s*+(\()
-                end: \s*(\))
-                beginCaptures:
-                  1: {name: meta.brace.round.nova}
-                endCaptures:
-                  1: {name: meta.brace.round.nova}
-                patterns:
-                  - match: (?<![\#\.])\s*+\b(as)\b
-                    name: keyword.control.trycatch.nova
-                  - include: '#core'
-              - include: '#curly-brackets'
-              - match: (?<![\#\.])\s*+\b(as)\b
-                name: keyword.control.trycatch.nova
-              - include: $self
-      do-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(do)\b\s*(await)?\b
-            end: \s*(?<=[})])
-            name: meta.do.nova
-            beginCaptures:
-              1: {name: keyword.control.do.nova}
-              2: {name: keyword.control.flow.nova}
-            endCaptures:
-              1: {name: meta.brace.round.nova}
-            patterns:
-              - include: '#round-brackets'
-              - include: '#curly-brackets'
-              - include: $self
-      for-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(for|each|while|until)\b\s*(await)?\b
-            end: \s*(?<=[})])
-            name: meta.for.nova
-            beginCaptures:
-              1: {name: keyword.control.loop.nova}
-              2: {name: keyword.control.flow.nova}
-            endCaptures:
-              1: {name: meta.brace.round.nova}
-            patterns:
-              - match: (?<![\#\.])\s*+\b(in|of|by|to|til)\b
-                name: keyword.control.loop.nova
-              - include: '#let-clause'
-              - begin: \s*+(\()
-                end: \s*(\))
-                beginCaptures:
-                  1: {name: meta.brace.round.nova}
-                endCaptures:
-                  1: {name: meta.brace.round.nova}
-                patterns:
-                  - match: (?<![\#\.])\s*+\b(in|of|by|to|til)\b
-                    name: keyword.control.loop.nova
-                  - include: '#let-clause'
-                  - include: '#core'
-              - include: '#curly-brackets'
-              - include: $self
-        repository:
-          let-clause:
-            match: (?<![\#\.])\s*+\b(const|con|let|var|val)\b\s*
-            name: storage.type.nova
-      if-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(if|els?if|ell?ess?|unless?|guard)\b\s*(await)?\b
-            end: \s*(?<=[})])
-            name: meta.if.nova
-            beginCaptures:
-              1: {name: keyword.control.conditional.nova}
-              2: {name: keyword.control.flow.nova}
-            endCaptures:
-              1: {name: meta.brace.round.nova}
-            patterns:
-              - include: '#curly-brackets'
-              - include: '#round-brackets'
-              - include: $self
-      match-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(match)\b
-            end: \s*(\})
-            name: meta.match.nova
-            beginCaptures:
-              1: {name: keyword.control.match.nova}
-            endCaptures:
-              1: {name: meta.brace.curly.matchEnd.nova}
-            patterns:
-              - include: '#round-brackets'
-              - begin: \s*+({)
-                end: \s*(?=})
-                beginCaptures:
-                  1: {name: meta.brace.curly.matchStart.nova}
-                patterns:
-                  - begin: (?<![\#\.])\s*+\b(if|unless?|els?if|ell?ess?|else\s+if|else\s+unless?)\b
-                    end: \s*->
-                    beginCaptures:
-                      1: {name: keyword.control.match.nova}
-                    endCaptures:
-                      0: {patterns: [{include: "#core"}]}
-                    patterns:
-                      - include: $self
-                  - begin: (?<![\#\.])\s*+\b(else|def)\b
-                    end: \s*->
-                    beginCaptures:
-                      1: {name: keyword.control.match.nova}
-                    endCaptures:
-                      0: {patterns: [{include: "#core"}]}
-                    patterns:
-                      - include: $self
-                  - begin: (?<![\#\.])\s*+\b(case)\b
-                    end: \s*->
-                    beginCaptures:
-                      1: {name: keyword.control.match.nova}
-                    endCaptures:
-                      0: {patterns: [{include: "#core"}]}
-                    patterns:
-                      - include: '#match-clause'
-                      - include: '#as-clause'
-                      - include: '#case-separator'
-                      - include: '#core'
-                  - include: $self
-              - include: $self
-        repository:
-          as-clause:
-            begin: (?<![\#\.])\s*\b([ai]s|with)\b\s*
-            end: (?<![\#\.])\s*\b(?=[ai]s|with)|\s*(?=->)
-            beginCaptures:
-              1: {name: keyword.control.match.nova}
-            endCaptures:
-              1: {patterns: [{include: "#core"}]}
-            patterns:
-              - include: '#match-clause'
-              - include: '#as-clause'
-              - include: '#case-separator'
-              - include: '#typed-parse-types'
-          case-separator:
-            begin: ([,;])
-            end: (?<![\#\.])\s*\b(?=[ai]s|with|if|unless|where|when)|\s*(?=->)
-            beginCaptures:
-              1: {patterns: [{include: "#core"}]}
-            endCaptures:
-              1: {patterns: [{include: "#core"}]}
-            patterns:
-              - include: '#match-clause'
-              - include: '#as-clause'
-              - include: '#case-separator'
-              - include: '#core'
-          match-clause:
-            begin: (?<![\#\.])\s*\b(if|unless|where|when)\b\s*
-            end: (?<![\#\.])\s*\b(?=if|unless|where|when)|\s*(?=->)
-            beginCaptures:
-              1: {name: keyword.control.match.nova}
-            endCaptures:
-              1: {patterns: [{include: "#core"}]}
-            patterns:
-              - include: '#match-clause'
-              - include: '#as-clause'
-              - include: '#case-separator'
-              - include: '#core'
-      parallel-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(para|seq)\b\s*(await)?\b
-            end: \s*((?<=[});])|(?=\b(try|catch|rescue|finally|then|para|seq)\b))
-            name: meta.parallel.nova
-            beginCaptures:
-              1: {name: keyword.control.parallel.nova}
-              2: {name: keyword.control.flow.nova}
-            endCaptures:
-              1: {name: meta.brace.round.nova}
-            patterns:
-              - begin: \s*+(\()
-                end: \s*(\))
-                beginCaptures:
-                  1: {name: meta.brace.round.nova}
-                endCaptures:
-                  1: {name: meta.brace.round.nova}
-                patterns:
-                  - match: (?<![\#\.])\s*+\b(as)\b
-                    name: keyword.control.parallel.nova
-                  - include: '#core'
-              - include: '#curly-brackets'
-              - match: (?<![\#\.])\s*+\b(as)\b
-                name: keyword.control.parallel.nova
-              - include: $self
-      switch-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(switch)\b
-            end: \s*(\})
-            name: meta.switch.nova
-            beginCaptures:
-              1: {name: keyword.control.switch.nova}
-            endCaptures:
-              1: {name: meta.brace.curly.switchEnd.nova}
-            patterns:
-              - include: '#round-brackets'
-              - begin: \s*+({)
-                end: \s*(?=})
-                beginCaptures:
-                  1: {name: meta.brace.curly.switchStart.nova}
-                patterns:
-                  - begin: (?<![\#\.])\s*+\b(case|def)\b
-                    end: \s*->
-                    beginCaptures:
-                      1: {name: keyword.control.switch.nova}
-                    endCaptures:
-                      0: {name: keyword.operator.nova}
-                    patterns:
-                      - include: '#core'
-                  - include: $self
-              - include: $self
-      with-block:
-        patterns:
-          - begin: (?<![\#\.])\s*+\b(with)\b\s*(await)?\b
-            end: \s*(?<=[})])
-            name: meta.with.nova
-            beginCaptures:
-              1: {name: keyword.control.with.nova}
-              2: {name: keyword.control.flow.nova}
-            endCaptures:
-              1: {name: meta.brace.round.nova}
-            patterns:
-              - include: '#curly-brackets'
-              - begin: \s*
-                end: \s*(?=[{,])
-                patterns:
-                  - match: (?<![\#\.])\s*+\b(as)\b
-                    name: keyword.control.with.nova
-                  - include: '#core'
-              - begin: \s*+(\()
-                end: \s*(\))
-                beginCaptures:
-                  1: {name: meta.brace.round.nova}
-                endCaptures:
-                  1: {name: meta.brace.round.nova}
-                patterns:
-                  - match: (?<![\#\.])\s*+\b(as)\b
-                    name: keyword.control.with.nova
-                  - include: '#core'
-              - include: $self
-  clauses-indent:
-    patterns:
       - include: '#for-clause'
       - include: '#if-clause'
       - include: '#switch-clause'
@@ -1024,7 +767,7 @@ repository:
       case-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(case|fail)\b
-            end: \s*(?=\p{Pe}|,|;|$|->|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             beginCaptures:
               1: {name: keyword.control.switch.nova}
             endCaptures:
@@ -1034,7 +777,7 @@ repository:
       catch-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(try|catch|rescue|finally)\b\s*(await)?\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.catch.nova
             beginCaptures:
               1: {name: keyword.control.trycatch.nova}
@@ -1057,7 +800,7 @@ repository:
       do-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(do)\b\s*(await)?\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.do.nova
             beginCaptures:
               1: {name: keyword.control.do.nova}
@@ -1069,7 +812,7 @@ repository:
       for-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(for|each|while|until)\b\s*(await)?\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.for.nova
             beginCaptures:
               1: {name: keyword.control.loop.nova}
@@ -1098,7 +841,7 @@ repository:
       if-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(if|els?if|ell?ess?|unless?|guard)\b\s*(await)?\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.if.nova
             beginCaptures:
               1: {name: keyword.control.conditional.nova}
@@ -1110,7 +853,7 @@ repository:
       match-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(match)\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.match.nova
             beginCaptures:
               1: {name: keyword.control.match.nova}
@@ -1119,7 +862,7 @@ repository:
       parallel-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(para|seq)\b\s*(await)?\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.parallel.nova
             beginCaptures:
               1: {name: keyword.control.parallel.nova}
@@ -1142,7 +885,7 @@ repository:
       switch-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(switch)\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.switch.nova
             beginCaptures:
               1: {name: keyword.control.switch.nova}
@@ -1161,7 +904,7 @@ repository:
       when-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(when)\b
-            end: \s*(?=\p{Pe}|,|;|$|->|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             beginCaptures:
               1: {name: keyword.control.match.nova}
             endCaptures:
@@ -1211,7 +954,7 @@ repository:
       with-clause:
         patterns:
           - begin: (?<![\#\.])\s*+\b(with)\b\s*(await)?\b
-            end: \s*(?=\p{Pe}|,|;|$|(?<![\#\.])\s*+\bthen\b)
+            end: \s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             name: meta.with.nova
             beginCaptures:
               1: {name: keyword.control.with.nova}
@@ -1311,7 +1054,7 @@ repository:
     patterns:
       - include: '#operator'
       - include: '#sigils'
-      - include: '#clauses-indent'
+      - include: '#clauses'
       - include: '#object'
       - include: '#new'
       - include: '#query'
@@ -3133,426 +2876,6 @@ repository:
         patterns:
           - include: '#function-name'
           - include: '#quasi-embedded-raw'
-  graphql:
-    patterns:
-      - include: '#graphql-fragment-definition'
-      - include: '#graphql-type-interface'
-      - include: '#graphql-enum'
-      - include: '#graphql-scalar'
-      - include: '#graphql-union'
-      - include: '#graphql-schema'
-      - include: '#graphql-operation-def'
-      - include: '#graphql-comment'
-      - include: '#quasi-embedded'
-    repository:
-      graphql-arguments:
-        begin: \s*(\()
-        end: \s*(\))
-        name: meta.arguments.graphql
-        beginCaptures:
-          1: {name: meta.brace.round.directive.graphql}
-        endCaptures:
-          1: {name: meta.brace.round.directive.graphql}
-        patterns:
-          - include: '#graphql-comment'
-          - begin: \s*([_A-Za-z][_\\dA-Za-z]*)(?:\s*(:))?
-            end: (?=\s*(?:(?:([_A-Za-z][_\\dA-Za-z]*)\s*(:))|\)))|\s*(,)
-            beginCaptures:
-              1: {name: variable.arguments.graphql}
-              2: {name: punctuation.colon.graphql}
-            endCaptures:
-              3: {name: punctuation.comma.graphql}
-            patterns:
-              - include: '#graphql-value'
-              - include: '#graphql-comment'
-              - include: '#graphql-skip-newlines'
-          - include: '#quasi-embedded'
-      graphql-boolean-value:
-        match: \s*\b(true|false)\b
-        captures:
-          1: {name: constant.boolean.graphql}
-      graphql-colon:
-        match: \s*(:)
-        captures:
-          1: {name: punctuation.colon.graphql}
-      graphql-comma:
-        match: \s*(,)
-        captures:
-          1: {name: punctuation.comma.graphql}
-      graphql-comment:
-        patterns:
-          - begin: \s*+"""
-            end: \s*"""
-            name: comment.block.graphql.nova
-          - match: (\s*)((\#.*)|(".*"))
-            name: comment.line.graphql.nova
-            captures:
-              1: {name: punctuation.whitespace.comment.leading.graphql}
-      graphql-directive:
-        applyEndPatternLast: 1
-        begin: \s*((@)\s*([_A-Za-z][_\\dA-Za-z]*))
-        end: (?=.)
-        beginCaptures:
-          1: {name: entity.name.function.directive.graphql}
-        patterns:
-          - include: '#graphql-arguments'
-          - include: '#graphql-comment'
-          - include: '#quasi-embedded'
-          - include: '#graphql-skip-newlines'
-      graphql-enum:
-        begin: \s*+\b(enum)\b\s*([_A-Za-z][_\\dA-Za-z]*)
-        end: (?<=})
-        name: meta.enum.graphql
-        beginCaptures:
-          1: {name: keyword.enum.graphql}
-          2: {name: support.type.enum.graphql}
-        patterns:
-          - begin: \s*({)
-            end: \s*(})
-            name: meta.type.object.graphql
-            beginCaptures:
-              1: {name: punctuation.operation.graphql}
-            endCaptures:
-              1: {name: punctuation.operation.graphql}
-            patterns:
-              - include: '#graphql-object-type'
-              - include: '#graphql-comment'
-              - include: '#graphql-enum-value'
-              - include: '#quasi-embedded'
-      graphql-enum-value:
-        match: \s*(?!=\b(true|false|null)\b)([_A-Za-z][_\\dA-Za-z]*)
-        name: constant.character.enum.graphql
-      graphql-field:
-        patterns:
-          - match: \s*([_A-Za-z][_\\dA-Za-z]*)\s*(:)
-            captures:
-              1: {name: string.unquoted.alias.graphql}
-              2: {name: punctuation.colon.graphql}
-          - match: \s*([_A-Za-z][_\\dA-Za-z]*)
-            captures:
-              1: {name: variable.graphql}
-          - include: '#graphql-arguments'
-          - include: '#graphql-directive'
-          - include: '#graphql-selection-set'
-          - include: '#quasi-embedded'
-          - include: '#graphql-skip-newlines'
-      graphql-float-value:
-        match: \s*((-)?(0|([1-9]\d*)(\.\d*)?((e|E)(\+|-)?\d*)?))
-        captures:
-          1: {name: constant.float.graphql}
-      graphql-fragment-definition:
-        begin: \s*(?:(\bfragment\b)\s*(?!\bon\b)([_A-Za-z][_\\dA-Za-z]*)\s*(?:(\bon\b)\s*([_A-Za-z][_\\dA-Za-z]*)))
-        end: (?<=})
-        name: meta.fragment.graphql
-        captures:
-          1: {name: keyword.fragment.graphql}
-          2: {name: entity.name.fragment.graphql}
-          3: {name: keyword.on.graphql}
-          4: {name: support.type.graphql}
-        patterns:
-          - include: '#graphql-comment'
-          - include: '#graphql-selection-set'
-          - include: '#graphql-directive'
-          - include: '#graphql-skip-newlines'
-          - include: '#quasi-embedded'
-      graphql-fragment-spread:
-        applyEndPatternLast: 1
-        begin: \s*(\.\.\.)\s*(?!\bon\b)([_A-Za-z][_\\dA-Za-z]*)
-        end: (?=.)
-        captures:
-          1: {name: keyword.operator.spread.graphql}
-          2: {name: variable.fragment.graphql}
-        patterns:
-          - include: '#graphql-comment'
-          - include: '#graphql-selection-set'
-          - include: '#graphql-directive'
-          - include: '#quasi-embedded'
-          - include: '#graphql-skip-newlines'
-      graphql-ignore-spaces:
-        match: \s*
-      graphql-inline-fragment:
-        applyEndPatternLast: 1
-        begin: \s*(\.\.\.)\s*(?:(\bon\b)\s*([_A-Za-z][_\\dA-Za-z]*))?
-        end: (?=.)
-        captures:
-          1: {name: keyword.operator.spread.graphql}
-          2: {name: keyword.on.graphql}
-          3: {name: support.type.graphql}
-        patterns:
-          - include: '#graphql-comment'
-          - include: '#graphql-selection-set'
-          - include: '#graphql-directive'
-          - include: '#graphql-skip-newlines'
-          - include: '#quasi-embedded'
-      graphql-input-types:
-        patterns:
-          - include: '#graphql-scalar-type'
-          - match: \s*([_A-Za-z][_\\dA-Za-z]*)(?:\s*(!))?
-            captures:
-              1: {name: support.type.graphql}
-              2: {name: keyword.operator.nulltype.graphql}
-          - begin: \s*(\[)
-            end: \s*(\])(?:\s*(!))?
-            name: meta.type.list.graphql
-            captures:
-              1: {name: meta.brace.squart.graphql}
-              2: {name: keyword.operator.nulltype.graphql}
-            patterns:
-              - include: '#graphql-input-types'
-              - include: '#graphql-comment'
-              - include: '#graphql-comma'
-              - include: '#quasi-embedded'
-      graphql-int-value:
-        match: \s*((-)?(0|[1-9][\d]*))
-        captures:
-          1: {name: constant.int.graphql}
-      graphql-list-value:
-        patterns:
-          - begin: \s*+(\[)
-            end: \s*(\])
-            name: meta.listvalues.graphql
-            beginCaptures:
-              1: {name: meta.brace.square.graphql}
-            endCaptures:
-              1: {name: meta.brace.square.graphql}
-            patterns:
-              - include: '#graphql-value'
-      graphql-name:
-        match: \s*([_A-Za-z][_\\dA-Za-z]*)
-        captures:
-          1: {name: entity.name.function.graphql}
-      graphql-object-field:
-        match: \s*(([_A-Za-z][_\\dA-Za-z]*))\s*(:)
-        captures:
-          1: {name: constant.object.key.graphql}
-          2: {name: string.unquoted.graphql}
-          3: {name: punctuation.graphql}
-      graphql-object-value:
-        patterns:
-          - begin: \s*+({)
-            end: \s*(})
-            name: meta.objectvalues.graphql
-            beginCaptures:
-              1: {name: meta.brace.curly.graphql}
-            endCaptures:
-              1: {name: meta.brace.curly.graphql}
-            patterns:
-              - include: '#graphql-object-field'
-              - include: '#graphql-value'
-      graphql-operation-def:
-        patterns:
-          - include: '#graphql-query-mutation'
-          - include: '#graphql-name'
-          - include: '#graphql-variable-definitions'
-          - include: '#graphql-directive'
-          - include: '#graphql-selection-set'
-      graphql-query-mutation:
-        match: \s*\b(query|mutation)\b
-        captures:
-          1: {name: keyword.operation.graphql}
-      graphql-scalar:
-        match: \s*\b(scalar)\b\s*([_A-Za-z][_\\dA-Za-z]*)
-        captures:
-          1: {name: keyword.scalar.graphql}
-          2: {name: entity.scalar.graphql}
-      graphql-scalar-type:
-        match: \s*\b(Int|Float|String|Boolean|ID)\b(?:\s*(!))?
-        captures:
-          1: {name: support.type.builtin.graphql}
-          2: {name: keyword.operator.nulltype.graphql}
-      graphql-schema:
-        begin: \s*\b(schema)\b
-        end: (?<=})
-        beginCaptures:
-          1: {name: keyword.schema.graphql}
-        patterns:
-          - begin: \s*({)
-            end: \s*(})
-            beginCaptures:
-              1: {name: punctuation.operation.graphql}
-            endCaptures:
-              1: {name: punctuation.operation.graphql}
-            patterns:
-              - begin: \s*([_A-Za-z][_\\dA-Za-z]*)(?=\s*\(|:)
-                end: (?=\s*(([_A-Za-z][_\\dA-Za-z]*)\s*(\(|:)|(})))|\s*(,)
-                beginCaptures:
-                  1: {name: variable.arguments.graphql}
-                endCaptures:
-                  5: {name: punctuation.comma.graphql}
-                patterns:
-                  - match: \s*([_A-Za-z][_\\dA-Za-z]*)
-                    captures:
-                      1: {name: support.type.graphql}
-                  - include: '#graphql-colon'
-                  - include: '#graphql-comment'
-                  - include: '#graphql-skip-newlines'
-              - include: '#graphql-comment'
-              - include: '#graphql-skip-newlines'
-          - include: '#graphql-comment'
-          - include: '#graphql-skip-newlines'
-      graphql-selection-set:
-        begin: \s*({)
-        end: \s*(})
-        name: meta.selectionset.graphql
-        beginCaptures:
-          1: {name: punctuation.operation.graphql}
-        endCaptures:
-          1: {name: punctuation.operation.graphql}
-        patterns:
-          - include: '#graphql-field'
-          - include: '#graphql-fragment-spread'
-          - include: '#graphql-inline-fragment'
-          - include: '#graphql-comma'
-          - include: '#graphql-comment'
-          - include: '#quasi-embedded'
-      graphql-skip-newlines:
-        match: \s*
-      graphql-string-content:
-        patterns:
-          - match: \\[/'"\\nrtbf]
-            name: constant.character.escape.graphql
-          - match: \\u(\h{4})
-            name: constant.character.escape.graphql
-      graphql-string-value:
-        begin: \s*+(("))
-        contentName: string.quoted.double.graphql
-        end: |-
-          \s*+(?:(("))|(
-          ))
-        beginCaptures:
-          1: {name: string.quoted.double.graphql}
-          2: {name: punctuation.definition.string.begin.graphql}
-        endCaptures:
-          1: {name: string.quoted.double.graphql}
-          2: {name: punctuation.definition.string.end.graphql}
-          3: {name: invalid.illegal.newline.graphql}
-        patterns:
-          - include: '#graphql-string-content'
-          - include: '#quasi-embedded'
-      graphql-type-definition:
-        begin: \s*([_A-Za-z][_\\dA-Za-z]*)(?=\s*\(|:)
-        end: (?=\s*(([_A-Za-z][_\\dA-Za-z]*)\s*(\(|:)|(})))|\s*(,)
-        beginCaptures:
-          1: {name: variable.graphql}
-        endCaptures:
-          5: {name: punctuation.comma.graphql}
-        patterns:
-          - include: '#graphql-comment'
-          - include: '#graphql-variable-definitions'
-          - include: '#graphql-type-object'
-          - include: '#graphql-colon'
-          - include: '#graphql-input-types'
-          - include: '#quasi-embedded'
-      graphql-type-interface:
-        applyEndPatternLast: 1
-        begin: \s*\b(?:(extends?)?\b\s*\b(type)|(interface)|(input))\b\s*([_A-Za-z][_\\dA-Za-z]*)?
-        end: (?=.)
-        name: meta.type.interface.graphql
-        beginCaptures:
-          1: {name: keyword.type.graphql}
-          2: {name: keyword.type.graphql}
-          3: {name: keyword.interface.graphql}
-          4: {name: keyword.input.graphql}
-          5: {name: support.type.graphql}
-        patterns:
-          - match: \s*\b(implements)\b\s*([_A-Za-z][_\\dA-Za-z]*)
-            captures:
-              1: {name: keyword.implements.graphql}
-              2: {name: support.type.graphql}
-          - include: '#graphql-comment'
-          - include: '#graphql-type-object'
-          - include: '#quasi-embedded'
-          - include: '#graphql-ignore-spaces'
-      graphql-type-object:
-        begin: \s*({)
-        end: \s*(})
-        name: meta.type.object.graphql
-        beginCaptures:
-          1: {name: punctuation.operation.graphql}
-        endCaptures:
-          1: {name: punctuation.operation.graphql}
-        patterns:
-          - include: '#graphql-object-type'
-          - include: '#graphql-comment'
-          - include: '#graphql-type-definition'
-          - include: '#quasi-embedded'
-      graphql-union:
-        applyEndPatternLast: 1
-        begin: \s*\b(union)\b\s*([_A-Za-z][_\\dA-Za-z]*)
-        end: (?=.)
-        captures:
-          1: {name: keyword.union.graphql}
-          2: {name: support.type.graphql}
-        patterns:
-          - applyEndPatternLast: 1
-            begin: \s*(=(?!=|>))\s*([_A-Za-z][_\\dA-Za-z]*)
-            end: (?=.)
-            captures:
-              1: {name: punctuation.assignment.graphql}
-              2: {name: support.type.graphql}
-            patterns:
-              - include: '#graphql-skip-newlines'
-              - include: '#graphql-comment'
-              - include: '#quasi-embedded'
-              - match: \s*(\|)\s*([_A-Za-z][_\\dA-Za-z]*)
-                captures:
-                  1: {name: punctuation.or.graphql}
-                  2: {name: support.type.graphql}
-          - include: '#graphql-skip-newlines'
-          - include: '#graphql-comment'
-          - include: '#quasi-embedded'
-      graphql-union-mark:
-        match: \s*(\|)
-        captures:
-          1: {name: punctuation.union.graphql}
-      graphql-value:
-        patterns:
-          - include: '#graphql-variable-name'
-          - include: '#graphql-float-value'
-          - include: '#graphql-int-value'
-          - include: '#graphql-string-value'
-          - include: '#graphql-boolean-value'
-          - include: '#graphql-enum-value'
-          - include: '#graphql-list-value'
-          - include: '#graphql-object-value'
-          - include: '#graphql-comment'
-          - include: '#quasi-embedded'
-      graphql-variable-assignment:
-        applyEndPatternLast: 1
-        begin: \s(=)
-        end: (?=.)
-        beginCaptures:
-          1: {name: punctuation.assignment.graphql}
-        patterns:
-          - include: '#graphql-value'
-      graphql-variable-definition:
-        begin: \s*(\$?[_A-Za-z][_\\dA-Za-z]*)(?=\s*\(|:)
-        end: (?=\s*((\$?[_A-Za-z][_\\dA-Za-z]*)\s*(\(|:)|(}|\))))|\s*(,)
-        name: meta.variables.graphql
-        beginCaptures:
-          1: {name: variable.graphql}
-        endCaptures:
-          5: {name: punctuation.comma.graphql}
-        patterns:
-          - include: '#graphql-comment'
-          - include: '#graphql-colon'
-          - include: '#graphql-input-types'
-          - include: '#graphql-variable-assignment'
-          - include: '#quasi-embedded'
-          - include: '#graphql-skip-newlines'
-      graphql-variable-definitions:
-        begin: \s*(\()
-        end: \s*(\))
-        captures:
-          1: {name: meta.brace.round.graphql}
-        patterns:
-          - include: '#graphql-comment'
-          - include: '#graphql-variable-definition'
-          - include: '#quasi-embedded'
-      graphql-variable-name:
-        match: \s*(\$[_A-Za-z][_\\dA-Za-z]*)
-        captures:
-          1: {name: variable.graphql}
   heregexp:
     patterns:
       - include: '#comments'
@@ -4192,13 +3515,13 @@ repository:
           )\s*+(?=\b
             (\s*\b(pub|prot|pvt|priv|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|
             (?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?
-            (?:sign|safe|check|size)|rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)
+            (?:sign|safe|check|size)|rec|gen|inline|opaque|(?:pre|in|suf|)fix|(?:u|bi|ter|)
             nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle|n?and|
             x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(of|in)?|(is)no?t)
             \b\s*)*\s*\b
             (ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
             struct|data|schema|module|nspace|object|record|raw|style|trait|
-            defn?|func?|fn|proc|macro|con|va[rl]|let|const)\b
+            defn?|func?|fn|proc|macro|con|va[rl]|let|const|type|alias)\b
           )
         captures:
           1: {name: storage.modifier.nova}
@@ -5795,7 +5118,7 @@ repository:
               6: {name: constant.character.escape.backslash.nova}
       regex-character-set:
         patterns:
-          - match: '[|]{2}'
+          - match: \|{2}
             name: keyword.operator.union.nova
           - match: '&{2}'
             name: keyword.operator.intersection.nova
@@ -5890,14 +5213,26 @@ repository:
           1: {name: punctuation.terminator.statement.nova}
   sigils:
     patterns:
-      - match: \^[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
-        name: constant.other.symbol.nova
-      - match: '&[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*'
-        name: constant.other.label.nova
-      - match: '%[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*'
-        name: constant.other.global.nova
-      - match: \*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
-        name: constant.other.rest.nova
+      - match: (\^)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        captures: 
+          1: {name: punctuation.definition.symbol.nova}
+          0: {name: constant.other.symbol.nova}
+      - match: (\&)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        captures: 
+          1: {name: punctuation.definition.variable.nova}
+          0: {name: constant.other.label.nova}
+      - match: (\%)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        captures: 
+          1: {name: punctuation.definition.tag.nova}
+          0: {name: constant.other.global.nova}
+      - match: (\*)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        captures: 
+          1: {name: punctuation.definition.rest.nova}
+          0: {name: constant.other.rest.nova}
+      - match: (\|)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        captures: 
+          1: {name: punctuation.definition.constant.nova}
+          0: {name: constant.language.nova}
   special-comments-conditional-compilation:
     patterns:
       - begin: \s*+((/\*))(?=@)
