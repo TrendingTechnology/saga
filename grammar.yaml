@@ -1,7 +1,7 @@
 firstLineMatch: ^#!\s*/.*\b(nova)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
-Information for Contributors: |-
+infoForContributors: |-
   This file is a fork of the Babel JavaScript TextMate grammar and features many 
     customizations for Nova, another programming language that compiles to JavaScript.  
     This file is constantly regenerated with a custom build pipeline.
@@ -10,11 +10,11 @@ Information for Contributors: |-
     and I will be very happy to receive them.
 name: Nova
 scopeName: source.nearley
-Bugfixes:
+bugfixes:
 - Functions and methods are scoped to their initial starting letter, in the meantime, until the StdLib is out.
 - Fixed modifier keyword parsing (technically). They should activate only before a declaration, say `dyn val x = 1`, or other modifiers.
 - Fixed operator parsing in JSX and regex literals. Inline regexes should wherever possible be spaced out on both sides. This is intentional.
-Bugs:
+bugs:
 - Find out how to escape keyword-like identifiers with a trailing backslash - repeat\ for example.
 Changes:
 - Block comments can be nested thanks to Swift's codes, and can now support Markdown.
@@ -27,7 +27,7 @@ Changes:
 fileTypes:
   - nova
   - ne
-Fixes:
+fixes:
 - Revamp regex syntax (more syntax scopes for constructs)
 - Add TypeScript, ReScript and JavaScript to raw code blocks
 - Fix trailing semicolon issue in type declarations/imports and functions
@@ -2946,7 +2946,7 @@ repository:
           (switch|case|def)|(match|when|pass)| #3,4
           (try|throw|raise|catch|rescue|finally)|(with|as)| #5,6
           (defn?|func?|fn|macro|proc)|(let|va[rl]|con|const)| #7,8
-          (ref|out|begin|end|show|hide)| #9
+          (ref|[dr]efer|out|begin|end|show|hide)| #9
           (do|goto|label|await|return|fallthru|yield|halt|skip)| #10
           (from|where|join|equals|[io]nto|order|take|drop|fold|scan|group)| #11
           ((?:im|ex)port|use|using|open|close|show|hide)| #12
