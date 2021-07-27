@@ -2783,7 +2783,7 @@ repository:
   jsx:
     patterns:
     - applyEndPatternLast: 1
-      begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
+      begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
       end: (?=.)
       patterns:
       - include: '#jsx-tag-element-name'
@@ -4429,7 +4429,7 @@ repository:
     - include: '#operator'
     - include: '#operators'
   regexp:
-    begin: (?<=^|[\p{Ps}\p{Po}\p{Pd}\p{S}]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(\p{Alnum}*)(/)(?![*/])(?=.*/\p{Alnum}*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
+    begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(\p{Alnum}*)(/)(?![*/])(?=.*/\p{Alnum}*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
     end: (/)(?:((?:\\.|.)*)(/))?(\p{Alnum}*)
     name: string.regexp.nova
     beginCaptures:
