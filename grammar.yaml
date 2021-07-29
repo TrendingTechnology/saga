@@ -1153,13 +1153,11 @@ repository:
       patterns:
       - match: ^[ \t]*(?:(-)|[^:\/]+)(:)((?:(\![\w\!]+)\s+?)?|\Z|(?#))
         name: string.unquoted.yaml
-        captures:
-          {}
+        captures: {}
         patterns:
         - match: ^[ \t]*((\d)+)(:)((?:(\![\w\!]+)\s+?)?|\Z|(?#))
           name: support.type.function.yaml
-          captures:
-            {}
+          captures: {}
     - begin: ^(\s*)((?:(-\s*)?(types\s*(:))))\s*
       end: ^(?!\1|\s*$)|(\/[^:]+)(:)|^(?=\1(-|\w+\s*:)|#)
       name: punctuation.colon.key-value.yaml
@@ -1172,13 +1170,11 @@ repository:
       patterns:
       - match: ^[ \t]*(?:(-)|[^:\/]+)(:)((?:(\![\w\!]+)\s+?)?|\Z|(?#))
         name: string.unquoted.yaml
-        captures:
-          {}
+        captures: {}
         patterns:
         - match: ^[ \t]*((\d)+)(:)((?:(\![\w\!]+)\s+?)?|\Z|(?#))
           name: support.type.function.yaml
-          captures:
-            {}
+          captures: {}
       - begin: '#'
         end: \Z|\n
         name: comment.line.number-sign.yaml
