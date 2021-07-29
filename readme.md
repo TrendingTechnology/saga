@@ -127,20 +127,20 @@ import ./dir/'module' show R, S, T
 
 #### Semicolons
 
-| JavaScript         | Saga        |
+| JavaScript         | leScript    |
 | ------------------ | ----------- |
 | Enforced by linter | None needed |
 
 #### Comments
 
-| JavaScript            | Saga |
-| --------------------- | ---- |
-| `// line comment`     | Same |
-| `/* block comment */` | Same |
+| JavaScript            | leScript |
+| --------------------- | -------- |
+| `// line comment`     | Same     |
+| `/* block comment */` | Same     |
 
 #### Variables
 
-| JavaScript          | Saga                |
+| JavaScript          | leScript            |
 | ------------------- | ------------------- |
 | `const x = 5`       | `val x = 5`         |
 | `var x = 5`         | Same                |
@@ -166,7 +166,7 @@ import ./dir/'module' show R, S, T
 
 #### Strings
 
-| JavaScript                    | Saga                                 |
+| JavaScript                    | leScript                             |
 | ----------------------------- | ------------------------------------ |
 | `"Hello world!"`              | Same                                 |
 | `'Hello world!'`              | Same                                 |
@@ -186,7 +186,7 @@ import ./dir/'module' show R, S, T
 
 #### Booleans
 
-| JavaScript | Saga |
+| JavaScript | leScript |
 | --- | --- |
 | `null`, `undefined` | `nil` |
 | `true`, `false` | Same |
@@ -203,7 +203,7 @@ import ./dir/'module' show R, S, T
 
 #### Numbers
 
-| JavaScript                        | Saga              |
+| JavaScript                        | leScript          |
 | --------------------------------- | ----------------- |
 | `1`, `0x10`, `0o40`, `0b10_10`    | Same              |
 | `1e40`                            | Same              |
@@ -225,9 +225,9 @@ import ./dir/'module' show R, S, T
 
 #### Lists, Sets and Maps
 
-Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
+leScript's JavaScript runtime uses Immutable.JS for its internal data structures.
 
-| JavaScript                         | Saga                     |
+| JavaScript                         | leScript                 |
 | ---------------------------------- | ------------------------ |
 | `[1, 2, 3]`                        | Same                     |
 | `[1, 2, 3].concat([4])`            | `[1, 2, 3] + 4`          |
@@ -242,7 +242,7 @@ Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 <!--  -->
 
-| JavaScript                                    | Saga                |
+| JavaScript                                    | leScript            |
 | --------------------------------------------- | ------------------- |
 | `new Set([1, 2, 3])`                          | `{1, 2, 3}`         |
 | `new Set('hello')`                            | `{*'hello'}`        |
@@ -253,7 +253,7 @@ Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 <!--  -->
 
-| JavaScript | Saga |
+| JavaScript | leScript |
 | --- | --- |
 | `{}` | `{:}` (mandatory colon) |
 | `{a: 1, b: 2, c: 3}` | Same |
@@ -271,7 +271,7 @@ Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 #### Functions
 
-| JavaScript | Saga |
+| JavaScript | leScript |
 | --- | --- |
 | `function () { return 10 }` | `def () = 10` |
 | `function named () {}` | `def named() {}` |
@@ -299,7 +299,7 @@ var file = match
   else -> 0
 ```
 
-| JavaScript | Saga |
+| JavaScript | leScript |
 | --- | --- |
 | `a ? b : c` | Same |
 | `if ()` | Same (no brackets needed) |
