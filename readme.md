@@ -1,102 +1,46 @@
-# **Nova**
+# **(kilo)nova**
 
 > The deadline-focused language.
 
-**Nova**: a new programming language designed to replace JavaScript. Combining object-oriented and functional programming in a single compact and expressive syntax that is both easy to read and easy to write. Its static types help avoid type-related bugs in large and complex applications, while its many runtimes help you build high-performance systems and software with easy access to existing ecosystems of libraries, even across language barriers.
+With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nova offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
+
+Nova comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build web-based applications with far-greater performance.
 
 > Sample Code
 
-```nova
-object Nova
-  def init(args: arr<str>): unit
-    for (val x in 1 to 4; val y in 2 to 5) if x + y < 4
-      print('x: $x, y: $y')
-    val p = new Person('Diana', 'Han')
-    print(p.fullName)
-    print(Utils.truncate(p.firstName, 2))
+```coffee
+def init(args: arr<str>): unit
+  for (val x in 1 to 4; val y in 2 to 5) if x + y < 4
+    print('x: $x, y: $y')
+  val p = new Person('Diana', 'Han')
+  print(p.fullName)
+  print(Utils.truncate(p.firstName, 2))
 
-  class Person(val firstName: str, val lastName: str)
-    def fullName() = '$firstName $lastName'
-    def lastFirst() = '$lastName, $firstName'
+export class Person(val firstName: str, val lastName: str)
+  def fullName() = '$firstName $lastName'
+  def lastFirst() = '$lastName, $firstName'
 
-  object Utils
-    def truncEllipsis(s: str, maxLen: int): str
-      if s == nil || len s == 0 || maxLen == 0 then ''
-      elif len s > maxLen then s.take(maxLen) ++ '...'
-      else s
-
-    def truncate(s: str, len: int): str = s.take(#len)
+module Utils
+  def truncEllipsis(s: str, maxLen: int): str
+    if s == nil || len s == 0 || maxLen == 0 then ''
+    elif len s > maxLen then s.take(maxLen) ++ '...'
+    else s
+  def truncate(s: str, len: int): str = s.take(#len)
 ```
 
-> Metaprogramming
+# Introduction
 
-```nova
-trait Ord<T>
-  def compare(x: T, y: T): Int;
-  def '<'<x: T>(y: T) = compare(x, y) < 0
-  def '>'<x: T>(y: T) = compare(x, y) > 0
+## Background
 
-given intOrd: Ord<Int>
-  def compare(x: Int, y: Int)
-    if x < y then -1 elif x > y then +1 else 0
+A lot of developers seem to either love or hate JavaScript because of its very nature, all because of a really tight release schedule. The language had received tons of backlash for tons of reasons. Take weak typing for example. Sometimes JavaScript would silently convert a value in one type in order to make the operation work, but most of the time that would introduce bugs that we would not notice, and only realize it when it's very late.
 
-given listOrd<T>(using ord: Ord<T>): Ord<List<T>>
-  def compare(xs: List<T>, ys: List<T>): Int = match [xs, ys]
-    when [(), ()] ->  0
-    when [(), __] -> -1
-    when [__, ()] -> +1
-    when [x ++ xs1, y ++ ys1]
-      val fst = ord.compare(x, y)
-      if fst != 0 then fst else compare(xs1, ys1)
-```
+The NPM ecosystem is dependency-heavy. Shipping JavaScript projects inevitably drags in a lot of code, lots of which the project does not actually use, and is laying dormant, resulting in an application that is normally gigabytes in size when the project code is only tens or hundreds of megabytes. That calls for a lot of new languages, such as TypeScript, ReScript, Scala.js, Elm, PureScript, and countless others, all relying on other ecosystems besides JavaScript to compile their code into JavaScript.
 
-> Game Development
-
-```nova
-import UnityEngine.{*, UI}
-
-pub class TouchPhaseDisplay: MonoBehaviour =
-  pub let displayText: Text
-    theTouch: Touch
-  pvt let timeTouchEnded: float
-    displayTime = 0.5kf
-
-  // Update() is called once per frame
-  def Update(): unit =
-    if Input.touchCount > 0
-      theTouch = Input.GetTouch(0)
-      displayText = str(theTouch.phase)
-
-      if theTouch.phase == TouchPhase.Ended
-        timeTouchEnded = Time.time
-
-    elif Time.time - timeTouchEnded > displayTime
-      displayText.text = ''
-```
-
-# Language Manual
-
-## Introduction
-
-JavaScript is known really well for having a very sloppy programming model, a lack of typing and a very weird ecosystem that reeks of "bad coding habits. It's been criticised and even mocked by people ranting about many of its questionable design decisions and seemingly chaotic runtime behaviour. Coercion happens literally everywhere, the entire ecosystem is too reliant on dependencies, a framework releases every minute, there's no standard library but a weird mix of functions, and the language itself is becoming mroe bloated with new features.
-
-Entire languages were either invented as a direct criticism of JavaScript's problems, and dozens of programming languages, some well-known, that compile to JavaScript, many of them spewing out unreadable boilerplate rather than a clean and readable JavaScript output. The thing is, everything is forced, you've only got one way to develop something for the web &mdash; JavaScript.
-
-### Introducing Nova
-
-Nova is a versatile language that (syntactically) looks like JavaScript and Python, and compiles to either JavaScript and Python. This means Nova can be used in almost any scenario, apps, games, data analytics, or server-side data processing. And almost any size, be it hobby or enterprise projects.
-
-Nova started as a dialect of CoffeeScript, which was a language that combined features from Python, Ruby and Haskell. Nova has since expanded its inspiration from many modern indentation-based languages like Elixir, Erlang, Perl, OCaml, Nim and Scala 3, and even JavaScript experimental features and syntaxes. Nova's concepts are based on ReScript, a language based on OCaml and targeting the JS ecosystem, as well as C# and Python.
-
-Nova code compiles to the latest version of ECMAScript which can then be picked up by other compilers and runtimes such as Babel and CoreJS, as well as WebAssembly through either the Python or C# runtimes.
-
-Conceptually, Nova is heavily inspired by ReScript, a dialect of OCaml targeting the JavaScript ecosystem, Python, known best for machine learning and data science, and C#, known best for game and 3D software development. Nova's core libraries, compiler and runtime is written in JavaScript, compiles to ECMAScript 12 and runs both on the browser and Node.JS. Languages and runtimes such as Python, C# and WebAssembly would be added in the near future.
+Many of us realized how can we fix this without having to worry about this madness? One to take note here, when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
 
 ## Roadmap
 
-Nova is going to be a big project, and there's so many things that would need to be done in order to make this a reality. The steps are in order.
-
-> _**Disclaimer**: This language serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler._
+Nova is going to be a big project, and there's so many things that need to be done. This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
 
 - [ ] Documentation & Wiki
 - [x] Syntax highlighting and theme (constantly being updated)
@@ -132,7 +76,7 @@ That's it.
 
 Running `so i` for the first time would also initialize a Python and JavaScript project/virtual environment at the same time.
 
-```nova
+```coffee
 import fs
 import fs.{writeFileSync: write}
 from .foo import Foo
@@ -178,7 +122,7 @@ from ./dir/'module' import R, S, T
 | `func` | `() => ()` | Function | `Function` |
 | `seq` | `#()` | Generator sequence | `Generator` |
 | `bits` | ` bits`` ` | Bit stream | `Buffer` |
-| `list` | `#[]` | List | `Array` |
+| `list` | `#[]` | Ordered list | `Array` |
 | `set` | `#{}` | Set | `Set` |
 | `map` | `#{:}` | Hash map or dictionary | `Object`, `Map` |
 
@@ -245,18 +189,18 @@ from ./dir/'module' import R, S, T
 
 Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 
-| JavaScript                         | Saga                       |
-| ---------------------------------- | -------------------------- |
-| `[1, 2, 3]`                        | Same                       |
-| `[1, 2, 3].concat([4])`            | `[1, 2, 3] + 4`            |
-| `Array(3).fill([1, 2, 3]).flat(1)` | `[1, 2, 3] * 3`            |
-| `[1, 2, 3].filter(x => x === 1)`   | `[1, 2, 3].filter(# == 1)` |
-| `arr.indexOf(ele) >= 0`            | `ele in arr`               |
-| `arr.indexOf(ele) < 0`             | `ele !in arr`              |
-| `var [x, y] = [1, 2]`              | Same                       |
-| `[...x, ...y]`                     | `[*x, *y]`                 |
-| `tuple()` (Python)                 | `#[]`                      |
-| `(1, 2, 3)` (Python)               | `#[1, 2, 3]`               |
+| JavaScript                         | Saga                     |
+| ---------------------------------- | ------------------------ |
+| `[1, 2, 3]`                        | Same                     |
+| `[1, 2, 3].concat([4])`            | `[1, 2, 3] + 4`          |
+| `Array(3).fill([1, 2, 3]).flat(1)` | `[1, 2, 3] * 3`          |
+| `[1, 2, 3].filter(x => x === 1)`   | `[1, 2, 3].filter(== 1)` |
+| `arr.indexOf(ele) >= 0`            | `ele in arr`             |
+| `arr.indexOf(ele) < 0`             | `ele !in arr`            |
+| `var [x, y] = [1, 2]`              | Same                     |
+| `[...x, ...y]`                     | `[*x, *y]`               |
+| `tuple()` (Python)                 | `#[]`                    |
+| `(1, 2, 3)` (Python)               | `#[1, 2, 3]`             |
 
 <!--  -->
 
@@ -281,11 +225,11 @@ Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 | `!('prop' in map)` | `'prop' !of map` |
 | `delete map.prop` | `del map.prop` returns new map |
 | `map.prop` | `map!.prop` would throw if it does not exist |
-| `{...details, prop, let: 2}` | `{*details, :prop, let: 2}`; |
+| `{...details, prop, let: 2}` | `{*details, :prop, let: 2}` |
 | `{...details, let: 2}` | `details \| {let: 2}` |
-| `{a: 1, b: 2, c: 3}` (ReScript) | `#{a: 1, b: 2, c: 3}`; |
+| `{a: 1, b: 2, c: 3}` (ReScript) | `#{a: 1, b: 2, c: 3}` |
 | `Object.keys({})` | `{}.keys()` (Same for values and entries) |
-| `map.y = 40; map.x()` | `map.y = 40; ~.x()`; |
+| `map.y = 40; map.x()` | `map.y = 40; ~.x()` |
 
 #### Functions
 
@@ -298,10 +242,10 @@ Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 | `const f = function(arg) {}` | `let f = arg => ()` |
 | `const f: () => void = () => {}` | `let f = (): void => ()` |
 | `add(4, add(5, 6))` | Same |
-| `function x({ name }) {}` | `def x(#name) {}` |
-| `add({left: 1, right: 4})` | `add(#left = 1, #right = 4)` |
+| `function x({ name }) {}` | `def x(&name) ...` |
+| `add({left: 1, right: 4})` | `add(&left = 1, &right = 4)` |
 | `function x(name: number): number { return 3 }` | `def x(name: num): num = 3` |
-| `function x(...args: number[]): number[] {}` | `def x(*args: num[]): num[] = {}` |
+| `function x(...args: number[]): number[] {}` | `def x(*args: num[]): num[] = ...` |
 | `Math.imul(1, 2)` | `1 $Math.imul$ 2` |
 | `Math.sqrt(2)` | `(Math.sqrt) 2` |
 
@@ -309,7 +253,7 @@ Saga's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 Everything is an expression!
 
-```nova
+```coffee
 var integer = type int | byte | short | nint | long
 var result = if (a) 'hello' else 'bye'
 var file = match
@@ -336,5 +280,3 @@ var file = match
 | `while (x != 10) { x++ }` | `until x == 10 { x += 1 }` |
 | `do { x++ } while (x < 10) ` | `repeat while x < 10 { x += 1 } ` |
 | `do { x++ } while (x != 10) ` | `repeat until x == 10 { x += 1 } ` |
-
-<style>p{text-align:justify;}</style>
