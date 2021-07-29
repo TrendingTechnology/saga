@@ -635,8 +635,7 @@ tokenColors:
   - punctuation.definition.string
   - string.quoted.double.handlebars
   settings: {foreground: '#347984'}
-- scope:
-  - entity.other.attribute-name.id
+- scope: entity.other.attribute-name.id
   settings: {foreground: '#75933e'}
 - scope: support.type.property-name.css
   settings: {foreground: '#00abb3'}
@@ -718,8 +717,7 @@ tokenColors:
   settings: {foreground: '#af0000'}
 - scope: token.debug-token
   settings: {foreground: '#520097'}
-- scope:
-  - comment
+- scope: comment
   settings: {foreground: '#696e74'}
 - scope:
   - string
@@ -730,56 +728,42 @@ tokenColors:
   - constant.character
   - constant.other
   settings: {foreground: '#00714f'}
-- scope:
-  - constant.numeric
+- scope: constant.numeric
   settings: {foreground: '#a67000'}
-- scope:
-  - constant.language
+- scope: constant.language
   settings: {foreground: '#a67000'}
-- scope:
-  - variable
+- scope: variable
   settings: {foreground: '#494742'}
-- scope:
-  - variable.member
+- scope: variable.member
   settings: {foreground: '#8e0000'}
-- scope:
-  - variable.language
+- scope: variable.language
   settings: {foreground: '#0083af'}
-- scope:
-  - storage
+- scope: storage
   settings: {foreground: '#bb3500'}
-- scope:
-  - keyword
+- scope: keyword
   settings: {foreground: '#bb3500'}
-- scope:
-  - keyword.operator
+- scope: keyword.operator
   settings: {foreground: '#972400'}
 - scope:
   - punctuation.separator
   - punctuation.terminator
   settings: {foreground: '#494742b3'}
-- scope:
-  - punctuation.section
+- scope: punctuation.section
   settings: {foreground: '#494742'}
-- scope:
-  - punctuation.accessor
+- scope: punctuation.accessor
   settings: {foreground: '#972400'}
 - scope:
   - source.java storage.type
   - source.haskell storage.type
   - source.c storage.type
   settings: {foreground: '#0063ae'}
-- scope:
-  - entity.other.inherited-class
+- scope: entity.other.inherited-class
   settings: {foreground: '#0083af'}
-- scope:
-  - storage.type.function
+- scope: storage.type.function
   settings: {foreground: '#bb3500'}
-- scope:
-  - source.java storage.type.primitive
+- scope: source.java storage.type.primitive
   settings: {foreground: '#0083af'}
-- scope:
-  - entity.name.function
+- scope: entity.name.function
   settings: {foreground: '#ad5500'}
 - scope:
   - variable.parameter
@@ -799,8 +783,7 @@ tokenColors:
   - entity.name.import
   - entity.name.package
   settings: {foreground: '#85a100'}
-- scope:
-  - entity.name
+- scope: entity.name
   settings: {foreground: '#0063ae'}
 - scope:
   - entity.name.tag
@@ -811,11 +794,9 @@ tokenColors:
   - punctuation.definition.tag.begin
   - punctuation.definition.tag
   settings: {foreground: '#0083af80'}
-- scope:
-  - entity.other.attribute-name
+- scope: entity.other.attribute-name
   settings: {foreground: '#ad5500'}
-- scope:
-  - support.constant
+- scope: support.constant
   settings: {foreground: '#972400'}
 - scope:
   - support.type
@@ -827,15 +808,13 @@ tokenColors:
   - meta.decorator punctuation.decorator
   - storage.type.annotation
   settings: {foreground: '#8a5300'}
-- scope:
-  - invalid
+- scope: invalid
   settings: {foreground: '#c20000'}
 - scope:
   - meta.diff
   - meta.diff.header
   settings: {foreground: '#642765'}
-- scope:
-  - source.ruby variable.other.readwrite
+- scope: source.ruby variable.other.readwrite
   settings: {foreground: '#ad5500'}
 - scope:
   - source.css entity.name.tag
@@ -851,20 +830,15 @@ tokenColors:
   - source.less support.type
   - source.stylus support.type
   settings: {foreground: '#696e74'}
-- scope:
-  - support.type.property-name
+- scope: support.type.property-name
   settings: {foreground: '#0083af'}
-- scope:
-  - constant.numeric.line-number.find-in-files - match
+- scope: constant.numeric.line-number.find-in-files - match
   settings: {foreground: '#696e74'}
-- scope:
-  - constant.numeric.line-number.match
+- scope: constant.numeric.line-number.match
   settings: {foreground: '#bb3500'}
-- scope:
-  - entity.name.filename.find-in-files
+- scope: entity.name.filename.find-in-files
   settings: {foreground: '#85a100'}
-- scope:
-  - message.error
+- scope: message.error
   settings: {foreground: '#c20000'}
 - scope:
   - markup.heading
@@ -874,54 +848,39 @@ tokenColors:
   - markup.underline.link
   - string.other.link
   settings: {foreground: '#0083af'}
-- scope:
-  - markup.italic
+- scope: markup.italic
   settings: {foreground: '#8e0000'}
-- scope:
-  - markup.bold
+- scope: markup.bold
   settings: {foreground: '#8e0000'}
 - scope:
   - markup.italic markup.bold
   - markup.bold markup.italic
   settings: {}
-- scope:
-  - markup.raw
+- scope: markup.raw
   settings: {foreground: '#494742'}
-- scope:
-  - markup.raw.inline
+- scope: markup.raw.inline
   settings: {foreground: '#494742'}
-- scope:
-  - meta.separator
+- scope: meta.separator
   settings: {foreground: '#696e74'}
-- scope:
-  - markup.quote
+- scope: markup.quote
   settings: {foreground: '#00714f'}
-- scope:
-  - markup.list punctuation.definition.list.begin
+- scope: markup.list punctuation.definition.list.begin
   settings: {foreground: '#ad5500'}
-- scope:
-  - markup.inserted
+- scope: markup.inserted
   settings: {foreground: '#5f8036'}
-- scope:
-  - markup.changed
+- scope: markup.changed
   settings: {foreground: '#195684'}
-- scope:
-  - markup.deleted
+- scope: markup.deleted
   settings: {foreground: '#890019'}
-- scope:
-  - markup.strike
+- scope: markup.strike
   settings: {foreground: '#8a5300'}
-- scope:
-  - markup.table
+- scope: markup.table
   settings: {foreground: '#0083af'}
-- scope:
-  - text.html.markdown markup.inline.raw
+- scope: text.html.markdown markup.inline.raw
   settings: {foreground: '#972400'}
-- scope:
-  - text.html.markdown meta.dummy.line-break
+- scope: text.html.markdown meta.dummy.line-break
   settings: {foreground: '#696e74'}
-- scope:
-  - punctuation.definition.markdown
+- scope: punctuation.definition.markdown
   settings: {foreground: '#696e74'}
 - scope: token.info-token
   settings: {foreground: '#003998'}
@@ -951,8 +910,7 @@ tokenColors:
   - punctuation.definition.string.begin
   - punctuation.definition.string.end
   settings: {foreground: '#00a18a'}
-- scope:
-  - keyword.modifier
+- scope: keyword.modifier
   settings: {foreground: '#728b2c'}
 - scope: punctuation.definition.raw
   settings: {foreground: '#007e8a'}
@@ -1021,17 +979,13 @@ tokenColors:
   - constant.other.symbol
   - entity.other.inherited-class
   settings: {foreground: '#00499b'}
-- scope:
-  - constant.other.label
+- scope: constant.other.label
   settings: {foreground: '#8b0000'}
-- scope:
-  - constant.other.global
+- scope: constant.other.global
   settings: {foreground: '#009393'}
-- scope:
-  - constant.other.pin
+- scope: constant.other.pin
   settings: {foreground: '#4f006a'}
-- scope:
-  - constant.other.rest
+- scope: constant.other.rest
   settings: {foreground: '#9b2b00'}
 - scope: string.quoted.single
   settings: {foreground: '#008624'}
@@ -1039,8 +993,7 @@ tokenColors:
   - meta.brace.square
   - punctuation.definition.array
   settings: {foreground: '#0095b7'}
-- scope:
-  - meta.brace.round
+- scope: meta.brace.round
   settings: {foreground: '#a40000'}
 - scope:
   - punctuation.definition.quasi.begin
@@ -1054,30 +1007,23 @@ tokenColors:
   settings: {foreground: '#2d007f'}
 - scope: punctuation.definition.group
   settings: {foreground: '#930025'}
-- scope:
-  - punctuation.definition.character-class
+- scope: punctuation.definition.character-class
   settings: {foreground: '#003d7a'}
-- scope:
-  - punctuation.terminator.statement
+- scope: punctuation.terminator.statement
   settings: {foreground: '#17a691'}
-- scope:
-  - meta.delimiter.comma
+- scope: meta.delimiter.comma
   settings: {foreground: '#71a222'}
 - scope:
   - punctuation.separator.key-value
   - punctuation.separator.dictionary.key-value
   settings: {foreground: '#bb5200'}
-- scope:
-  - meta.function-call.with-arguments meta.brace.round
+- scope: meta.function-call.with-arguments meta.brace.round
   settings: {foreground: '#0023ab'}
-- scope:
-  - meta.function-call.without-arguments meta.brace.round
+- scope: meta.function-call.without-arguments meta.brace.round
   settings: {foreground: '#970093'}
-- scope:
-  - meta.method-call.with-arguments meta.brace.round
+- scope: meta.method-call.with-arguments meta.brace.round
   settings: {foreground: '#0badb4'}
-- scope:
-  - meta.method-call.without-arguments meta.brace.round
+- scope: meta.method-call.without-arguments meta.brace.round
   settings: {foreground: '#000094'}
 - scope: punctuation.definition.comment
   settings: {foreground: '#515874'}
@@ -1201,8 +1147,7 @@ tokenColors:
   settings: {foreground: '#00a29c'}
 - scope: variable.other.constant
   settings: {foreground: '#1c3063'}
-- scope:
-  - keyword.operator.optional.parameter
+- scope: keyword.operator.optional.parameter
   settings: {foreground: '#1e8ea5'}
 - scope: support.type.variant
   settings: {foreground: '#3ba341'}
@@ -1438,8 +1383,7 @@ tokenColors:
   settings: {foreground: '#007870'}
 - scope: constant.character.numeric
   settings: {foreground: '#0054a0'}
-- scope:
-  - constant.other.inline-data
+- scope: constant.other.inline-data
   settings: {foreground: '#007870'}
 - scope: constant.other.object.key
   settings: {foreground: '#9d0003'}
@@ -1472,8 +1416,7 @@ tokenColors:
   settings: {foreground: '#00a332'}
 - scope: meta.group.absent
   settings: {foreground: '#a70012'}
-- scope:
-  - storage.type.function.arrow
+- scope: storage.type.function.arrow
   settings: {foreground: '#b06c00'}
 - scope:
   - keyword.control.conditional
@@ -1481,8 +1424,7 @@ tokenColors:
   - keyword.control.elseif
   - keyword.control.else
   settings: {foreground: '#a98400'}
-- scope:
-  - keyword.control.parallel
+- scope: keyword.control.parallel
   settings: {foreground: '#640083'}
 - scope:
   - keyword.control.loop
@@ -1506,8 +1448,7 @@ tokenColors:
   - keyword.control.catch
   - keyword.control.finally
   settings: {foreground: '#9e0000'}
-- scope:
-  - keyword.control.match
+- scope: keyword.control.match
   settings: {foreground: '#006acb'}
 - scope: keyword.control.do
   settings: {foreground: '#000091'}
@@ -1540,27 +1481,33 @@ tokenColors:
   settings: {foreground: '#860d7c'}
 - scope: keyword.control.yield-from
   settings: {foreground: '#0070a3'}
-- scope:
-  - keyword.other.check
+- scope: keyword.control.flow.alias
+  settings: {foreground: '#836f2c'}
+- scope: keyword.control.flow.block-scalar.folded
+  settings: {foreground: '#03969f'}
+- scope: keyword.control.flow.block-scalar.literal
+  settings: {foreground: '#6d8830'}
+- scope: keyword.control.property.anchor
+  settings: {foreground: '#00a472'}
+- scope: keyword.other.directive.tag
+  settings: {foreground: '#00399b'}
+- scope: keyword.other.directive.yaml
+  settings: {foreground: '#800055'}
+- scope: keyword.other.check
   settings: {foreground: '#257249'}
-- scope:
-  - keyword.other.debug
+- scope: keyword.other.debug
   settings: {foreground: '#003382'}
-- scope:
-  - keyword.other.assert
+- scope: keyword.other.assert
   settings: {foreground: '#340b79'}
-- scope:
-  - keyword.operator.cascade
+- scope: keyword.operator.cascade
   settings: {foreground: '#3d8028'}
-- scope:
-  - keyword.operator.assignment
+- scope: keyword.operator.assignment
   settings: {foreground: '#3b4558'}
 - scope:
   - keyword.operator.assignment.augmented
   - keyword.operator.assignment.compound
   settings: {foreground: '#204f74'}
-- scope:
-  - keyword.operator.assertion
+- scope: keyword.operator.assertion
   settings: {foreground: '#004bb4'}
 - scope: keyword.control
   settings: {foreground: '#009db3'}
@@ -1687,8 +1634,7 @@ tokenColors:
   - keyword.operator.expression.void
   - keyword.operator.void
   settings: {foreground: '#9d7100'}
-- scope:
-  - keyword.operator.range
+- scope: keyword.operator.range
   settings: {foreground: '#729528'}
 - scope:
   - keyword.operator.expression.is
@@ -1696,8 +1642,7 @@ tokenColors:
   - keyword.operator.expression.instanceof
   - keyword.operator.instanceof
   settings: {foreground: '#498500'}
-- scope:
-  - keyword.control.forall
+- scope: keyword.control.forall
   settings: {foreground: '#9a3300'}
 - scope:
   - keyword.operator.expression.nameof
@@ -1727,8 +1672,7 @@ tokenColors:
   - keyword.operator.expression.length
   - keyword.operator.length
   settings: {foreground: '#810046'}
-- scope:
-  - keyword.query
+- scope: keyword.query
   settings: {foreground: '#ae4300'}
 - scope:
   - keyword.operator.expression.of
@@ -1761,8 +1705,7 @@ tokenColors:
   - entity.name.trait
   - entity.other.inherited-class
   settings: {foreground: '#a68200'}
-- scope:
-  - storage.type.class
+- scope: storage.type.class
   settings: {foreground: '#00769c'}
 - scope:
   - entity.name.type.class
@@ -1789,8 +1732,7 @@ tokenColors:
   - storage.type.object
   - keyword.other.object
   settings: {foreground: '#b20000'}
-- scope:
-  - entity.name.object
+- scope: entity.name.object
   settings: {foreground: '#ae0000'}
 - scope:
   - storage.type.enum
@@ -1884,11 +1826,9 @@ tokenColors:
   settings: {foreground: '#006ca5'}
 - scope: entity.name.function.method
   settings: {foreground: '#000083'}
-- scope:
-  - entity.name.tag
+- scope: entity.name.tag
   settings: {foreground: '#ab0000'}
-- scope:
-  - entity.name.tag.block
+- scope: entity.name.tag.block
   settings: {foreground: '#bf6200'}
 - scope:
   - entity.name.tag.inline
@@ -1899,8 +1839,7 @@ tokenColors:
   - entity.name.tag.doctype
   - entity.name.tag.namespace
   settings: {foreground: '#71ab00'}
-- scope:
-  - entity.name.tag.styledcss
+- scope: entity.name.tag.styledcss
   settings: {foreground: '#00a374'}
 - scope:
   - entity.name.script
@@ -1908,8 +1847,7 @@ tokenColors:
   settings: {foreground: '#279b9d'}
 - scope: entity.name.xml
   settings: {foreground: '#008bc2'}
-- scope:
-  - keyword.other.flag
+- scope: keyword.other.flag
   settings: {foreground: '#ad5500'}
 - scope: entity.name.tag.other
   settings: {foreground: '#520097'}
@@ -1969,8 +1907,7 @@ tokenColors:
   - heading.6.markdown entity.name.section.markdown
   - heading.6.markdown punctuation.definition.heading.markdown
   settings: {foreground: '#464f70'}
-- scope:
-  - storage.modifier.flag
+- scope: storage.modifier.flag
   settings: {foreground: '#00a1aa'}
 - scope:
   - entity.name.function.a
@@ -2180,15 +2117,13 @@ tokenColors:
   - entity.name.function.Z
   - entity.name.function.method.Z
   settings: {foreground: '#000370'}
-- scope:
-  - support.function.mutator
+- scope: support.function.mutator
   settings: {foreground: '#00a9b6'}
 - scope: support.type.builtin.primitive
   settings: {foreground: '#467c20'}
 - scope: support.type.primitive
   settings: {foreground: '#0c818d'}
-- scope:
-  - support.variable
+- scope: support.variable
   settings: {foreground: '#00a3a5'}
 - scope: support.class.builtin
   settings: {foreground: '#17a691'}
@@ -2266,26 +2201,19 @@ tokenColors:
   settings: {foreground: '#34b900'}
 - scope: variable.language.arguments
   settings: {foreground: '#972400'}
-- scope:
-  - variable.language.constructor
+- scope: variable.language.constructor
   settings: {foreground: '#9d7100'}
-- scope:
-  - variable.language.proto
+- scope: variable.language.proto
   settings: {foreground: '#2a713c'}
-- scope:
-  - variable.language.prototype
+- scope: variable.language.prototype
   settings: {foreground: '#015973'}
-- scope:
-  - support.variable.property
+- scope: support.variable.property
   settings: {foreground: '#707200'}
-- scope:
-  - variable.language.self
+- scope: variable.language.self
   settings: {foreground: '#65001b'}
-- scope:
-  - variable.language.super
+- scope: variable.language.super
   settings: {foreground: '#00722c'}
-- scope:
-  - variable.language.this
+- scope: variable.language.this
   settings: {foreground: '#015973'}
 - scope:
   - variable.object.property
