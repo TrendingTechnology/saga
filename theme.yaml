@@ -584,11 +584,6 @@ tokenColors:
       - variable.other.block.ruby
     settings:
       foreground: "#8BCDEF"
-  - scope:
-      - support.type.primitive
-      - support.type.builtin
-    settings:
-      foreground: "#10B1FE"
   - scope: string.interpolated.dollar.shell
     settings:
       foreground: "#FF6480"
@@ -715,8 +710,8 @@ tokenColors:
   - scope: meta.toc-list.id
     settings:
       foreground: "#88F2AF"
-  - scope: string.quoted.double.html, punctuation.definition.string.begin,
-      punctuation.definition.string.end, string.quoted.double.handlebars
+  - scope: string.quoted.double.html, punctuation.definition.string,
+      string.quoted.double.handlebars
     settings:
       foreground: "#56A3B1"
   - scope:
@@ -1311,6 +1306,48 @@ tokenColors:
   - scope: punctuation.definition.string
     settings:
       foreground: "#3AD900"
+  - scope: punctuation.definition.group.no-capture
+    settings:
+      foreground: "#AD99AE"
+  - scope: punctuation.definition.italic
+    settings:
+      foreground: "#E6AD53"
+  - scope: punctuation.definition.bold
+    settings:
+      foreground: "#FF936A"
+  - scope: punctuation.definition.variable
+    settings:
+      foreground: "#DF769B"
+  - scope: punctuation.definition.directive
+    settings:
+      foreground: "#928AEE"
+  - scope: punctuation.definition.key-value
+    settings:
+      foreground: "#E06C75"
+  - scope: punctuation.definition.mapping
+    settings:
+      foreground: "#3BA155"
+  - scope: punctuation.definition.sequence
+    settings:
+      foreground: "#4E94CE"
+  - scope: punctuation.definition.alias
+    settings:
+      foreground: "#C678DD"
+  - scope: punctuation.definition.anchor
+    settings:
+      foreground: "#BA8BAF"
+  - scope: punctuation.definition.block.sequence.item
+    settings:
+      foreground: "#0DB9D7"
+  - scope: punctuation.separator.key-value.mapping
+    settings:
+      foreground: "#E86868"
+  - scope: punctuation.separator.mapping
+    settings:
+      foreground: "#7ABD7A"
+  - scope: punctuation.separator.sequence
+    settings:
+      foreground: "#40C8AE"
   - scope: punctuation.quasi.element
     settings:
       foreground: "#EC6A88"
@@ -1416,7 +1453,7 @@ tokenColors:
     settings:
       foreground: "#9AA5CE"
   - scope:
-      - keyword.operator.optional.parameter.sombra
+      - keyword.operator.optional.parameter
     settings:
       foreground: "#1D9ABA"
   - scope: support.type.variant
@@ -1551,7 +1588,7 @@ tokenColors:
       foreground: "#9096A2"
   - scope:
       - constant.other.email.link.underline
-      - storage.type.format.sombra
+      - storage.type.format
     settings:
       foreground: "#EDB54B"
   - scope: constant.other.caps
@@ -1560,9 +1597,6 @@ tokenColors:
   - scope: constant.character.escape.other
     settings:
       foreground: "#8E9AAF"
-  - scope: punctuation.definition.group.no-capture
-    settings:
-      foreground: "#AD99AE"
   - scope:
       - constant.numeric
       - constant.numeric.css
@@ -1890,7 +1924,7 @@ tokenColors:
       foreground: "#4895EF"
   - scope: keyword.control
     settings:
-      foreground: "#748AA6"
+      foreground: "#0DB9D7"
   - scope: keyword.operator.increment
     settings:
       foreground: "#FFAE57"
@@ -2143,15 +2177,6 @@ tokenColors:
       - punctuation.parenthesis.non-capturing.end
     settings:
       foreground: "#59A5D8"
-  - scope: punctuation.definition.italic
-    settings:
-      foreground: "#E6AD53"
-  - scope: punctuation.definition.bold
-    settings:
-      foreground: "#FF936A"
-  - scope: punctuation.definition.variable
-    settings:
-      foreground: "#DF769B"
   - scope: punctuation.quasi.element
     settings:
       foreground: "#EF5350"
@@ -2585,7 +2610,7 @@ tokenColors:
       - entity.name.function.B
       - entity.name.function.method.B
     settings:
-      foreground: "#FFCA28"
+      foreground: "#CD9731"
   - scope:
       - entity.name.function.C
       - entity.name.function.method.C
@@ -2600,7 +2625,7 @@ tokenColors:
       - entity.name.function.E
       - entity.name.function.method.E
     settings:
-      foreground: "#E2A2F4"
+      foreground: "#EC9CD2"
   - scope:
       - entity.name.function.F
       - entity.name.function.method.F
@@ -2635,7 +2660,7 @@ tokenColors:
       - entity.name.function.L
       - entity.name.function.method.L
     settings:
-      foreground: "#7FDBCA"
+      foreground: "#09CBDD"
   - scope:
       - entity.name.function.M
       - entity.name.function.method.M
@@ -2718,13 +2743,14 @@ tokenColors:
       foreground: "#56B6C2"
   - scope:
       - support.variable
-      - support.class.builtin
     settings:
       foreground: "#21C5C7"
-  - scope:
-      - support.type.builtin
+  - scope: support.class.builtin
     settings:
-      foreground: "#40A6FF"
+      foreground: "#1ABC9C"
+  - scope: support.type.builtin
+    settings:
+      foreground: "#AE81FF"
   - scope: support.type.class
     settings:
       foreground: "#6796E6"
