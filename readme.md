@@ -9,23 +9,34 @@ Nova comes with a lightning fast compiler that scales to any codebase size, and 
 > Sample Code
 
 ```coffee
-def init(args: arr<str>): unit
-  for (val x in 1 to 4; val y in 2 to 5) if x + y < 4
-    print('x: $x, y: $y')
-  val p = new Person('Diana', 'Han')
-  print(p.fullName)
-  print(Utils.truncate(p.firstName, 2))
+def square(x: int): int = x * x
+square(3) // 9
 
-export class Person(val firstName: str, val lastName: str)
-  def fullName() = '$firstName $lastName'
-  def lastFirst() = '$lastName, $firstName'
+rec def fact(x: int): int =
+  if x <= 1 then 1 else x * fact(x - 1)
 
-module Utils
-  def truncEllipsis(s: str, maxLen: int): str
-    if s == nil || len s == 0 || maxLen == 0 then ''
-    elif len s > maxLen then s.take(maxLen) ++ '...'
-    else s
-  def truncate(s: str, len: int): str = s.take(#len)
+fact(5) // 120
+square(120) // 14400
+
+rec def sigma<A: int>(f: A[]): A = match
+  when [] -> 0
+  when val x ++ val l -> f(x) + sigma(f(l))
+sigma(x => x * x, [1, 2, 3]) // 14
+
+def compose<A, B, C>(val f: A => B
+  ) (val g: C => A
+  ) (val x: C): B = f(g(x))
+
+type tree = Leaf<int> | Node<tree, tree>
+
+rec def existsLeaf(test, tree) = match tree
+  when Leaf(v) -> test(v)
+  when Node(left, right)
+    existsLeaf(test(left)) ||
+      existsLeaf(test(right))
+
+def hasEvenLeaf(tree) =
+  existsLeaf(x => x % 2 == 0, tree)
 ```
 
 # Introduction
@@ -37,6 +48,12 @@ A lot of developers seem to either love or hate JavaScript because of its very n
 The NPM ecosystem is dependency-heavy. Shipping JavaScript projects inevitably drags in a lot of code, lots of which the project does not actually use, and is laying dormant, resulting in an application that is normally gigabytes in size when the project code is only tens or hundreds of megabytes. That calls for a lot of new languages, such as TypeScript, ReScript, Scala.js, Elm, PureScript, and countless others, all relying on other ecosystems besides JavaScript to compile their code into JavaScript.
 
 Many of us realized how can we fix this without having to worry about this madness? One to take note here, when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
+
+## What is Nova, exactly?
+
+Nova is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the discipline and performance of C# and Haskell, and the versatility of Python and JavaScript.
+
+Nova targets the JavaScript, Python and .NET runtimes, which means you can use Nova on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
 
 ## Roadmap
 
