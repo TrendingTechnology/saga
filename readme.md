@@ -1,10 +1,10 @@
-# **(kilo)nova**
+# **(kilo)leScript**
 
-> The deadline-focused language.
+> The unnamed programming language.
 
-With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nova offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
+With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, leScript offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
 
-Nova comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build web-based applications with far-greater performance.
+leScript comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build web-based applications with far-greater performance.
 
 > Sample Code
 
@@ -49,15 +49,13 @@ The NPM ecosystem is dependency-heavy. Shipping JavaScript projects inevitably d
 
 Many of us realized how can we fix this without having to worry about this madness? One to take note here, when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
 
-## What is Nova, exactly?
+## What is leScript, exactly?
 
-Nova is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the discipline and performance of C# and Haskell, and the versatility of Python and JavaScript.
-
-Nova targets the JavaScript, Python and .NET runtimes, which means you can use Nova on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
+leScript is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the discipline and performance of C# and Haskell, and the versatility of Python and JavaScript. leScript targets the JavaScript, Python and .NET runtimes, which means you can use leScript on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
 
 ## Roadmap
 
-Nova is going to be a big project, and there's so many things that need to be done. This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
+This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of leScript's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
 
 - [ ] Documentation & Wiki
 - [x] Syntax highlighting and theme (constantly being updated)
@@ -72,7 +70,7 @@ Nova is going to be a big project, and there's so many things that need to be do
 
 ### Installation and Architecture
 
-Nova has an NPM module and CLI utility that is included in a single NPM module, `nova-lang` which includes a copy of Nova's core libraries, compiler and command-line utility.
+Install leScript through NPM: `sudo npm i -g le_` (that's `le` followed by an underscore!). `le_` includes leScript's core library, compiler (called Lexie), and CLI all compressed and bundled up in a single NPM package, exposing the `lexie` command. Lexie is written in JavaScript, and then in Python.
 
 - Lodash
 - XRegExp
@@ -80,13 +78,36 @@ Nova has an NPM module and CLI utility that is included in a single NPM module, 
 - Chevrotain
 - ...is that it?
 
-To install Nova, you actually need one command.
+```
+Usage: lexie [option]... [file]...
 
-```sh
-# Install locally for a project:
-npm i --save-dev nova-lang
-# Install globally to execute .nova files anywhere:
-npm i -g nova-lang
+Use 'lexie' with no options to start REPL.
+
+Misc:
+  -v, version              display version
+  -h, help                 display this help message
+  -c, js                   compile to JavaScript and save as .js files
+  -p, py                   compile to Python and save as .py files
+  -y, yaml                 print/compile as YAML
+  -j, json                 print/compile as JSON
+  -e, eval code::String    pass as string from the command line as input
+  -n, nodejs               pass options after this through to the 'node' binary
+  -w, watch                watch scripts for changes, and repeat
+  -k, const                compile all variables as constants
+  -i, install              install JavaScript packages
+  -j, install-py           install Python packages
+
+Modifiers:
+  -o, output path::String  compile into the specified directory
+  -b, bare                 compile without the top-level function wrapper
+  --no-header              do not add "Generated by" header
+  -l, lex                  print the tokens the lexer produces
+  -t, tokens               print the tokens the rewriter produces
+  -a, ast                  print the syntax tree the parser produces
+  --debug                  print debug output when compiling
+  -m, map String           generate source maps - either: 'none', 'linked',
+                             'linked-src', 'embedded', or 'debug'
+  --no-warn                suppress compiler warnings
 ```
 
 That's it.
@@ -95,11 +116,11 @@ Running `so i` for the first time would also initialize a Python and JavaScript 
 
 ```coffee
 import fs
-import fs.{writeFileSync: write}
-from .foo import Foo
-from .bar import Bar
-from 'module' import x
-from ./dir/'module' import R, S, T
+import fs.[writeFileSync: write]
+import .foo show Foo
+import .bar show Bar
+import 'module' show x
+import ./dir/'module' show R, S, T
 ```
 
 ## Overview
@@ -133,7 +154,7 @@ from ./dir/'module' import R, S, T
 | `bool` | `false` | A boolean value | `Boolean` |
 | `int` | `0` | 32-bit integer | `Number` |
 | `float` | `0.` | 64-bit floating point | `Number` |
-| `char` | `'\0'` | 16-bit character | `String` |
+| `char` | `'\0'` | 16-bit code unit | `String` |
 | `str` | `''` `""` ` `` ` | String | `String` |
 | `regex` | `/ /` | Regular expression | `RegExp` |
 | `func` | `() => ()` | Function | `Function` |
@@ -188,9 +209,9 @@ from ./dir/'module' import R, S, T
 | `1e40`                            | Same              |
 | `13.1875`                         | Same              |
 | No complex number support         | `1j`              |
-| `144`, `36`                       | `0z100`, `0z30`   |
+| `144`, `36`                       | `0z100`, `0s100`  |
 | `Infinity`, `NaN`                 | `inf`, `nan`      |
-| No fraction support               | `1 / 3`, `0.r3`   |
+| No fraction support               | `1 / 3r`, `0.r3`  |
 | `+`, `-`, `*`, `/`, `%`           | Same              |
 | `1 / 4 \| 0`                      | `1 ~/ 4`          |
 | `((1 % 4) + 4) % 4`               | `1 %% 4`          |
