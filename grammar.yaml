@@ -3276,7 +3276,7 @@ repository:
         14: {name: keyword.other.typedef.nova}
   module:
     begin: (?<![\#\.])\s*+\b(from|import|export|open|close)\b\s*
-    end: (?=;|\p{Pe}|$)
+    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|;)|\s*(?=,|;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
     beginCaptures:
       1: {name: keyword.control.module.nova}
     patterns:
@@ -3946,7 +3946,8 @@ repository:
             |(\@) #9
             |(\~) #10
             |(\?) #11
-            |[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]) #12
+            |(\=) #12
+            |[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]) #13
             (?=[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
             [\p{L}\p{M}\p{N}\p{Ps}\p{Pe}'"`])
           name: keyword.operator.prefix.nova
@@ -3962,7 +3963,8 @@ repository:
             9: {name: keyword.operator.decorator.nova}
             10: {name: keyword.operator.bitwise.nova}
             11: {name: keyword.operator.existential.nova}
-            12: {name: keyword.operator.prefix.nova}
+            12: {name: keyword.operator.assignment.nova}
+            13: {name: keyword.operator.prefix.nova}
         - match: |-
             (?x)
             (?<=[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]*
@@ -3978,7 +3980,8 @@ repository:
             |(\@) #9
             |(\~) #10
             |(\?) #11
-            |[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]) #12
+            |(\=) #12
+            |[\p{S}\p{Po}\p{Pd}&&[^,;'"`</>\\$]]) #13
           name: keyword.operator.suffix.nova
           captures:
             1: {name: keyword.operator.module.all.nova}
@@ -3987,12 +3990,13 @@ repository:
             4: {name: keyword.operator.intersection.nova}
             5: {name: keyword.operator.union.nova}
             6: {name: keyword.operator.symdiff.nova}
-            7: {name: keyword.operator.assertion.nova}
+            7: {name: keyword.operator.logical.nova}
             8: {name: keyword.operator.private.nova}
             9: {name: keyword.operator.decorator.nova}
-            10: {name: keyword.operator.cascade.nova}
+            10: {name: keyword.operator.bitwise.nova}
             11: {name: keyword.operator.existential.nova}
-            12: {name: keyword.operator.suffix.nova}
+            12: {name: keyword.operator.assignment.nova}
+            13: {name: keyword.operator.suffix.nova}
   preprocessor:
     begin: ^\s*(\#)\s*
     end: (?<=$)
@@ -5802,6 +5806,7 @@ repository:
       - include: '#typed-object-property'
   typed-parse-types:
     patterns:
+    - include: '#sigils'
     - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<![\#\.])\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)of|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
       end: \s*(?=[,;\p{Pe}]|\*/)
       patterns:
