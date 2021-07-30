@@ -1059,18 +1059,20 @@ tokenColors:
   - string.unquoted.html
   - string.quoted.double
   settings: {foreground: '#c5e478'}
-- scope:
-  - constant.other.symbol
-  - entity.other.inherited-class
-  settings: {foreground: '#6ab0f3'}
-- scope: constant.other.label
-  settings: {foreground: '#f2777a'}
+- scope: constant.other.symbol
+  settings: {foreground: '#c40404'}
+- scope: entity.other.inherited-class
+  settings: {foreground: '#17c984'}
+- scope: constant.language
+  settings: {foreground: '#d6bf55'}
 - scope: constant.other.global
-  settings: {foreground: '#62cfcf'}
-- scope: constant.other.pin
-  settings: {foreground: '#e1a6f2'}
-- scope: constant.other.rest
-  settings: {foreground: '#fca369'}
+  settings: {foreground: '#81b88b'}
+- scope: constant.other.symbol
+  settings: {foreground: '#71b1fe'}
+- scope: constant.other.spread
+  settings: {foreground: '#59f2f7'}
+- scope: constant.other.variable
+  settings: {foreground: '#ff9494'}
 - scope: string.quoted.single
   settings: {foreground: '#82f0a6'}
 - scope:
@@ -1128,25 +1130,33 @@ tokenColors:
 - scope: punctuation.definition.group.no-capture
   settings: {foreground: '#ad99ae'}
 - scope: punctuation.definition.italic
-  settings: {foreground: '#e6ad53'}
+  settings: {foreground: '#7986e7'}
 - scope: punctuation.definition.bold
-  settings: {foreground: '#ff936a'}
+  settings: {foreground: '#5ca7e4'}
 - scope: punctuation.definition.variable
-  settings: {foreground: '#df769b'}
+  settings: {foreground: '#d65d1c'}
 - scope: punctuation.definition.directive
-  settings: {foreground: '#928aee'}
+  settings: {foreground: '#6897bb'}
 - scope: punctuation.definition.key-value
-  settings: {foreground: '#e06c75'}
+  settings: {foreground: '#dd4941'}
 - scope: punctuation.definition.mapping
   settings: {foreground: '#3ba155'}
 - scope: punctuation.definition.sequence
-  settings: {foreground: '#4e94ce'}
+  settings: {foreground: '#3b79c7'}
 - scope: punctuation.definition.alias
-  settings: {foreground: '#c678dd'}
+  settings: {foreground: '#c668ba'}
 - scope: punctuation.definition.anchor
-  settings: {foreground: '#ba8baf'}
-- scope: punctuation.definition.block.sequence.item
+  settings: {foreground: '#3aa184'}
+- scope: punctuation.definition.spread
   settings: {foreground: '#0db9d7'}
+- scope: punctuation.definition.global
+  settings: {foreground: '#6a9955'}
+- scope: punctuation.definition.symbol
+  settings: {foreground: '#f44747'}
+- scope: punctuation.definition.constant
+  settings: {foreground: '#de9237'}
+- scope: punctuation.definition.block.sequence.item
+  settings: {foreground: '#6796e6'}
 - scope: punctuation.separator.key-value.mapping
   settings: {foreground: '#e86868'}
 - scope: punctuation.separator.mapping
