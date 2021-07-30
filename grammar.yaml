@@ -21,7 +21,7 @@ bugs:
 changes:
   - Added block regexes, raw string literals and more
   - Identifiers can now include `\`.
-  - Revamped keywords and operators. 
+  - Revamped keywords and operators.
   - Numeric literals support every possible even base except 14, as well as
     extended numeric notation for all bases.
   - All operators are colored differently based on their type.
@@ -4855,36 +4855,36 @@ repository:
     patterns:
     - match: (?<=[&^%*|@#$]*)(\^)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.other.symbol.le}
         1: {name: punctuation.defintion.symbol.le}
+        2: {name: constant.other.symbol.le}
     - match: (?<=[&^%*|@#$]*)(\&)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.other.variable.le}
         1: {name: punctuation.defintion.variable.le}
+        2: {name: constant.other.variable.le}
     - match: (?<=[&^%*|@#$]*)(\%)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.other.global.le}
         1: {name: punctuation.defintion.global.le}
+        2: {name: constant.other.global.le}
     - match: (?<=[&^%*|@#$]*)(\*)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.other.spread.le}
         1: {name: punctuation.defintion.spread.le}
+        2: {name: constant.other.spread.le}
     - match: (?<=[&^%*|@#$]*)(\|)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.language.le}
         1: {name: punctuation.defintion.constant.le}
+        2: {name: constant.language.le}
     - match: (?<=[&^%*|@#$]*)(\@)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.other.decorator.le}
         1: {name: punctuation.defintion.decorator.le}
+        2: {name: constant.other.decorator.le}
     - match: (?<=[&^%*|@#$]*)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.other.private.le}
         1: {name: punctuation.defintion.private.le}
+        2: {name: constant.other.private.le}
     - match: (?<=[&^%*|@#$]*)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        2: {name: constant.other.instance.le}
         1: {name: punctuation.defintion.instance.le}
+        2: {name: constant.other.instance.le}
   special-comments-conditional-compilation:
     patterns:
     - begin: \s*+((/\*))(?=@)
@@ -6124,7 +6124,7 @@ repository:
       beginCaptures:
         3: {name: punctuation.le}
       patterns:
-      - include:# '#typed-variable'
+      - include: '#typed-variable'
     - begin: (?<=^|,|\()\s*+(?="[^"]"\s*(:))
       end: \s*(?>=|\))
       beginCaptures:
