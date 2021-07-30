@@ -1,42 +1,30 @@
-# **(kilo)leScript**
+# **Nova**
 
 > The unnamed programming language.
 
-With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, leScript offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
+With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nova offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
 
-leScript comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build web-based applications with far-greater performance.
+Nova comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build web-based applications with far-greater performance.
 
 > Sample Code
 
 ```coffee
-def square(x: int): int = x * x
-square(3) // 9
+class Person(val firstName: str, val lastName: str)
+  def fullName() = '$firstName $lastName'
+  def lastFirst() = '$lastName, $firstName'
 
-rec def fact(x: int): int =
-  if x <= 1 then 1 else x * fact(x - 1)
+module Utils
+  def truncEllipsis(s: str, maxLen: int): str
+    if s == nil || len s == 0 || maxLen == 0 then ''
+    elif len s > maxLen then s.take(maxLen) ++ '...'
+    else s
+  def truncate(s: str, len: int): str = s.take(#len)
 
-fact(5) // 120
-square(120) // 14400
-
-rec def sigma<A: int>(f: A[]): A = match
-  when [] -> 0
-  when val x ++ val l -> f(x) + sigma(f(l))
-sigma(x => x * x, [1, 2, 3]) // 14
-
-def compose<A, B, C>(val f: A => B
-  ) (val g: C => A
-  ) (val x: C): B = f(g(x))
-
-type tree = Leaf<int> | Node<tree, tree>
-
-rec def existsLeaf(test, tree) = match tree
-  when Leaf(v) -> test(v)
-  when Node(left, right)
-    existsLeaf(test(left)) ||
-      existsLeaf(test(right))
-
-def hasEvenLeaf(tree) =
-  existsLeaf(x => x % 2 == 0, tree)
+for (val x in 1 to 4; val y in 2 to 5) if x + y < 4
+  print('x: $x, y: $y')
+val p = new Person('Diana', 'Han')
+print(p.fullName)
+print(Utils.truncate(p.firstName, 2))
 ```
 
 # Introduction
@@ -49,13 +37,13 @@ The NPM ecosystem is dependency-heavy. Shipping JavaScript projects inevitably d
 
 Many of us realized how can we fix this without having to worry about this madness? One to take note here, when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
 
-## What is leScript, exactly?
+## What is Nova, exactly?
 
-leScript is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the discipline and performance of C# and Haskell, and the versatility of Python and JavaScript. leScript targets the JavaScript, Python and .NET runtimes, which means you can use leScript on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
+Nova is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the discipline and performance of C# and Haskell, and the versatility of Python and JavaScript. Nova targets the JavaScript and Python runtimes, which means you can use Nova on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
 
 ## Roadmap
 
-This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of leScript's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
+This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
 
 - [ ] Documentation & Wiki
 - [x] Syntax highlighting and theme (constantly being updated)
@@ -70,47 +58,34 @@ This document serves as a quick and informative guide for existing JavaScript de
 
 ### Installation and Architecture
 
-Install leScript through NPM: `sudo npm i -g le_` (that's `le` followed by an underscore!). `le_` includes leScript's core library, compiler (called Lexie), and CLI all compressed and bundled up in a single NPM package, exposing the `lexie` command. Lexie is written in JavaScript, and then in Python.
+Install Nova through NPM: `sudo npm i -g le_` (that's `le` followed by an underscore!). `le_` includes Nova's core library, compiler (called Lexie), and CLI all compressed and bundled up in a single NPM package, exposing the `lexie` command. Lexie is written in Javascript.
 
-- Lodash
-- XRegExp
-- Yargs
-- Chevrotain
-- ...is that it?
+Usage: `lexie [options] ... [file]`, where `options` are:
 
-```
-Usage: lexie [option]... [file]...
-
-Use 'lexie' with no options to start REPL.
-
-Misc:
-  -v, version              display version
-  -h, help                 display this help message
-  -c, js                   compile to JavaScript and save as .js files
-  -p, py                   compile to Python and save as .py files
-  -y, yaml                 print/compile as YAML
-  -j, json                 print/compile as JSON
-  -e, eval code::String    pass as string from the command line as input
-  -n, nodejs               pass options after this through to the 'node' binary
-  -w, watch                watch scripts for changes, and repeat
-  -k, const                compile all variables as constants
-  -i, install              install JavaScript packages
-  -j, install-py           install Python packages
-
-Modifiers:
-  -o, output path::String  compile into the specified directory
-  -b, bare                 compile without the top-level function wrapper
-  --no-header              do not add "Generated by" header
-  -l, lex                  print the tokens the lexer produces
-  -t, tokens               print the tokens the rewriter produces
-  -a, ast                  print the syntax tree the parser produces
-  --debug                  print debug output when compiling
-  -m, map String           generate source maps - either: 'none', 'linked',
-                             'linked-src', 'embedded', or 'debug'
-  --no-warn                suppress compiler warnings
-```
-
-That's it.
+| Option | Alias | Description |
+| --- | --- | --- |
+| `ver`, `version` | `v` | Displays version |
+| `help` | `h` | Display this help message |
+| `init`, `start` | `s` | Initialize a new virtual environment, without installing. |
+| `install` | `i` | Install JavaScript modules from NPM into `package.json` |
+| `install --py` | `ip` | Install Python modules from PyPI into `package.json` |
+| `uninstall`, `remove` | `r` | Remove NPM modules from `package.json` |
+| `uninstall --py`, `remove --py` | `rp` | Remove PyPI modules from `dependencies.txt` |
+| `update` | `u` | Update NPM modules from `package.json` |
+| `update --py` | `up` | Update PyPI modules from `dependencies.txt` |
+| `build` | `b` | Compile to JavaScript and save as `.js` |
+| `build --py` | `bp` | Compile to Python and save as `.py` |
+| `list` | `l` | List all installed packages |
+| `transpile` | `t` | Pipe the compiled output through Babel |
+| `map` | `m` | Generate source maps and include in the compiled output |
+| `watch` | `w` | Watch scripts for changes |
+| `output` | `o` | Write out all compiled files into the specified directory |
+| `print` | `p` | Print output to standard output |
+| `eval` | `e` | Compile and print a snippet of code from the command line |
+| `no-header` |  | Suppress the "Generated by Nova" header |
+| `ast` |  | Generate an AST from a source file. |
+| `tokens` |  | Lex, and print the token stream |
+| `nodes` | `n` | Lex, parse and print the compiled tree. |
 
 Running `so i` for the first time would also initialize a Python and JavaScript project/virtual environment at the same time.
 
@@ -127,20 +102,20 @@ import ./dir/'module' show R, S, T
 
 #### Semicolons
 
-| JavaScript         | leScript    |
+| JavaScript         | Nova        |
 | ------------------ | ----------- |
 | Enforced by linter | None needed |
 
 #### Comments
 
-| JavaScript            | leScript |
-| --------------------- | -------- |
-| `// line comment`     | Same     |
-| `/* block comment */` | Same     |
+| JavaScript            | Nova |
+| --------------------- | ---- |
+| `// line comment`     | Same |
+| `/* block comment */` | Same |
 
 #### Variables
 
-| JavaScript          | leScript            |
+| JavaScript          | Nova                |
 | ------------------- | ------------------- |
 | `const x = 5`       | `val x = 5`         |
 | `var x = 5`         | Same                |
@@ -166,7 +141,7 @@ import ./dir/'module' show R, S, T
 
 #### Strings
 
-| JavaScript                    | leScript                             |
+| JavaScript                    | Nova                                 |
 | ----------------------------- | ------------------------------------ |
 | `"Hello world!"`              | Same                                 |
 | `'Hello world!'`              | Same                                 |
@@ -186,7 +161,7 @@ import ./dir/'module' show R, S, T
 
 #### Booleans
 
-| JavaScript | leScript |
+| JavaScript | Nova |
 | --- | --- |
 | `null`, `undefined` | `nil` |
 | `true`, `false` | Same |
@@ -203,7 +178,7 @@ import ./dir/'module' show R, S, T
 
 #### Numbers
 
-| JavaScript                        | leScript          |
+| JavaScript                        | Nova              |
 | --------------------------------- | ----------------- |
 | `1`, `0x10`, `0o40`, `0b10_10`    | Same              |
 | `1e40`                            | Same              |
@@ -225,9 +200,9 @@ import ./dir/'module' show R, S, T
 
 #### Lists, Sets and Maps
 
-leScript's JavaScript runtime uses Immutable.JS for its internal data structures.
+Nova's JavaScript runtime uses Immutable.JS for its internal data structures.
 
-| JavaScript                         | leScript                 |
+| JavaScript                         | Nova                     |
 | ---------------------------------- | ------------------------ |
 | `[1, 2, 3]`                        | Same                     |
 | `[1, 2, 3].concat([4])`            | `[1, 2, 3] + 4`          |
@@ -242,7 +217,7 @@ leScript's JavaScript runtime uses Immutable.JS for its internal data structures
 
 <!--  -->
 
-| JavaScript                                    | leScript            |
+| JavaScript                                    | Nova                |
 | --------------------------------------------- | ------------------- |
 | `new Set([1, 2, 3])`                          | `{1, 2, 3}`         |
 | `new Set('hello')`                            | `{*'hello'}`        |
@@ -253,7 +228,7 @@ leScript's JavaScript runtime uses Immutable.JS for its internal data structures
 
 <!--  -->
 
-| JavaScript | leScript |
+| JavaScript | Nova |
 | --- | --- |
 | `{}` | `{:}` (mandatory colon) |
 | `{a: 1, b: 2, c: 3}` | Same |
@@ -271,7 +246,7 @@ leScript's JavaScript runtime uses Immutable.JS for its internal data structures
 
 #### Functions
 
-| JavaScript | leScript |
+| JavaScript | Nova |
 | --- | --- |
 | `function () { return 10 }` | `def () = 10` |
 | `function named () {}` | `def named() {}` |
@@ -293,13 +268,13 @@ Everything is an expression!
 
 ```coffee
 var integer = type int | byte | short | nint | long
-var result = if (a) 'hello' else 'bye'
+var result = if a then 'hello' else 'bye'
 var file = match
-  when X is int -> 1 + 1
+  when x is int -> 1
   else -> 0
 ```
 
-| JavaScript | leScript |
+| JavaScript | Nova |
 | --- | --- |
 | `a ? b : c` | Same |
 | `if ()` | Same (no brackets needed) |
@@ -318,3 +293,84 @@ var file = match
 | `while (x != 10) { x++ }` | `until x == 10 { x += 1 }` |
 | `do { x++ } while (x < 10) ` | `repeat while x < 10 { x += 1 } ` |
 | `do { x++ } while (x != 10) ` | `repeat until x == 10 { x += 1 } ` |
+
+## A Tour of Nova
+
+This document is an informal reference for Nova meant as an aid for future programmers, particularly for existing Python, JavaScript, Haskell and Ruby developers, and is structured in a way so you can read it from top to bottom. Further topics use syntax previously introduced.
+
+This is not a flat-out tutorial guide to the language, but something which you would consult when you have questions. If you feel something is not right and needs correction, feel free to submit a pull request with the changes and I would gladly accept them.
+
+Blocks are delimited by whitespaces, curly braces, or `then`-`end` blocks, as in Ruby.
+
+For example:
+
+```coffee
+// Python/Haskell style
+if 2 + 2 == 4
+  doSomething()
+if 2 + 2 == 4 then doSomething()
+
+// Ruby/Elixir style
+if 2 + 2 == 4 then doSomething() end
+if 2 + 2 == 4 then
+  doSomething()
+end
+
+// Swift/Go style
+if 2 + 2 == 4 { doSomething() }
+if 2 + 2 == 4 {
+  doSomething()
+}
+
+// Multiple inline blocks
+for let x in let arr = 1 to 10 if x < 10
+  print(x += 10)
+```
+
+Newlines can be used when delimiting statements on a single line. e
+
+You can omit parentheses when calling a function on a string:
+
+```coffee
+print '' // same as print("")
+```
+
+Comments are:
+
+```coffee
+// from here to the end of the line.
+/* comments can be /* nested */. */
+```
+
+Documentation comments begin with an extra slash or asterisk and compile specifically to JSDoc comments.
+
+```coffee
+/// use these special comments
+/** to /** document */ your code. */
+```
+
+The file extension for Nova is `.le`.
+
+### Defining Functions
+
+Defining functions is very lightweight in Nova:
+
+```coffee
+(x, y) => x + y
+x = () => () // an empty function
+
+times = (x, y) =>
+  x * y
+// multiple lines, and be assigned to
+// a var like in JavaScript
+```
+
+As you see, function definitions are considerably shorter! You may also have noticed that we have omitted `return`.
+
+In Nova, almost In Nova, almost everything is an expression and the last one reached is automatically returned. However, you can still use `return` to force returns if you want, and you can add a bang `!` right after the arrow to suppress auto-returning:
+
+```coffee
+noRet = x =>!
+```
+
+Assignment Basic assignment is as you would expect, variable = value, and there is no need for variable declarations. However, unlike CoffeeScript, you must use `:=` to modify variables in upper scopes.
