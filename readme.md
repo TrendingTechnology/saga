@@ -1,10 +1,10 @@
-# **Nova**
+# **Nyx**
 
-> The unnamed programming language.
+> The programming language for the future, perhaps.
 
-With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nova offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
+With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nyx offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
 
-Nova comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build web-based applications with far-greater performance.
+Nyx comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build both web and native applications with far-greater performance than with regular frameworks.
 
 > Sample Code
 
@@ -31,19 +31,19 @@ print(Utils.truncate(p.firstName, 2))
 
 ## Background
 
-A lot of developers seem to either love or hate JavaScript because of its very nature, all because of a really tight release schedule. The language had received tons of backlash for tons of reasons. Take weak typing for example. Sometimes JavaScript would silently convert a value in one type in order to make the operation work, but most of the time that would introduce bugs that we would not notice, and only realize it when it's very late.
+A lot of developers seem to either love or hate JavaScript because of its very nature. The language had received tons of backlash for tons of reasons. Take weak typing for example. Sometimes JavaScript would silently convert a value in one type in order to make the operation work, but most of the time that would introduce bugs that we would not notice, and only realize it when it's very late.
 
 The NPM ecosystem is dependency-heavy. Shipping JavaScript projects inevitably drags in a lot of code, lots of which the project does not actually use, and is laying dormant, resulting in an application that is normally gigabytes in size when the project code is only tens or hundreds of megabytes. That calls for a lot of new languages, such as TypeScript, ReScript, Scala.js, Elm, PureScript, and countless others, all relying on other ecosystems besides JavaScript to compile their code into JavaScript.
 
 Many of us realized how can we fix this without having to worry about this madness? One to take note here, when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
 
-## What is Nova, exactly?
+## What is Nyx, exactly?
 
-Nova is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the discipline and performance of C# and Haskell, and the versatility of Python and JavaScript. Nova targets the JavaScript and Python runtimes, which means you can use Nova on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
+Nyx is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the performance of C# and Haskell, and the versatility of Python and JavaScript. Nyx targets the JavaScript and Python runtimes, which means you can use Nyx on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
 
 ## Roadmap
 
-This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nova's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
+This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nyx's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
 
 - [ ] Documentation & Wiki
 - [x] Syntax highlighting and theme (constantly being updated)
@@ -58,9 +58,9 @@ This document serves as a quick and informative guide for existing JavaScript de
 
 ### Installation and Architecture
 
-Install Nova through NPM: `sudo npm i -g le_` (that's `le` followed by an underscore!). `le_` includes Nova's core library, compiler (called Lexie), and CLI all compressed and bundled up in a single NPM package, exposing the `lexie` command. Lexie is written in Javascript.
+Install Nyx through NPM: `sudo npm i -g nyxlang`. `nyxlang` includes Nyx's core library, compiler (called Nyx), and CLI all compressed and bundled up in a single NPM package, exposing the `nyx` command. Nyx is written in Javascript.
 
-Usage: `lexie [options] ... [file]`, where `options` are:
+Usage: `nyx [options] ... [file]`, where `options` are:
 
 | Option | Alias | Description |
 | --- | --- | --- |
@@ -82,7 +82,7 @@ Usage: `lexie [options] ... [file]`, where `options` are:
 | `output` | `o` | Write out all compiled files into the specified directory |
 | `print` | `p` | Print output to standard output |
 | `eval` | `e` | Compile and print a snippet of code from the command line |
-| `no-header` |  | Suppress the "Generated by Nova" header |
+| `no-header` |  | Suppress the "Generated by Nyx" header |
 | `ast` |  | Generate an AST from a source file. |
 | `tokens` |  | Lex, and print the token stream |
 | `nodes` | `n` | Lex, parse and print the compiled tree. |
@@ -102,20 +102,20 @@ import ./dir/'module' show R, S, T
 
 #### Semicolons
 
-| JavaScript         | Nova        |
+| JavaScript         | Nyx         |
 | ------------------ | ----------- |
 | Enforced by linter | None needed |
 
 #### Comments
 
-| JavaScript            | Nova |
+| JavaScript            | Nyx  |
 | --------------------- | ---- |
 | `// line comment`     | Same |
 | `/* block comment */` | Same |
 
 #### Variables
 
-| JavaScript          | Nova                |
+| JavaScript          | Nyx                 |
 | ------------------- | ------------------- |
 | `const x = 5`       | `val x = 5`         |
 | `var x = 5`         | Same                |
@@ -141,7 +141,7 @@ import ./dir/'module' show R, S, T
 
 #### Strings
 
-| JavaScript                    | Nova                                 |
+| JavaScript                    | Nyx                                  |
 | ----------------------------- | ------------------------------------ |
 | `"Hello world!"`              | Same                                 |
 | `'Hello world!'`              | Same                                 |
@@ -161,7 +161,7 @@ import ./dir/'module' show R, S, T
 
 #### Booleans
 
-| JavaScript | Nova |
+| JavaScript | Nyx |
 | --- | --- |
 | `null`, `undefined` | `nil` |
 | `true`, `false` | Same |
@@ -178,7 +178,7 @@ import ./dir/'module' show R, S, T
 
 #### Numbers
 
-| JavaScript                        | Nova              |
+| JavaScript                        | Nyx               |
 | --------------------------------- | ----------------- |
 | `1`, `0x10`, `0o40`, `0b10_10`    | Same              |
 | `1e40`                            | Same              |
@@ -200,9 +200,9 @@ import ./dir/'module' show R, S, T
 
 #### Lists, Sets and Maps
 
-Nova's JavaScript runtime uses Immutable.JS for its internal data structures.
+Nyx's JavaScript runtime uses Immutable.JS for its internal data structures.
 
-| JavaScript                         | Nova                     |
+| JavaScript                         | Nyx                      |
 | ---------------------------------- | ------------------------ |
 | `[1, 2, 3]`                        | Same                     |
 | `[1, 2, 3].concat([4])`            | `[1, 2, 3] + 4`          |
@@ -217,7 +217,7 @@ Nova's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 <!--  -->
 
-| JavaScript                                    | Nova                |
+| JavaScript                                    | Nyx                 |
 | --------------------------------------------- | ------------------- |
 | `new Set([1, 2, 3])`                          | `{1, 2, 3}`         |
 | `new Set('hello')`                            | `{*'hello'}`        |
@@ -228,7 +228,7 @@ Nova's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 <!--  -->
 
-| JavaScript | Nova |
+| JavaScript | Nyx |
 | --- | --- |
 | `{}` | `{:}` (mandatory colon) |
 | `{a: 1, b: 2, c: 3}` | Same |
@@ -246,7 +246,7 @@ Nova's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 #### Functions
 
-| JavaScript | Nova |
+| JavaScript | Nyx |
 | --- | --- |
 | `function () { return 10 }` | `def () = 10` |
 | `function named () {}` | `def named() {}` |
@@ -274,7 +274,7 @@ var file = match
   else -> 0
 ```
 
-| JavaScript | Nova |
+| JavaScript | Nyx |
 | --- | --- |
 | `a ? b : c` | Same |
 | `if ()` | Same (no brackets needed) |
@@ -294,69 +294,59 @@ var file = match
 | `do { x++ } while (x < 10) ` | `repeat while x < 10 { x += 1 } ` |
 | `do { x++ } while (x != 10) ` | `repeat until x == 10 { x += 1 } ` |
 
-## A Tour of Nova
+## A Tour of Nyx
 
-This document is an informal reference for Nova meant as an aid for future programmers, particularly for existing Python, JavaScript, Haskell and Ruby developers, and is structured in a way so you can read it from top to bottom. Further topics use syntax previously introduced.
+> #### Do take note:
+>
+> This document is an informal reference for Nyx meant as an aid for future programmers, particularly for existing Python, JavaScript, Haskell and Ruby developers, and is structured in a way so you can read it from top to bottom. Further topics use syntax previously introduced.
+>
+> This is not a flat-out tutorial to the language, but something which you would consult when you have questions. If you feel something is not right and needs correction, feel free to submit a pull request with the changes and I would gladly accept them.
 
-This is not a flat-out tutorial guide to the language, but something which you would consult when you have questions. If you feel something is not right and needs correction, feel free to submit a pull request with the changes and I would gladly accept them.
+Blocks are delimited by indentation, curly braces, or Ruby-style `then`-`end` blocks. Curly braces are mainly used in case you want to compile Nyx into a more compact form.
 
-Blocks are delimited by whitespaces, curly braces, or `then`-`end` blocks, as in Ruby.
-
-For example:
+Indentations can be up to a single space. Nyx's parser deals with spaces, so tabs outside raw string literals are automatically converted into a space.
 
 ```dart
 // Python/Haskell style
-if 2 + 2 == 4
-  doSomething()
-if 2 + 2 == 4 then doSomething()
+if true
+  run()
+if true then run()
 
 // Ruby/Elixir style
-if 2 + 2 == 4 then doSomething() end
-if 2 + 2 == 4 then
-  doSomething()
+if true then run() end
+if true then
+  run()
 end
 
 // Swift/Go style
-if 2 + 2 == 4 { doSomething() }
-if 2 + 2 == 4 {
-  doSomething()
+if true { run() }
+if true {
+  run()
 }
 
 // Multiple inline blocks
-for let x in let arr = 1 to 10 if x < 10
+for val x in val arr = 1 to 10 if x < 10
   print(x += 10)
 ```
 
-Newlines can be used when delimiting statements on a single line. e
-
-You can omit parentheses when calling a function on a string:
-
-```dart
-print '' // same as print("")
-```
-
-Comments are:
+In Nyx, comments are denoted by the `//` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments begin with an extra character and compile specifically to JSDoc comments.
 
 ```dart
 // from here to the end of the line.
 /* comments can be /* nested */. */
-```
 
-Documentation comments begin with an extra slash or asterisk and compile specifically to JSDoc comments.
-
-```dart
 /// use these special comments
 /** to /** document */ your code. */
 ```
 
-The file extension for Nova is `.le`.
+The file extension for Nyx is `.nyx`.
 
 ### Defining Functions
 
-Defining functions is very lightweight in Nova:
+Defining functions is very lightweight in Nyx:
 
 ```dart
-(x, y) => x + y
+(x, y) => x + y // an inline function
 x = () => () // an empty function
 
 times = (x, y) =>
@@ -367,10 +357,10 @@ times = (x, y) =>
 
 As you see, function definitions are considerably shorter! You may also have noticed that we have omitted `return`.
 
-In Nova, almost In Nova, almost everything is an expression and the last one reached is automatically returned. However, you can still use `return` to force returns if you want, and you can add a bang `!` right after the arrow to suppress auto-returning:
+In Nyx, almost In Nyx, almost everything is an expression and the last one reached is automatically returned. However, you can still use `return` to force returns if you want, and you can add a bang `!` right after the arrow to suppress auto-returning:
 
 ```dart
 noRet = x =>!
 ```
 
-Assignment Basic assignment is as you would expect, variable = value, and there is no need for variable declarations. However, unlike CoffeeScript, you must use `:=` to modify variables in upper scopes.
+Assignment Basic assignment is as you would expect, variable = value, and there is no need for variable declarations. However, unlike CoffeeScript, you must use `:=` to modify variables in upper Patts.
