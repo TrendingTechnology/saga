@@ -9,7 +9,7 @@ info-for-contributors: >-
     please create a pull request against this repo: https://github.com/NoxUltima/nova-lang,
     and I will be very happy to receive them.
 name: Nova
-scopeName: source.coffee
+scopeName: source.dart
 bugfixes:
   - Functions and methods are scoped to their initial starting letter, in the
     meantime, until the StdLib is out.
@@ -29,7 +29,7 @@ changes:
   - Added indentation. Removed inline GraphQL and CSS style blocks.
 fileTypes:
   - nova
-  - coffee
+  - dart
 fixes-and-todos:
   - Revamp regex syntax (more syntax scopes for constructs)
   - Add TypeScript, ReScript and JavaScript to raw code blocks
