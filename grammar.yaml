@@ -633,7 +633,7 @@ repository:
         repository:
           as-clause:
             begin: (?<![\#\.])\s*\b([ai]s|with)\b\s*
-            end: (?<![\#\.])\s*\b(?=[ai]s|with)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
+            end: (?<![\#\.])\s*\b(?=[ai]s|with)|\s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             beginCaptures:
               1: {name: keyword.control.match.le}
             endCaptures:
@@ -645,7 +645,7 @@ repository:
             - include: '#typed-parse-types'
           case-separator:
             begin: ([,;])
-            end: (?<![\#\.])\s*\b(?=[ai]s|with|if|unless|where)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
+            end: (?<![\#\.])\s*\b(?=[ai]s|with|if|unless|where)|\s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             beginCaptures:
               1: {patterns: [{include: $self}]}
             endCaptures:
@@ -657,7 +657,7 @@ repository:
             - include: $self
           match-clause:
             begin: (?<![\#\.])\s*\b(if|unless|where)\b\s*
-            end: (?<![\#\.])\s*\b(?=if|unless|where)|\s*(?=->|(?<![\#\.])\s*+\bthen\b)|$
+            end: (?<![\#\.])\s*\b(?=if|unless|where)|\s*(?=\p{Pe}|$|->|(?<![\#\.])\s*+\bthen\b)
             beginCaptures:
               1: {name: keyword.control.match.le}
             endCaptures:
@@ -788,7 +788,6 @@ repository:
     - include: '#function-call'
     - include: '#multiline-arrow-function-generics'
     - include: '#jsx'
-    - include: '#es7-decorators'
     - include: '#js-label'
     - include: '#regexp-multiline'
     - include: '#regexp'
@@ -2491,8 +2490,8 @@ repository:
           |([!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+) #10
           |(->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?) #11-13
           |(!\?|\?!|!!)|(\?\??)|(\?:)|(!:)|(\.\.\.) #14-18
-          |(\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
-          |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
+          |(\?\.|(?<=[_\\\p{L}\p{M}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
+          |(!\.|(?<=[_\\\p{L}\p{M}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
           |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
           |(=<|<[/*+]?>) #24
         )(?=['"`])
@@ -3822,8 +3821,8 @@ repository:
               |([!=~]+~|~[!=~]+|[<~>]+~|~[<~>]+) #10
               |(->|<-)|(<=>|[<>]=?)|(=[!:]=|[!=]==?) #11-13
               |(!\?|\?!|!!)|(\?\??)|(\?:)|(!:)|(\.\.\.) #14-18
-              |(\?\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
-              |(!\.|(?<=[_\\\p{M}\p{L}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
+              |(\?\.|(?<=[_\\\p{L}\p{M}\p{N}\p{Pe}?])\?(?![.:])(?=\B)) #19
+              |(!\.|(?<=[_\\\p{L}\p{M}\p{N}\p{Pe}!])\!(?![.:])(?=\B)) #20
               |(~\.)|((?<!(?<!\.\.)\.)\.(?!=)|:::?)|((?:\.|::?)?=) #21-23
               |(=<|<[/*+]?>) #24
             )(?=$|\p{Pe}|\p{Z}|['"`])
@@ -3914,8 +3913,8 @@ repository:
             - include: '#language-constant'
             - include: '#variable'
           - include: '#core'
-        - begin: (\$)\s*
-          end: \s*(\$)
+        - begin: \s*+(\$)(?![_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+          end: \s*(:)((?=::)|(?!:|=))
           name: keyword.operator.function.le
           beginCaptures:
             1: {name: keyword.operator.function.le}
@@ -4854,26 +4853,38 @@ repository:
         1: {name: punctuation.terminator.statement.le}
   sigils:
     patterns:
-    - match: (?<=[&^%*|]*)(\^)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+    - match: (?<=[&^%*|@#$]*)(\^)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        0: {name: constant.other.symbol.le}
-        1: {name: punctuation.definition.symbol.le}
-    - match: (?<=[&^%*|]*)(\&)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        2: {name: constant.other.symbol.le}
+        1: {name: punctuation.defintion.symbol.le}
+    - match: (?<=[&^%*|@#$]*)(\&)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        0: {name: constant.other.variable.le}
-        1: {name: punctuation.definition.variable.le}
-    - match: (?<=[&^%*|]*)(\%)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        2: {name: constant.other.variable.le}
+        1: {name: punctuation.defintion.variable.le}
+    - match: (?<=[&^%*|@#$]*)(\%)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        0: {name: constant.other.global.le}
-        1: {name: punctuation.definition.global.le}
-    - match: (?<=[&^%*|]*)(\*)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        2: {name: constant.other.global.le}
+        1: {name: punctuation.defintion.global.le}
+    - match: (?<=[&^%*|@#$]*)(\*)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        0: {name: constant.other.spread.le}
-        1: {name: punctuation.definition.spread.le}
-    - match: (?<=[&^%*|]*)(\|)[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*
+        2: {name: constant.other.spread.le}
+        1: {name: punctuation.defintion.spread.le}
+    - match: (?<=[&^%*|@#$]*)(\|)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       captures:
-        0: {name: constant.language.le}
-        1: {name: punctuation.definition.constant.le}
+        2: {name: constant.language.le}
+        1: {name: punctuation.defintion.constant.le}
+    - match: (?<=[&^%*|@#$]*)(\@)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+      captures:
+        2: {name: constant.other.decorator.le}
+        1: {name: punctuation.defintion.decorator.le}
+    - match: (?<=[&^%*|@#$]*)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+      captures:
+        2: {name: constant.other.private.le}
+        1: {name: punctuation.defintion.private.le}
+    - match: (?<=[&^%*|@#$]*)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+      captures:
+        2: {name: constant.other.instance.le}
+        1: {name: punctuation.defintion.instance.le}
   special-comments-conditional-compilation:
     patterns:
     - begin: \s*+((/\*))(?=@)
@@ -6113,7 +6124,7 @@ repository:
       beginCaptures:
         3: {name: punctuation.le}
       patterns:
-      - include: '#typed-variable'
+      - include:# '#typed-variable'
     - begin: (?<=^|,|\()\s*+(?="[^"]"\s*(:))
       end: \s*(?>=|\))
       beginCaptures:
