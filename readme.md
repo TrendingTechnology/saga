@@ -8,7 +8,7 @@ Nova comes with a lightning fast compiler that scales to any codebase size, and 
 
 > Sample Code
 
-```coffee
+```dart
 class Person(val firstName: str, val lastName: str)
   def fullName() = '$firstName $lastName'
   def lastFirst() = '$lastName, $firstName'
@@ -89,7 +89,7 @@ Usage: `lexie [options] ... [file]`, where `options` are:
 
 Running `so i` for the first time would also initialize a Python and JavaScript project/virtual environment at the same time.
 
-```coffee
+```dart
 import fs
 import fs.[writeFileSync: write]
 import .foo show Foo
@@ -266,7 +266,7 @@ Nova's JavaScript runtime uses Immutable.JS for its internal data structures.
 
 Everything is an expression!
 
-```coffee
+```dart
 var integer = type int | byte | short | nint | long
 var result = if a then 'hello' else 'bye'
 var file = match
@@ -304,7 +304,7 @@ Blocks are delimited by whitespaces, curly braces, or `then`-`end` blocks, as in
 
 For example:
 
-```coffee
+```dart
 // Python/Haskell style
 if 2 + 2 == 4
   doSomething()
@@ -331,20 +331,20 @@ Newlines can be used when delimiting statements on a single line. e
 
 You can omit parentheses when calling a function on a string:
 
-```coffee
+```dart
 print '' // same as print("")
 ```
 
 Comments are:
 
-```coffee
+```dart
 // from here to the end of the line.
 /* comments can be /* nested */. */
 ```
 
 Documentation comments begin with an extra slash or asterisk and compile specifically to JSDoc comments.
 
-```coffee
+```dart
 /// use these special comments
 /** to /** document */ your code. */
 ```
@@ -355,7 +355,7 @@ The file extension for Nova is `.le`.
 
 Defining functions is very lightweight in Nova:
 
-```coffee
+```dart
 (x, y) => x + y
 x = () => () // an empty function
 
@@ -369,7 +369,7 @@ As you see, function definitions are considerably shorter! You may also have not
 
 In Nova, almost In Nova, almost everything is an expression and the last one reached is automatically returned. However, you can still use `return` to force returns if you want, and you can add a bang `!` right after the arrow to suppress auto-returning:
 
-```coffee
+```dart
 noRet = x =>!
 ```
 
