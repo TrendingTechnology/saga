@@ -41,48 +41,6 @@ colors:
   quickInputList.focusBackground: '#e7e6e5'
   quickInputList.focusForeground: '#24292e'
 tokenColors:
-- scope: invalid
-  settings: {foreground: '#00846a'}
-- scope: invalid
-  settings: {foreground: '#3da800'}
-- scope: invalid
-  settings: {foreground: '#00a4bd'}
-- scope: invalid
-  settings: {foreground: '#00935f'}
-- scope: invalid
-  settings: {foreground: '#bb6800'}
-- scope: invalid
-  settings: {foreground: '#361998'}
-- scope: invalid
-  settings: {foreground: '#000f6d'}
-- scope: invalid
-  settings: {foreground: '#79002a'}
-- scope: invalid
-  settings: {foreground: '#8a0700'}
-- scope: invalid
-  settings: {foreground: '#4e9829'}
-- scope: invalid
-  settings: {foreground: '#007e97'}
-- scope: invalid
-  settings: {foreground: '#003980'}
-- scope: invalid
-  settings: {foreground: '#64375e'}
-- scope: invalid
-  settings: {foreground: '#7b0022'}
-- scope: invalid
-  settings: {foreground: '#00629d'}
-- scope: invalid
-  settings: {foreground: '#7da831'}
-- scope: invalid
-  settings: {foreground: '#965100'}
-- scope: invalid
-  settings: {foreground: '#009416'}
-- scope: invalid
-  settings: {foreground: '#955514'}
-- scope: invalid
-  settings: {foreground: '#00b787'}
-- scope: invalid
-  settings: {foreground: '#810046'}
 - scope: comment
   settings: {foreground: '#5a6b81'}
 - scope: string
@@ -976,7 +934,7 @@ tokenColors:
   - string.quoted.double
   settings: {foreground: '#5f8a00'}
 - scope: constant.other.symbol
-  settings: {foreground: '#ad2431'}
+  settings: {foreground: '#9e0000'}
 - scope: entity.other.inherited-class
   settings: {foreground: '#00aa79'}
 - scope: constant.language
@@ -984,9 +942,15 @@ tokenColors:
 - scope: constant.other.global
   settings: {foreground: '#2a713c'}
 - scope: constant.other.symbol
-  settings: {foreground: '#00399b'}
+  settings: {foreground: '#600086'}
 - scope: constant.other.spread
   settings: {foreground: '#00a4ab'}
+- scope: constant.other.decorator
+  settings: {foreground: '#0054a0'}
+- scope: constant.other.private
+  settings: {foreground: '#007870'}
+- scope: constant.other.instance
+  settings: {foreground: '#8d0047'}
 - scope: constant.other.variable
   settings: {foreground: '#7c0000'}
 - scope: string.quoted.single
@@ -1046,12 +1010,14 @@ tokenColors:
 - scope: punctuation.definition.group.no-capture
   settings: {foreground: '#584159'}
 - scope: punctuation.definition.italic
-  settings: {foreground: '#001289'}
+  settings: {foreground: '#bc6d00'}
 - scope: punctuation.definition.bold
-  settings: {foreground: '#0057a0'}
+  settings: {foreground: '#a40000'}
 - scope: punctuation.definition.variable
-  settings: {foreground: '#a55020'}
-- scope: punctuation.definition.directive
+  settings: {foreground: '#af0000'}
+- scope:
+  - punctuation.definition.directive
+  - punctuation.definition.decorator
   settings: {foreground: '#235d81'}
 - scope: punctuation.definition.key-value
   settings: {foreground: '#9e000d'}
@@ -1063,14 +1029,16 @@ tokenColors:
   settings: {foreground: '#860d7c'}
 - scope: punctuation.definition.anchor
   settings: {foreground: '#41917c'}
-- scope: punctuation.definition.spread
+- scope: punctuation.definition
   settings: {foreground: '#009db3'}
-- scope: punctuation.definition.global
+- scope: punctuation.definition
   settings: {foreground: '#5c7f4e'}
-- scope: punctuation.definition.symbol
-  settings: {foreground: '#af0000'}
-- scope: punctuation.definition.constant
+- scope: punctuation.definition
+  settings: {foreground: '#003589'}
+- scope: punctuation.definition
   settings: {foreground: '#a36200'}
+- scope: punctuation.definition
+  settings: {foreground: '#580086'}
 - scope: punctuation.definition.block.sequence.item
   settings: {foreground: '#003998'}
 - scope: punctuation.separator.key-value.mapping
@@ -1079,7 +1047,9 @@ tokenColors:
   settings: {foreground: '#1e7828'}
 - scope: punctuation.separator.sequence
   settings: {foreground: '#009582'}
-- scope: punctuation.quasi.element
+- scope:
+  - punctuation.quasi.element
+  - punctuation.definition.instance
   settings: {foreground: '#92001f'}
 - scope:
   - punctuation.section.class.begin
@@ -1087,8 +1057,6 @@ tokenColors:
   settings: {foreground: '#7a4727'}
 - scope: punctuation.decorator.internaldeclaration
   settings: {foreground: '#003998'}
-- scope: punctuation
-  settings: {foreground: '#b96400'}
 - scope: meta.switch keyword.operator
   settings: {foreground: '#2d8862'}
 - scope: punctuation.type
@@ -1590,7 +1558,7 @@ tokenColors:
 - scope: keyword.operator.suffix
   settings: {foreground: '#7d371a'}
 - scope: keyword.operator.infix
-  settings: {foreground: '#445366'}
+  settings: {foreground: '#465f71'}
 - scope: keyword.operator.callout
   settings: {foreground: '#0a7c99'}
 - scope: keyword.control.begin
@@ -1830,10 +1798,10 @@ tokenColors:
   settings: {foreground: '#00829d'}
 - scope: storage.type.property
   settings: {foreground: '#b20000'}
-- scope:
-  - support.function.builtin
-  - entity.name.function
+- scope: entity.name.function
   settings: {foreground: '#006ca5'}
+- scope: support.function.builtin
+  settings: {foreground: '#003998'}
 - scope: entity.name.function.method
   settings: {foreground: '#000083'}
 - scope: entity.name.tag
@@ -1919,214 +1887,6 @@ tokenColors:
   settings: {foreground: '#464f70'}
 - scope: storage.modifier.flag
   settings: {foreground: '#00a1aa'}
-- scope:
-  - entity.name.function.a
-  - entity.name.function.method.a
-  settings: {foreground: '#17a691'}
-- scope:
-  - entity.name.function.b
-  - entity.name.function.method.b
-  settings: {foreground: '#0094af'}
-- scope:
-  - entity.name.function.c
-  - entity.name.function.method.c
-  settings: {foreground: '#006097'}
-- scope:
-  - entity.name.function.d
-  - entity.name.function.method.d
-  settings: {foreground: '#009582'}
-- scope:
-  - entity.name.function.e
-  - entity.name.function.method.e
-  settings: {foreground: '#896325'}
-- scope:
-  - entity.name.function.f
-  - entity.name.function.method.f
-  settings: {foreground: '#1f6d3b'}
-- scope:
-  - entity.name.function.g
-  - entity.name.function.method.g
-  settings: {foreground: '#8a6423'}
-- scope:
-  - entity.name.function.h
-  - entity.name.function.method.h
-  settings: {foreground: '#1e2d70'}
-- scope:
-  - entity.name.function.i
-  - entity.name.function.method.i
-  settings: {foreground: '#17a691'}
-- scope:
-  - entity.name.function.j
-  - entity.name.function.method.j
-  settings: {foreground: '#388657'}
-- scope:
-  - entity.name.function.k
-  - entity.name.function.method.k
-  settings: {foreground: '#2f848f'}
-- scope:
-  - entity.name.function.l
-  - entity.name.function.method.l
-  settings: {foreground: '#a78700'}
-- scope:
-  - entity.name.function.m
-  - entity.name.function.method.m
-  settings: {foreground: '#1c3063'}
-- scope:
-  - entity.name.function.n
-  - entity.name.function.method.n
-  settings: {foreground: '#4f8c03'}
-- scope:
-  - entity.name.function.o
-  - entity.name.function.method.o
-  settings: {foreground: '#a02500'}
-- scope:
-  - entity.name.function.p
-  - entity.name.function.method.p
-  settings: {foreground: '#8e000f'}
-- scope:
-  - entity.name.function.q
-  - entity.name.function.method.q
-  settings: {foreground: '#002490'}
-- scope:
-  - entity.name.function.r
-  - entity.name.function.method.r
-  settings: {foreground: '#277e87'}
-- scope:
-  - entity.name.function.s
-  - entity.name.function.method.s
-  settings: {foreground: '#9a0022'}
-- scope:
-  - entity.name.function.t
-  - entity.name.function.method.t
-  settings: {foreground: '#310b80'}
-- scope:
-  - entity.name.function.u
-  - entity.name.function.method.u
-  settings: {foreground: '#836f2c'}
-- scope:
-  - entity.name.function.v
-  - entity.name.function.method.v
-  settings: {foreground: '#0061a2'}
-- scope:
-  - entity.name.function.w
-  - entity.name.function.method.w
-  settings: {foreground: '#003590'}
-- scope:
-  - entity.name.function.x
-  - entity.name.function.method.x
-  settings: {foreground: '#7d1673'}
-- scope:
-  - entity.name.function.y
-  - entity.name.function.method.y
-  settings: {foreground: '#004ca7'}
-- scope:
-  - entity.name.function.z
-  - entity.name.function.method.z
-  settings: {foreground: '#1b9d00'}
-- scope:
-  - entity.name.function.A
-  - entity.name.function.method.A
-  settings: {foreground: '#0052a1'}
-- scope:
-  - entity.name.function.B
-  - entity.name.function.method.B
-  settings: {foreground: '#997524'}
-- scope:
-  - entity.name.function.C
-  - entity.name.function.method.C
-  settings: {foreground: '#000370'}
-- scope:
-  - entity.name.function.D
-  - entity.name.function.method.D
-  settings: {foreground: '#2c506b'}
-- scope:
-  - entity.name.function.E
-  - entity.name.function.method.E
-  settings: {foreground: '#6d004c'}
-- scope:
-  - entity.name.function.F
-  - entity.name.function.method.F
-  settings: {foreground: '#846e39'}
-- scope:
-  - entity.name.function.G
-  - entity.name.function.method.G
-  settings: {foreground: '#a68200'}
-- scope:
-  - entity.name.function.H
-  - entity.name.function.method.H
-  settings: {foreground: '#528f02'}
-- scope:
-  - entity.name.function.I
-  - entity.name.function.method.I
-  settings: {foreground: '#00a48e'}
-- scope:
-  - entity.name.function.J
-  - entity.name.function.method.J
-  settings: {foreground: '#00a656'}
-- scope:
-  - entity.name.function.K
-  - entity.name.function.method.K
-  settings: {foreground: '#440076'}
-- scope:
-  - entity.name.function.L
-  - entity.name.function.method.L
-  settings: {foreground: '#00a9b6'}
-- scope:
-  - entity.name.function.M
-  - entity.name.function.method.M
-  settings: {foreground: '#950000'}
-- scope:
-  - entity.name.function.N
-  - entity.name.function.method.N
-  settings: {foreground: '#005c9b'}
-- scope:
-  - entity.name.function.O
-  - entity.name.function.method.O
-  settings: {foreground: '#00538a'}
-- scope:
-  - entity.name.function.P
-  - entity.name.function.method.P
-  settings: {foreground: '#a80002'}
-- scope:
-  - entity.name.function.Q
-  - entity.name.function.method.Q
-  settings: {foreground: '#297889'}
-- scope:
-  - entity.name.function.R
-  - entity.name.function.method.R
-  settings: {foreground: '#4c9e00'}
-- scope:
-  - entity.name.function.S
-  - entity.name.function.method.S
-  settings: {foreground: '#0075c5'}
-- scope:
-  - entity.name.function.T
-  - entity.name.function.method.T
-  settings: {foreground: '#001289'}
-- scope:
-  - entity.name.function.U
-  - entity.name.function.method.U
-  settings: {foreground: '#006097'}
-- scope:
-  - entity.name.function.V
-  - entity.name.function.method.V
-  settings: {foreground: '#8a5014'}
-- scope:
-  - entity.name.function.W
-  - entity.name.function.method.W
-  settings: {foreground: '#00b7b8'}
-- scope:
-  - entity.name.function.X
-  - entity.name.function.method.X
-  settings: {foreground: '#a82f00'}
-- scope:
-  - entity.name.function.Y
-  - entity.name.function.method.Y
-  settings: {foreground: '#2a713c'}
-- scope:
-  - entity.name.function.Z
-  - entity.name.function.method.Z
-  settings: {foreground: '#000370'}
 - scope: support.function.mutator
   settings: {foreground: '#00a9b6'}
 - scope: support.type.builtin.primitive
@@ -2270,6 +2030,216 @@ tokenColors:
   settings: {foreground: '#454e5a'}
 - scope: variable.other.index
   settings: {foreground: '#377065'}
+- scope:
+  - entity.name.function.a
+  - entity.name.function.method.a
+  settings: {foreground: '#17a691'}
+- scope:
+  - entity.name.function.b
+  - entity.name.function.method.b
+  settings: {foreground: '#0094af'}
+- scope:
+  - entity.name.function.c
+  - entity.name.function.method.c
+  settings: {foreground: '#006097'}
+- scope:
+  - entity.name.function.d
+  - entity.name.function.method.d
+  settings: {foreground: '#009582'}
+- scope:
+  - entity.name.function.e
+  - entity.name.function.method.e
+  settings: {foreground: '#896325'}
+- scope:
+  - entity.name.function.f
+  - entity.name.function.method.f
+  settings: {foreground: '#1f6d3b'}
+- scope:
+  - entity.name.function.g
+  - entity.name.function.method.g
+  settings: {foreground: '#8a6423'}
+- scope:
+  - entity.name.function.h
+  - entity.name.function.method.h
+  settings: {foreground: '#1e2d70'}
+- scope:
+  - entity.name.function.i
+  - entity.name.function.method.i
+  settings: {foreground: '#17a691'}
+- scope:
+  - entity.name.function.j
+  - entity.name.function.method.j
+  settings: {foreground: '#388657'}
+- scope:
+  - entity.name.function.k
+  - entity.name.function.method.k
+  settings: {foreground: '#2f848f'}
+- scope:
+  - entity.name.function.l
+  - entity.name.function.method.l
+  settings: {foreground: '#a78700'}
+- scope:
+  - entity.name.function.m
+  - entity.name.function.method.m
+  settings: {foreground: '#1c3063'}
+- scope:
+  - entity.name.function.n
+  - entity.name.function.method.n
+  settings: {foreground: '#4f8c03'}
+- scope:
+  - entity.name.function.o
+  - entity.name.function.method.o
+  settings: {foreground: '#a02500'}
+- scope:
+  - entity.name.function.p
+  - entity.name.function.method.p
+  settings: {foreground: '#8e000f'}
+- scope:
+  - entity.name.function.q
+  - entity.name.function.method.q
+  settings: {foreground: '#002490'}
+- scope:
+  - entity.name.function.r
+  - entity.name.function.method.r
+  settings: {foreground: '#277e87'}
+- scope:
+  - entity.name.function.s
+  - entity.name.function.method.s
+  settings: {foreground: '#9a0022'}
+- scope:
+  - entity.name.function.t
+  - entity.name.function.method.t
+  settings: {foreground: '#310b80'}
+- scope:
+  - entity.name.function.u
+  - entity.name.function.method.u
+  settings: {foreground: '#836f2c'}
+- scope:
+  - entity.name.function.v
+  - entity.name.function.method.v
+  settings: {foreground: '#0061a2'}
+- scope:
+  - entity.name.function.w
+  - entity.name.function.method.w
+  settings: {foreground: '#003590'}
+- scope:
+  - entity.name.function.x
+  - entity.name.function.method.x
+  settings: {foreground: '#7d1673'}
+- scope:
+  - entity.name.function.y
+  - entity.name.function.method.y
+  settings: {foreground: '#004ca7'}
+- scope:
+  - entity.name.function.z
+  - entity.name.function.method.z
+  settings: {foreground: '#00a656'}
+- scope:
+  - entity.name.function.A
+  - entity.name.function.method.A
+  settings: {foreground: '#0052a1'}
+- scope:
+  - entity.name.function.B
+  - entity.name.function.method.B
+  settings: {foreground: '#997524'}
+- scope:
+  - entity.name.function.C
+  - entity.name.function.method.C
+  settings: {foreground: '#000370'}
+- scope:
+  - entity.name.function.D
+  - entity.name.function.method.D
+  settings: {foreground: '#2c506b'}
+- scope:
+  - entity.name.function.E
+  - entity.name.function.method.E
+  settings: {foreground: '#6d004c'}
+- scope:
+  - entity.name.function.F
+  - entity.name.function.method.F
+  settings: {foreground: '#846e39'}
+- scope:
+  - entity.name.function.G
+  - entity.name.function.method.G
+  settings: {foreground: '#a68200'}
+- scope:
+  - entity.name.function.H
+  - entity.name.function.method.H
+  settings: {foreground: '#528f02'}
+- scope:
+  - entity.name.function.I
+  - entity.name.function.method.I
+  settings: {foreground: '#00a48e'}
+- scope:
+  - entity.name.function.J
+  - entity.name.function.method.J
+  settings: {foreground: '#00a656'}
+- scope:
+  - entity.name.function.K
+  - entity.name.function.method.K
+  settings: {foreground: '#440076'}
+- scope:
+  - entity.name.function.L
+  - entity.name.function.method.L
+  settings: {foreground: '#00a9b6'}
+- scope:
+  - entity.name.function.M
+  - entity.name.function.method.M
+  settings: {foreground: '#950000'}
+- scope:
+  - entity.name.function.N
+  - entity.name.function.method.N
+  settings: {foreground: '#005c9b'}
+- scope:
+  - entity.name.function.O
+  - entity.name.function.method.O
+  settings: {foreground: '#00538a'}
+- scope:
+  - entity.name.function.P
+  - entity.name.function.method.P
+  settings: {foreground: '#a80002'}
+- scope:
+  - entity.name.function.Q
+  - entity.name.function.method.Q
+  settings: {foreground: '#297889'}
+- scope:
+  - entity.name.function.R
+  - entity.name.function.method.R
+  settings: {foreground: '#4c9e00'}
+- scope:
+  - entity.name.function.S
+  - entity.name.function.method.S
+  settings: {foreground: '#0075c5'}
+- scope:
+  - entity.name.function.T
+  - entity.name.function.method.T
+  settings: {foreground: '#001289'}
+- scope:
+  - entity.name.function.U
+  - entity.name.function.method.U
+  settings: {foreground: '#006097'}
+- scope:
+  - entity.name.function.V
+  - entity.name.function.method.V
+  settings: {foreground: '#8a5014'}
+- scope:
+  - entity.name.function.W
+  - entity.name.function.method.W
+  settings: {foreground: '#00b7b8'}
+- scope:
+  - entity.name.function.X
+  - entity.name.function.method.X
+  settings: {foreground: '#a82f00'}
+- scope:
+  - entity.name.function.Y
+  - entity.name.function.method.Y
+  settings: {foreground: '#2a713c'}
+- scope:
+  - entity.name.function.Z
+  - entity.name.function.method.Z
+  settings: {foreground: '#000370'}
+- scope: punctuation
+  settings: {foreground: '#474845'}
 - scope:
   - variable
   - markup
