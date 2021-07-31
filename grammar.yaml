@@ -5258,7 +5258,7 @@ repository:
       patterns:
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: \s*+(address|age|altitude|ampm|android_id|animal|apple_token|areacode|avatar|bb_pin|birthday|bool|capitalize|cc|cc_type|cf|character|city|coin|color|company|coordinates|country|retry|cpf|currency|currency_pair|date|depth|dice|dollar|domain|email|euro|exp|exp_month|exp_year|falsy|fbid|first|floating|gender|geohash|google_analytics|guid|hammertime|hash|hashtag|hidden|hour|integer|ip|ipv6|klout|last|latitude|letter|locale|longitude|millisecond|minute|mixin|month|n|name|natural|normal|pad|paragraph|phone|pick|pickone|pickset|postal|postcode|prefix|prime|profession|province|radio|rpg|second|sentence|set|shuffle|ssn|state|street|string|suffix|syllable|timestamp|timezone|tld|tv|twitter|unique|url|weekday|weighted|word|wp7_anid|wp8_anid2|year|zip)\b
+      begin: \s*+(address|age|altitude|ampm|android_id|animal|apple_token|areacode|avatar|bb_pin|birthday|bool|capitalize|cc|cc_type|cf|character|city|coin|color|company|coordinates|country|cpf|currency|currency_pair|date|depth|dice|dollar|domain|email|euro|exp|exp_month|exp_year|falsy|fbid|first|floating|gender|geohash|google_analytics|guid|hammertime|hash|hashtag|hidden|hour|integer|ip|ipv6|klout|last|latitude|letter|locale|longitude|millisecond|minute|mixin|month|n|name|natural|normal|pad|paragraph|phone|pick|pickone|pickset|postal|postcode|prefix|prime|profession|province|radio|rpg|second|sentence|set|shuffle|ssn|state|street|string|suffix|syllable|timestamp|timezone|tld|tv|twitter|unique|url|weekday|weighted|word|wp7_anid|wp8_anid2|year|zip)\b
       end: (?=.)
       beginCaptures:
         1: {name: support.function.method.random.nyx}
@@ -5372,8 +5372,8 @@ repository:
           |DOMHighResTimeStamp|DOMImplementation|DOMString|DOMStringList|DOMStringMap|DOMTimeStamp|DOMTokenList|DataTransfer
           |DataTransferItem|DataTransferItemList|DedicatedWorkerGlobalScope|DelayNode|DeviceProximityEvent|DirectoryEntry
           |DirectoryEntrySync|DirectoryReader|DirectoryReaderSync|Document|DocumentFragment|DocumentTouch|DocumentType|DragEvent
-          |DynamicsCompressorNode|Element|Entry|retry|EntrySync|ErrorEvent|Event|EventListener|EventSource|EventTarget|FederatedCredential
-          |FetchEvent|File|FileEntry|retry|FileEntrySync|FileException|FileList|FileReader|FileReaderSync|FileSystem|FileSystemSync
+          |DynamicsCompressorNode|Element|Entry|EntrySync|ErrorEvent|Event|EventListener|EventSource|EventTarget|FederatedCredential
+          |FetchEvent|File|FileEntry|FileEntrySync|FileException|FileList|FileReader|FileReaderSync|FileSystem|FileSystemSync
           |FontFace|FormData|GainNode|Gamepad|GamepadButton|GamepadEvent|Geolocation|GlobalEventHandlers|HTMLAnchorElement
           |HTMLAreaElement|HTMLAudioElement|HTMLBRElement|HTMLBaseElement|HTMLBodyElement|HTMLButtonElement|HTMLCanvasElement
           |HTMLCollection|HTMLContentElement|HTMLDListElement|HTMLDataElement|HTMLDataListElement|HTMLDialogElement|HTMLDivElement
@@ -5395,7 +5395,7 @@ repository:
           |MutationObserver|MutationRecord|NamedNodeMap|Navigator|NavigatorConcurrentHardware|NavigatorGeolocation|NavigatorID
           |NavigatorLanguage|NavigatorOnLine|Node|NodeFilter|NodeIterator|NodeList|NonDocumentTypeChildNode|Notification
           |OfflineAudioCompletionEvent|OfflineAudioContext|OscillatorNode|PageTransitionEvent|PannerNode|ParentNode|PasswordCredential
-          |Path2D|PaymentAddress|PaymentRequest|PaymentResponse|Performance|PerformanceEntry|retry|PerformanceFrameTiming|PerformanceMark
+          |Path2D|PaymentAddress|PaymentRequest|PaymentResponse|Performance|PerformanceEntry|PerformanceFrameTiming|PerformanceMark
           |PerformanceMeasure|PerformanceNavigation|PerformanceNavigationTiming|PerformanceObserver|PerformanceObserverEntryList
           |PerformanceResourceTiming|PerformanceTiming|PeriodicSyncEvent|PeriodicWave|Plugin|Point|PointerEvent|PopStateEvent
           |PortCollection|Position|PositionError|PositionOptions|PresentationConnectionClosedEvent|PresentationConnectionList
@@ -5440,7 +5440,7 @@ repository:
     - match: |-
         (?x)(?<=\.)\s*\b (_content|[xyz]|abbr|above|accept|acceptCharset|accessKey|action|align|[av]Link(?:color)?|all|alt|anchors|appCodeName    |appCore|applets|appMinorVersion|appName|appVersion|archive|areas|arguments|attributes|availHeight|availLeft|availTop    |availWidth|axis|background|backgroundColor|backgroundImage|below|bgColor|body|border|borderBottomWidth|borderColor    |borderLeftWidth|borderRightWidth|borderStyle|borderTopWidth|borderWidth|bottom|bufferDepth|callee|caller|caption    |cellPadding|cells|cellSpacing|ch|characterSet|charset|checked|childNodes|chOff|cite|classes|className|clear    |clientInformation|clip|clipBoardData|closed|code|codeBase|codeType|color|colorDepth|cols|colSpan|compact|complete    |components|content|controllers|cookie|cookieEnabled|cords|cpuClass|crypto|current|data|dateTime|declare|defaultCharset    |defaultChecked|defaultSelected|defaultStatus|defaultValue|defaultView|defer|description|dialogArguments|dialogHeight
             |dialogLeft|dialogTop|dialogWidth|dir|directories|disabled|display|docmain|doctype|documentElement|elements|embeds
-            |enabledPlugin|encoding|enctype|entities|event|expando|redo|external|face|fgColor|filename|firstChild|fontFamily|fontSize
+            |enabledPlugin|encoding|enctype|entities|event|expando|external|face|fgColor|filename|firstChild|fontFamily|fontSize
             |fontWeight|form|formName|forms|frame|frameBorder|frameElement|frames|hasFocus|hash|headers|height|history|host
             |hostname|href|hreflang|hspace|htmlFor|httpEquiv|id|ids|ignoreCase|images|implementation|index|innerHeight|innerWidth
             |input|isMap|label|lang|language|lastChild|lastIndex|lastMatch|lastModified|lastParen|layer[sXY]|left|leftContext
