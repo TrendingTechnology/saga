@@ -5025,8 +5025,8 @@ repository:
       endCaptures:
         1: {name: punctuation.definition.string.end.nyx}
       patterns:
-        - include: '#function-operator'
-        - include: '#string-content'
+      - include: '#function-operator'
+      - include: '#string-content'
     - begin: (\&)([_\\\p{L}\p{M}\p{N}]+)
       end: (?=.)
       name: constant.other.variable.nyx
@@ -5097,7 +5097,6 @@ repository:
       patterns:
       - include: '#function-operator'
       - include: '#string-content'
-  
   special-comments-conditional-compilation:
     patterns:
     - begin: \s*+((/\*))(?=@)
