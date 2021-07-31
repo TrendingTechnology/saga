@@ -48,7 +48,7 @@ Nyx is inspired by many languages: Ruby and ReasonML (syntax), Scala and Haskell
 #### Fluff
 
 - Nyx adheres to Semantic Versioning (semver).
-- All of its versions are named like Warframe updates, where the _fictitious_ word is named after a programming language or framework. "Plains of Rubiya" would be the first.
+- All of its versions start with an adjective, and a random gem name, like Scrumptuous Sapphire. 
 
 ## Roadmap
 
@@ -419,7 +419,7 @@ Identifiers begin with a letter, an underscore or backslash, followed by any of 
 var _set\\_() = 10
 ```
 
-Identifiers are compared using their first character. All other remaining characters are normalized into ASCII (which is complicated), ignoring all case and delimiters `_` and `\`. 
+Identifiers are compared using their first character. All other remaining characters are normalized into ASCII (which is complicated), ignoring all case and delimiters `_` and `\`.
 
 ```coffee
 trait Ident
