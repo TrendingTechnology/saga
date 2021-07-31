@@ -5488,7 +5488,7 @@ repository:
           (?<![&^%*|@\#$.]) \s*+ \b(
             bool | bytearray | bytes | classmethod | complex | dict
             | float | frozenset | int | list | object | property
-           | slice | staticmethod | str | tuple | type
+            | slice | staticmethod | str | tuple | type
             (?# Although 'super' is not a type, it's related to types,
                 and is special enough to be highlighted differently from
                 other built-ins)
@@ -5497,7 +5497,7 @@ repository:
       name: support.type.primitive.nyx
     - match: |-
         (?x)
-         \s*+ \b(
+          \s*+ \b(
             _*(?:
               abs | add | aenter | aexit | aiter | and | anext | await
               | bool | call | ceil | cmp | coerce | complex | contains
@@ -5523,15 +5523,15 @@ repository:
         1: {name: support.function.magic.nyx}
     - match: |-
         (?x)
-         \s*+ \b(
-            __(?:
+          \s*+ \b(
+            _*(?:
               all | bases | builtins | class | class_getitem | code | debug
               | defaults | dict | doc | file | func | kwdefaults | members
               | metaclass | methods | module | mro | mro_entries | name
               | qualname | post_init | self | signature | slots | subclasses
               | version | weakref | wrapped | annotations | classcell
               | spec | path | package | future | traceback
-            )__
+            )_*
           )\b
       captures:
         1: {name: support.variable.magic.nyx}
