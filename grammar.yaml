@@ -5975,21 +5975,6 @@ repository:
     - include: '#typed-variable'
   typed-parse-array:
     patterns:
-    - begin: (?<!=|[_\\\p{L}\p{M}\p{N}])\s*+(#\[)
-      end: \s*(\])
-      beginCaptures:
-        1: {name: meta.brace.square.open.nyx}
-      endCaptures:
-        1: {name: meta.brace.square.end.nyx}
-      patterns:
-      - applyEndPatternLast: 1
-        begin: \s*(?=[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*\s*[=:])
-        end: (?=.)
-        patterns:
-        - include: '#typed-variable'
-        - include: '#typed-parse-types'
-      - include: '#typed-parse-types'
-      - include: '#typed-variable'
     - begin: (?<!=|[_\\\p{L}\p{M}\p{N}])\s*+(\[)
       end: \s*(\])
       beginCaptures:
@@ -6007,16 +5992,6 @@ repository:
       - include: '#typed-variable'
   typed-parse-objects:
     patterns:
-    - applyEndPatternLast: 1
-      begin: (?<=:|\||&|\?|=>|<|\()\s*+(\#{)
-      end: \s*(\})
-      name: meta.object.nyx
-      beginCaptures:
-        1: {name: meta.brace.curly.open.nyx}
-      endCaptures:
-        1: {name: meta.brace.curly.close.nyx}
-      patterns:
-      - include: '#typed-object-property'
     - applyEndPatternLast: 1
       begin: (?<=:|\||&|\?|=>|<|\()\s*+({)
       end: \s*(\})
