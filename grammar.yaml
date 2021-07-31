@@ -4851,35 +4851,35 @@ repository:
         1: {name: punctuation.terminator.statement.nyx}
   sigils:
     patterns:
-    - match: (?<=[&^%*|@#$]*)(\^)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\^)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.symbol.nyx}
         2: {name: constant.other.symbol.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\&)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\&)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.variable.nyx}
         2: {name: constant.other.variable.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\%)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\%)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.global.nyx}
         2: {name: constant.other.global.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\*)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\*)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.spread.nyx}
         2: {name: constant.other.spread.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\|)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\|)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.constant.nyx}
         2: {name: constant.language.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\@)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\@)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.decorator.nyx}
         2: {name: constant.other.decorator.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.private.nyx}
         2: {name: constant.other.private.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: (?<=[&^%*|@#$]*)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
       captures:
         1: {name: punctuation.defintion.instance.nyx}
         2: {name: constant.other.instance.nyx, patterns: [{include: '#function-other'}]}
