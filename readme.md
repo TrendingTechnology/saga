@@ -15,8 +15,8 @@ class Person(val firstName: str, val lastName: str)
 
 module Utils
   def truncEllipsis(s: str, maxLen: int): str
-    if s == nil || len s == 0 || maxLen == 0 then ''
-    elif len s > maxLen then s.take(maxLen) ++ '...'
+    if s == nil || len s == 0 || maxLen == 0 -> ''
+    elif len s > maxLen -> s.take(maxLen) ++ '...'
     else s
   def truncate(s: str, len: int): str = s.take(#len)
 
@@ -130,22 +130,23 @@ for val x in val arr = 1 to 10 if x < 10
   print(x += 10)
 ```
 
-Outside string ltierals, each block is
+Outside string literals, even a single space is counted as a indentation. All blocks should share the same indentation as to otherwise not throw errors. Tabs are converted into spaces before parsing.
 
 ```dart
 for val [text_batch, label_batch] in train_ds.take(1)
   for val i in range(3)
-    print(f'Review: ${text_batch.numpy()[i]}')
-    label = label_batch.numpy()[i]
-    print(f'Label : ${label} ({class_names[label]})')
+      print(f'Review: ${text_batch.numpy()[i]}')
+      val #label = label_batch.numpy()[i]
+      print(f'Label : $label (${class_names[#label]})')
 ```
 
-In Nyx, comments are denoted by the `//` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments begin with an extra character and compile specifically to JSDoc comments.
+#### Comments
+
+Comments are denoted by the `//` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments `///` and `/** */` begin with an extra character and compile specifically to JSDoc comments.
 
 ```dart
 // from here to the end of the line.
 /* comments can be /* nested */. */
-
 /// use these special comments
 /** to /** document */ your code. */
 ```
@@ -153,6 +154,71 @@ In Nyx, comments are denoted by the `//` sequence to the end of a line, or from 
 Everything is an expression\*.
 
 Except commands like `assert`, `break`/`halt`, `continue`/`skip`, `fallthru`, `return`, `yield`, `throw` and more. They can still be included as part of expressions, but once evaluated, return nothing.
+
+### Variables
+
+All variables must be declared with either the `var` or `val` keyword. `var` declares a variable which can be reassigned, while `val` declares one which does not.
+
+Do take note, variables can be shadowed (redeclared) even _on the same scope_, as shown below, and the declaration you refer to is whichever is closest upward and innermost.
+
+```dart
+val x = 1 + 1
+print(x) // 2
+
+x = 3 // This does not compile.
+
+var x = 1 + 1
+x = 3 // This does
+```
+
+The `var`/`val` keywords help determine whether to shadow or keep the definitions or overshadow the existing declaration with that name.
+
+Also, the hash sign `#` does not delimit comments, but rather help distinguish identifiers from keywords.
+
+```dart
+val v = 20
+for val v in 1..=10 // this v creates a new scoped variable
+  print(v) // prints the numbers 1 to 10
+print(v) // v is still 20
+```
+
+The type of a value can be omitted and inferred, or it can be explicitly stated. The **colon `:`** is compulsory and is used to declare type annotations throughout your source code. All values have the same type throughout their lifetime, unless their type declaration says otherwise.
+
+```dart
+val x: int = 1 + 1
+```
+
+Hoisted constants are declared with `let` or `con`.
+
+### Identifiers
+
+Identifiers begin with a letter, an underscore or backslash, followed by any of those characters or digits. For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
+
+```dart
+var _set\\_() = 10
+```
+
+A hash sign is used to suppress their meaning. This is known as _stropping_.
+
+```dart
+var #var = 'Happy stropping'
+var #type = alias [int, int]
+
+var #object = new #type(&int = 9)
+assert #object is #type
+assert #object.int == 9
+
+var #assert = true
+assert #assert
+```
+
+Identifiers can also be in quotes.
+
+```dart
+val #'x\n\
+x' = 10
+print(#'x\nx') // 10
+```
 
 ### Keywords
 
@@ -209,7 +275,7 @@ trait
 val var
 ```
 
-Modifiers prefix a declaration. For example, `pub dyn def init()` which declares a public dynamic method named `init`.
+**Modifiers** prefix a declaration. For example, `pub dyn def init()` which declares a public dynamic method named `init`.
 
 ```
 abs async
@@ -232,32 +298,6 @@ ternary trans
 unary uncheck unique unsafe unsign unsize
 vol
 ```
-
-### Variables
-
-All variables must be declared with either the `var` or `val` keyword. `var` is used for The type of a variable or value can be omitted and inferred, or it can be explicitly stated:
-
-```dart
-val x = 1 + 1
-print(x) // 2
-
-x = 3 // This does not compile.
-
-var x = 1 + 1
-x = 3 // This does
-```
-
-```
-
-```
-
-The type of a value can be omitted and inferred, or it can be explicitly stated:
-
-```dart
-val x: Int = 1 + 1
-```
-
-Hoisted constants are declared with `let` or `con`.
 
 ### Defining Functions
 
