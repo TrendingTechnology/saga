@@ -656,8 +656,12 @@ tokenColors:
   settings: {foreground: '#819aff'}
 - scope: punctuation.definition.parameters
   settings: {foreground: '#ff5459'}
+- scope: punctuation.definition.global
+  settings: {foreground: '#35ad68'}
+- scope: punctuation.definition.spread
+  settings: {foreground: '#25b0bc'}
 - scope: punctuation.definition.string
-  settings: {foreground: '#3ad900'}
+  settings: {foreground: '#008b94'}
 - scope: punctuation.definition.group.no-capture
   settings: {foreground: '#ad99ae'}
 - scope: punctuation.definition.italic
@@ -1177,7 +1181,9 @@ tokenColors:
   - keyword.operator.spread
   - keyword.operator.rest
   settings: {foreground: '#50fa7b'}
-- scope: keyword.operator.private
+- scope:
+  - keyword.operator.private
+  - punctuation.definition.private
   settings: {foreground: '#3ab795'}
 - scope: keyword.operator.nullcoalesce
   settings: {foreground: '#b877db'}
