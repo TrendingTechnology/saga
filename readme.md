@@ -1,6 +1,6 @@
 # **Nyx**
 
-> The programming language for the future, perhaps.
+> "The programming language for the future", perhaps; or _that's_ how everyone would call the next hottest programming language.
 
 With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nyx offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
 
@@ -8,7 +8,7 @@ Nyx comes with a lightning fast compiler that scales to any codebase size, and i
 
 > Sample Code
 
-```dart
+```coffee
 class Person(val firstName: str, val lastName: str)
   def fullName() = '$firstName $lastName'
   def lastFirst() = '$lastName, $firstName'
@@ -31,30 +31,161 @@ print(Utils.truncate(p.firstName, 2))
 
 ## Background
 
-A lot of developers seem to either love or hate JavaScript because of its very nature. The language had received tons of backlash for tons of reasons. Take weak typing for example. Sometimes JavaScript would silently convert a value in one type in order to make the operation work, but most of the time that would introduce bugs that we would not notice, and only realize it when it's very late.
+> A lot of this content is spewed from personal research.
 
-The NPM ecosystem is dependency-heavy. Shipping JavaScript projects inevitably drags in a lot of code, lots of which the project does not actually use, and is laying dormant, resulting in an application that is normally gigabytes in size when the project code is only tens or hundreds of megabytes. That calls for a lot of new languages, such as TypeScript, ReScript, Scala.js, Elm, PureScript, and countless others, all relying on other ecosystems besides JavaScript to compile their code into JavaScript.
+A lot of developers seem to either love or hate JavaScript, and the extremes are more pronounced when compared to other programming language. Take weak typing for example. Sometimes JavaScript would silently convert a value in one type in order to make the operation work, but that would only create bugs and problems we won't see until it's too late.
+
+The NPM ecosystem is astronomically reliant on dependencies. People often complain that their JS projects are gigabytes in size, most of which is either boilerplate or dead code. Tons of projects rely on one-liner projects, resulting in them crumbling down whever something absurd happens, something rarely seen in other programming languages.
+
+Will that call for a change? Are we taking a step into a new direction?
 
 Many of us realized how can we fix this without having to worry about this madness? One to take note here, when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
 
 ## What is Nyx, exactly?
 
-Nyx is a language with a simple and succinct syntax like Ruby, the flexibility of F# and Scala, the performance of C# and Haskell, and the versatility of Python and JavaScript. Nyx targets the JavaScript and Python runtimes, which means you can use Nyx on mobile, desktop, the web, the cloud, the server, and more. And always the latest, so you're never missing out.
+Nyx is inspired by many languages: Ruby and ReasonML (syntax), Scala and Haskell (concept), C# (runtime performance), and most importantly, Python and JavaScript (versatility). Nyx targets both the Python and JavaScript ecosystems and their runtimes, which opens new possibilities while combining the best features from both languages.
+
+#### Fluff
+
+- Nyx adheres to Semantic Versioning (semver).
+- All of its versions are named like Warframe updates, where the _fictitious_ word is named after a programming language or framework. "Plains of Rubiya" would be the first.
 
 ## Roadmap
 
-This document serves as a quick and informative guide for existing JavaScript developers, and also as a cheat sheet to all (or most) of Nyx's language features. Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
+This document is a quick and informative guide targeted at existing JavaScript developers and those interested in learning a completely new and in-progress programming language, and those looking forward to contribute to this document.
 
-- [ ] Documentation & Wiki
+Should you feel something needs to be corrected, feel free to make a pull request. I'm only a single person, so I'm looking forward to complete the documentation and language reference, so I can get started with coding the compiler.
+
+Things to do before **Version 1.0.0**
+
+- [ ] Syntax concepts
 - [x] Syntax highlighting and theme (constantly being updated)
-- [ ] Language reference
-- [ ] Parser and compiler
+- [ ] Language reference (does Nyx need)
+- [ ] Compiler and Pretty-Printer
 - [ ] Package manager
 - [ ] Standard library
-- [ ] Editor support (Visual Studio Code)
+- [ ] Editor support (VS Code, Atom, Eclipse, Sublime, Nova\*)
 - [ ] Logo and online documentation website
 
 \*Backus-Naur Form (BNF): https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+
+### Contents
+
+1.  An Introduction
+2.  Installation
+3.  Overview
+4.  The Basics
+    - Your First Program
+    - Code Structure
+    - Comments
+    - Embedding Raw Code
+5.  Variables
+    - `var` and `val`
+    - Destructuring
+6.  Data Types
+    - the Type System
+    - Booleans `bool`
+    - Integers and Floats
+      - Arithmetic and Bitwise Operations
+    - Strings `str`
+      - String Operations
+      - Template Strings
+      - Basic and Extended Slicing
+      - Regular Expressions
+    - Data Structures
+      - Lists (Arrays)
+      - Sets and Maps
+      - Immutable Collections
+      - Destructuring
+    - Regular Expressions
+      - Block Regexes
+      - Syntax Reference
+7.  Control Flow and Operators
+    - Code Blocks
+    - Decision Making
+    - Loops and Comprehensions
+      - For Loops
+      - The While Family
+      - Control Transfer Statements
+    - Queries
+    - Switch, Debunked
+    - Pattern Matching
+    - Errors
+8.  Functions
+    - An Introduction to FP
+    - Named and Anonymous Functions
+    - Recursive Functions
+    - Piping and Composition
+    - Currying
+    - Generators
+9.  Classes
+    - An Introduction to OOP
+    - Constructors
+    - Methods and Attributes
+    - Modifiers
+    - Getters and Setters
+    - Traits and Extensions
+    - Objects and Records
+10. Modules
+    - Imports and Exports
+    - Using Node Modules
+    - The Module System
+    - Namespaces vs Modules
+11. Concurrency
+    - Callbacks
+    - Promises
+    - The Sequence and Parallel Blocks
+12. Types
+    - `any`, `mixed` and `empty`
+    - Typed Aliases
+    - Literal Types
+    - Type Operators
+    - Data Structures
+    - Interfaces
+13. Advanced Topics
+    - Types
+      - Enumerations
+      - Fragments
+      - Constraints
+      - Recursive Types
+    - Math
+    - Domain-Specific Extensions
+      - Custom Operators
+      - Custom Blocks
+      - Macros and Procedures
+    - Advanced Regex
+      - Regex Operations
+      - Text Processing
+    - Date and Time
+    - The File System
+    - JSX, CSS and GraphQL
+14. The Standard Library - A Tour
+    - Test-Driven Development
+    - File System and I/O
+    - Serialization
+    - Collections
+    - Text Processing
+    - Internationalization
+    - Natural Language Processing
+    - Machine Learning\*
+    - Mathematical Computing
+    - Cryptography
+    - Science\*
+    - Data Analysis\*
+    - Reactive Programming
+    - Asynchronous Programming
+    - Functional Programming
+    - Object-Oriented Programming
+    - Markup and Styling
+    - Web APIs
+    - Domain-Specific Language Extensions
+15. Appendix
+    - References
+      - Operators & Precedence
+      - Regular Expressions
+      - Format Language Specification
+      - J-expressions
+      - Keywords, Declarations and Modifiers
 
 ### Installation and Architecture
 
@@ -64,13 +195,14 @@ Usage: `nyx [options] ... [file]`, where `options` are:
 
 | Option | Alias | Description |
 | --- | --- | --- |
-| `ver`, `version` | `v` | Displays version |
+| `ver`, `version` | `v` | Displays the version of Nyx. |
 | `help` | `h` | Display this help message |
-| `init`, `start` | `s` | Start a project |
-| `add`, `install` | `i` | Install JavaScript modules from NPM |
+| `init`, `start` | `s` | Start and initiate your repository |
+| `add` | `i` | Install JavaScript modules from NPM |
 | `del` | `r` | Remove NPM modules |
-| `update` | `u` | Update NPM modules |
-| `build` | `b` | Compile |
+| `up` | `u` | Update NPM modules |
+| `build` | `b` | Compile and build your project |
+| `serve` | `s` | Run your project |
 | `list` | `l` | List all installed packages |
 | `trans` | `t` | Pipe the compiled output through Babel |
 | `map` | `m` | Generate source maps and include in the compiled output |
@@ -88,7 +220,7 @@ The following are used for debugging the compiler:
 | `tokens` | Lex, and print the token stream         |
 | `nodes`  | Lex, parse and print the compiled tree. |
 
-```dart
+```coffee
 import fs
 import fs.[writeFileSync: write]
 import .foo show Foo
@@ -99,15 +231,19 @@ import ./dir/'module' show R, S, T
 
 ## A Tour of Nyx
 
-> #### Do take note:
->
-> This document is an informal reference for Nyx meant as an aid for future programmers, particularly for existing Python, JavaScript, Haskell and Ruby developers, and is structured in a way so you can read it from top to bottom. Further topics use syntax previously introduced.
->
-> This is not a flat-out tutorial to the language, but something which you would consult when you have questions. If you feel something is not right and needs correction, feel free to submit a pull request with the changes and I would gladly accept them.
+#### Do take note:
+
+This document is an informal reference for Nyx meant as an aid for future programmers, particularly for existing Python, JavaScript, Haskell and Ruby developers, and is structured in a way so you can read it from top to bottom. Further topics use syntax previously introduced.
+
+This is not a flat-out tutorial to the language, but something which you would consult when you have questions. If you feel something is not right and needs correction, feel free to submit a pull request with the changes and I would gladly accept them.
+
+---
+
+Except commands like `assert`, `break`/`halt`, `continue`/`skip`, `fallthru`, `return`, `yield`, `throw` and more. They can still be included as part of expressions, but once evaluated, return nothing.
 
 Blocks are delimited by indentation, curly braces, or Ruby-style `then`-`end` blocks. Curly braces are mainly used in case you want to compile Nyx into a more compact form.
 
-```dart
+```coffee
 // Python/Haskell style
 if true
   run()
@@ -130,101 +266,30 @@ for val x in val arr = 1 to 10 if x < 10
   print(x += 10)
 ```
 
-Outside string literals, even a single space is counted as a indentation. All blocks should share the same indentation as to otherwise not throw errors. Tabs are converted into spaces before parsing.
+Outside string literals, even a single space is counted as an indentation. All blocks are to share the same indent level as to otherwise not throw errors. All tabs outside string literals are converted into spaces before parsing.
 
-```dart
-for val [text_batch, label_batch] in train_ds.take(1)
-  for val i in range(3)
-      print(f'Review: ${text_batch.numpy()[i]}')
-      val #label = label_batch.numpy()[i]
-      print(f'Label : $label (${class_names[#label]})')
-```
+```coffee
+import spacy
 
-#### Comments
+// Load English tokenizer, tagger, parser and NER
+nlp = spacy.load("en_core_web_sm")
 
-Comments are denoted by the `//` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments `///` and `/** */` begin with an extra character and compile specifically to JSDoc comments.
+// Analyze syntax
+print("Noun phrases:", [for let chunk in doc.nounChunks
+  chunk.text])
+print("Verbs:", [for let token in doc
+  if token.pos == "VERB" then token.lemma])
 
-```dart
-// from here to the end of the line.
-/* comments can be /* nested */. */
-/// use these special comments
-/** to /** document */ your code. */
-```
-
-Everything is an expression\*.
-
-Except commands like `assert`, `break`/`halt`, `continue`/`skip`, `fallthru`, `return`, `yield`, `throw` and more. They can still be included as part of expressions, but once evaluated, return nothing.
-
-### Variables
-
-All variables must be declared with either the `var` or `val` keyword. `var` declares a variable which can be reassigned, while `val` declares one which does not.
-
-Do take note, variables can be shadowed (redeclared) even _on the same scope_, as shown below, and the declaration you refer to is whichever is closest upward and innermost.
-
-```dart
-val x = 1 + 1
-print(x) // 2
-
-x = 3 // This does not compile.
-
-var x = 1 + 1
-x = 3 // This does
-```
-
-The `var`/`val` keywords help determine whether to shadow or keep the definitions or overshadow the existing declaration with that name.
-
-Also, the hash sign `#` does not delimit comments, but rather help distinguish identifiers from keywords.
-
-```dart
-val v = 20
-for val v in 1..=10 // this v creates a new scoped variable
-  print(v) // prints the numbers 1 to 10
-print(v) // v is still 20
-```
-
-The type of a value can be omitted and inferred, or it can be explicitly stated. The **colon `:`** is compulsory and is used to declare type annotations throughout your source code. All values have the same type throughout their lifetime, unless their type declaration says otherwise.
-
-```dart
-val x: int = 1 + 1
-```
-
-Hoisted constants are declared with `let` or `con`.
-
-### Identifiers
-
-Identifiers begin with a letter, an underscore or backslash, followed by any of those characters or digits. For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
-
-```dart
-var _set\\_() = 10
-```
-
-A hash sign is used to suppress their meaning. This is known as _stropping_.
-
-```dart
-var #var = 'Happy stropping'
-var #type = alias [int, int]
-
-var #object = new #type(&int = 9)
-assert #object is #type
-assert #object.int == 9
-
-var #assert = true
-assert #assert
-```
-
-Identifiers can also be in quotes.
-
-```dart
-val #'x\n\
-x' = 10
-print(#'x\nx') // 10
+// Find named entities, phrases and concepts
+for entity in doc.ents
+  print(entity.text, entity.label_)
 ```
 
 ### Keywords
 
-A number of keywords are reserved in Nyx.
+A number of keywords are reserved in Nyx. You should probably be aware most of these are common in other programming languages, though a few are new and foreign to you, such as `out`, `eless`, `into`, `len` or `seq`. More on that later.
 
-Some keywords and modifiers are unused; they are reserved for future developments of the language. Keywords formed as part of query (`where`, `group`, `where`, `select` `scan`, `take`, `drop`, `fold`) and module (`show`, `hide`) start a clause.
+None of these keywords are unused. Do take note `def` is both used to declare functions, and also is used as a short form for `default`.
 
 ```
 as assert await
@@ -241,7 +306,7 @@ key
 label len
 match
 name new
-of order out
+of order onto out
 pass
 query
 raise redo repeat rescue return
@@ -275,7 +340,7 @@ trait
 val var
 ```
 
-**Modifiers** prefix a declaration. For example, `pub dyn def init()` which declares a public dynamic method named `init`.
+**Modifiers** prefix a declaration. For example, `pub stat def init()` which declares a static public method named `init`. Modifiers can be ordered, so long as the last one is a declaration keyword.
 
 ```
 abs async
@@ -299,11 +364,95 @@ unary uncheck unique unsafe unsign unsize
 vol
 ```
 
+#### Comments
+
+Comments are denoted by the `//` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments `///` and `/** */` begin with an extra character and compile specifically to JSDoc comments.
+
+This might somehow break syntax highlighting.
+
+```coffee
+// from here to the end of the line.
+/* comments can be /* nested */. */
+/// use these special comments
+/** to /** document */ your code. */
+```
+
+### Variables
+
+All variables must be declared with either the `var` or `val` keyword. `var` declares a variable which can be reassigned, while `val` declares one which does not.
+
+Do take note, variables can be shadowed (redeclared) even _on the same scope_, as shown below, and the declaration you refer to is whichever is innermost and closest upward.
+
+```coffee
+val x = 1 + 1
+print(x) // 2
+x = 3 // This does not compile.
+
+var x = 1 + 1
+x = 3 // This does
+```
+
+The `var`/`val` keywords help determine whether to shadow or keep the definitions or overshadow the existing declaration with that name.
+
+Also, the hash sign `#` does not delimit comments, but rather help distinguish identifiers from keywords.
+
+```coffee
+val v = 5
+for val v in 1..=3 // v is local
+  print(v) // v is 1, 2, 3
+print(v) // v is still 20
+```
+
+The type of a value can be omitted and inferred, or it can be explicitly stated. The **colon `:`** is compulsory and is used to declare type annotations throughout your source code. All values have the same type throughout their lifetime, unless their type declaration says otherwise.
+
+```coffee
+val x: int = 1 + 1
+```
+
+Hoisted constants are declared with `let` or `con`.
+
+### Identifiers
+
+Identifiers begin with a letter, an underscore or backslash, followed by any of those characters or digits. For example, `foo`, `\_bar4`, `qux\`, and `_set\\_` are valid regular identifiers.
+
+```coffee
+var _set\\_() = 10
+```
+
+Identifiers are compared using their first character. All other remaining characters are normalized into ASCII (which is complicated), ignoring all case and delimiters `_` and `\`. 
+
+```coffee
+trait Ident
+  def ==(x: )
+```
+
+A hash sign is used to suppress their meaning. This is known as _stropping_.
+
+```coffee
+var #var = 'Happy stropping'
+var #type = alias [int, int]
+
+var #object = new #type(&int = 9)
+assert #object is #type
+assert #object.int == 9
+
+var #assert = true
+assert #assert
+```
+
+Identifiers can also be in quotes.
+
+```coffee
+val #'x\n\
+x' = 10
+print(#'x\nx') // 10
+```
+
 ### Defining Functions
 
 Use the `def` keyword to define functions. Alternatively, use the ES6 fat arrow. Defining functions is very lightweight in Nyx:
 
-```dart
+```coffee
 (x, y) => x + y // an inline function
 x = () => () // an empty function
 
@@ -317,7 +466,7 @@ As you see, function definitions are considerably shorter! You may also have not
 
 In Nyx, almost In Nyx, almost everything is an expression and the last one reached is automatically returned. However, you can still use `return` to force returns if you want, and you can add a bang `!` right after the arrow to suppress auto-returning:
 
-```dart
+```coffee
 noRet = x =>!
 ```
 
