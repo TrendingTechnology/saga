@@ -1,5 +1,5 @@
 type: dark
-name: Nova
+name: Nyx
 $schema: vscode://schemas/color-theme
 colors:
   activityBar.background: '#21232b'
@@ -583,11 +583,11 @@ tokenColors:
 - scope: string.quoted.single
   settings: {foreground: '#82f0a6'}
 - scope: string.unquoted.plain.out
-  settings: {foreground: '#8bdbe9'}
+  settings: {foreground: '#7fdbca'}
 - scope: string.unquoted.block
-  settings: {foreground: '#fdd75a'}
+  settings: {foreground: '#57cdff'}
 - scope: string.unquoted.plain.in
-  settings: {foreground: '#f6bbe5'}
+  settings: {foreground: '#cdb6de'}
 - scope: entity.other.inherited-class
   settings: {foreground: '#17c984'}
 - scope: constant.language
@@ -1890,7 +1890,7 @@ tokenColors:
   - entity.name.function.method.Z
   settings: {foreground: '#a599e9'}
 - scope: punctuation
-  settings: {foreground: '#aeafad'}
+  settings: {foreground: '#8d99ae'}
 - scope:
   - variable
   - markup
