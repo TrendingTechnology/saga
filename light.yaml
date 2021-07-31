@@ -1,5 +1,5 @@
 type: light
-name: Nova
+name: Nyx
 $schema: vscode://schemas/color-theme
 colors:
   focusBorder: '#fafbfc'
@@ -499,11 +499,11 @@ tokenColors:
 - scope: string.quoted.single
   settings: {foreground: '#008624'}
 - scope: string.unquoted.plain.out
-  settings: {foreground: '#006a7c'}
+  settings: {foreground: '#00806b'}
 - scope: string.unquoted.block
-  settings: {foreground: '#a97e00'}
+  settings: {foreground: '#0072b0'}
 - scope: string.unquoted.plain.in
-  settings: {foreground: '#8a2b6b'}
+  settings: {foreground: '#381851'}
 - scope: entity.other.inherited-class
   settings: {foreground: '#00aa79'}
 - scope: constant.language
@@ -1806,7 +1806,7 @@ tokenColors:
   - entity.name.function.method.Z
   settings: {foreground: '#000370'}
 - scope: punctuation
-  settings: {foreground: '#474845'}
+  settings: {foreground: '#3c4b64'}
 - scope:
   - variable
   - markup
