@@ -1,7 +1,7 @@
 firstLineMatch: ^#!\s*/.*\b(nyx)$\n?
 foldingEndMarker: (\*/|\}|\))
 foldingStartMarker: (/\*|{|\()
-info-for-contributors: >-
+info-for-contributors: |-
   This file is a fork of the Babel JavaScript TextMate grammar and features many
     customizations for a language called Nyx, yet another JavaScript-based language.
     This file is constantly regenerated with a custom build pipeline.
@@ -11,30 +11,26 @@ info-for-contributors: >-
 name: Nyx
 scopeName: source.dart
 bugfixes:
-  - Functions and methods are scoped to their initial starting letter, in the
-    meantime, until the StdLib is out.
-  - Fixed operator parsing in JSX and regex literals. Inline regexes should
-    wherever possible be spaced out on both sides. This is intentional.
+- Functions and methods are scoped to their initial starting letter, in the meantime, until the StdLib is out.
+- Fixed operator parsing in JSX and regex literals. Inline regexes should wherever possible be spaced out on both sides. This is intentional.
 bugs:
-  - Find out how to escape keyword-like identifiers with a trailing backslash -
-    repeat\ for example.
+- Find out how to escape keyword-like identifiers with a trailing backslash - repeat\ for example.
 changes:
-  - Added block regexes, raw string literals and more
-  - Identifiers can now include `\`.
-  - Revamped keywords and operators.
-  - Numeric literals support every possible even base except 14, as well as
-    extended numeric notation for all bases.
-  - All operators are colored differently based on their type.
-  - Added some indented language support, such as YAML, HAML, Pug and Stylus.
-  - Added indentation. Removed inline GraphQL and CSS style blocks.
+- Added block regexes, raw string literals and more
+- Identifiers can now include `\`.
+- Revamped keywords and operators.
+- Numeric literals support every possible even base except 14, as well as extended numeric notation for all bases.
+- All operators are colored differently based on their type.
+- Added some indented language support, such as YAML, HAML, Pug and Stylus.
+- Added indentation. Removed inline GraphQL and CSS style blocks.
 fileTypes:
   - nyx
   - dart
 fixes-and-todos:
-  - Revamp regex syntax (more syntax scopes for constructs)
-  - Add TypeScript, ReScript and JavaScript to raw code blocks
-  - Fix trailing semicolon issue in type declarations/imports and functions
-  - Add Standard Library components, such as functions and classes.
+- Revamp regex syntax (more syntax scopes for constructs)
+- Add TypeScript, ReScript and JavaScript to raw code blocks
+- Fix trailing semicolon issue in type declarations/imports and functions
+- Add Standard Library components, such as functions and classes.
 patterns:
 - include: '#core'
 repository:
@@ -2237,7 +2233,7 @@ repository:
         1: {name: storage.type.nyx}
         2: {name: storage.type.function.nyx}
         3: {name: keyword.generator.asterisk.nyx}
-        4: {patterns: [{include: '#function-name'}]}
+        4: {patterns: [{include: '#function-extras'}]}
       endCaptures:
         1: {name: keyword.operator.assignment.nyx}
       patterns:
@@ -2249,12 +2245,12 @@ repository:
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
-        2: {patterns: [{include: '#function-name'}]}
+        2: {patterns: [{include: '#function-extras'}]}
         3: {name: keyword.operator.assignment.nyx}
         4: {name: storage.type.nyx}
         5: {name: storage.type.function.nyx}
         6: {name: keyword.generator.asterisk.nyx}
-        7: {patterns: [{include: '#function-name'}]}
+        7: {patterns: [{include: '#function-extras'}]}
       endCaptures:
         1: {name: keyword.operator.assignment.nyx}
       patterns:
@@ -2273,12 +2269,12 @@ repository:
         6: {name: keyword.operator.existential.nyx}
         7: {name: keyword.operator.accessor.nyx}
         8: {name: keyword.operator.private.nyx}
-        9: {patterns: [{include: '#function-name'}]}
+        9: {patterns: [{include: '#function-extras'}]}
         10: {name: keyword.operator.assignment.nyx}
         11: {name: storage.type.nyx}
         12: {name: storage.type.function.nyx}
         13: {name: keyword.generator.asterisk.nyx}
-        14: {patterns: [{include: '#function-name'}]}
+        14: {patterns: [{include: '#function-extras'}]}
       endCaptures:
         1: {name: keyword.operator.assignment.nyx}
       patterns:
@@ -2295,12 +2291,12 @@ repository:
         3: {name: keyword.operator.existential.nyx}
         4: {name: keyword.operator.accessor.nyx}
         5: {name: keyword.operator.private.nyx}
-        6: {patterns: [{include: '#function-name'}]}
+        6: {patterns: [{include: '#function-extras'}]}
         7: {name: keyword.operator.assignment.nyx}
         8: {name: storage.type.nyx}
         9: {name: storage.type.function.nyx}
         10: {name: keyword.generator.asterisk.nyx}
-        11: {patterns: [{include: '#function-name'}]}
+        11: {patterns: [{include: '#function-extras'}]}
       endCaptures:
         1: {name: keyword.operator.assignment.nyx}
       patterns:
@@ -2455,6 +2451,11 @@ repository:
       - include: '#types'
       - include: '#core'
       - include: '#curly-brackets'
+  function-extras:
+    patterns:
+    - include: '#function-name'
+    - include: '#function-operator'
+    - include: '#function-string'
   function-name:
     patterns:
     - include: '#support-functions'
@@ -2473,7 +2474,7 @@ repository:
       name: support.type.class.nyx
     - match: '[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*'
       name: entity.name.function.nyx
-  function-other:
+  function-operator:
     patterns:
     - match: |-
         (?x)(?<=^|\p{Ps}|\p{Z}|['"`])(?:
@@ -2545,6 +2546,8 @@ repository:
         8: {name: keyword.operator.currency.nyx}
         9: {name: keyword.operator.ascii.nyx}
         10: {name: keyword.operator.infix.nyx}
+  function-string:
+    patterns:
     - begin: \s*+(('))
       end: |-
         \s*+(?:(('))|(
@@ -4751,10 +4754,10 @@ repository:
         - match: \\['"\\nrtfve0`]
           name: constant.character.escape.nyx
       regex-character-range:
-        patterns: 
+        patterns:
         - match: '--'
           name: keyword.operator.optional.nyx
-        - match: (?<![\\\[])-(?![-\]])
+        - match: (?<!\\?[\\\[])-(?![-\[\]])
           name: keyword.operator.range.nyx
       regex-character-set:
         patterns:
@@ -4851,38 +4854,126 @@ repository:
         1: {name: punctuation.terminator.statement.nyx}
   sigils:
     patterns:
-    - match: (?<=[&^%*|@#$]*)(\^)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+    - match: \^([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.symbol.nyx}
-        2: {name: constant.other.symbol.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\&)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+        0: {name: punctuation.defintion.symbol.nyx}
+        1: {name: constant.other.symbol.nyx}
+    - match: \&([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.variable.nyx}
-        2: {name: constant.other.variable.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\%)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+        0: {name: punctuation.defintion.variable.nyx}
+        1: {name: constant.other.variable.nyx}
+    - match: \%([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.global.nyx}
-        2: {name: constant.other.global.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\*)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+        0: {name: punctuation.defintion.global.nyx}
+        1: {name: constant.other.global.nyx}
+    - match: \*([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.spread.nyx}
-        2: {name: constant.other.spread.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\|)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+        0: {name: punctuation.defintion.spread.nyx}
+        1: {name: constant.other.spread.nyx}
+    - match: \|([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.constant.nyx}
-        2: {name: constant.language.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\@)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+        0: {name: punctuation.defintion.constant.nyx}
+        1: {name: constant.language.nyx}
+    - match: \@([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.decorator.nyx}
-        2: {name: constant.other.decorator.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\#)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+        0: {name: punctuation.defintion.decorator.nyx}
+        1: {name: constant.other.decorator.nyx}
+    - match: \#([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.private.nyx}
-        2: {name: constant.other.private.nyx, patterns: [{include: '#function-other'}]}
-    - match: (?<=[&^%*|@#$]*)(\$)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`)
+        0: {name: punctuation.defintion.private.nyx}
+        1: {name: constant.other.private.nyx}
+    - match: \$([_\\\p{L}\p{M}\p{N}]+)
       captures:
-        1: {name: punctuation.defintion.instance.nyx}
-        2: {name: constant.other.instance.nyx, patterns: [{include: '#function-other'}]}
+        0: {name: punctuation.defintion.instance.nyx}
+        1: {name: constant.other.instance.nyx}
+    - begin: (\^)(['"])
+      end: (\2)\s*
+      name: constant.other.symbol.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.symbol.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\&)(['"])
+      end: (\2)\s*
+      name: constant.other.variable.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.variable.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\%)(['"])
+      end: (\2)\s*
+      name: constant.other.global.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.global.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\*)(['"])
+      end: (\2)\s*
+      name: constant.other.spread.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.spread.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\|)(['"])
+      end: (\2)\s*
+      name: constant.language.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.constant.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\@)(['"])
+      end: (\2)\s*
+      name: constant.other.decorator.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.decorator.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\#)(['"])
+      end: (\2)\s*
+      name: constant.other.private.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.private.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\$)(['"])
+      end: (\2)\s*
+      name: constant.other.instance.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.instance.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
   special-comments-conditional-compilation:
     patterns:
     - begin: \s*+((/\*))(?=@)
