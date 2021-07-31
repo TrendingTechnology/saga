@@ -3217,15 +3217,15 @@ repository:
           (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|
           trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size))| #2
           (rec|gen|inline|(?:pre|in|suf|)fix|(?:u|bi|ter|)nary|[gs]et|
-          prev|next|lock|fixed|lazy|eager|greedy|unique|handle)| #3
+          prev|next|lock|fixed|lazy|eager|greedy|early|late|unique|handle)| #3
           (n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|
           not(of|in)?|(is)no?t) #4
         )\s*+(?=\b
           (\s*\b(pub|prot|pvt|priv|ronly|(?:in|ex)tl|over|abs|stat|dyn|vol|a?sync|
           (?:im)?mut|part|seal|final|dele|[dr]ef|trans|(?:im|ex)pl|ext|(?:un)?
           (?:sign|safe|check|size)|rec|gen|inline|opaque|(?:pre|in|suf|)fix|(?:u|bi|ter|)
-          nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|unique|handle|n?and|
-          x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(of|in)?|(is)no?t)
+          nary|[gs]et|prev|next|lock|fixed|lazy|eager|greedy|early|late|unique|handle|
+          n?and|x?n?or|[gl][te]|eq|ne|(?:as|sh)[lr]|div|rem|mod|pow|not(of|in)?|(is)no?t)
           \b\s*)*\s*\b
           (ext|impl|only|class|given|constr|enum|extn|extend|frag|inter|
           struct|data|schema|module|nspace|object|record|raw|style|trait|
