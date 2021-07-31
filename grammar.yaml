@@ -35,7 +35,7 @@ fixes-and-todos:
   - Add TypeScript, ReScript and JavaScript to raw code blocks
   - Fix trailing semicolon issue in type declarations/imports and functions
   - Add Standard Library components, such as functions and classes.
-  - Change syntax for comments. Comments would now use hashes.
+  - Change syntax for comments. Comments would now use '#'.
 patterns:
 - include: '#core'
 repository:
@@ -2232,7 +2232,7 @@ repository:
   function:
     patterns:
     - applyEndPatternLast: 1
-      begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
       beginCaptures:
         1: {name: storage.type.nyx}
@@ -2246,7 +2246,7 @@ repository:
       - include: '#core'
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
-      begin: \s*+()(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
@@ -2263,7 +2263,7 @@ repository:
       - include: '#core'
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
-      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))()(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
@@ -2287,7 +2287,7 @@ repository:
       - include: '#core'
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
-      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))()(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
       name: meta.function.static.nyx
       beginCaptures:
@@ -3088,7 +3088,7 @@ repository:
       - include: '#curly-brackets'
       - include: '#core'
       - include: $self
-    - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++()(?!\bstatic\b)(#?(?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))(?=\s*+\()
+    - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++()(?!\bstatic\b)((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))(?=\s*+\()
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|\*/|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
