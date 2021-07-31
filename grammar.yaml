@@ -6,7 +6,7 @@ info-for-contributors: >-
     customizations for a language called Nyx, yet another JavaScript-based language.
     This file is constantly regenerated with a custom build pipeline.
   Should you want to provide a fix or improvement, or even a new feature,
-    please create a pull request against this repo: https://github.com/NoxUltima/nyx,
+    please create a pull request against this repo: https://github.com/nxltm/nyx,
     and I will be very happy to receive them.
 name: Nyx
 scopeName: source.coffee
