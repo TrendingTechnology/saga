@@ -5,22 +5,14 @@ With the best of object-oriented and functional paradigms, a big standard librar
 > Sample Code
 
 ```coffee
-class Person(val firstName: str, val lastName: str) =
-  def fullName() = '#firstName #lastName'
-  def lastFirst() = '#lastName, #firstName'
+def fizzbuzz(num: int): str = 
+  match [num % 3, num % 5]
+    when [yes, yes] -> 'fizzbuzz' 
+    when [yes, no] -> 'fizz'
+    when [no, yes] -> 'buzz' 
+    else -> '#num%d' 
 
-module Utils
-  def truncEllipsis(s: str, maxLen: int): str =
-    if s == nil || len s == 0 || maxLen == 0 -> ''
-    elif len s > maxLen -> s[:maxLen] ++ '...'
-    else -> s
-  def truncate(s: str, len: int): str = s[:@len]
-
-for (val x in 1 to 4; val y in 2 to 5) if x + y < 4
-  print('x: #x, y: #y')
-val p = new Person('Diana', 'Han')
-print(p.fullName)
-print(Utils.truncate(p.firstName, 2))
+for let x in 1 to 100 -> print(fizzbuzz(x))
 ```
 
 # Introduction
@@ -405,7 +397,56 @@ dyn val x: mix = 100
 x = x[2] # 0
 ```
 
-Hoisted constants are declared with `let` or `con`.
+Bindings can be scoped with the `do` block, and the value of the last line of the block is automatically returned.
+
+```coffee
+var message = do
+  var part1 = "hello",
+    part2 = "world"
+  part1 ++ " " ++ part2
+
+# `part1` and `part2` not accessible here!
+```
+
+Hoisted constants are declared with `let` or `con`. Both are used to declare class or instance variables.
+
+```coffee
+class Person(val _firstName: str, val _lastName: str) =
+  # Constructor is in class body
+  pub let firstName = _firstName
+  pub let lastName = _lastName
+
+  pub set def firstName(newName: str): str =
+    firstName = newName
+    firstName
+  pub set def lastName(newName: str): str =
+    lastName = newName
+    lastName
+```
+
+All the control flow statements all use the same block scoping mechanism.
+
+```coffee
+if displayGreeting
+  let message = 'Enjoying the docs so far?';
+  print(message);
+# `message` not accessible here!
+```
+
+Uninitialized variables that have a nil-able type (prefixed with `?`) have an initial value of `nil`.
+
+```coffee
+let lineCount: ?int
+assert lineCount == nil
+```
+
+Otherwise, they are initialized with a default _zero value_ for its type. For instance, a number (integer or float) has the default value of `0` or `0.`, strings are `''` and boolean values are `false`.
+
+```coffee
+let lineCount: int?
+assert lineCount ~= nil # abstract equality
+assert lineCount == 0 #  equality
+```
 
 ### Identifiers
 
@@ -415,7 +456,7 @@ Identifiers begin with a letter, an underscore or backslash, followed by any of 
 var _set\\_() = 10
 ```
 
-Identifiers are compared using their first character. All other remaining characters are normalized into ASCII (which is complicated), ignoring all case and delimiters `_` and `\`.
+Identifiers are compared using their first character. All other remaining characters are normalized into ASCII (which is a complicated algorithm), ignoring all case and delimiters `_` and `\`.
 
 ```coffee
 def ==(x: str, y: str): bool = x[0] == y[0] &&
@@ -423,13 +464,13 @@ def ==(x: str, y: str): bool = x[0] == y[0] &&
   (y =< /[^\pL\pN]//g).latin().lower()
 ```
 
-Keywords become regular identifiers when prefixed with several symbols: `@` strips keywords of their meaning, turning them into regular identifiers.
+Keywords become regular identifiers when prefixed with several symbols, such as `$`, `@` or `&`: `@` strips keywords of their meaning, turning them into regular identifiers. `&` declares a named parameter (similar to Python's keyword arguments) which then can be called like so.
 
 ```coffee
 var @var = 'Stropping in action'
-var @type = class X(int: int)
+var @type = class X(&int: int)
 
-var @object: int = new @type(9)
+var @object: int = new @type(&int = 9)
 assert @object is @type
 assert @object.int == 9
 
@@ -443,6 +484,134 @@ Identifiers can also prefix a string literal. Quoted identifiers are not compare
 val @'x\nx' = 10
 print($'x\nx') # 10
 ```
+
+### Data Types
+
+There are many primitive data types in Nyx, all of which are familiar to most programmers. These include:
+
+- integers,
+- floating point numbers,
+- strings,
+- booleans,
+- functions,
+- symbols (JavaScript),
+- regular expressions,
+- and the singleton value `nil`.
+
+```coffee
+let int: int = 10
+let str: str = ''
+let bool: bool = false
+let func: () => unit = () => ()
+let regex: regex = /(?:)/
+let sym: sym = ^a
+let nil: nil = nil
+let undef: undef = undef
+```
+
+### Nil
+
+`nil` is used to represent the absence of a value. It only has a single value. It can be spelled out entirely, or represented as a pair of empty brackets `()`.
+
+```coffee
+var x = nil
+!x? # true
+x == () # true
+```
+
+The suffix `?` operator checks if its argument is `nil`, and would return `false` if so. The suffix `!` does the same thing but would throw an error if its argument is nil, and leaves out the value if not.
+
+```coffee
+var x = nil
+!x? # true
+x == () # true
+```
+
+### Booleans
+
+A boolean data type can only have two values: `true` or `false`. Booleans are mainly used for control flow, and there are a lot of operators that return boolean values.
+
+```js
+true;
+false;
+```
+
+#### Logical Operators
+
+Logical operations work the same way as in many other programming languages; `&&`, `||` and `!` work as is. Any operand is coerced to booleans before being evaluated. We also added the logical XOR `^^` too.
+
+- `&&` returns `true` only if both operand are `true`
+- `||` returns `true` if at least one operand is `true`
+- `^^` returns `true` only if both operands are different (one is `true` and the other is `false`)
+- `!` negates the truthiness of its only operand: changing `true` to `false`, and vice versa
+
+```coffee
+!true          # false
+
+true && true   # true
+true && false  # false
+false && false # false
+
+1 && 0 # false
+
+true || true   # true
+true || false  # true
+false || false # false
+
+0 || 1 # true
+
+true ^^ true   # false
+true ^^ false  # true
+false ^^ false # false
+```
+
+The logical operators above do not short-circuit, and evaluate both operands. There are dedicated operators `?:` and `!:` for that: `!:` evaluates its RHS if its LHS yields `true` when converted into boolean, and `?:` does the opposite, that is, if its LHS yields `false`.
+
+`!:` takes precedence over `?:`.
+
+```coffee
+1 && 0 # false
+1 !: 0 # 0
+
+1 || 0 # true
+0 ?: 1 # 0
+```
+
+`?:` and `!:` when spaced out function the same way as ternary operators in a lot of other languages.
+
+Given an expression `a ? b : c`, if `a` is true `b` is evaluated and returned, and if `a` is false, `c` is evaluated and returned. The rules are reversed for `a ! b : c`.
+
+```coffee
+gen def hailstoneSeq(n) =
+  yield n
+  while n != 1
+    yield n = n % 2 != 0 ? n * 3 + 1 : n / 2
+
+gen def hailstoneSeq(n) =
+  yield n
+  while n != 1
+    yield n = n % 2 == 0 ! n * 3 + 1 : n / 2
+```
+
+`x ?: y` is shorthand for `x ? x : y`, and likewise, `x !: y` is shorthand for `x ! x : y`.
+
+#### Comparison Operators
+
+All comparison operators have the same precedence and can be chained: `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
+
+- Abstract comparison makes type conversion before performing the operatione.
+- Structural comparison operators perform comparison directly.
+- Referential equality operators compare shallowly and by reference.
+
+| Operator         | Abstract   | Structural | Referential  |
+| ---------------- | ---------- | ---------- | ------------ |
+| Greater          | `~>`       | `>`        |              |
+| Lesser           | `~<`       | `<`        |              |
+| Greater or equal | `>~`       | `>=`       |              |
+| Lesser or equal  | `<~`       | `<=`       |              |
+| Equal to         | `~=`, `=~` | `==`       | `===`, `=:=` |
+| Not equal        | `~!`, `!~` | `!=`       | `!==`, `=!=` |
+| Three-way        | `<~>`      | `<=>`      |              |
 
 ### Defining Functions
 
