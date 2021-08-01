@@ -701,7 +701,7 @@ repository:
     patterns:
     - include: '#typed-comments'
     - include: '#special-comments-conditional-compilation'
-    - begin: \s*+((\#_?\())
+    - begin: \s*+((#_?\())
       end: (\s*(\))(?!\)))
       name: comment.block.inline.nyx
       captures:
@@ -710,7 +710,7 @@ repository:
       patterns:
       - include: text.html.markdown#inline
       - include: '#nested-inline'
-    - begin: \s*+((\#{))
+    - begin: \s*+((#{))
       end: (\s*(}#))
       name: comment.block.documentation.nyx
       captures:
@@ -720,8 +720,8 @@ repository:
       - include: '#jsdoc'
       - include: text.html.markdown#inline
       - include: '#nested-docblock'
-    - begin: \s*+((\#\[))
-      end: (\s*(\]\#))
+    - begin: \s*+((#\[))
+      end: (\s*(\]#))
       name: comment.block.nyx
       captures:
         1: {name: comment.block.nyx}
@@ -729,14 +729,19 @@ repository:
       patterns:
       - include: text.html.markdown#inline
       - include: '#nested-block'
-    - begin: \s*+(<!--)
-      end: \s*+(-->)
-      name: comment.block.html.nyx
+    - begin: ((^\s*)|\s*)((#=))
+      end: \s*$
+      name: comment.line.special.nyx
       beginCaptures:
-        1: {name: punctuation.definition.comment.nyx}
+        2: {name: punctuation.whitespace.comment.leading.nyx}
+        3: {name: comment.line.special.nyx}
+        4: {name: punctuation.definition.comment.nyx}
       endCaptures:
         1: {name: punctuation.definition.comment.nyx}
-    - begin: ((^\s*)|\s*)((#=))
+      patterns:
+      - include: '#comment-special'
+      - include: text.html.markdown#inline
+    - begin: ((^\s*)|\s*)((#_))
       end: \s*$
       name: comment.line.triple-slash.nyx
       beginCaptures:
@@ -748,7 +753,7 @@ repository:
       patterns:
       - include: '#jsdoc'
       - include: text.html.markdown#inline
-    - begin: ((^\s*)|\s*)((#_))
+    - begin: ((^\s*)|\s*)((#:))
       end: \s*$
       name: comment.line.documentation.nyx
       beginCaptures:
@@ -773,13 +778,13 @@ repository:
       - include: text.html.markdown#inline
     - begin: ((^\s*)|\s*)((#\?))
       end: \s*$
-      name: comment.line.special.nyx
+      name: comment.line.typehint.nyx
       beginCaptures:
         2: {name: punctuation.whitespace.comment.leading.nyx}
-        3: {name: comment.line.special.nyx}
+        3: {name: comment.line.typehint.nyx}
         4: {name: punctuation.definition.comment.nyx}
       endCaptures:
-        0: {name: comment.line.special.nyx}
+        0: {name: comment.line.typehint.nyx}
       patterns:
       - include: text.html.markdown#inline
     - begin: ((^\s*)|\s*)((#))
@@ -796,7 +801,7 @@ repository:
     repository:
       nested-block:
         begin: \#\[
-        end: \]\#
+        end: \]#
         captures:
           0: {name: punctuation.definition.comment.nyx}
         patterns:
@@ -805,7 +810,7 @@ repository:
         - include: '#nested-block'
       nested-docblock:
         begin: \#{
-        end: \}\#
+        end: \}#
         captures:
           0: {name: punctuation.definition.comment.nyx}
         patterns:
@@ -813,8 +818,8 @@ repository:
         - include: text.html.markdown#inline
         - include: '#nested-docblock'
       nested-inline:
-        begin: (\()
-        end: (\))
+        begin: \(
+        end: \)
         name: comment.block.inline.nyx
         captures:
           0: {name: punctuation.definition.comment.nyx}
@@ -2318,7 +2323,7 @@ repository:
   function-call:
     patterns:
     - include: '#comments'
-    - match: (?<!\.)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
+    - match: (?<!\.)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
       name: meta.new-class.without-arguments.nyx
       captures:
         1: {name: keyword.operator.new.nyx}
@@ -2332,7 +2337,7 @@ repository:
         9: {name: meta.brace.round.nyx}
         10: {name: meta.brace.round.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
+      begin: (?<!\.)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
       end: (?=.)
       name: meta.new-class.without-arguments.nyx
       beginCaptures:
@@ -2348,7 +2353,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
+      begin: (?<!\.)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
       end: (?=.)
       name: meta.new-class.with-arguments.nyx
       beginCaptures:
@@ -2376,7 +2381,7 @@ repository:
         7: {name: meta.brace.round.nyx}
         8: {name: meta.brace.round.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
+      begin: (?<!\.)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
       end: (?=.)
       name: meta.function-call.without-arguments.nyx
       beginCaptures:
@@ -2402,7 +2407,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+      begin: (?<!\.)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
       end: (?=.)
       name: meta.function-call.with-arguments.nyx
       beginCaptures:
@@ -2435,7 +2440,7 @@ repository:
     - include: '#function-string'
   function-labels:
     patterns:
-    - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
+    - begin: (?<=^|{|,)\s*+([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
       end: \s*(=)|\s*(?<=})
       name: meta.function.json.nyx
       beginCaptures:
@@ -2470,6 +2475,7 @@ repository:
       - include: '#curly-brackets'
   function-name:
     patterns:
+    - include: '#sigils'
     - include: '#support-functions'
     - include: '#support-methods'
     - match: (?i)(?<!\.)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
@@ -3385,7 +3391,6 @@ repository:
     - include: '#type-argument-brackets'
     - include: '#round-brackets'
   number:
-    comments: Generated numeric literals
     patterns:
     - match: (?<=[\htx])\.
       name: meta.delimiter.decimal.period
@@ -4459,8 +4464,8 @@ repository:
     - include: '#operator'
     - include: '#operators'
   regexp:
-    begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(\p{Alnum}*)(/)(?![*/])(?=.*/\p{Alnum}*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
-    end: (/)(?:((?:\\.|[^/])*)(/))?(\p{Alnum}*)
+    begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(\p{Alnum}*)(/)(?![*/>])(?=.*/\p{Alnum}*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
+    end: (/)(?:((?:\\.|[^</>])*)(/))?(\p{Alnum}*)
     name: string.regexp.nyx
     beginCaptures:
       1: {name: keyword.modifier.nyx}
@@ -4890,7 +4895,7 @@ repository:
       - include: '#string-content'
     - begin: (\|)(['"])
       end: (\2)\s*
-      name: constant.language.nyx
+      name: constant.other.language.nyx
       beginCaptures:
         1: {name: punctuation.definition.constant.nyx}
         2: {name: punctuation.definition.string.begin.nyx}
@@ -4967,7 +4972,7 @@ repository:
       - include: '#quasi-embedded-raw'
     - begin: (\|)(`)\s*
       end: \s*(?:(`)(?!`))
-      name: constant.language.nyx
+      name: constant.other.language.nyx
       beginCaptures:
         1: {name: punctuation.definition.constant.nyx}
         2: {name: punctuation.definition.string.begin.nyx}
@@ -5040,7 +5045,7 @@ repository:
       - include: '#string-content'
     - begin: (\|)([_\\\p{L}\p{M}\p{N}]+)
       end: (?=.)
-      name: constant.language.nyx
+      name: constant.other.language.nyx
       beginCaptures:
         1: {name: punctuation.definition.constant.nyx}
       endCaptures:
