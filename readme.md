@@ -5,12 +5,12 @@ With the best of object-oriented and functional paradigms, a big standard librar
 > Sample Code
 
 ```coffee
-def fizzbuzz(num: int): str = 
+def fizzbuzz(num: int): str =
   match [num % 3, num % 5]
-    when [yes, yes] -> 'fizzbuzz' 
+    when [yes, yes] -> 'fizzbuzz'
     when [yes, no] -> 'fizz'
-    when [no, yes] -> 'buzz' 
-    else -> '#num%d' 
+    when [no, yes] -> 'buzz'
+    else -> '#num%d'
 
 for let x in 1 to 100 -> print(fizzbuzz(x))
 ```
@@ -25,9 +25,7 @@ A lot of developers seem to either love or hate JavaScript, and the extremes are
 
 The NPM ecosystem is astronomically reliant on dependencies. People often complain that their JS projects are gigabytes in size, most of which is either boilerplate or dead code. Tons of projects rely on one-liner projects, resulting in them crumbling down whever something absurd happens, something rarely seen in other programming languages.
 
-Will that call for a change? Are we taking a step into a new direction?
-
-Many of us realized how can we fix this without having to worry about this madness? One to take note here, when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
+Many new languages had been invented to try and alleviate these problems with JavaScript, but when it comes to the web, everything is forced, there will be only one way to develop something for the web --- JavaScript.
 
 ## What is Nyx, exactly?
 
