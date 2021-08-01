@@ -1,7 +1,7 @@
 firstLineMatch: ^#!\s*/.*\b(nyx)$\n?
-foldingEndMarker: (\*/|\}|\))
-foldingStartMarker: (/\*|{|\()
-info-for-contributors: >-
+foldingEndMarker: ([}\]]\#|\}|\))
+foldingStartMarker: (\#[\[{]|{|\()
+info-for-contributors: |-
   This file is a fork of the Babel JavaScript TextMate grammar and features many
     customizations for a language called Nyx, yet another JavaScript-based language.
     This file is constantly regenerated with a custom build pipeline.
@@ -46,7 +46,7 @@ repository:
     - include: '#core'
   arrow-function:
     patterns:
-    - begin: \s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+    - begin: \s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+#{.*?}#|#\[.*?\]#))*+)*)|(?:#{.*?}#|#\[.*?\]#))\s*=>)
       end: ((?<=})|(?:\s*(=>)(?!\s*{)))
       name: meta.function.arrow.nyx
       beginCaptures:
@@ -64,7 +64,7 @@ repository:
         3: {name: variable.other.readwrite.nyx}
         4: {name: storage.type.function.arrow.nyx}
     - include: '#arrow-function-simple-assignments'
-    - begin: \s*+()(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+    - begin: \s*+()(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+#{.*?}#|#\[.*?\]#))*+)*)|(?:#{.*?}#|#\[.*?\]#))\s*=>)
       end: ((?<=})|(?:\s*(=>)(?!\s*{)))
       name: meta.prototype.function.arrow.nyx
       beginCaptures:
@@ -100,7 +100,7 @@ repository:
         11: {name: storage.type.nyx}
         12: {name: variable.other.readwrite.nyx}
         13: {name: storage.type.function.arrow.nyx}
-    - begin: \s*+()(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+    - begin: \s*+()(\b[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(?:(\?\.)|(\.))()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+#{.*?}#|#\[.*?\]#))*+)*)|(?:#{.*?}#|#\[.*?\]#))\s*=>)
       end: ((?<=})|(?:\s*(=>)(?!\s*{)))
       name: meta.function.static.arrow.nyx
       beginCaptures:
@@ -133,7 +133,7 @@ repository:
   arrow-function-labels:
     patterns:
     - include: '#async-arrow-function-labels'
-    - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+    - begin: (?<=^|{|,)\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+#{.*?}#|#\[.*?\]#))*+)*)|(?:#{.*?}#|#\[.*?\]#))\s*=>)
       end: ((?<=})|(?:\s*(=>)(?!\s*{)))
       name: meta.function.json.arrow.nyx
       beginCaptures:
@@ -154,7 +154,7 @@ repository:
         4: {name: meta.function.parameters.nyx}
         5: {name: variable.other.readwrite.nyx}
         6: {name: storage.type.function.arrow.nyx}
-    - begin: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+    - begin: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*(:)\s*+(\basync\b)?\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+#{.*?}#|#\[.*?\]#))*+)*)|(?:#{.*?}#|#\[.*?\]#))\s*=>)
       end: ((?<=})|(?:\s*(=>)(?!\s*{)))
       name: meta.function.json.arrow.nyx
       beginCaptures:
@@ -184,7 +184,7 @@ repository:
   arrow-function-simple-assignments:
     patterns:
     - include: '#async-arrow-function-simple-assignments'
-    - begin: \s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+/\*.*?\*/))*+)*)|(?:/\*.*?\*/))\s*=>)
+    - begin: \s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(=)\s*+(\basync\b)?(?=(\s*+<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(((?::(?:(\s*+(&|\|)?(\s*%checks\b|\s*(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))+|\s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)|(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)+|\s*+({(?:(?>[^{}]+)|\g<-1>)*\})|\s*+(\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(\s*(["']).*?\k<-1>(?<!\\.))|\s*[+-x]?\h+))|(?:\s*+#{.*?}#|#\[.*?\]#))*+)*)|(?:#{.*?}#|#\[.*?\]#))\s*=>)
       end: ((?<=})|(?:\s*(=>)(?!\s*{)))
       name: meta.function.arrow.nyx
       beginCaptures:
@@ -311,7 +311,7 @@ repository:
     repository:
       class:
         begin: (?<!\.)\s*+\b(class)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.class.nyx}
         endCaptures:
@@ -322,7 +322,7 @@ repository:
         - include: '#block-entities'
       constraint:
         begin: (?<!\.)\s*+\b(given|constr)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.constraint.nyx}
         endCaptures:
@@ -332,8 +332,8 @@ repository:
           name: entity.name.constraint.nyx
         - include: '#block-entities'
       enum:
-        begin: (?<!\.)\s*+\b(enum)\s+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        begin: (?<!\.)\s*+\b(enum)(\s+|$)
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         name: meta.enum.declaration.nyx
         beginCaptures:
           1: {name: storage.type.enum.nyx}
@@ -346,7 +346,7 @@ repository:
         - include: '#block-entities'
       extension:
         begin: (?<!\.)\s*+\b(extend|extn)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.extension.nyx}
         endCaptures:
@@ -357,7 +357,7 @@ repository:
         - include: '#block-entities'
       fragment:
         begin: (?<!\.)\s*+\b(frag|struct)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.fragment.nyx}
         endCaptures:
@@ -368,7 +368,7 @@ repository:
         - include: '#block-entities'
       interface:
         begin: (?<!\.)\s*+\b(inter|schema)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.interface.nyx}
         endCaptures:
@@ -379,7 +379,7 @@ repository:
         - include: '#block-entities'
       module:
         begin: (?<!\.)\s*+\b(module)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.module.nyx}
         endCaptures:
@@ -390,7 +390,7 @@ repository:
         - include: '#block-entities'
       namespace:
         begin: (?<!\.)\s*+\b(nspace)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.namespace.nyx}
         endCaptures:
@@ -401,7 +401,7 @@ repository:
         - include: '#block-entities'
       object:
         begin: (?<!\.)\s*+\b(object|record)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.object.nyx}
         endCaptures:
@@ -412,7 +412,7 @@ repository:
         - include: '#block-entities'
       raw:
         begin: (?<!\.)\s*+\b(raw)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.raw.nyx}
         endCaptures:
@@ -423,7 +423,7 @@ repository:
         - include: '#block-entities'
       schema:
         begin: (?<!\.)\s*+\b(data|query)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.schema.nyx}
         endCaptures:
@@ -434,7 +434,7 @@ repository:
         - include: '#block-entities'
       style:
         begin: (?<!\.)\s*+\b(style)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.style.nyx}
         endCaptures:
@@ -445,7 +445,7 @@ repository:
         - include: '#block-entities'
       trait:
         begin: (?<!\.)\s*+\b(trait)(\s+|$)
-        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+        end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.trait.nyx}
         endCaptures:
@@ -701,8 +701,17 @@ repository:
     patterns:
     - include: '#typed-comments'
     - include: '#special-comments-conditional-compilation'
-    - begin: \s*+((/\*\*))(?!/|\*)
-      end: (\s*(\*/))
+    - begin: \s*+((\#_?\())
+      end: (\s*(\))(?!\)))
+      name: comment.block.inline.nyx
+      captures:
+        1: {name: comment.block.inline.nyx}
+        2: {name: punctuation.definition.comment.nyx}
+      patterns:
+      - include: text.html.markdown#inline
+      - include: '#nested-inline'
+    - begin: \s*+((\#{))
+      end: (\s*(}#))
       name: comment.block.documentation.nyx
       captures:
         1: {name: comment.block.documentation.nyx}
@@ -710,16 +719,16 @@ repository:
       patterns:
       - include: '#jsdoc'
       - include: text.html.markdown#inline
-      - include: '#nested'
-    - begin: \s*+((/\*))
-      end: (\s*(\*/))
+      - include: '#nested-docblock'
+    - begin: \s*+((\#\[))
+      end: (\s*(\]\#))
       name: comment.block.nyx
       captures:
         1: {name: comment.block.nyx}
         2: {name: punctuation.definition.comment.nyx}
       patterns:
       - include: text.html.markdown#inline
-      - include: '#nested'
+      - include: '#nested-block'
     - begin: \s*+(<!--)
       end: \s*+(-->)
       name: comment.block.html.nyx
@@ -727,7 +736,7 @@ repository:
         1: {name: punctuation.definition.comment.nyx}
       endCaptures:
         1: {name: punctuation.definition.comment.nyx}
-    - begin: ((^\s*)|\s*)((///))
+    - begin: ((^\s*)|\s*)((#=))
       end: \s*$
       name: comment.line.triple-slash.nyx
       beginCaptures:
@@ -739,7 +748,41 @@ repository:
       patterns:
       - include: '#jsdoc'
       - include: text.html.markdown#inline
-    - begin: ((^\s*)|\s*)((//))
+    - begin: ((^\s*)|\s*)((#_))
+      end: \s*$
+      name: comment.line.documentation.nyx
+      beginCaptures:
+        2: {name: punctuation.whitespace.comment.leading.nyx}
+        3: {name: comment.line.documentation.nyx}
+        4: {name: punctuation.definition.comment.nyx}
+      endCaptures:
+        0: {name: comment.line.documentation.nyx}
+      patterns:
+      - include: '#jsdoc'
+      - include: text.html.markdown#inline
+    - begin: ((^\s*)|\s*)((#!))
+      end: \s*$
+      name: comment.line.shebang.nyx
+      beginCaptures:
+        2: {name: punctuation.whitespace.comment.leading.nyx}
+        3: {name: comment.line.shebang.nyx}
+        4: {name: punctuation.definition.comment.nyx}
+      endCaptures:
+        0: {name: comment.line.shebang.nyx}
+      patterns:
+      - include: text.html.markdown#inline
+    - begin: ((^\s*)|\s*)((#\?))
+      end: \s*$
+      name: comment.line.special.nyx
+      beginCaptures:
+        2: {name: punctuation.whitespace.comment.leading.nyx}
+        3: {name: comment.line.special.nyx}
+        4: {name: punctuation.definition.comment.nyx}
+      endCaptures:
+        0: {name: comment.line.special.nyx}
+      patterns:
+      - include: text.html.markdown#inline
+    - begin: ((^\s*)|\s*)((#))
       end: \s*$
       name: comment.line.double-slash.nyx
       beginCaptures:
@@ -748,22 +791,36 @@ repository:
         4: {name: punctuation.definition.comment.nyx}
       endCaptures:
         0: {name: comment.line.double-slash.nyx}
-    - match: ^(\#!).*$\n?
-      name: comment.line.shebang.nyx
-      captures:
-        1: {name: punctuation.definition.comment.nyx}
+      patterns:
+      - include: text.html.markdown#inline
     repository:
-      nested:
-        begin: /\*\*?
-        end: \*/
-        beginCaptures:
-          0: {name: punctuation.definition.comment.nyx}
-        endCaptures:
+      nested-block:
+        begin: \#\[
+        end: \]\#
+        captures:
           0: {name: punctuation.definition.comment.nyx}
         patterns:
         - include: '#jsdoc'
         - include: text.html.markdown#inline
-        - include: '#nested'
+        - include: '#nested-block'
+      nested-docblock:
+        begin: \#{
+        end: \}\#
+        captures:
+          0: {name: punctuation.definition.comment.nyx}
+        patterns:
+        - include: '#jsdoc'
+        - include: text.html.markdown#inline
+        - include: '#nested-docblock'
+      nested-inline:
+        begin: (\()
+        end: (\))
+        name: comment.block.inline.nyx
+        captures:
+          0: {name: punctuation.definition.comment.nyx}
+        patterns:
+        - include: text.html.markdown#inline
+        - include: '#nested-inline'
   core:
     patterns:
     - include: '#operator'
@@ -855,7 +912,7 @@ repository:
       name: comment.line.slash.haml
       captures:
         1: {name: punctuation.section.comment.haml}
-    - begin: ^(\s*)(\-\#|\/|\-\s*\/\*+)
+    - begin: ^(\s*)(\-\#|\/|\-\s*\\#[\[{]+)
       end: ^(?!\1\s+|\n)
       name: comment.block.haml
       beginCaptures:
@@ -2104,46 +2161,6 @@ repository:
           2: {name: punctuation.terminator.rule.css}
         patterns:
         - include: '#property_values'
-  es7-decorators:
-    patterns:
-    - applyEndPatternLast: 1
-      begin: (?<!@)\s*+(?:(@)()(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)))
-      end: (?=.)
-      beginCaptures:
-        1: {name: keyword.operator.decorator.nyx}
-        2: {name: keyword.operator.private.nyx}
-        3: {name: entity.name.class.decorator.nyx}
-        4: {name: variable.other.readwrite.decorator.nyx}
-      patterns:
-      - begin: \s*(?:(\?\.)|(\.))
-        commnent: decorator .property or .method which may be on a different line
-        end: \s*()(?:((?:[\p{Lu}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)|((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+))
-        beginCaptures:
-          1: {name: keyword.operator.existential.nyx}
-          2: {name: keyword.operator.accessor.nyx}
-        endCaptures:
-          1: {name: keyword.operator.private.nyx}
-          2: {name: entity.name.class.decorator.nyx}
-          3: {name: variable.other.property.decorator.nyx}
-        patterns:
-        - include: '#comments'
-      - include: '#round-brackets'
-      - begin: (?:(?<=^|;)|(?=\s))\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)()((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(?=(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
-        end: (?<=:|})|(?=;|}|,)
-        name: meta.function.method.nyx
-        beginCaptures:
-          1: {name: storage.modifier.nyx}
-          2: {name: storage.type.nyx}
-          3: {name: keyword.generator.asterisk.nyx}
-          4: {name: keyword.operator.private.nyx}
-          5: {name: entity.name.function.method.nyx}
-        patterns:
-        - include: '#types'
-        - include: '#curly-brackets'
-        - include: '#core'
-        - include: $self
-      - include: '#comments'
-      - match: \s*
   es7-function-bind:
     patterns:
     - match: \s*(::)
@@ -2223,7 +2240,7 @@ repository:
     patterns:
     - applyEndPatternLast: 1
       begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.type.nyx}
         2: {name: storage.type.function.nyx}
@@ -2237,7 +2254,7 @@ repository:
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
       begin: \s*+()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
         2: {patterns: [{include: '#function-extras'}]}
@@ -2254,7 +2271,7 @@ repository:
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
       begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
         2: {name: entity.name.class.nyx}
@@ -2278,7 +2295,7 @@ repository:
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
       begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       name: meta.function.static.nyx
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
@@ -2473,9 +2490,9 @@ repository:
     patterns:
     - match: |-
         (?x)(?<=^|\p{Ps}|\p{Z}|['"`])(?:
-          ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>:])=) #1
+          ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+(?<![!~<=>:])=) #1
           |(\+\++|--+) #2
-          |(\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*) #3
+          |(\+|-(?!>)|\*{1,3}|/|~/|%%?|\*>|<\*) #3
           |(&&|\|\||\^\^|\\/|/\\) #4
           |([&^]|\|(?!>)|~(?![!=<>])) #5
           |(=\.\.|\.\.=|=\.=|\.\.(?!\.)) #6
@@ -2519,16 +2536,16 @@ repository:
     - include: '#operators'
     - match: |-
         (?x)
-        ([&|^~][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #1
-        ([-+*%/\#][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>]))| #2
-        ([:.][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #3
-        ([<>][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>]))| #4
-        ([!=][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #5
-        (\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #6
-        (\s+[\p{Sm}&&[\x{80}-\x{10FFFF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*\s+)| #7
-        ([\p{Sc}&&[^$]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*)| #8
-        ([\p{S}\p{Po}\p{Pd}&&[\x{80}-\x{FF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*)| #9
-        ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>])) #10
+        ([&|^~][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #1
+        ((?!/>)[-+*%/\#][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #2
+        ([:.][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #3
+        ((?!</>?)[<>][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #4
+        ([!=][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #5
+        (\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #6
+        ([\p{Sm}&&[\x{80}-\x{10FFFF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]*)| #7
+        ([\p{Sc}&&[^$]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]*)| #8
+        ([\p{S}\p{Po}\p{Pd}&&[\x{80}-\x{FF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]*)| #9
+        ((?!/>|</>?)[\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+) #10
       name: keyword.operator.infix.nyx
       captures:
         1: {name: keyword.operator.logical.nyx}
@@ -2584,10 +2601,6 @@ repository:
       patterns:
       - include: '#function-name'
       - include: '#quasi-embedded-raw'
-  heregexp:
-    patterns:
-    - include: '#comments'
-    - include: '#regexp-patterns'
   html-template:
     begin: (?:(?:^|(?<=,|{))\s*\b((template))\b\s*(:)\s*(`))
     end: \s*(`)
@@ -2621,7 +2634,7 @@ repository:
       captures:
         1: {patterns: [{include: '#function-name'}]}
   js-label:
-    match: (?:^|(?<=;))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(/\*.*?\*/\s*$|//|$|;|\b(for|each|while|do|redo|if|switch|match|repeat)\b))
+    match: (?:^|(?<=;))\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*+)(:)\s*(?=(#{.*?}#|#\[.*?\]#\s*$|\#|$|;|\b(for|each|while|do|redo|if|switch|match|repeat)\b))
     captures:
       1: {name: constant.other.label.nyx}
       2: {name: punctuation.separator.label.nyx}
@@ -2641,13 +2654,13 @@ repository:
       name: storage.type.class.jsdoc
     repository:
       jsdoc-access:
-        match: (?:^[\s*]*|(?<=/\*\*)\s*)(@(access))\s*(private|protected|public)?(?=\s|$)
+        match: (@(access))\s*(private|protected|public)?(?=\s|$)
         captures:
           1: {name: storage.type.class.jsdoc}
           3: {name: storage.modifier.jsdoc}
       jsdoc-as-namepath:
-        begin: (?:^[\s*]*|(?<=/\*\*)\s*)(@(borrows|lends)\b)\s*(?=(?!\*/)\S+(?:(?:\s*\bas\b\s*(?!\*/)\S+)?)?([\S\s]*))
-        end: ^|(?=\*/)|(?=\3$)
+        begin: (@(borrows|lends)\b)\s*(?=(?![}\]]\#)\S+(?:(?:\s*\bas\b\s*(?![}\]]\#)\S+)?)?([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\3$)
         beginCaptures:
           1: {name: storage.type.class.jsdoc}
         patterns:
@@ -2667,20 +2680,20 @@ repository:
             1: {name: storage.type.class.jsdoc}
             3: {name: string.jsdoc}
       jsdoc-module:
-        begin: (?:^[\s*]*|(?<=/\*\*)\s*)(@(exports|module|listens|requires)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(\S*)([\S\s]*))
-        end: ^|(?=\*/)|(?=\5$)
+        begin: (@(exports|module|listens|requires)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(\S*)([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\5$)
         beginCaptures:
           1: {name: storage.type.class.jsdoc}
         patterns:
         - include: '#jsdoc-typedef-scopes'
-        - match: (?:(module)(:))?(((?!\*/)\S)+)
+        - match: (?:(module)(:))?(((?![}\]]\#)\S)+)
           captures:
             1: {name: keyword.module.jsdoc}
             2: {name: punctuation.jsdoc}
             3: {name: string.modulename.jsdoc}
       jsdoc-name-scopes:
         patterns:
-        - match: ((?!\*/)[\S&&[^\[\]"']])+
+        - match: ((?![}\]]\#)[\S&&[^\[\]"']])+
           captures:
             0: {name: variable.other.jsdoc}
         - begin: \[
@@ -2722,12 +2735,12 @@ repository:
           patterns:
           - include: '#jsdoc-string'
       jsdoc-simple:
-        match: (?:^[\s*]*|(?<=/\*\*)\s*)(@(abstract|author|classdesc|copyright|default|defaultvalue|deprecated|description|desc|example|external|fileoverview|file|global|host|ignore|inheritdoc|inner|instance|license|override|overview|readonly|see|since|static|summary|todo|redo|tutorial|virtual|variation|version)\b)(?=$|\s)
+        match: (@(abstract|author|classdesc|copyright|default|defaultvalue|deprecated|description|desc|example|external|fileoverview|file|global|host|ignore|inheritdoc|inner|instance|license|override|overview|readonly|see|since|static|summary|todo|redo|tutorial|virtual|variation|version)\b)(?=$|\s)
         captures:
           1: {name: storage.type.class.jsdoc}
       jsdoc-simple-namepath:
-        begin: (?:^[\s*]*|(?<=/\*\*)\s*)(@(alias|augments|callback|extends|emits|event|fires|interface|memberof|mixes|name|property|prop|this|typedef)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*\S*([\S*\s]*))
-        end: ^|(?=\*/)|(?=\4$)
+        begin: (@(alias|augments|callback|extends|emits|event|fires|interface|memberof|mixes|name|property|prop|this|typedef)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*\S*([\S*\s]*))
+        end: ^|(?=[}\]]\#)|(?=\4$)
         beginCaptures:
           1: {name: storage.type.class.jsdoc}
         patterns:
@@ -2737,16 +2750,16 @@ repository:
         match: '"(\\"|[^"])*"|''(\\''|[^''])*'''
         name: string.jsdoc
       jsdoc-type-name:
-        begin: (?:^[\s*]*|(?<=/\*\*)\s*)(@(arg|argument|class|constant|constructor|constructs|const|con|function|func|kind|member|method|mixin|namespace|param|var)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\S)+)?([\S\s]*))
-        end: ^|(?=\*/)|(?=\7$)
+        begin: (@(arg|argument|class|constant|constructor|constructs|const|con|function|func|kind|member|method|mixin|namespace|param|var)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\S)+)?([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\7$)
         beginCaptures:
           1: {name: storage.type.class.jsdoc}
         patterns:
         - include: '#jsdoc-typedef-scopes'
         - include: '#jsdoc-name-scopes'
       jsdoc-type-noname:
-        begin: (?:^[\s*]*|(?<=/\*\*)\s*)(@(enum|exception|implements|private|protected|public|returns|return|throws|type)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*([\S\s]*))
-        end: ^|(?=\*/)|(?=\4$)
+        begin: (@(enum|exception|implements|private|protected|public|returns|return|throws|type)\b)\s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\4$)
         beginCaptures:
           1: {name: storage.type.class.jsdoc}
         patterns:
@@ -2787,11 +2800,11 @@ repository:
     repository:
       jsx-assignment:
         patterns:
-        - match: '=(?=\s*(?:''|"|{|/\*|<|//|\n))'
+        - match: '=(?=\s*(?:''|"|{|\#[\[{]|<|\#|\n))'
           name: keyword.operator.assignment.jsx
       jsx-attribute-name:
         patterns:
-        - match: (?<!\S)([_\\\p{L}](?:[_\\\p{L}\p{M}\p{N}](?<!\.\.))*+)(?<!\.)(?=//|/\*|=|\s|>|/>)
+        - match: (?<!\S)([_\\\p{L}](?:[_\\\p{L}\p{M}\p{N}](?<!\.\.))*+)(?<!\.)(?=\#|\#[\[{]|=|\s|>|/>)
           captures:
             0: {name: entity.other.attribute-name.jsx}
       jsx-entities:
@@ -2899,7 +2912,7 @@ repository:
   keyword-storage:
     patterns:
     - begin: (?<!\.)\s*+\b(const|con|let|var|val)\b
-      end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|redo|for|each|while)\b))|\s*(?=;|\*/|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+      end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|redo|for|each|while)\b))|\s*(?=;|[}\]]\#|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
       beginCaptures:
         1: {name: storage.type.nyx}
       patterns:
@@ -2909,7 +2922,7 @@ repository:
     - include: '#new'
     - include: '#query'
     - begin: (?<!\.)\s*+\b(halt|skip|break|continue|goto|label)\b
-      end: ^\s*|\s*(?=,|;|:|//|$|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\p{Pe})
+      end: ^\s*|\s*(?=,|;|:|\#|$|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\p{Pe})
       beginCaptures:
         1: {name: keyword.control.flow.nyx}
       patterns:
@@ -3035,7 +3048,7 @@ repository:
   method:
     patterns:
     - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)()(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
         2: {name: storage.type.nyx}
@@ -3050,7 +3063,7 @@ repository:
       - include: '#core'
       - include: $self
     - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
         2: {name: storage.type.nyx}
@@ -3064,7 +3077,7 @@ repository:
       - include: '#core'
       - include: $self
     - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\]))\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*+(\())
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
         2: {name: storage.type.nyx}
@@ -3079,7 +3092,7 @@ repository:
       - include: '#core'
       - include: $self
     - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s++()(?!\bstatic\b)((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))(?=\s*+\()
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
         2: {name: storage.type.accessor.nyx}
@@ -3093,7 +3106,7 @@ repository:
       - include: '#core'
       - include: $self
     - begin: (?<=^|;|,|@@|}|{)\s*+\b(?:(static)\s+)?(get|set)\s+(?=((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\s*+(((')((?:[^']|\\')*)('))|\s*+((")((?:[^"]|\\")*)("))))\s*+(\())
-      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|\*/|\)|})
+      end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
         2: {name: storage.type.accessor.nyx}
@@ -3270,7 +3283,7 @@ repository:
         14: {name: keyword.other.typedef.nyx}
   module:
     begin: (?<!\.)\s*+\b(import|export|open|close)\b\s*
-    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|\*/|\)|})
+    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
     beginCaptures:
       1: {name: keyword.control.module.nyx}
     patterns:
@@ -3805,9 +3818,9 @@ repository:
         patterns:
         - match: |-
             (?x)(?<=^|\p{Ps}|\p{Z}|['"`])(?:
-              ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![!~<=>:])=) #1
+              ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+(?<![!~<=>:])=) #1
               |(\+\++|--+) #2
-              |(\+|-(?!>)|\*{1,3}|(?<!<)/(?!>)|\#|~/(?!>)|%%?|\*>|<\*) #3
+              |(\+|-(?!>)|\*{1,3}|/|~/|%%?|\*>|<\*) #3
               |(&&|\|\||\^\^|\\/|/\\) #4
               |([&^]|\|(?!>)|~(?![!=<>])) #5
               |(=\.\.|\.\.=|=\.=|\.\.(?!\.)) #6
@@ -3850,16 +3863,16 @@ repository:
             25: {name: keyword.operator.regexp.nyx}
         - match: |-
             (?x)
-            ([&|^~][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #1
-            ([-+*%/\#][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>]))| #2
-            ([:.][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #3
-            ([<>][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>]))| #4
-            ([!=][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #5
-            (\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+)| #6
-            (\s+[\p{Sm}&&[\x{80}-\x{10FFFF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*\s+)| #7
-            ([\p{Sc}&&[^$]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*)| #8
-            ([\p{S}\p{Po}\p{Pd}&&[\x{80}-\x{FF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]*)| #9
-            ([\p{S}\p{Po}\p{Pd}&&[^,;'"`\\$]]+(?<![</>])) #10
+            ([&|^~][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #1
+            ((?!/>)[-+*%/\#][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #2
+            ([:.][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #3
+            ((?!</>?)[<>][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #4
+            ([!=][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #5
+            (\?[\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+)| #6
+            ([\p{Sm}&&[\x{80}-\x{10FFFF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]*)| #7
+            ([\p{Sc}&&[^$]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]*)| #8
+            ([\p{S}\p{Po}\p{Pd}&&[\x{80}-\x{FF}]][\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]*)| #9
+            ((?!/>?|</>?)[\p{S}\p{Po}\p{Pd}&&[^,;'"`\\\#]]+) #10
           name: keyword.operator.infix.nyx
           captures:
             1: {name: keyword.operator.logical.nyx}
@@ -4306,7 +4319,7 @@ repository:
     - match: |-
         (?xi)
         (?<!\\) # no backslash
-        (\$) # prefix
+        (\#) # prefix
         ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
         (?:(%)(
           \(.+?\)|
@@ -4318,7 +4331,7 @@ repository:
         2: {patterns: [{include: '#variable'}]}
         3: {name: punctuation.separator.label.nyx}
         4: {name: storage.type.format.nyx}
-    - begin: (?<!\\)(\$\{)\s*
+    - begin: (?<!\\)(\#\{)\s*
       end: |-
         (?xi)\s*
         (\}) # closing brace
@@ -4338,12 +4351,12 @@ repository:
       - include: '#core'
   quasi-embedded-raw:
     patterns:
-    - match: \$\$|``
+    - match: \#\#|``
       name: constant.character.escape.nyx
     - match: |-
         (?xi)
-        (?<!\$) # no dollar sign
-        (\$) # prefix
+        (?<!\#) # no dollar sign
+        (\#) # prefix
         ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
         (?:(%)(
           \(.+?\)|
@@ -4355,7 +4368,7 @@ repository:
         2: {patterns: [{include: '#variable'}]}
         3: {name: punctuation.separator.label.nyx}
         4: {name: storage.type.format.nyx}
-    - begin: (?<!\$)(\$\{)\s*
+    - begin: (?<!\#)(\#\{)\s*
       end: |-
         (?xi)\s*
         (\}) # closing brace
@@ -4387,7 +4400,6 @@ repository:
     - include: '#where-clause'
     - include: '#join-clause'
     - include: '#join-keywords'
-    - include: '#order-direction'
     - include: '#order-clause'
     - include: '#group-clause'
     - include: '#select-clause'
@@ -4425,10 +4437,7 @@ repository:
         match: (?<!\.)\s*+\b(const|con|let|var|val)\b\s*
         name: storage.type.nyx
       order-clause:
-        match: (?<!\.)\s*+\b((\b(order)\b)\s*(\b(by)\b)?\s*(\b((a|de)sc)\b)?)\b\s*
-        name: keyword.query.nyx
-      order-direction:
-        match: (?<!\.)\s*+\b((a|de)sc)\b\s*
+        match: (?<!\.)\s*+\b((\b(order)\b)\s*(\b((a|de)sc)\b)?\s*(\b(by)\b)?)\b\s*
         name: keyword.query.nyx
       select-clause:
         match: (?<!\.)\s*+\b(select)\b\s*
@@ -4466,7 +4475,7 @@ repository:
   regexp-multiline:
     patterns:
     - begin: (\p{Alpha}*)(/>)\s*\n?
-      end: \s*(\n?</)(\p{Alnum}*)
+      end: \s*(\n?</)(?!>)(\p{Alnum}*)
       name: string.regexp.multiline.nyx
       beginCaptures:
         1: {name: keyword.modifier.nyx}
@@ -4475,26 +4484,20 @@ repository:
         1: {name: punctuation.definition.string.end.nyx}
         2: {name: keyword.other.flag.nyx}
       patterns:
-      - include: '#heregexp'
-    - begin: (?!\\)(?<=</)(>)\s*\n?
-      contentName: string.quoted.nyx
-      end: \s*\n?(</)(\p{Alnum}*)
-      name: string.regexp.nyx
-      beginCaptures:
-        1: {name: punctuation.definition.string.begin.nyx}
-      endCaptures:
-        1: {name: punctuation.definition.string.end.nyx}
-        2: {name: keyword.other.flag.nyx}
-      patterns:
-      - include: '#backreferences'
+      - include: '#comments'
+      - include: '#regexp-patterns'
+      - begin: (?<!\\)(</>)\s*\n?
+        contentName: string.quoted.nyx
+        end: \s*\n?(?=(?<!\\)</)
+        name: string.regexp.nyx
+        beginCaptures:
+          1: {name: punctuation.definition.string.begin.nyx}
+        patterns:
+        - include: '#backreferences'
   regexp-patterns:
     patterns:
     - include: '#quasi-embedded'
     - include: '#comments'
-    - match: (?<!\\)(\//).*$\n?
-      name: comment.line.shebang.nyx
-      captures:
-        1: {name: punctuation.definition.comment.nyx}
     - match: \|
       name: keyword.operator.or.nyx
     - match: (?i)\\[abyz]({.*?})?
@@ -4907,17 +4910,6 @@ repository:
       patterns:
       - include: '#function-operator'
       - include: '#string-content'
-    - begin: (\#)(['"])
-      end: (\2)\s*
-      name: constant.other.private.nyx
-      beginCaptures:
-        1: {name: punctuation.definition.private.nyx}
-        2: {name: punctuation.definition.string.begin.nyx}
-      endCaptures:
-        1: {name: punctuation.definition.string.end.nyx}
-      patterns:
-      - include: '#function-operator'
-      - include: '#string-content'
     - begin: (\$)(['"])
       end: (\2)\s*
       name: constant.other.instance.nyx
@@ -4995,17 +4987,6 @@ repository:
       patterns:
       - include: '#function-operator'
       - include: '#quasi-embedded-raw'
-    - begin: (\#)(`)\s*
-      end: \s*(?:(`)(?!`))
-      name: constant.other.private.nyx
-      beginCaptures:
-        1: {name: punctuation.definition.private.nyx}
-        2: {name: punctuation.definition.string.begin.nyx}
-      endCaptures:
-        1: {name: punctuation.definition.string.end.nyx}
-      patterns:
-      - include: '#function-operator'
-      - include: '#quasi-embedded-raw'
     - begin: (\$)(`)\s*
       end: \s*(?:(`)(?!`))
       name: constant.other.instance.nyx
@@ -5077,16 +5058,6 @@ repository:
       patterns:
       - include: '#function-operator'
       - include: '#string-content'
-    - begin: (\#)([_\\\p{L}\p{M}\p{N}]+)
-      end: (?=.)
-      name: constant.other.private.nyx
-      beginCaptures:
-        1: {name: punctuation.definition.private.nyx}
-      endCaptures:
-        1: {name: punctuation.definition.string.end.nyx}
-      patterns:
-      - include: '#function-operator'
-      - include: '#string-content'
     - begin: (\$)([_\\\p{L}\p{M}\p{N}]+)
       end: (?=.)
       name: constant.other.instance.nyx
@@ -5099,9 +5070,9 @@ repository:
       - include: '#string-content'
   special-comments-conditional-compilation:
     patterns:
-    - begin: \s*+((/\*))(?=@)
+    - begin: \s*+((\#[\[{]))(?=@)
       contentName: comment.block.conditional.nyx
-      end: \s*\*/
+      end: \s*[}\]]\#
       captures:
         1: {name: comment.block.conditional.nyx}
         2: {name: punctuation.definition.comment.nyx}
@@ -5109,7 +5080,7 @@ repository:
         1: {name: keyword.control.conditional.nyx}
         2: {name: punctuation.definition.keyword.nyx}
       patterns:
-      - match: \s*+/\*
+      - match: \s*+\#[\[{]
         name: punctuation.definition.comment.nyx
       - include: $self
     - match: \s*+(?!@)(@)(if|elif|else|end|ifdef|endif|cc_on|set)\b
@@ -5768,7 +5739,7 @@ repository:
   typed-bracketed-parameters:
     patterns:
     - applyEndPatternLast: 1
-      begin: \s*+(?=(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(?!\.|:|=>|{|/\*\s*:))
+      begin: \s*+(?=(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*+(?!\.|:|=>|{|\#[\[{]\s*:))
       end: (?=.)
       patterns:
       - begin: \s*(\()
@@ -5793,8 +5764,8 @@ repository:
       - include: '#typed-variable'
   typed-comments:
     patterns:
-    - begin: \s*+(/\*)\s*(::)
-      end: \s*(\*/)
+    - begin: \s*+(\#\{)\s*(::)
+      end: \s*(\]\#)
       name: meta.comments.nyx
       beginCaptures:
         1: {name: punctuation.definition.comment.nyx}
@@ -5809,8 +5780,8 @@ repository:
       - include: '#typed-parse-types'
       - include: '#function'
       - include: '#keyword-storage'
-    - begin: \s*+(/\*)\s*(flow-include)\b
-      end: \s*(\*/)
+    - begin: \s*+(\#\{)\s*(flow-include)\b
+      end: \s*\]}#)
       name: meta.comments.nyx
       beginCaptures:
         1: {name: punctuation.definition.comment.nyx}
@@ -5825,8 +5796,51 @@ repository:
       - include: '#typed-parse-types'
       - include: '#function'
       - include: '#keyword-storage'
-    - begin: \s*+(/\*)\s*(:)((?=::)|(?![:<=>]))
-      end: \s*(\*/)
+    - begin: \s*+(\#\{)\s*(:)((?=::)|(?![:<=>]))
+      end: \s*(\]\#)
+      name: meta.comments.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.comment.nyx}
+        2: {name: punctuation.type.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.comment.nyx}
+      patterns:
+      - include: '#typed-predicate'
+      - include: '#typed-parse-types'
+    - begin: \s*+(\#{)\s*(::)
+      end: \s*(}\#)
+      name: meta.comments.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.comment.nyx}
+        2: {name: punctuation.type.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.comment.nyx}
+      patterns:
+      - include: '#typed-comments-optional-parameter'
+      - include: '#module'
+      - include: '#typed-keywords'
+      - include: '#typed-predicate'
+      - include: '#typed-parse-types'
+      - include: '#function'
+      - include: '#keyword-storage'
+    - begin: \s*+(\#{)\s*(flow-include)\b
+      end: \s*(}#)
+      name: meta.comments.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.comment.nyx}
+        2: {name: keyword.other.flow-include.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.comment.nyx}
+      patterns:
+      - include: '#typed-comments-optional-parameter'
+      - include: '#module'
+      - include: '#typed-keywords'
+      - include: '#typed-predicate'
+      - include: '#typed-parse-types'
+      - include: '#function'
+      - include: '#keyword-storage'
+    - begin: \s*+(\#{)\s*(:)((?=::)|(?![:<=>]))
+      end: \s*(}\#)
       name: meta.comments.nyx
       beginCaptures:
         1: {name: punctuation.definition.comment.nyx}
@@ -5919,7 +5933,7 @@ repository:
           1: {name: keyword.operator.accessor.nyx}
   typed-interface:
     begin: (?<!\.)\s*+\b(inter|schema|struct)(\s+|$)
-    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=;|=|{|\*/|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=;|=|{|[}\]]\#|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
     beginCaptures:
       1: {name: keyword.other.interface.nyx}
     endCaptures:
@@ -6006,7 +6020,7 @@ repository:
     patterns:
     - include: '#sigils'
     - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<!\.)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
-      end: \s*(?=[,;\p{Pe}]|\*/)|$
+      end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
     - include: '#for-all-clause'
@@ -6034,9 +6048,7 @@ repository:
       name: support.type.class.nyx
     - match: \s*+([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       name: support.type.primitive.nyx
-    - match: \s*#(?!\p{Ps})\s*
-      name: keyword.operator.private.nyx
-    - match: (?<==>)\*
+    - match: (?<==>)[*!]
       name: keyword.generator.asterisk.nyx
     - match: \s*+(\?)
       captures:
@@ -6246,11 +6258,11 @@ repository:
       patterns:
       - include: '#typed-parse-types'
     - begin: (?<!let|const|var|val|def|con)(?<=[_\\\p{L}\p{M}\p{N}])\s+(?=(?<!\.)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
-      end: \s*(?=[,;\p{Pe}]|\*/)|$
+      end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
     - begin: (?<!:)\s*+(?=(()[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*(::?|\.)?=)(?!=>|==)
-      end: \s*(?=[,;\p{Pe}]|\*/)|$
+      end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
     - include: '#typed-bracketed-parameters'
