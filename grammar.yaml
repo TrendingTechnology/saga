@@ -1,7 +1,7 @@
 firstLineMatch: ^#!\s*/.*\b(nyx)$\n?
 foldingEndMarker: ([}\]]\#|\}|\))
 foldingStartMarker: (\#[\[{]|{|\()
-info-for-contributors: |-
+info-for-contributors: >-
   This file is a fork of the Babel JavaScript TextMate grammar and features many
     customizations for a language called Nyx, yet another JavaScript-based language.
     This file is constantly regenerated with a custom build pipeline.
@@ -708,7 +708,7 @@ repository:
         1: {name: comment.block.inline.nyx}
         2: {name: punctuation.definition.comment.nyx}
       patterns:
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
       - include: '#nested-inline'
     - begin: \s*+((#{))
       end: (\s*(}#))
@@ -718,7 +718,7 @@ repository:
         2: {name: punctuation.definition.comment.nyx}
       patterns:
       - include: '#jsdoc'
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
       - include: '#nested-docblock'
     - begin: \s*+((#\[))
       end: (\s*(\]#))
@@ -727,7 +727,7 @@ repository:
         1: {name: comment.block.nyx}
         2: {name: punctuation.definition.comment.nyx}
       patterns:
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
       - include: '#nested-block'
     - begin: ((^\s*)|\s*)((#=))
       end: \s*$
@@ -740,7 +740,7 @@ repository:
         1: {name: punctuation.definition.comment.nyx}
       patterns:
       - include: '#comment-special'
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
     - begin: ((^\s*)|\s*)((#_))
       end: \s*$
       name: comment.line.triple-slash.nyx
@@ -752,7 +752,7 @@ repository:
         0: {name: comment.line.triple-slash.nyx}
       patterns:
       - include: '#jsdoc'
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
     - begin: ((^\s*)|\s*)((#:))
       end: \s*$
       name: comment.line.documentation.nyx
@@ -764,7 +764,7 @@ repository:
         0: {name: comment.line.documentation.nyx}
       patterns:
       - include: '#jsdoc'
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
     - begin: ((^\s*)|\s*)((#!))
       end: \s*$
       name: comment.line.shebang.nyx
@@ -775,7 +775,7 @@ repository:
       endCaptures:
         0: {name: comment.line.shebang.nyx}
       patterns:
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
     - begin: ((^\s*)|\s*)((#\?))
       end: \s*$
       name: comment.line.typehint.nyx
@@ -786,7 +786,7 @@ repository:
       endCaptures:
         0: {name: comment.line.typehint.nyx}
       patterns:
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
     - begin: ((^\s*)|\s*)((#))
       end: \s*$
       name: comment.line.double-slash.nyx
@@ -797,8 +797,11 @@ repository:
       endCaptures:
         0: {name: comment.line.double-slash.nyx}
       patterns:
-      - include: text.html.markdown#inline
+      - include: '#markdown-inline'
     repository:
+      markdown-inline:
+        patterns:
+        - include: text.html.markdown#inline
       nested-block:
         begin: \#\[
         end: \]#
@@ -806,7 +809,7 @@ repository:
           0: {name: punctuation.definition.comment.nyx}
         patterns:
         - include: '#jsdoc'
-        - include: text.html.markdown#inline
+        - include: '#markdown-inline'
         - include: '#nested-block'
       nested-docblock:
         begin: \#{
@@ -815,7 +818,7 @@ repository:
           0: {name: punctuation.definition.comment.nyx}
         patterns:
         - include: '#jsdoc'
-        - include: text.html.markdown#inline
+        - include: '#markdown-inline'
         - include: '#nested-docblock'
       nested-inline:
         begin: \(
@@ -824,7 +827,7 @@ repository:
         captures:
           0: {name: punctuation.definition.comment.nyx}
         patterns:
-        - include: text.html.markdown#inline
+        - include: '#markdown-inline'
         - include: '#nested-inline'
   core:
     patterns:
@@ -2166,6 +2169,118 @@ repository:
           2: {name: punctuation.terminator.rule.css}
         patterns:
         - include: '#property_values'
+  embedded-textile:
+    patterns:
+    - begin: (^h[1-6]([<>=()]+)?)(\([^)]*\)|{[^}]*})*(\.)
+      end: ^$
+      name: markup.heading.textile
+      captures:
+        1: {name: entity.name.tag.heading.textile}
+        3: {name: entity.name.type.textile}
+        4: {name: entity.name.tag.heading.textile}
+      patterns:
+      - include: '#inline'
+      - include: text.html.basic
+    - begin: (^bq([<>=()]+)?)(\([^)]*\)|{[^}]*})*(\.)
+      end: ^$
+      name: markup.quote.textile
+      captures:
+        1: {name: entity.name.tag.blockquote.textile}
+        3: {name: entity.name.type.textile}
+        4: {name: entity.name.tag.blockquote.textile}
+      patterns:
+      - include: '#inline'
+      - include: text.html.basic
+    - begin: (^fn[0-9]+([<>=()]+)?)(\([^)]*\)|{[^}]*})*(\.)
+      end: ^$
+      name: markup.other.footnote.textile
+      captures:
+        1: {name: entity.name.tag.footnote.textile}
+        3: {name: entity.name.type.textile}
+        4: {name: entity.name.tag.footnote.textile}
+      patterns:
+      - include: '#inline'
+      - include: text.html.basic
+    - begin: (^table([<>=()]+)?)(\([^)]*\)|{[^}]*})*(\.)
+      end: ^$
+      name: markup.other.table.textile
+      captures:
+        1: {name: entity.name.tag.footnote.textile}
+        3: {name: entity.name.type.textile}
+        4: {name: entity.name.tag.footnote.textile}
+      patterns:
+      - include: '#inline'
+      - include: text.html.basic
+    - begin: ^(?=\S)
+      end: ^$
+      name: meta.paragraph.textile
+      patterns:
+      - match: (^p([<>=()]+)?)(\([^)]*\)|{[^}]*})*(\.)
+        name: entity.name.section.paragraph.textile
+        captures:
+          1: {name: entity.name.tag.paragraph.textile}
+          3: {name: entity.name.type.textile}
+          4: {name: entity.name.tag.paragraph.textile}
+      - include: '#inline'
+      - include: text.html.basic
+    - include: text.html.basic
+    repository:
+      inline:
+        patterns:
+        - match: '&(?![A-Za-z0-9]+;)'
+          name: text.html.textile
+        - match: ^\*+(\([^)]*\)|{[^}]*})*(\s+|$)
+          name: markup.list.unnumbered.textile
+          captures:
+            1: {name: entity.name.type.textile}
+        - match: ^#+(\([^)]*\)|{[^}]*})*\s+
+          name: markup.list.numbered.textile
+          captures:
+            1: {name: entity.name.type.textile}
+        - match: "(?x)\n\t\t\t\t\t\t\t\t\"\t\t\t\t\t\t\t\t# Start name, etc\n\t\t\t\t\t\t\t\t\t(?:\t\t\t\t\t\t\t# Attributes\n\t\t\t\t\t\t\t\t\t\t# I swear, this is how the language is defined,\n\t\t\t\t\t\t\t\t\t\t# couldnt make it up if I tried.\n\t\t\t\t\t\t\t\t\t\t(?:\\([^)]+\\))?(?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?\n\t\t\t\t\t\t\t\t\t\t\t# Class, Style, Lang\n\t\t\t\t\t\t\t\t\t  | (?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?(?:\\([^)]+\\))?\n\t\t\t\t\t\t\t\t\t\t\t# Style, Lang, Class\n\t\t\t\t\t\t\t\t\t  | (?:\\[[^\\]]+\\])?(?:\\{[^}]+\\})?(?:\\([^)]+\\))?\n\t\t\t\t\t\t\t\t\t\t\t# Lang, Style, Class\n\t\t\t\t\t\t\t\t\t)?\n\t\t\t\t\t\t\t\t\t([^\"]+?)\t\t\t\t\t# Link name\n\t\t\t\t\t\t\t\t\t\\s?\t\t\t\t\t\t\t# Optional whitespace\n\t\t\t\t\t\t\t\t\t(?:\\(([^)]+?)\\))?\n\t\t\t\t\t\t\t\t\":\t\t\t\t\t\t\t\t# End name\n\t\t\t\t\t\t\t\t(\\w[-\\w_]*)\t\t\t\t\t\t# Linkref\n\t\t\t\t\t\t\t\t(?=[^\\w\\/;]*?(<|\\s|$))\t\t\t# Catch closing punctuation\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t#  and end of meta.link"
+          name: meta.link.reference.textile
+          captures:
+            1: {name: string.other.link.title.textile}
+            2: {name: string.other.link.description.title.textile}
+            3: {name: constant.other.reference.link.textile}
+        - match: "(?x)\n\t\t\t\t\t\t\t\t\"\t\t\t\t\t\t\t\t# Start name, etc\n\t\t\t\t\t\t\t\t\t(?:\t\t\t\t\t\t\t# Attributes\n\t\t\t\t\t\t\t\t\t\t# I swear, this is how the language is defined,\n\t\t\t\t\t\t\t\t\t\t# couldnt make it up if I tried.\n\t\t\t\t\t\t\t\t\t\t(?:\\([^)]+\\))?(?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?\n\t\t\t\t\t\t\t\t\t\t\t# Class, Style, Lang\n\t\t\t\t\t\t\t\t\t  | (?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?(?:\\([^)]+\\))?\n\t\t\t\t\t\t\t\t\t\t\t# Style, Lang, Class\n\t\t\t\t\t\t\t\t\t  | (?:\\[[^\\]]+\\])?(?:\\{[^}]+\\})?(?:\\([^)]+\\))?\n\t\t\t\t\t\t\t\t\t\t\t# Lang, Style, Class\n\t\t\t\t\t\t\t\t\t)?\n\t\t\t\t\t\t\t\t\t([^\"]+?)\t\t\t\t\t# Link name\n\t\t\t\t\t\t\t\t\t\\s?\t\t\t\t\t\t\t# Optional whitespace\n\t\t\t\t\t\t\t\t\t(?:\\(([^)]+?)\\))?\n\t\t\t\t\t\t\t\t\":\t\t\t\t\t\t\t\t# End Name\n\t\t\t\t\t\t\t\t(\\S*?(?:\\w|\\/|;))\t\t\t\t# URL\n\t\t\t\t\t\t\t\t(?=[^\\w\\/;]*?(<|\\s|$))\t\t\t# Catch closing punctuation\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t#  and end of meta.link"
+          name: meta.link.inline.textile
+          captures:
+            1: {name: string.other.link.title.textile}
+            2: {name: string.other.link.description.title.textile}
+            3: {name: markup.underline.link.textile}
+        - match: "(?x)\n\t\t\t\t\t\t\t\t\\!\t\t\t\t\t\t\t\t\t\t# Open image\n\t\t\t\t\t\t\t\t(\\<|\\=|\\>)?\t\t\t\t\t\t\t\t# Optional alignment\n\t\t\t\t\t\t\t\t(?:\t\t\t\t\t\t\t\t\t\t# Attributes\n\t\t\t\t\t\t\t\t\t# I swear, this is how the language is defined,\n\t\t\t\t\t\t\t\t\t# couldnt make it up if I tried.\n\t\t\t\t\t\t\t\t\t(?:\\([^)]+\\))?(?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?\n\t\t\t\t\t\t\t\t\t\t# Class, Style, Lang\n\t\t\t\t\t\t\t\t  | (?:\\{[^}]+\\})?(?:\\[[^\\]]+\\])?(?:\\([^)]+\\))?\n\t\t\t\t\t\t\t\t\t\t# Style, Lang, Class\n\t\t\t\t\t\t\t\t  | (?:\\[[^\\]]+\\])?(?:\\{[^}]+\\})?(?:\\([^)]+\\))?\n\t\t\t\t\t\t\t\t\t\t# Lang, Style, Class\n\t\t\t\t\t\t\t\t)?\n\t\t\t\t\t\t\t\t(?:\\.[ ])?            \t\t\t\t\t# Optional\n\t\t\t\t\t\t\t\t([^\\s(!]+?)         \t\t\t\t\t# Image URL\n\t\t\t\t\t\t\t\t\\s?                \t\t\t\t\t\t# Optional space\n\t\t\t\t\t\t\t\t(?:\\(((?:[^\\(\\)]|\\([^\\)]+\\))+?)\\))?   \t# Optional title\n\t\t\t\t\t\t\t\t\\!\t\t\t\t\t\t\t\t\t\t# Close image\n\t\t\t\t\t\t\t\t(?:\n\t\t\t\t\t\t\t\t\t:\n\t\t\t\t\t\t\t\t\t(\\S*?(?:\\w|\\/|;))\t\t\t\t\t# URL\n\t\t\t\t\t\t\t\t\t(?=[^\\w\\/;]*?(<|\\s|$))\t\t\t\t# Catch closing punctuation\n\t\t\t\t\t\t\t\t)?"
+          name: meta.image.inline.textile
+          captures:
+            2: {name: markup.underline.link.image.textile}
+            3: {name: string.other.link.description.textile}
+            4: {name: markup.underline.link.textile}
+        - match: \|(\([^)]*\)|{[^}]*})*(\\\||.)+\|
+          name: markup.other.table.cell.textile
+          captures:
+            1: {name: entity.name.type.textile}
+        - match: \B(\*\*?)((\([^)]*\)|{[^}]*}|\[[^]]+\]){0,3})(\S.*?\S|\S)\1\B
+          name: markup.bold.textile
+          captures:
+            3: {name: entity.name.type.textile}
+        - match: \B-((\([^)]*\)|{[^}]*}|\[[^]]+\]){0,3})(\S.*?\S|\S)-\B
+          name: markup.deleted.textile
+          captures:
+            2: {name: entity.name.type.textile}
+        - match: \B\+((\([^)]*\)|{[^}]*}|\[[^]]+\]){0,3})(\S.*?\S|\S)\+\B
+          name: markup.inserted.textile
+          captures:
+            2: {name: entity.name.type.textile}
+        - match: (?:\b|\s)_((\([^)]*\)|{[^}]*}|\[[^]]+\]){0,3})(\S.*?\S|\S)_(?:\b|\s)
+          name: markup.italic.textile
+          captures:
+            2: {name: entity.name.type.textile}
+        - match: \B([@\^~%]|\?\?)((\([^)]*\)|{[^}]*}|\[[^]]+\]){0,3})(\S.*?\S|\S)\1
+          name: markup.italic.phrasemodifiers.textile
+          captures:
+            3: {name: entity.name.type.textile}
+        - match: (?<!w)\[[0-9+]\]
+          name: entity.name.tag.textile
   es7-function-bind:
     patterns:
     - match: \s*(::)
@@ -3293,7 +3408,7 @@ repository:
     beginCaptures:
       1: {name: keyword.control.module.nyx}
     patterns:
-    - match: (?<!\.)\s*+\b(from|import|export|open|close|as|def|show|hide|to)\b\s*
+    - match: (?<!\.)\s*+\b(from|import|export|open|close|as|all|any|it|show|hide|to)\b\s*
       name: keyword.control.module.nyx
     - match: \s*\*
       name: keyword.operator.module.all.nyx
@@ -6289,6 +6404,10 @@ repository:
       captures:
         1: {name: keyword.operator.private.nyx}
         2: {name: variable.other.constant.nyx}
+    - match: (?<=\.)\s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)
+      captures:
+        1: {name: keyword.operator.private.nyx}
+        2: {name: variable.other.property.static.nyx}
     - match: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)
       captures:
         1: {name: keyword.operator.private.nyx}
