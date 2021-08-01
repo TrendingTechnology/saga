@@ -17,7 +17,7 @@ module Utils
   def truncate(s: str, len: int): str = s[:@len]
 
 for (val x in 1 to 4; val y in 2 to 5) if x + y < 4
-  print('x: @x, y: @y')
+  print('x: #x, y: #y')
 val p = new Person('Diana', 'Han')
 print(p.fullName)
 print(Utils.truncate(p.firstName, 2))
