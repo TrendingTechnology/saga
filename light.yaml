@@ -236,181 +236,6 @@ tokenColors:
   settings: {foreground: '#af0000'}
 - scope: token.debug-token
   settings: {foreground: '#520097'}
-- scope: comment
-  settings: {foreground: '#696e74'}
-- scope:
-  - string
-  - constant.other.symbol
-  settings: {foreground: '#85a100'}
-- scope:
-  - string
-  - constant.character
-  - constant.other
-  settings: {foreground: '#00714f'}
-- scope: constant.numeric
-  settings: {foreground: '#a67000'}
-- scope: constant.language
-  settings: {foreground: '#a67000'}
-- scope: variable
-  settings: {foreground: '#494742'}
-- scope: variable.member
-  settings: {foreground: '#8e0000'}
-- scope: variable.language
-  settings: {foreground: '#0083af'}
-- scope: storage
-  settings: {foreground: '#bb3500'}
-- scope: keyword
-  settings: {foreground: '#bb3500'}
-- scope: keyword.operator
-  settings: {foreground: '#972400'}
-- scope:
-  - punctuation.separator
-  - punctuation.terminator
-  settings: {foreground: '#494742b3'}
-- scope: punctuation.section
-  settings: {foreground: '#494742'}
-- scope: punctuation.accessor
-  settings: {foreground: '#972400'}
-- scope:
-  - source.java storage.type
-  - source.haskell storage.type
-  - source.c storage.type
-  settings: {foreground: '#0063ae'}
-- scope: entity.other.inherited-class
-  settings: {foreground: '#0083af'}
-- scope: storage.type.function
-  settings: {foreground: '#bb3500'}
-- scope: source.java storage.type.primitive
-  settings: {foreground: '#0083af'}
-- scope: entity.name.function
-  settings: {foreground: '#ad5500'}
-- scope:
-  - variable.parameter
-  - meta.parameter
-  settings: {foreground: '#7b6500'}
-- scope:
-  - variable.function
-  - variable.annotation
-  - meta.function-call.generic
-  - support.function.go
-  settings: {foreground: '#ad5500'}
-- scope:
-  - support.function
-  - support.macro
-  settings: {foreground: '#8e0000'}
-- scope:
-  - entity.name.import
-  - entity.name.package
-  settings: {foreground: '#85a100'}
-- scope: entity.name
-  settings: {foreground: '#0063ae'}
-- scope:
-  - entity.name.tag
-  - meta.tag.sgml
-  settings: {foreground: '#0083af'}
-- scope:
-  - punctuation.definition.tag.end
-  - punctuation.definition.tag.begin
-  - punctuation.definition.tag
-  settings: {foreground: '#0083af80'}
-- scope: entity.other.attribute-name
-  settings: {foreground: '#ad5500'}
-- scope: support.constant
-  settings: {foreground: '#972400'}
-- scope:
-  - support.type
-  - support.class
-  - source.go storage.type
-  settings: {foreground: '#0083af'}
-- scope:
-  - meta.decorator variable.other
-  - meta.decorator punctuation.decorator
-  - storage.type.annotation
-  settings: {foreground: '#8a5300'}
-- scope: invalid
-  settings: {foreground: '#c20000'}
-- scope:
-  - meta.diff
-  - meta.diff.header
-  settings: {foreground: '#642765'}
-- scope: source.ruby variable.other.readwrite
-  settings: {foreground: '#ad5500'}
-- scope:
-  - source.css entity.name.tag
-  - source.sass entity.name.tag
-  - source.scss entity.name.tag
-  - source.less entity.name.tag
-  - source.stylus entity.name.tag
-  settings: {foreground: '#0063ae'}
-- scope:
-  - source.css support.type
-  - source.sass support.type
-  - source.scss support.type
-  - source.less support.type
-  - source.stylus support.type
-  settings: {foreground: '#696e74'}
-- scope: support.type.property-name
-  settings: {foreground: '#0083af'}
-- scope: constant.numeric.line-number.find-in-files - match
-  settings: {foreground: '#696e74'}
-- scope: constant.numeric.line-number.match
-  settings: {foreground: '#bb3500'}
-- scope: entity.name.filename.find-in-files
-  settings: {foreground: '#85a100'}
-- scope: message.error
-  settings: {foreground: '#c20000'}
-- scope:
-  - markup.heading
-  - markup.heading entity.name
-  settings: {foreground: '#85a100'}
-- scope:
-  - markup.underline.link
-  - string.other.link
-  settings: {foreground: '#0083af'}
-- scope: markup.italic
-  settings: {foreground: '#8e0000'}
-- scope: markup.bold
-  settings: {foreground: '#8e0000'}
-- scope:
-  - markup.italic markup.bold
-  - markup.bold markup.italic
-  settings: {}
-- scope: markup.raw
-  settings: {foreground: '#494742'}
-- scope: markup.raw.inline
-  settings: {foreground: '#494742'}
-- scope: meta.separator
-  settings: {foreground: '#696e74'}
-- scope:
-  - markup.quote
-  - markup.quote.markdown
-  settings: {foreground: '#00714f'}
-- scope: markup.list punctuation.definition.list.begin
-  settings: {foreground: '#ad5500'}
-- scope: markup.inserted
-  settings: {foreground: '#5f8036'}
-- scope: markup.changed
-  settings: {foreground: '#195684'}
-- scope: markup.deleted
-  settings: {foreground: '#890019'}
-- scope: markup.strike
-  settings: {foreground: '#8a5300'}
-- scope: markup.table
-  settings: {foreground: '#0083af'}
-- scope: text.html.markdown markup.inline.raw
-  settings: {foreground: '#972400'}
-- scope: text.html.markdown meta.dummy.line-break
-  settings: {foreground: '#696e74'}
-- scope: punctuation.definition.markdown
-  settings: {foreground: '#696e74'}
-- scope: token.info-token
-  settings: {foreground: '#003998'}
-- scope: token.warn-token
-  settings: {foreground: '#997524'}
-- scope: token.error-token
-  settings: {foreground: '#af0000'}
-- scope: token.debug-token
-  settings: {foreground: '#520097'}
 - scope: markup.list.numbered.markdown
   settings: {foreground: '#7e1d00'}
 - scope: markup.list.unnumbered.markdown
@@ -506,14 +331,14 @@ tokenColors:
   settings: {foreground: '#381851'}
 - scope: entity.other.inherited-class
   settings: {foreground: '#00aa79'}
-- scope: constant.language
+- scope: constant.other.language
   settings: {foreground: '#998300'}
 - scope: constant.other.global
   settings: {foreground: '#2a713c'}
 - scope: constant.other.symbol
   settings: {foreground: '#600086'}
 - scope: constant.other.spread
-  settings: {foreground: '#00a4ab'}
+  settings: {foreground: '#00b5a1'}
 - scope: constant.other.decorator
   settings: {foreground: '#0054a0'}
 - scope: constant.other.private
@@ -780,20 +605,26 @@ tokenColors:
   settings: {foreground: '#8b0011'}
 - scope: comment.line
   settings: {foreground: '#00569f'}
+- scope: comment.line.documentation
+  settings: {foreground: '#640083'}
+- scope: comment.line.typehint
+  settings: {foreground: '#896325'}
+- scope: comment.line.triple-slash
+  settings: {foreground: '#4a4d59'}
+- scope: comment.line.shebang
+  settings: {foreground: '#a0000f'}
+- scope: comment.block.inline
+  settings: {foreground: '#0b5f8a'}
+- scope: comment.line.special
+  settings: {foreground: '#16ad7f'}
 - scope: comment.block
   settings: {foreground: '#0c808c'}
 - scope: comment.block.documentation
-  settings: {foreground: '#258f74'}
-- scope: comment.line.triple-slash
-  settings: {foreground: '#640083'}
-- scope: comment.typehint
-  settings: {foreground: '#8d4f0d'}
-- scope: comment.line.shebang
-  settings: {foreground: '#af0000'}
+  settings: {foreground: '#6d8830'}
 - scope:
   - constant.language.access-type
   - constant.numeric.illegal
-  settings: {foreground: '#b20000'}
+  settings: {foreground: '#ac0003'}
 - scope: constant.language.symbol-type
   settings: {foreground: '#002baf'}
 - scope: constant.other.description
@@ -1426,7 +1257,7 @@ tokenColors:
   settings: {foreground: '#7d5c09'}
 - scope:
   - markup.quote
-  - meta.paragraph markup.quote
+  - markup.quote.markdown
   settings: {foreground: '#007870'}
 - scope: markup.raw.block
   settings: {foreground: '#383838'}
@@ -1814,28 +1645,8 @@ tokenColors:
 - scope: punctuation
   settings: {foreground: '#3c4b64'}
 - scope:
-  - variable
-  - markup
-  - punctuation
-  settings: {fontStyle: ''}
-- scope:
-  - comment
-  - constant
-  - variable.language
-  - markup.quote
-  - variable.parameter
-  - meta.function.parameters variable.parameter
-  settings: {fontStyle: italic}
-- scope:
-  - emphasis
-  - strong
-  - support
-  - keyword
-  - entity
-  - entity.name
-  - storage.type.function.arrow
-  settings: {fontStyle: bold}
-- scope:
+  - emphasis strong
+  - strong emphasis
   - keyword.control
   - storage
   - storage.type
@@ -1845,7 +1656,30 @@ tokenColors:
   - keyword.query
   - keyword.operator.expression
   - entity.other.attribute-name
+  - constant.other
   settings: {fontStyle: bold italic}
+- scope:
+  - strong
+  - support
+  - keyword
+  - entity
+  - entity.name
+  - storage.type.function.arrow
+  settings: {fontStyle: bold}
+- scope:
+  - emphasis
+  - comment
+  - constant
+  - variable.language
+  - markup.quote
+  - variable.parameter
+  - meta.function.parameters variable.parameter
+  settings: {fontStyle: italic}
+- scope:
+  - variable
+  - markup
+  - punctuation
+  settings: {fontStyle: ''}
 - scope:
   - markup.bold
   - markup.bold.markdown
