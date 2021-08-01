@@ -1,27 +1,23 @@
 # **Nyx**
 
-> "The programming language for the future", perhaps; or _that's_ how everyone would call the next hottest programming language.
-
-With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nyx offers an extensive suite of tools in one concise and expressive language where you can make _anything_ you imagine.
-
-Nyx comes with a lightning fast compiler that scales to any codebase size, and its Python, JavaScript and WebAssembly runtimes help you to build both web and native applications with far-greater performance than with regular frameworks.
+With the best of object-oriented and functional paradigms, a big standard library, familiar syntax and powerful metaprogramming features at your disposal, Nyx offers an extensive suite of tools in one concise and expressive language. Nyx comes with a fast compiler, developed in Python, and its Python, JavaScript and WebAssembly runtimes help you to build both web and native applications with far-greater performance than with regular frameworks.
 
 > Sample Code
 
 ```coffee
-class Person(val firstName: str, val lastName: str)
-  def fullName() = '$firstName $lastName'
-  def lastFirst() = '$lastName, $firstName'
+class Person(val firstName: str, val lastName: str) =
+  def fullName() = '#firstName #lastName'
+  def lastFirst() = '#lastName, #firstName'
 
 module Utils
-  def truncEllipsis(s: str, maxLen: int): str
+  def truncEllipsis(s: str, maxLen: int): str =
     if s == nil || len s == 0 || maxLen == 0 -> ''
-    elif len s > maxLen -> s.take(maxLen) ++ '...'
-    else s
-  def truncate(s: str, len: int): str = s.take(#len)
+    elif len s > maxLen -> s[:maxLen] ++ '...'
+    else -> s
+  def truncate(s: str, len: int): str = s[:@len]
 
 for (val x in 1 to 4; val y in 2 to 5) if x + y < 4
-  print('x: $x, y: $y')
+  print('x: @x, y: @y')
 val p = new Person('Diana', 'Han')
 print(p.fullName)
 print(Utils.truncate(p.firstName, 2))
@@ -45,11 +41,6 @@ Many of us realized how can we fix this without having to worry about this madne
 
 Nyx is inspired by many languages: Ruby and ReasonML (syntax), Scala and Haskell (concept), C# (runtime performance), and most importantly, Python and JavaScript (versatility). Nyx targets both the Python and JavaScript ecosystems and their runtimes, which opens new possibilities while combining the best features from both languages.
 
-#### Fluff
-
-- Nyx adheres to Semantic Versioning (semver).
-- All of its versions start with an adjective, and a random gem name, like Scrumptuous Sapphire. 
-
 ## Roadmap
 
 This document is a quick and informative guide targeted at existing JavaScript developers and those interested in learning a completely new and in-progress programming language, and those looking forward to contribute to this document.
@@ -67,7 +58,7 @@ Things to do before **Version 1.0.0**
 - [ ] Editor support (VS Code, Atom, Eclipse, Sublime, Nova\*)
 - [ ] Logo and online documentation website
 
-\*Backus-Naur Form (BNF): https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
+\*Backus-Naur Form (BNF): https:#en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 
 ### Contents
 
@@ -211,7 +202,7 @@ Usage: `nyx [options] ... [file]`, where `options` are:
 | `print` | `p` | Print output to standard output |
 | `eval` | `e` | Compile and print a snippet of code |
 
-The following are used for debugging the compiler:
+The following are used for debugging the compiler, used with the `debug` or `d` command.
 
 | Option   | Description                             |
 | -------- | --------------------------------------- |
@@ -244,24 +235,24 @@ Except commands like `assert`, `break`/`halt`, `continue`/`skip`, `fallthru`, `r
 Blocks are delimited by indentation, curly braces, or Ruby-style `then`-`end` blocks. Curly braces are mainly used in case you want to compile Nyx into a more compact form.
 
 ```coffee
-// Python/Haskell style
+# Python/Haskell style
 if true
   run()
 if true then run()
 
-// Ruby/Elixir style
+# Ruby/Elixir style
 if true then run() end
 if true then
   run()
 end
 
-// Swift/Go style
+# Swift/Go style
 if true { run() }
 if true {
   run()
 }
 
-// Multiple inline blocks
+# Multiple inline blocks
 for val x in val arr = 1 to 10 if x < 10
   print(x += 10)
 ```
@@ -271,17 +262,17 @@ Outside string literals, even a single space is counted as an indentation. All b
 ```coffee
 import spacy
 
-// Load English tokenizer, tagger, parser and NER
+# Load English tokenizer, tagger, parser and NER
 nlp = spacy.load("en_core_web_sm")
 
-// Analyze syntax
-print("Noun phrases:", [for let chunk in doc.nounChunks
-  chunk.text])
-print("Verbs:", [for let token in doc
-  if token.pos == "VERB" then token.lemma])
+# Analyze syntax
+print("Noun phrases: #{[for let chunk in @doc.nounChunks
+  chunk.text]}")
+print("Verbs: #{[for let token in @doc
+  if token.pos == "VERB" then token.lemma]}")
 
-// Find named entities, phrases and concepts
-for entity in doc.ents
+# Find named entities, phrases and concepts
+for entity in @doc.ents
   print(entity.text, entity.label_)
 ```
 
@@ -366,15 +357,13 @@ vol
 
 #### Comments
 
-Comments are denoted by the `//` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments `///` and `/** */` begin with an extra character and compile specifically to JSDoc comments.
-
-This might somehow break syntax highlighting.
+Comments are denoted by the `#` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments `#/` and `/** */` begin with an extra character and compile specifically to JSDoc or `""" docstring """` comments, depending on the implementation.
 
 ```coffee
-// from here to the end of the line.
-/* comments can be /* nested */. */
-/// use these special comments
-/** to /** document */ your code. */
+# from here to the end of the line.
+#[ comments can be #[ nested ]#. ]#
+#: use these special comments
+#{ to #{ document }# your code. }#
 ```
 
 ### Variables
@@ -384,12 +373,12 @@ All variables must be declared with either the `var` or `val` keyword. `var` dec
 Do take note, variables can be shadowed (redeclared) even _on the same scope_, as shown below, and the declaration you refer to is whichever is innermost and closest upward.
 
 ```coffee
-val x = 1 + 1
-print(x) // 2
-x = 3 // This does not compile.
+val x = 1 + 1;
+print(x) # 2
+x = 3 # This does not compile.
 
 var x = 1 + 1
-x = 3 // This does
+x = 3 # This does
 ```
 
 The `var`/`val` keywords help determine whether to shadow or keep the definitions or overshadow the existing declaration with that name.
@@ -398,15 +387,22 @@ Also, the hash sign `#` does not delimit comments, but rather help distinguish i
 
 ```coffee
 val v = 5
-for val v in 1..=3 // v is local
-  print(v) // v is 1, 2, 3
-print(v) // v is still 20
+for val v in 1..=3 # v is local
+  print(v) # v is 1, 2, 3
+print(v) # v is still 20
 ```
 
 The type of a value can be omitted and inferred, or it can be explicitly stated. The **colon `:`** is compulsory and is used to declare type annotations throughout your source code. All values have the same type throughout their lifetime, unless their type declaration says otherwise.
 
 ```coffee
 val x: int = 1 + 1
+```
+
+Create a dynamic variable easily with `dyn var`, or the type annotation `mix` (`mix` behaves like TypeScript's `any` but does not allow `nil`). Dynamic variables are subject to coercion which is opt-in.
+
+```coffee
+dyn val x: mix = 100
+x = x[2] # 0
 ```
 
 Hoisted constants are declared with `let` or `con`.
@@ -422,30 +418,30 @@ var _set\\_() = 10
 Identifiers are compared using their first character. All other remaining characters are normalized into ASCII (which is complicated), ignoring all case and delimiters `_` and `\`.
 
 ```coffee
-trait Ident
-  def ==(x: )
+def ==(x: str, y: str): bool = x[0] == y[0] &&
+  (x =< /[^\pL\pN]//g).latin().lower() ==
+  (y =< /[^\pL\pN]//g).latin().lower()
 ```
 
-A hash sign is used to suppress their meaning. This is known as _stropping_.
+Keywords become regular identifiers when prefixed with several symbols: `@` strips keywords of their meaning, turning them into regular identifiers.
 
 ```coffee
-var #var = 'Happy stropping'
-var #type = alias [int, int]
+var @var = 'Stropping in action'
+var @type = class X(int: int)
 
-var #object = new #type(&int = 9)
-assert #object is #type
-assert #object.int == 9
+var @object: int = new @type(9)
+assert @object is @type
+assert @object.int == 9
 
-var #assert = true
-assert #assert
+var @assert = true
+assert @assert
 ```
 
-Identifiers can also be in quotes.
+Identifiers can also prefix a string literal. Quoted identifiers are not compared like regular identifiers.
 
 ```coffee
-val #'x\n\
-x' = 10
-print(#'x\nx') // 10
+val @'x\nx' = 10
+print($'x\nx') # 10
 ```
 
 ### Defining Functions
@@ -453,13 +449,13 @@ print(#'x\nx') // 10
 Use the `def` keyword to define functions. Alternatively, use the ES6 fat arrow. Defining functions is very lightweight in Nyx:
 
 ```coffee
-(x, y) => x + y // an inline function
-x = () => () // an empty function
+(x, y) => x + y # an inline function
+x = () => () # an empty function
 
 times = (x, y) =>
   x * y
-// multiple lines, and be assigned to
-// a var like in JavaScript
+# multiple lines, and be assigned to
+# a var like in JavaScript
 ```
 
 As you see, function definitions are considerably shorter! You may also have noticed that we have omitted `return`.
