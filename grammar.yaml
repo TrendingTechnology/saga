@@ -4465,7 +4465,7 @@ repository:
     - include: '#operators'
   regexp:
     begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(\p{Alnum}*)(/)(?![*/>])(?=.*/\p{Alnum}*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
-    end: (/)(?:((?:\\.|[^</>])*)(/))?(\p{Alnum}*)
+    end: (/)(?:((?:\\.|[^/])*)(/))?(\p{Alnum}*)
     name: string.regexp.nyx
     beginCaptures:
       1: {name: keyword.modifier.nyx}
