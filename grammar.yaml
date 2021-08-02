@@ -2294,17 +2294,17 @@ repository:
       beginCaptures:
         1: {name: keyword.operator.pipeline.nyx}
       patterns:
-      - match: (?<=\+>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+      - match: (?<=\+>)\s*(?!\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
         captures:
           2: {name: keyword.operator.private.nyx}
           3: {name: meta.function-call.without-arguments.nyx}
           4: {patterns: [{include: '#function-name'}]}
-      - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+      - match: \s*(?!\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
         captures:
           2: {name: keyword.operator.private.nyx}
           3: {name: meta.method-call.without-arguments.nyx}
           4: {patterns: [{include: '#method-name'}]}
-      - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+      - match: \s*(?!\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
         captures:
           2: {name: keyword.operator.private.nyx}
           3: {name: variable.other.object.nyx}
@@ -2317,17 +2317,17 @@ repository:
       beginCaptures:
         1: {name: keyword.operator.pipeline.nyx}
       patterns:
-      - match: (?<=\|>)\s*(?!\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+      - match: (?<=\|>)\s*(?!\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
         captures:
           2: {name: keyword.operator.private.nyx}
           3: {name: meta.function-call.without-arguments.nyx}
           4: {patterns: [{include: '#function-name'}]}
-      - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
+      - match: \s*(?!\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()(([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*))(?!\?|\.)
         captures:
           2: {name: keyword.operator.private.nyx}
           3: {name: meta.method-call.without-arguments.nyx}
           4: {patterns: [{include: '#method-name'}]}
-      - match: \s*(?!\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
+      - match: \s*(?!\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(\??)(\.?)
         captures:
           2: {name: keyword.operator.private.nyx}
           3: {name: variable.other.object.nyx}
@@ -2596,7 +2596,7 @@ repository:
     - match: (?i)(?<!\.|::)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
       captures:
         1: {name: support.type.builtin.primitive.nyx}
-    - match: (?i)(?<!\.|::)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mixed|mix))\b
+    - match: (?i)(?<!\.|::)\s*+\b((?>this|any|unset|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mix|nil|undef|true|false))\b
       captures:
         1: {name: support.type.builtin.nyx}
     - match: \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
@@ -3119,7 +3119,7 @@ repository:
   jsx:
     patterns:
     - applyEndPatternLast: 1
-      begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
+      begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(?=<[_\\\p{L}\p{Nl}]|<\s*>)
       end: (?=.)
       patterns:
       - include: '#jsx-tag-element-name'
@@ -3238,7 +3238,7 @@ repository:
   keyword-storage:
     patterns:
     - begin: (?<!\.|::)\s*+\b(const|con|let|var|val)\b
-      end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|redo|for|each|while)\b))|\s*(?=;|[}\]]\#|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+      end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|redo|for|each|while)\b))|\s*(?=;|[}\]]\#|\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
       beginCaptures:
         1: {name: storage.type.nyx}
       patterns:
@@ -3248,7 +3248,7 @@ repository:
     - include: '#new'
     - include: '#query'
     - begin: (?<!\.|::)\s*+\b(halt|skip|break|continue|goto|label)\b
-      end: ^\s*|\s*(?=,|;|:|\#|$|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\p{Pe})
+      end: ^\s*|\s*(?=,|;|:|\#|$|\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\p{Pe})
       beginCaptures:
         1: {name: keyword.control.flow.nyx}
       patterns:
@@ -3260,8 +3260,8 @@ repository:
           1: {name: constant.other.label.nyx}
     - match: |-
         (?x)(?<!\.|::)\s*+\b(?:
-          (in|of|as|void|new|(?:type|name|key|size)of|infer) #1
-          |(size)|(len)|(del)|(is)|(to|til|by)|(type)|(name)|(key) #2-9
+          (in|of|as|new|(?:type|name|key|size)of|infer)|(size) #1-2
+          |(len)|(del)|(is)|(to|til|by)|(type)|(name)|(key)|(unset) # 10
         )\b
       captures:
         1: {name: keyword.operator.expression.$1.nyx}
@@ -3273,6 +3273,7 @@ repository:
         7: {name: keyword.operator.expression.typeof.nyx}
         8: {name: keyword.operator.expression.nameof.nyx}
         9: {name: keyword.operator.expression.keyof.nyx}
+        10: {name: keyword.operator.expression.void.nyx}
     - match: |-
         (?x)(?<!\.|::)\s*+\b(?:
           (if|else|els?if|ell?ess?|unless?|guard)|(for|each|while|until|repeat)| #1,2
@@ -4119,7 +4120,7 @@ repository:
     - begin: \s*(:\?[<=>]?|:(?![:<=>]))\s*
       end: |-
         (?x)(?==(?![=>])|[\p{Pe}\p{Po}\p{Pd}\p{S}&&[^<=>&|^~!?]]|\s*\b
-        (in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|
+        (in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|
         to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|
         until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|
         rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|
@@ -4477,7 +4478,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.inline.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4491,7 +4492,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.style.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4505,21 +4506,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
-        2: {name: string.quoted.template.nyx}
-        3: {name: punctuation.definition.quasi.begin.nyx}
-      endCaptures:
-        1: {name: string.quoted.template.nyx}
-        2: {name: punctuation.definition.quasi.end.nyx}
-      patterns:
-      - include: '#quasi-embedded-raw'
-      - include: '#embedded-haml'
-    - begin: \s*+(haml)?\s*((`))
-      contentName: source.embedded.nyx
-      end: \s*((`)(?!`))
-      name: string.quasi.nyx
-      beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.xml.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4533,7 +4520,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.block.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4547,7 +4534,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.tag.block.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4561,7 +4548,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.script.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4575,7 +4562,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.script.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4589,7 +4576,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.script.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4603,7 +4590,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.block.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4617,7 +4604,7 @@ repository:
       end: \s*((`)(?!`))
       name: string.quasi.nyx
       beginCaptures:
-        1: {name: entity.name.tag.$1.nyx}
+        1: {name: entity.name.script.nyx}
         2: {name: string.quoted.template.nyx}
         3: {name: punctuation.definition.quasi.begin.nyx}
       endCaptures:
@@ -4626,6 +4613,34 @@ repository:
       patterns:
       - include: '#quasi-embedded-raw'
       - include: source.fsharp
+    - begin: \s*+(javascript|jsx?)?\s*((`))
+      contentName: source.embedded.nyx
+      end: \s*((`)(?!`))
+      name: string.quasi.nyx
+      beginCaptures:
+        1: {name: entity.name.script.nyx}
+        2: {name: string.quoted.template.nyx}
+        3: {name: punctuation.definition.quasi.begin.nyx}
+      endCaptures:
+        1: {name: string.quoted.template.nyx}
+        2: {name: punctuation.definition.quasi.end.nyx}
+      patterns:
+      - include: '#quasi-embedded-raw'
+      - include: source.js
+    - begin: \s*+(typescript|tsx?)?\s*((`))
+      contentName: source.embedded.nyx
+      end: \s*((`)(?!`))
+      name: string.quasi.nyx
+      beginCaptures:
+        1: {name: entity.name.script.nyx}
+        2: {name: string.quoted.template.nyx}
+        3: {name: punctuation.definition.quasi.begin.nyx}
+      endCaptures:
+        1: {name: string.quoted.template.nyx}
+        2: {name: punctuation.definition.quasi.end.nyx}
+      patterns:
+      - include: '#quasi-embedded-raw'
+      - include: source.ts
     - begin: \s*+(?!\b(?:return|void)\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*((`))
       contentName: string.quoted.template.nyx
       end: \s*((`)(?!`))
@@ -4653,7 +4668,7 @@ repository:
         ))? # printf modifier
       captures:
         1: {name: punctuation.quasi.element.nyx}
-        2: {patterns: [{include: '#quasi-variable'}]}
+        2: {patterns: [{include: '#variable-sigil'}]}
         3: {name: punctuation.separator.label.nyx}
         4: {name: storage.type.format.nyx}
     - begin: (?<!\\)(#{)\s*
@@ -4690,7 +4705,7 @@ repository:
         ))? # printf modifier
       captures:
         1: {name: punctuation.quasi.element.nyx}
-        2: {patterns: [{include: '#quasi-variable'}]}
+        2: {patterns: [{include: '#variable-sigil'}]}
         3: {name: punctuation.separator.label.nyx}
         4: {name: storage.type.format.nyx}
     - begin: (?<!#)(#{)\s*
@@ -4711,10 +4726,6 @@ repository:
         3: {name: storage.type.format.nyx}
       patterns:
       - include: '#core'
-  quasi-variable:
-    patterns:
-    - include: '#sigils'
-    - include: '#variable'
   query:
     patterns:
     - begin: (?<!\.|::)\s*+\b(from)\b\s*
@@ -4788,7 +4799,7 @@ repository:
     - include: '#operator'
     - include: '#operators'
   regexp:
-    begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(\p{Alnum}*)(/)(?![*/>])(?=.*/\p{Alnum}*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
+    begin: (?<=^|[\p{S}\p{Po}\p{Pd}\p{Ps}&&[^'"`]]|\b(?:in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)\s*+(\p{Alnum}*)(/)(?![*/>])(?=.*/\p{Alnum}*\s*($|[,;\p{Pe}]|\.[_\\\p{L}\p{M}\p{N}]))
     end: (/)(?:((?:\\.|[^/])*)(/))?(\p{Alnum}*)
     name: string.regexp.nyx
     beginCaptures:
@@ -6260,7 +6271,7 @@ repository:
           1: {name: keyword.operator.accessor.nyx}
   typed-interface:
     begin: (?<!\.|::)\s*+\b(inter|schema|struct)(\s+|$)
-    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=;|=|{|[}\]]\#|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
+    end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=;|=|{|[}\]]\#|\b(in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
     beginCaptures:
       1: {name: keyword.other.interface.nyx}
     endCaptures:
@@ -6346,7 +6357,7 @@ repository:
   typed-parse-types:
     patterns:
     - include: '#sigils'
-    - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<!\.|::)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+    - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<!\.|::)\s*+\b(?:in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
       end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
@@ -6366,7 +6377,7 @@ repository:
     - match: (?i)(?<!\.|::)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
       captures:
         1: {name: support.type.builtin.primitive.nyx}
-    - match: (?i)(?<!\.|::)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mixed|mix))\b
+    - match: (?i)(?<!\.|::)\s*+\b((?>this|any|unset|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mix|nil|undef|true|false))\b
       captures:
         1: {name: support.type.builtin.nyx}
     - match: \s*+(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
@@ -6544,16 +6555,16 @@ repository:
     - include: '#punctuation'
   typed-variable:
     patterns:
-    - match: (?<!\.|::)\s*+()((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
+    - match: (?<!\.|::)\s*+()([&^|*%@$]?(?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([&^|*%@$]?[_\\\p{L}\p{Nl}](?:[.\\_\\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
       captures:
         1: {name: keyword.operator.private.nyx}
         2: {name: storage.type.function.nyx}
         3: {name: keyword.operator.optional.parameter.nyx}
-    - match: ((?<!\.|::)\.\.\.)?\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
+    - match: ((?<!\.|::)\.\.\.)?\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
       captures:
         1: {name: keyword.operator.spread.nyx}
         2: {name: keyword.operator.private.nyx}
-        3: {name: variable.other.readwrite.nyx}
+        3: {patterns: [{include: '#sigils'}]}
         4: {name: keyword.operator.optional.parameter.nyx}
     - include: '#typed-vars-and-props'
   typed-vars-and-props:
@@ -6584,11 +6595,11 @@ repository:
         1: {name: storage.type.function.arrow.nyx}
       patterns:
       - include: '#typed-parse-types'
-    - begin: (?<!let|const|var|val|def|con)(?<=[_\\\p{L}\p{M}\p{N}])\s+(?=(?<!\.|::)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+    - begin: (?<!let|const|var|val|def|con)(?<=[&^|*%@$]?[_\\\p{L}\p{M}\p{N}])\s+(?=(?<!\.|::)\s*+\b(?:in|of|as|new|unset|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
       end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
-    - begin: (?<!:)\s*+(?=(()[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*(::?|\.)?=)(?!=>|==)
+    - begin: (?<!:)\s*+(?=(()[&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)?\s*(::?|\.)?=)(?!=>|==)
       end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
@@ -6633,9 +6644,13 @@ repository:
       captures:
         1: {name: keyword.operator.private.nyx}
         2: {name: variable.other.readwrite.nyx}
+  variable-sigil:
+    patterns:
+    - include: '#sigils'
+    - include: '#variable'
   variable-typed:
     patterns:
-    - begin: (?<=^|,|\()\s*+(?=()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?![:<=>])))
+    - begin: (?<=^|,|\()\s*+(?=()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*\??\s*(:)((?=::)|(?![:<=>])))
       end: \s*(?=,|\))
       beginCaptures:
         3: {name: keyword.operator.type.nyx}
