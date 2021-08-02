@@ -6061,7 +6061,7 @@ repository:
       - include: '#comma'
   typed-bracketed-args:
     patterns:
-    - begin: (?<!}|return|await|unless|elif|ell?ess|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
+    - begin: (?<!}|return|await|unless|elif|eless|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
       contentName: meta.function.parameters.nyx
       end: \s*((\)))
       beginCaptures:
@@ -6088,7 +6088,7 @@ repository:
           1: {name: meta.brace.round.nyx}
         patterns:
         - include: '#typed-parse-types'
-    - begin: (?<!}|return|await|unless|elif|ell?ess|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
+    - begin: (?<!}|return|await|unless|elif|eless|else|match|when|repeat|until|switch|case|while|for|throw)\s*((\())
       contentName: meta.function.parameters.nyx
       end: \s*((\)))
       beginCaptures:
