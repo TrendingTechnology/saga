@@ -2590,7 +2590,7 @@ repository:
       - include: '#curly-brackets'
   function-name:
     patterns:
-    - include: '#sigils'
+    - include: '#function-sigils'
     - include: '#support-functions'
     - include: '#support-methods'
     - match: (?i)(?<!\.|::)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
@@ -2679,6 +2679,211 @@ repository:
         8: {name: keyword.operator.currency.nyx}
         9: {name: keyword.operator.ascii.nyx}
         10: {name: keyword.operator.infix.nyx}
+  function-sigils:  
+    patterns: 
+    - begin: (\^)(['"])
+      end: (\2)\s*(?=\()
+      name: entity.name.symbol.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.symbol.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\&)(['"])
+      end: (\2)\s*(?=\()
+      name: entity.name.variable.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.variable.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\%)(['"])
+      end: (\2)\s*(?=\()
+      name: entity.name.global.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.global.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\*)(['"])
+      end: (\2)\s*(?=\()
+      name: entity.name.spread.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.spread.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\|)(['"])
+      end: (\2)\s*(?=\()
+      name: entity.name.language.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.constant.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\@)(['"])
+      end: (\2)\s*(?=\()
+      name: entity.name.decorator.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.decorator.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\$)(['"])
+      end: (\2)\s*(?=\()
+      name: entity.name.instance.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.instance.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - begin: (\^)(`)\s*
+      end: \s*(?:(`)(?!`))
+      name: entity.name.symbol.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.symbol.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#quasi-embedded-raw'
+    - begin: (\&)(`)\s*
+      end: \s*(?:(`)(?!`))
+      name: entity.name.variable.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.variable.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#quasi-embedded-raw'
+    - begin: (\%)(`)\s*
+      end: \s*(?:(`)(?!`))
+      name: entity.name.global.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.global.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#quasi-embedded-raw'
+    - begin: (\*)(`)\s*
+      end: \s*(?:(`)(?!`))
+      name: entity.name.spread.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.spread.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#quasi-embedded-raw'
+    - begin: (\|)(`)\s*
+      end: \s*(?:(`)(?!`))
+      name: entity.name.language.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.constant.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#quasi-embedded-raw'
+    - begin: (\@)(`)\s*
+      end: \s*(?:(`)(?!`))
+      name: entity.name.decorator.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.decorator.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#quasi-embedded-raw'
+    - begin: (\$)(`)\s*
+      end: \s*(?:(`)(?!`))
+      name: entity.name.instance.nyx
+      beginCaptures:
+        1: {name: punctuation.definition.instance.nyx}
+        2: {name: punctuation.definition.string.begin.nyx}
+      endCaptures:
+        1: {name: punctuation.definition.string.end.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#quasi-embedded-raw'
+    - match: (\^)([_\\\p{L}\p{M}\p{N}]+)
+      name: entity.name.symbol.nyx
+      captures:
+        1: {name: punctuation.definition.symbol.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - match: (\&)([_\\\p{L}\p{M}\p{N}]+)
+      name: entity.name.variable.nyx
+      captures:
+        1: {name: punctuation.definition.variable.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - match: (\%)([_\\\p{L}\p{M}\p{N}]+)
+      name: entity.name.global.nyx
+      captures:
+        1: {name: punctuation.definition.global.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - match: (\*)([_\\\p{L}\p{M}\p{N}]+)
+      name: entity.name.spread.nyx
+      captures:
+        1: {name: punctuation.definition.spread.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - match: (\|)([_\\\p{L}\p{M}\p{N}]+)
+      name: entity.name.language.nyx
+      captures:
+        1: {name: punctuation.definition.constant.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - match: (\@)([_\\\p{L}\p{M}\p{N}]+)
+      name: entity.name.decorator.nyx
+      captures:
+        1: {name: punctuation.definition.decorator.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
+    - match: (\$)([_\\\p{L}\p{M}\p{N}]+)
+      name: entity.name.instance.nyx
+      captures:
+        1: {name: punctuation.definition.instance.nyx}
+      patterns:
+      - include: '#function-operator'
+      - include: '#string-content'
   function-string:
     patterns:
     - begin: \s*+(('))
@@ -4440,24 +4645,24 @@ repository:
         (?xi)
         (?<!\\) # no backslash
         (\#) # prefix
-        ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
+        ([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
         (?:(%)(
           \(.+?\)|
-          \\?.[<=>^]?[+-]?0?
+          \\?\S[<=>^]?[+-]?0?
           (?:\d*[-.,/_]?\.?\d*\w*%?)*
         ))? # printf modifier
       captures:
         1: {name: punctuation.quasi.element.nyx}
-        2: {patterns: [{include: '#variable'}]}
+        2: {patterns: [{include: '#quasi-variable'}]}
         3: {name: punctuation.separator.label.nyx}
         4: {name: storage.type.format.nyx}
-    - begin: (?<!\\)(\#\{)\s*
+    - begin: (?<!\\)(#{)\s*
       end: |-
         (?xi)\s*
-        (\}) # closing brace
+        (}) # closing brace
         (?:(%)(
           \(.+?\)|
-          \\?.[<=>^]?[+-]?0?
+          \\?\S[<=>^]?[+-]?0?
           (?:\d*[-.,/_]?\.?\d*\w*%?)*
         ))? # printf modifier
       name: entity.quasi.element.nyx
@@ -4471,30 +4676,30 @@ repository:
       - include: '#core'
   quasi-embedded-raw:
     patterns:
-    - match: \#\#|``
+    - match: \``|##
       name: constant.character.escape.nyx
     - match: |-
         (?xi)
-        (?<!\#) # no dollar sign
+        (?<!\#) # no hash sign
         (\#) # prefix
-        ([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
+        ([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*) # variable
         (?:(%)(
           \(.+?\)|
-          \\?.[<=>^]?[+-]?0?
+          \\?\S[<=>^]?[+-]?0?
           (?:\d*[-.,/_]?\.?\d*\w*%?)*
         ))? # printf modifier
       captures:
         1: {name: punctuation.quasi.element.nyx}
-        2: {patterns: [{include: '#variable'}]}
+        2: {patterns: [{include: '#quasi-variable'}]}
         3: {name: punctuation.separator.label.nyx}
         4: {name: storage.type.format.nyx}
-    - begin: (?<!\#)(\#\{)\s*
+    - begin: (?<!#)(#{)\s*
       end: |-
         (?xi)\s*
-        (\}) # closing brace
+        (}) # closing brace
         (?:(%)(
           \(.+?\)|
-          \\?.[<=>^]?[+-]?0?
+          \\?\S[<=>^]?[+-]?0?
           (?:\d*[-.,/_]?\.?\d*\w*%?)*
         ))? # printf modifier
       name: entity.quasi.element.nyx
@@ -4506,6 +4711,10 @@ repository:
         3: {name: storage.type.format.nyx}
       patterns:
       - include: '#core'
+  quasi-variable: 
+    patterns: 
+      - include: '#sigils'
+      - include: '#variable'
   query:
     patterns:
     - begin: (?<!\.|::)\s*+\b(from)\b\s*
