@@ -55,6 +55,8 @@ Things to do before **Version 1.0.0**
 
 <table><tr><td valign=top>
 
+#### Introduction
+
 - Installation
 - Overview
 - The Basics
@@ -63,9 +65,13 @@ Things to do before **Version 1.0.0**
 
 #### Variables and Constants
 
+- Var vs Val
+- Let vs Const
+- Type Annotations
+
 #### Data Types
 
-- Type System
+- Introduction
 - Booleans
 - Integers and Floats
 - Strings
@@ -79,8 +85,6 @@ Things to do before **Version 1.0.0**
   - Sequences
   - Destructuring
 - Regular Expressions
-  - Block Regexes
-  - Syntax Reference
 - Buffers
 - Functions
 - Functions
@@ -98,6 +102,7 @@ Things to do before **Version 1.0.0**
 
 #### Functions
 
+- Introduction
 - Pure Functions and Closures
 - Inline and Named Functions
 - Anonymous and Higher-Order Functions
@@ -107,8 +112,22 @@ Things to do before **Version 1.0.0**
 - Generators
 - String Macros
 
+#### Classes
+
+- Introduction
+- Constructors
+- Methods and Attributes
+- Access Modifiers
+- Getters and Setters
+- Symbols
+- Traits and Extensions
+- Fragments and Constraints
+- Objects and Records
+- Advanced Modifiers
+
 #### Types
 
+- Introduction
 - Any, Mixed, Void/Unit, Empty
 - Optional Types
 - Function Types
@@ -128,18 +147,6 @@ Things to do before **Version 1.0.0**
 - Series and Parallel Blocks
 - Async-Await
 - Callbacks and Futures
-
-#### Classes
-
-- Constructors
-- Methods and Attributes
-- Access Modifiers
-- Getters and Setters
-- Symbols
-- Traits and Extensions
-- Fragments and Constraints
-- Objects and Records
-- Advanced Modifiers
 
 </td><td valign=top>
 
@@ -204,7 +211,7 @@ Things to do before **Version 1.0.0**
 - Functional Programming
 - Object-Oriented Programming
 - Markup and Styling
-- Web APIs
+- Frontend and Backend
 - Domain-Specific Language Extensions
 
 #### Appendices and References
