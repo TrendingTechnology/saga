@@ -273,76 +273,19 @@ A number of keywords are reserved in Nyx. You should probably be aware most of t
 None of these keywords are unused. Do take note `def` is both used to declare functions, and also is used as a short form for `default`.
 
 ```
-as assert await
-break by
-case catch check continue
-debug def del drop
-eless elif else equals export
-fail fallthru finally fold for from
-goto group guard
-halt hide
-if import in infer into is
-join
-key
-label len
-match
-name new
-of order onto out
-pass
-query
-raise redo repeat rescue return
-scan select seq show size size skip switch
-take then throw til to try type
-unless until use
-void
-when where while with
-yield
+as assert await break by case catch check continue debug def del drop eless elif else equals export fail fallthru finally fold for from goto group guard halt hide if import in infer into is join key label len match name new of order onto out pass query raise redo repeat rescue return scan select seq show size size skip switch take then throw til to try type unless until use void when where while with yield
 ```
 
 **Declarations** are special keywords that declare program entities like macros, variables, functions and more. They can be preceded by multiple **modifiers**, as shown below.
 
 ```
-alias
-class con const constr
-data decl def
-enum extend
-fn frag fun func
-given
-inter
-let
-macro
-module
-nspace
-object
-proc
-raw record
-schema struct style
-trait
-val var
+alias class con const constr data decl def enum extend fn frag fun func given inter let macro module nspace object proc raw record schema struct style trait val var
 ```
 
 **Modifiers** prefix a declaration. For example, `pub stat def init()` which declares a static public method named `init`. Modifiers can be ordered, so long as the last one is a declaration keyword.
 
 ```
-abs async
-binary
-check
-dele dyn
-eager expl ext extl
-final fixed
-gen get greedy
-handle
-immut impl infix inline intl
-lazy lock
-mut
-nary next
-over
-part prefix prev priv prot pub pvt
-rec ref ronly
-safe seal set sign size stat suffix sync
-ternary trans
-unary uncheck unique unsafe unsign unsize
-vol
+abs async binary check dele dyn eager expl ext extl final fixed gen get greedy handle immut impl infix inline intl lazy lock mut nary next over part prefix prev priv prot pub pvt rec ref ronly safe seal set sign size stat suffix sync ternary trans unary uncheck unique unsafe unsign unsize vol
 ```
 
 #### Comments
@@ -402,7 +345,6 @@ var message = do
   var part1 = "hello",
     part2 = "world"
   part1 ++ " " ++ part2
-
 # `part1` and `part2` not accessible here!
 ```
 
@@ -462,7 +404,7 @@ def ==(x: str, y: str): bool = x[0] == y[0] &&
   (y =< /[^\pL\pN]//g).latin().lower()
 ```
 
-Keywords become regular identifiers when prefixed with several symbols, such as `$`, `@` or `&`: `@` strips keywords of their meaning, turning them into regular identifiers. `&` declares a named parameter (similar to Python's keyword arguments) which then can be called like so.
+Keywords become regular identifiers when prefixed with various symbols such as `@`.
 
 ```coffee
 var @var = 'Stropping in action'
@@ -476,7 +418,7 @@ var @assert = true
 assert @assert
 ```
 
-Identifiers can also prefix a string literal. Quoted identifiers are not compared like regular identifiers.
+Identifiers can also prefix a string literal. Quoted identifiers are not compared case-insensitively like regular identifiers.
 
 ```coffee
 val @'x\nx' = 10
@@ -536,12 +478,7 @@ false;
 
 #### Logical Operators
 
-Logical operations work the same way as in many other programming languages; `&&`, `||` and `!` work as is. Any operand is coerced to booleans before being evaluated. We also added the logical XOR `^^` too.
-
-- `&&` returns `true` only if both operand are `true`
-- `||` returns `true` if at least one operand is `true`
-- `^^` returns `true` only if both operands are different (one is `true` and the other is `false`)
-- `!` negates the truthiness of its only operand: changing `true` to `false`, and vice versa
+Logical operations work the same way as in many other programming languages; `&&`, `||` and `!` work as is. Any operand is coerced to booleans before being evaluated. We also added logical XOR `^^` too.
 
 ```coffee
 !true          # false
@@ -563,7 +500,9 @@ true ^^ false  # true
 false ^^ false # false
 ```
 
-The logical operators above do not short-circuit, and evaluate both operands. There are dedicated operators `?:` and `!:` for that: `!:` evaluates its RHS if its LHS yields `true` when converted into boolean, and `?:` does the opposite, that is, if its LHS yields `false`.
+The logical operators above do not short-circuit, and evaluate all their operands.
+
+If you want short-circuit operators, there are dedicated operators `?:` and `!:` for that: `!:` evaluates its RHS if its LHS yields `true` when converted into boolean, and `?:` does the opposite, that is, if its LHS yields `false`.
 
 `!:` takes precedence over `?:`.
 
@@ -575,41 +514,173 @@ The logical operators above do not short-circuit, and evaluate both operands. Th
 0 ?: 1 # 0
 ```
 
-`?:` and `!:` when spaced out function the same way as ternary operators in a lot of other languages.
+`?:` and `!:` when spaced out function the same way as ternary operators in a lot of other languages. We don't call it _ternary_ as that's too generic --- we call them "conditional operators" as their value relies on the condition on the left hand side.
 
-Given an expression `a ? b : c`, if `a` is true `b` is evaluated and returned, and if `a` is false, `c` is evaluated and returned. The rules are reversed for `a ! b : c`.
+For `condition ? consequent : alternative`, if the _condition_ on the left hand side is true, the _consequent_ is returned, and if not, the _alternative_. The rules are reversed for `! :`, which means if the condition on the left hand side is true, the _alternative_ is returned.
 
 ```coffee
 gen def hailstoneSeq(n) =
   yield n
   while n != 1
     yield n = n % 2 != 0 ? n * 3 + 1 : n / 2
-
+x: 10 =
 gen def hailstoneSeq(n) =
   yield n
   while n != 1
     yield n = n % 2 == 0 ! n * 3 + 1 : n / 2
 ```
 
-`x ?: y` is shorthand for `x ? x : y`, and likewise, `x !: y` is shorthand for `x ! x : y`.
+`x ?: y` is shorthand for `x ? x : y`, and likewise, `x !: y` is shorthand for `x ! x : y`. `? :` is syntactic sugar for `if...then...else...` and `! :` `unless...then...else...`.
 
 #### Comparison Operators
 
-All comparison operators have the same precedence and can be chained: `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
+All comparison operators have the same precedence and can be chained, such that `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
 
-- Abstract comparison makes type conversion before performing the operatione.
 - Structural comparison operators perform comparison directly.
 - Referential equality operators compare shallowly and by reference.
 
-| Operator         | Abstract   | Structural | Referential  |
-| ---------------- | ---------- | ---------- | ------------ |
-| Greater          | `~>`       | `>`        |              |
-| Lesser           | `~<`       | `<`        |              |
-| Greater or equal | `>~`       | `>=`       |              |
-| Lesser or equal  | `<~`       | `<=`       |              |
-| Equal to         | `~=`, `=~` | `==`       | `===`, `=:=` |
-| Not equal        | `~!`, `!~` | `!=`       | `!==`, `=!=` |
-| Three-way        | `<~>`      | `<=>`      |              |
+| Operator         | Abstract | Structural | Referential |
+| ---------------- | -------- | ---------- | ----------- |
+| Greater          | `~>`     | `>`        |             |
+| Lesser           | `~<`     | `<`        |             |
+| Greater or equal | `>~`     | `>=`       |             |
+| Lesser or equal  | `<~`     | `<=`       |             |
+| Equal to         | `~=`     | `==`       | `=:=`       |
+| Not equal        | `~!`     | `!=`       | `=!=`       |
+| Three-way        | `<~>`    | `<=>`      |             |
+
+### Numbers
+
+Nyx supports integers and floating-point numbers. Floats compile to regular JavaScript `number`s, while integers compile to `bigint`, and are differentiated with a dot. All numeric literals are case-insensitive, and can include leading zeroes and underscores.
+
+```coffee
+val int: int = 123
+val float: float = 0x.1
+```
+
+Exponents are always delimited with **`p`**, not `e`, so to maintain consistency across different bases. Fractional precision is controlled with `s`. Different radix literals can be created using prefixes `0x`, `0o`, `0b`, `0s`, `0q`, `0z`:
+
+```coffee
+val base2 = 0b101010111100000100100011
+val base4 = 0q320210213202
+val base6 = 0s125423
+val base8 = 0o52740443
+val base10 = 0011256099
+val base12 = 0z10a37b547ab97
+val base16 = 0xabcdef123
+```
+
+Many operations such as `+`, `-`, `*`, `/`, `**` and `%` are supported. They all work as expected - for binary operations, all return integers if both of them are integers, and floats if one or both are floats.
+
+- `/` always returns a float, so use `//` to truncate the result back into an integer.
+- The same goes for `**` which returns a float, so use `***` instead if you want the result to be an integer.
+- The sign of `%` depends on its right hand side, while the sign of `%%` is either 0 or positive.
+
+Bitwise operations such as `&`, `|`, `^`, `~` and the shift operators `<<` and `>>` are supported. All bitwise operations return signed integers. Nyx also comes with many bitwise functions, check them out in `bithacks`.
+
+### Strings
+
+String literals can be delimited by matching single or double quotes. Strings compile to their equivalent in JavaScript, and are encoded as sequences of UTF-16 code units, though with notable differences.
+
+```coffee
+val greeting = 'Hello World!'
+val dialog = "I said, \"Can you hear me?\""
+```
+
+#### Escape Sequences
+
+All escape sequences begin with a backslash, and any character can be escaped, including the backslash, so `\'` is interpreted as `'` and `\\` as `\`. Some characters such as `\n`, `\r`, `\t`, `\v`, `\f`, `\a`, `\e`, begin with a letter or a number, to indicate Unicode code points.
+
+```coffee
+"\d{1114111}" == "\1114111" == "\o{4177777}"
+```
+
+| Escape Sequence | Meaning |
+| --- | --- |
+| `\p` | platform specific newline<br> CRLF (`\x9\xA`) on Windows, LF on Unix (`\x9`) |
+| `\r`, `\c` | carriage return (`\x9`) |
+| `\n`, `\l` | line feed (or newline) (`\xA`) |
+| `\f` | form feed (`\xC`) |
+| `\t` | tabulator (`\x9`) |
+| `\v` | vertical tabulator (`\xB`) |
+| `\a` | alert (`\x7`) |
+| `\b` | backspace (`\x8`) |
+| `\e` | escape (`\xB`) |
+| `\z` | null character (`\x0`) |
+
+Backslashes are used very frequently in regular expressions too. Most of these escape sequences have the same meaning inside regular expressions (except `\a`, `\z`, `\c`, `\l` and `\p`).
+
+Nyx supports escapes in many bases without curly brackets. The same escapes with curly brackets allow you to insert many code points inside, with each character or code unit separated by spaces.
+
+```coffee
+# "HELLO"
+"\u48\u45\u4c\u4c\u4f" == "\u{48 45 4c 4c 4f}"
+"\d{72 69 76 76 69}" == "\72\69\76\76\79"
+```
+
+| Escape Sequence | Meaning                                            |
+| --------------- | -------------------------------------------------- |
+| `\b`            | _Base 2_ - 21 max digits (`100001111111111111111`) |
+| `\q`            | _Base 4_ - 11 max digits (`10033333333`)           |
+| `\s`            | _Base 6_ - 8 max digits (`35513531`)               |
+| `\o`            | _Base 8_ - 7 max digits (`4177777`)                |
+| `\d` or `\`     | _Base 10_ - 7 max digits (`1114111`)               |
+| `\z`            | _Base 12_ - 6 max digits (`4588A7`)                |
+| `\x` or `\u`    | _Base 16_ - 6 max digits (`10FFFF`)                |
+| `\j`            | HTML5 or AGLFN character entities                  |
+
+```coffee
+val height: float = 1.9, @name: str = 'James'
+print('#name%s is #height%2.2f meters tall') # James is 1.90 meters tall
+```
+
+#### String Interpolation and Formatting
+
+`#` begins an interpolation sequence, prefixing a `$variable` or `${expression}`, the latter enclosed in curly brackets. Variable/expression references can also be followed by a `printf`-style format string like `%d`.
+
+```coffee
+val height: float = 1.9, @name: str = 'James'
+print('#name%s is #height%2.2f meters tall') # James is 1.90 meters tall
+```
+
+#### Indexing
+
+Strings and lists are **zero and negative indexed**, similar to Python. Strings are indexed by code point and not by code units. Strings are immutable.
+
+All valid indices range from `-(len s)` to `s - 1`. So given a string `s` of length `5`, the first element, `s[0]` is also represented as `[-5]`, and `s[1]` to `s[-4]`, and so on.
+
+All indices are calculated with this formula.
+
+```coffee
+def clamp(index: float, len: int): int = int(index) %% @len ?: 0
+```
+
+Use Python extended slicing notation to retrieve indices. `:` behaves like `until`, counting from the starting number until the stop point. `:` can take a third number which specifies how many characters to skip over.
+
+Like Python, you cannot slice a string or list out of bounds.
+
+```coffee
+val s = 'abcde' # len s == 5
+s[0:5 * len s] == s[:] == 'abcde'
+```
+
+Splicing is the same as slicing, but with a pseudo-assignment syntax. The characters or elements are replaced by the indices yielded on the left until the end is reached, discarding any remaining indices.
+
+```coffee
+var s: str = 'hello'
+s[2 = '2'] # 'he2lo'
+s[3: = ''] # 'hel'
+```
+
+The `len` operator would always return the number of (Unicode) characters in the string. (compiles to `string.split('').length]`). `size` on the other hand would return the number of code units (compiles to `string.length`).
+
+```coffee
+len '12345' # 5
+len '\u10001\u10001' # 2
+
+size '12345' # 5
+size '\u10001\u10001' # 4
+```
 
 ### Defining Functions
 
