@@ -12,7 +12,8 @@ def fizzbuzz(num: int): str =
     when [no, yes] -> 'buzz'
     else -> '#num%d'
 
-for let x in 1 to 100 -> print(fizzbuzz(x))
+for let x in 1 to 100
+  print(fizzbuzz(x))
 ```
 
 # Introduction
@@ -53,7 +54,7 @@ Things to do before **Version 1.0.0**
 
 ## Contents
 
-<table><tr><td valign=top>
+<table><tr><td width=25% valign=top>
 
 #### Introduction
 
@@ -98,7 +99,7 @@ Things to do before **Version 1.0.0**
 - Pattern Matching
 - Try-Catch-Finally
 
-</td><td valign=top>
+</td><td width=25% valign=top>
 
 #### Functions
 
@@ -149,7 +150,7 @@ Things to do before **Version 1.0.0**
 - Async-Await
 - Callbacks and Futures
 
-</td><td valign=top>
+</td><td width=25% valign=top>
 
 #### Modules
 
@@ -187,7 +188,7 @@ Things to do before **Version 1.0.0**
   - Translating Nyx to Python
 - Documentation
 
-</td><td valign=top>
+</td><td width=25% valign=top>
 
 #### Tools
 
@@ -771,31 +772,22 @@ Nyx supprots both inline and. Inline `/pattern/flags` and multiline `/>pattern</
 
 ```coffee
 />\b{wb}(fee|fie|foe|fum)\b{wb}</
-/[ ! @ " \# $ % ^ & * () = ? <> ' ]/x
+/[ ! @ " #(what) $ % ^ & * () = ? <> ' ] /x
 
 />
-  (Y)       # group 1
-  (         # group 2
-    (X)     # group 3
-    \g<-1>  # backref to group 3
-    \g<-3>  # backref to group 1
-  )
+  /\* # Match the opening delimiter.
+  .*? # Match a minimal number of characters.
+  \*/ # Match the closing delimiter.
 </x
 ```
 
 Nyx's regular expressions also include a right hand, replacement section immediately following the pattern, and is used with the match `<>`, substitute `=<` or translate `</>` operators, similar to Perl's `s`, `m` and `tr` modifiers.
 
 ```coffee
-val str = 'Alex Ross'
-val newStr = str =< /(\w+)\s(\w+)/$2, $1/g
-// Ross, Alex
-
-val str = 'Diana Lee'
-val newStr = str =< />
-  (\w+)\s(\w+)
-</>
-  $2, $1
-</g // Lee, Diana
+val str = 'James Bond'
+val newStr = str =< /(\w+)\W+(\w+)/#2, #1/
+val newStr = str =< />(\w+)\W+(\w+)</>My name is #1, #2 #1</
+# My name is Bond, James Bond
 ```
 
 Using the sticky modifier:
@@ -803,9 +795,9 @@ Using the sticky modifier:
 ```coffee
 val str = 'table football'
 val regex = 6/foo/y
-regex.y // true
-regex =~ str // true
-regex =~ str // false
+regex.y # true
+regex =~ str # true
+regex =~ str # false
 ```
 
 > **Note**: Stick around for a full guide on how to write and manipulate regular expressions.
@@ -827,27 +819,28 @@ Maps compile to regular JavaScript objects but their keys are YAML-serialized.
 Sets and maps are both delimited with curly brackets, so an empty map has a compulsory colon: `{:}`.
 
 ```coffee
-val list: int#[] = #[1, 2, 3, 4]
-val set: int#{} = #{1, 2, 3, 4}
-val map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
+val list: int[||] = [|1, 2, 3, 4|]
+val set: int{||} = {|1, 2, 3, 4|}
+val map: {|[int]: int|} = {|1: 1, 2: 2, 3: 3, 4: 4|}
 
 val list: int[] = [1, 2, 3, 4]
-val set: int[] = {1, 2, 3, 4}
-val map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
+val set: int{} = {1, 2, 3, 4}
+val map: {|[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
 ```
 
 Add elements, concatenate and repeat lists:
 
 ```coffee
 var arr = [1, 2, 3]
-arr += 1 // [1, 2, 3, 4]
+arr += 1 # [1, 2, 3, 4]
 
-arr ++= [5, 6, 7, 8] // [1, 2, 3, 4, 5, 6, 7, 8]
+arr ++= [5, 6, 7, 8] # [1, 2, 3, 4, 5, 6, 7, 8]
 
-arr *= 3 /*
+arr *= 3 #(
 [1, 2, 3, 4, 5, 6, 7, 8,
  1, 2, 3, 4, 5, 6, 7, 8,
- 1, 2, 3, 4, 5, 6, 7, 8] */
+ 1, 2, 3, 4, 5, 6, 7, 8] 
+)
 ```
 
 Set operations such as `&` (intersection), `|` (union), `-` (difference) and `^` (symmetric difference).
@@ -856,7 +849,7 @@ Those same operators also work on maps, but the operations are only performed on
 
 ```coffee
 val a = {1, 2, 3, 4, 5},
-    b = {4, 5, 6, 7, 8}
+    b = {4, 5, 6, 7, 8};
 
 a | b == {1, 2, 3, 4, 5, 6, 7, 8}
 a & b == {4, 5}
@@ -868,13 +861,13 @@ Set a property on a map either in-place with `=` and the `del` command, or use o
 
 ```coffee
 var map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
-map.4 = [4] // {1: 1, 2: 2, 3: 3, 4: [4]}
-del map[4] // {1: 1, 2: 2, 3: 3}
+map.4 = [4] # {1: 1, 2: 2, 3: 3, 4: [4]}
+del map[4] # {1: 1, 2: 2, 3: 3}
 
-// Immutable map
-var map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
-map = map.4 .= [4] // #{1: 1, 2: 2, 3: 3, 4: [4]}
-map = .-map[4] // #{1: 1, 2: 2, 3: 3}
+# Immutable map
+var map: {|[int]: int|} = # {|1: 1, 2: 2, 3: 3, 4: 4|}
+map = map.4 .= [4] # {|1: 1, 2: 2, 3: 3, 4: [4]|}
+map = .-map[4] # {|1: 1, 2: 2, 3: 3|}
 ```
 
 Access properties with dots or angle brackets, prefixing them with `?` to return `nil` if a key does not exist or its value is `nil`, or `!` to throw an error if so.
@@ -883,9 +876,9 @@ Access properties with dots or angle brackets, prefixing them with `?` to return
 map.'text-align' = 'right'
 map['text-align'] = 'center'
 
-map?.'font-size' // nil
+map?.'font-size' # nil
 
-// Use angle brackets for property expressions
+# Use angle brackets for property expressions
 map['font' ++ '-' ++ 'size'] = 'inherit'
 ```
 
@@ -903,8 +896,8 @@ inter font {
 Ranges expand to sequences of numbers in an arithmetic progression. The left-hand side defaults to 0, and the right-hand side &pm;&infin;. You can leave out both or either sides if you wish. `..` counts **til** (not including) the end, while `..=` counts up **to** (including) the end.
 
 ```coffee
-1..=10; 1 to 10 // #(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-1..10; 1 til 10 // #(1, 2, 3, 4, 5, 6, 7, 8, 9)
+1..=10; 1 to 10 # #(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+1..10; 1 til 10 # #(1, 2, 3, 4, 5, 6, 7, 8, 9)
 (..=10) == #(0..=10)
 ```
 
@@ -939,4 +932,3 @@ In Nyx, almost In Nyx, almost everything is an expression and the last one reach
 noRet = x =>!
 ```
 
-Assignment Basic assignment is as you would expect, variable = value, and there is no need for variable declarations. However, unlike CoffeeScript, you must use `:=` to modify variables in upper Patts.
