@@ -162,6 +162,9 @@ Things to do before **Version 1.0.0**
     - Translating Python/JS to Nyx
     - Translating Nyx to Python
 - Writing documentation
+
+</td><td valign=top>
+
 - Tools
   - Nifty, Nyx's Formatter
 - A Tour of the Standard Library
