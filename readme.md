@@ -158,7 +158,7 @@ Things to do before **Version 1.0.0**
 - The Module System
 - Imports and Exports
 - Python and JS Modules
-- The Standard
+- Calling Python and Node.JS Code
 - Managing and Publishing Packages
 
 #### Advanced Topics
@@ -181,7 +181,7 @@ Things to do before **Version 1.0.0**
 - File System
   - Reading and Writing Files
   - Languages and Markup
-- React + JSX, CSS and GraphQL
+- Embedded Languages in Action: A React Example
 - Debugging and TDD
 - Conditional Compilation
 - Language Interop
