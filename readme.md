@@ -857,7 +857,7 @@ a ^ b == {1, 2, 3, 6, 7, 8}
 a - b == {1, 2, 3}
 ```
 
-Set a property on a map either in-place with `=` and the `del` command, or use operators like `.=` and `.-`.
+Set a property on a map either in-place with `=` and the `del` command, or use operators like `.=` and `-`.
 
 ```coffee
 var map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
@@ -865,9 +865,9 @@ map.4 = [4] # {1: 1, 2: 2, 3: 3, 4: [4]}
 del map[4] # {1: 1, 2: 2, 3: 3}
 
 # Immutable map
-var map: {|[int]: int|} = # {|1: 1, 2: 2, 3: 3, 4: 4|}
+var map: {|[int]: int|} = {|1: 1, 2: 2, 3: 3, 4: 4|}
 map = map.4 .= [4] # {|1: 1, 2: 2, 3: 3, 4: [4]|}
-map = .-map[4] # {|1: 1, 2: 2, 3: 3|}
+map = -map[4] # {|1: 1, 2: 2, 3: 3|}
 ```
 
 Access properties with dots or angle brackets, prefixing them with `?` to return `nil` if a key does not exist or its value is `nil`, or `!` to throw an error if so.
@@ -885,10 +885,9 @@ map['font' ++ '-' ++ 'size'] = 'inherit'
 Use interfaces to describe the types of objects:
 
 ```coffee
-inter font {
-  fontFamily: str | str[]
-  fontSize: int
-}
+inter font
+  let fontFamily: str | str[]
+  let fontSize: int
 ```
 
 ### Ranges and Generators
