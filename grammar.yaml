@@ -253,11 +253,11 @@ repository:
           - include: '#fat-arrow-braced-body'
   backreferences:
     patterns:
-      - match: \$\d+|\$[+-]
+      - match: \#\d+|#[+-]
         name: keyword.other.back-reference.nyx
-      - match: \$\$
+      - match: \##
         name: constant.character.escape.nyx
-      - begin: (\$<)
+      - begin: (#<)
         end: \s*(>)
         name: keyword.other.back-reference.nyx
         beginCaptures:
@@ -2596,7 +2596,7 @@ repository:
       - match: (?i)(?<!\.|::)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
         captures:
           1: {name: support.type.builtin.primitive.nyx}
-      - match: (?i)(?<!\.|::)\s*+\b((?>this|any|unset|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mix|nil|undef|true|false))\b
+      - match: (?i)(?<!\.|::)\s*+\b((?>this|any|unset|empty|record|object|list|set|map|dict|obj|rec|array|tuple|record|seq|dict|unit|buff|mix|nil|undef|true|false))\b
         captures:
           1: {name: support.type.builtin.nyx}
       - match: \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
@@ -3989,7 +3989,7 @@ repository:
           5: {name: storage.type.numeric.bigint.nyx}
   object:
     patterns:
-      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*(#?{\|)
+      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:([.:]=|::=|=)|\b(import|export|yield)\b|\b(return|yield)\b|(,))))\s*({\|)
         end: \s*+(\|})
         beginCaptures:
           1: {name: keyword.operator.assignment.nyx}
@@ -4001,19 +4001,7 @@ repository:
           1: {name: meta.brace.curly.litobj.nyx}
         patterns:
           - include: '#object-body'
-      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*(#{)
-        end: \s*+(})
-        beginCaptures:
-          1: {name: keyword.operator.assignment.nyx}
-          2: {name: keyword.control.module.nyx}
-          3: {name: keyword.control.flow.nyx}
-          4: {name: meta.delimiter.comma.nyx}
-          5: {name: meta.brace.curly.litobj.nyx}
-        endCaptures:
-          1: {name: meta.brace.curly.litobj.nyx}
-        patterns:
-          - include: '#object-body'
-      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:(=)|\b(default)\b|\b(return)\b|(,))))\s*({)
+      - begin: (?:(?<=\(|\[|,)|(?:\s*(?:([.:]=|::=|=)|\b(import|export|yield)\b|\b(return|yield)\b|(,))))\s*({)
         end: \s*+(})
         beginCaptures:
           1: {name: keyword.operator.assignment.nyx}
@@ -4044,16 +4032,8 @@ repository:
       - include: '#punctuation'
   object-brace:
     patterns:
-      - begin: \s*(#?{\|)
+      - begin: \s*({\|)
         end: \s*+(\|})
-        beginCaptures:
-          1: {name: meta.brace.curly.litobj.nyx}
-        endCaptures:
-          1: {name: meta.brace.curly.litobj.nyx}
-        patterns:
-          - include: '#object-body'
-      - begin: \s*(#{)
-        end: \s*+(})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nyx}
         endCaptures:
@@ -4070,16 +4050,8 @@ repository:
           - include: '#object-body'
   object-brace-property:
     patterns:
-      - begin: (?<=:)\s*(#?{\|)
+      - begin: (?<=:)\s*({\|)
         end: \s*+(\|})
-        beginCaptures:
-          1: {name: meta.brace.curly.litobj.nyx}
-        endCaptures:
-          1: {name: meta.brace.curly.litobj.nyx}
-        patterns:
-          - include: '#object-body'
-      - begin: (?<=:)\s*(#{)
-        end: \s*+(})
         beginCaptures:
           1: {name: meta.brace.curly.litobj.nyx}
         endCaptures:
@@ -4107,7 +4079,7 @@ repository:
     patterns:
       - match: \s*(\.\.[.=]?|[.=]\.[.=])\s*
         name: keyword.operator.range.nyx
-      - match: \s*(/\\)|(\\/)\s*
+      - match: \s*(/\\|\\/)\s*
         name: keyword.operator.logical.nyx
       - match: \s*(?:(::+)|([<>][:!]+|[:!]+[<>]|[<>][:!]+[<>]))\s*
         captures:
@@ -6377,7 +6349,7 @@ repository:
       - match: (?i)(?<!\.|::)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
         captures:
           1: {name: support.type.builtin.primitive.nyx}
-      - match: (?i)(?<!\.|::)\s*+\b((?>this|any|unset|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mix|nil|undef|true|false))\b
+      - match: (?i)(?<!\.|::)\s*+\b((?>this|any|unset|empty|record|object|list|set|map|dict|obj|rec|array|tuple|record|seq|dict|unit|buff|mix|nil|undef|true|false))\b
         captures:
           1: {name: support.type.builtin.nyx}
       - match: \s*+(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
