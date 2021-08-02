@@ -46,127 +46,152 @@ Things to do before **Version 1.0.0**
 - [ ] Package manager
 - [ ] Standard library
 - [ ] Editor support (VS Code, Atom, Eclipse, Sublime, Nova\*)
-- [ ] Logo and online documentation website
+- [ ] Logo and website
+- [ ] Translator (Python/JS)
 
 \*Backus-Naur Form (BNF): https:#en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 
-### Contents
+## Contents
 
-1.  An Introduction
-2.  Installation
-3.  Overview
-4.  The Basics
-    - Your First Program
-    - Code Structure
+<table><tr><td valign=top>
+
+- An Introduction
+  - Installation
+  - Overview
+  - The Basics
+    - Syntax
     - Comments
-    - Embedding Raw Code
-5.  Variables
-    - `var` and `val`
+- Variables and Constants
+- Data Types
+  - Type System
+  - Booleans
+  - Integers and Floats
+  - Strings
+    - Quoted Strings
+    - Raw Strings
+    - Slicing and Splicing
+  - Data Structures
+    - Lists
+    - Sets
+    - Maps
     - Destructuring
-6.  Data Types
-    - the Type System
-    - Booleans `bool`
-    - Integers and Floats
-      - Arithmetic and Bitwise Operations
-    - Strings `str`
-      - String Operations
-      - Template Strings
-      - Basic and Extended Slicing
-      - Regular Expressions
-    - Data Structures
-      - Lists (Arrays)
-      - Sets and Maps
-      - Immutable Collections
-      - Destructuring
-    - Regular Expressions
-      - Block Regexes
-      - Syntax Reference
-7.  Control Flow and Operators
-    - Code Blocks
-    - Decision Making
-    - Loops and Comprehensions
-      - For Loops
-      - The While Family
-      - Control Transfer Statements
-    - Queries
-    - Switch, Debunked
-    - Pattern Matching
-    - Errors
-8.  Functions
-    - An Introduction to FP
-    - Named and Anonymous Functions
-    - Recursive Functions
-    - Piping and Composition
-    - Currying
-    - Generators
-9.  Classes
-    - An Introduction to OOP
-    - Constructors
-    - Methods and Attributes
-    - Modifiers
-    - Getters and Setters
-    - Traits and Extensions
-    - Objects and Records
-10. Modules
-    - Imports and Exports
-    - Using Node Modules
-    - The Module System
-    - Namespaces vs Modules
-11. Concurrency
-    - Callbacks
-    - Promises
-    - The Sequence and Parallel Blocks
-12. Types
-    - `any`, `mixed` and `empty`
-    - Typed Aliases
-    - Literal Types
-    - Type Operators
-    - Data Structures
-    - Interfaces
-13. Advanced Topics
-    - Types
-      - Enumerations
-      - Fragments
-      - Constraints
-      - Recursive Types
-    - Math
-    - Domain-Specific Extensions
-      - Custom Operators
-      - Custom Blocks
-      - Macros and Procedures
-    - Advanced Regex
-      - Regex Operations
-      - Text Processing
+  - Regular Expressions
+    - Block Regexes
+    - Syntax Reference
+  - Buffers
+  - Symbols
+- Control Flow
+  - Do Block
+  - If-Elif-Else
+  - Unless and Eless
+  - Switch
+  - Pattern Matching
+  - Try-Catch-Finally
+
+</td><td valign=top>
+
+- Functions
+  - Pure Functions and Closures
+  - Inline and Named Functions
+  - Anonymous and Higher-Order Functions
+  - Currying
+  - Recursion
+  - Piping and Composition
+  - Generators
+  - String Macros
+- Type Declarations
+  - Any, Mixed, Void/Unit, Empty
+  - Optional Types
+  - Interfaces
+  - Structures
+  - Type Combinators
+  - Conditional Types
+  - Enumerations
+  - Sum and Product Types
+  - Generics and Variants
+  - Type Aliases
+  - Infer, Key-Of, Name-Of
+  - Constraints (For-All)
+- Concurrency and Asynchrony
+  - Channels
+  - Series and Parallel Blocks
+  - Async-Await
+  - Callbacks and Futures
+- Classes
+  - Constructors
+  - Methods and Attributes
+  - Access Modifiers
+  - Getters and Setters
+  - Symbols
+  - Traits and Extensions
+  - Fragments and Constraints
+  - Objects and Records
+  - Advanced Modifiers
+
+</td><td valign=top>
+
+- Modules
+  - The Module System
+  - Imports and Exports
+  - Python and JS Modules
+  - The Standard
+  - Managing and Publishing Packages
+- Advanced Topics
+  - More on Types
+  - Domain-Specific Extensions
+    - Macros and Procedures
+    - Fragments and Constraints
+    - Custom Operators
+    - Operator Overloading
+    - Custom Methods
+    - Custom Control Flow
+    - Proxies and Reflectors
+    - Extending Built-Ins
+  - Text Processing
+  - Internationalization
     - Date and Time
-    - The File System
-    - JSX, CSS and GraphQL
-14. The Standard Library - A Tour
-    - Test-Driven Development
-    - File System and I/O
-    - Serialization
-    - Collections
-    - Text Processing
-    - Internationalization
-    - Natural Language Processing
-    - Machine Learning\*
-    - Mathematical Computing
-    - Cryptography
-    - Science\*
-    - Data Analysis\*
-    - Reactive Programming
-    - Asynchronous Programming
-    - Functional Programming
-    - Object-Oriented Programming
-    - Markup and Styling
-    - Web APIs
-    - Domain-Specific Language Extensions
-15. Appendix
-    - References
-      - Operators & Precedence
-      - Regular Expressions
-      - Format Language Specification
-      - J-expressions
-      - Keywords, Declarations and Modifiers
+    - Currency
+    - Math
+  - File System
+    - Reading and Writing Files
+    - Languages and Markup
+  - React + JSX, CSS and GraphQL
+  - Debugging and TDD
+  - Conditional Compilation
+  - Language Interop
+    - Translating Python/JS to Nyx
+    - Translating Nyx to Python
+- Writing documentation
+- Tools
+  - Nifty, Nyx's Formatter
+- A Tour of the Standard Library
+  - Test-Driven Development
+  - File System and I/O
+  - Serialization
+  - Collections
+  - Text Processing
+  - Internationalization
+  - Natural Language Processing
+  - Machine Learning\*
+  - Mathematical Computing
+  - Cryptography
+  - Science\*
+  - Data Analysis\*
+  - Reactive Programming
+  - Asynchronous Programming
+  - Functional Programming
+  - Object-Oriented Programming
+  - Markup and Styling
+  - Web APIs
+  - Domain-Specific Language Extensions
+- Appendices
+  - Keywords and Modifiers
+  - Operators & Precedence
+  - Regex Language
+  - Format Language
+  - J-Expression Language
+
+</td></tr></table>
 
 ### Installation and Architecture
 
@@ -290,7 +315,7 @@ abs async binary check dele dyn eager expl ext extl final fixed gen get greedy h
 
 #### Comments
 
-Comments are denoted by the `#` sequence to the end of a line, or from `/*` to the next appearance of `*/`. Documentation comments `#/` and `/** */` begin with an extra character and compile specifically to JSDoc or `""" docstring """` comments, depending on the implementation.
+Comments are denoted by the `#` sequence to the end of a line, or from `#[` to the next appearance of `]#`. Documentation comments `#:` and `#{}` begin with an extra character and compile specifically to JSDoc or `""" docstring """` comments, depending on the implementation.
 
 ```coffee
 # from here to the end of the line.
@@ -331,10 +356,10 @@ The type of a value can be omitted and inferred, or it can be explicitly stated.
 val x: int = 1 + 1
 ```
 
-Create a dynamic variable easily with `dyn var`, or the type annotation `mix` (`mix` behaves like TypeScript's `any` but does not allow `nil`). Dynamic variables are subject to coercion which is opt-in.
+Create a dynamic variable easily with `dyn var`, or the type annotation `mix` (`mix` behaves like TypeScript's `any` but does not allow `nil`). Dynamic variables are subject to opt-in implicit type coercion due to it being a singular type.
 
 ```coffee
-dyn val x: mix = 100
+var x: mix = 100
 x = x[2] # 0
 ```
 
@@ -368,22 +393,22 @@ All the control flow statements all use the same block scoping mechanism.
 
 ```coffee
 if displayGreeting
-  let message = 'Enjoying the docs so far?';
+  val message = 'Enjoying the docs so far?';
   print(message);
 # `message` not accessible here!
 ```
 
-Uninitialized variables that have a nil-able type (prefixed with `?`) have an initial value of `nil`.
+Unassigned variables that have a nil-able type (prefixed with `?`) have an starting value of `nil`.
 
 ```coffee
-let lineCount: ?int
+var lineCount: ?int
 assert lineCount == nil
 ```
 
 Otherwise, they are initialized with a default _zero value_ for its type. For instance, a number (integer or float) has the default value of `0` or `0.`, strings are `''` and boolean values are `false`.
 
 ```coffee
-let lineCount: int?
+var lineCount: int?
 assert lineCount ~= nil # abstract equality
 assert lineCount == 0 #  equality
 ```
@@ -439,14 +464,14 @@ There are many primitive data types in Nyx, all of which are familiar to most pr
 - and the singleton value `nil`.
 
 ```coffee
-let int: int = 10
-let str: str = ''
-let bool: bool = false
-let func: () => unit = () => ()
-let regex: regex = /(?:)/
-let sym: sym = ^a
-let nil: nil = nil
-let undef: undef = undef
+val int: int = 10
+val str: str = ''
+val bool: bool = false
+val func: () => unit = () => ()
+val regex: regex = /(?:)/
+val sym: sym = ^a
+val nil: nil = nil
+val undef: undef = undef
 ```
 
 ### Nil
@@ -459,7 +484,7 @@ var x = nil
 x == () # true
 ```
 
-The suffix `?` operator checks if its argument is `nil`, and would return `false` if so. The suffix `!` does the same thing but would throw an error if its argument is nil, and leaves out the value if not.
+The suffix `?` (existence) operator checks if its value is `nil`, and would return `false` if so. The suffix `!` (assertion) does the same thing but would panic if its value is nil, and do nothing with it if not. `
 
 ```coffee
 var x = nil
@@ -467,13 +492,31 @@ var x = nil
 x == () # true
 ```
 
+The dot operator `.` access properties and methods on objects, including strings and maps, and can be chained to access nested maps. `?` and `!` can also modify said operator, so `?.` will return `nil` without evaluating, and `!` would panic.
+
+```coffee
+var x = nil
+x! # throws
+x == () # true
+```
+
+`??` (nil coalescing) returns its right-hand side operand when its left-hand side operand is `nil`, and otherwise returns its left-hand side operand. `!!` returns the right hand side when the left-hand side is `nil`.
+
+```coffee
+val foo = nil ?? 'default string';
+print(foo) # expected output: "default string"
+
+val baz = 0 ?? 42
+print(baz) # expected output: 0
+```
+
 ### Booleans
 
 A boolean data type can only have two values: `true` or `false`. Booleans are mainly used for control flow, and there are a lot of operators that return boolean values.
 
-```js
-true;
-false;
+```coffee
+true; yes; on # aliases for true
+false; no; off # aliases for false
 ```
 
 #### Logical Operators
@@ -504,7 +547,7 @@ The logical operators above do not short-circuit, and evaluate all their operand
 
 If you want short-circuit operators, there are dedicated operators `?:` and `!:` for that: `!:` evaluates its RHS if its LHS yields `true` when converted into boolean, and `?:` does the opposite, that is, if its LHS yields `false`.
 
-`!:` takes precedence over `?:`.
+`!:` has the same precedence as `&&` and `?:` as `||`.
 
 ```coffee
 1 && 0 # false
@@ -523,11 +566,13 @@ gen def hailstoneSeq(n) =
   yield n
   while n != 1
     yield n = n % 2 != 0 ? n * 3 + 1 : n / 2
+  yield 1
 
 gen def hailstoneSeq(n) =
   yield n
   while n != 1
     yield n = n % 2 == 0 ! n * 3 + 1 : n / 2
+  yield 1
 ```
 
 `x ?: y` is shorthand for `x ? x : y`, and likewise, `x !: y` is shorthand for `x ! x : y`. `? :` is syntactic sugar for `if...then...else...` and `! :` `unless...then...else...`.
@@ -536,8 +581,11 @@ gen def hailstoneSeq(n) =
 
 All comparison operators have the same precedence and can be chained, such that `2 < 3 < 4` is equal to and compiles to `2 < 3 && 3 < 4`.
 
-- Structural comparison operators perform comparison directly.
+- Abstract operations perform coercion before comparing, and is handled only on `mix` types.
+- Structural comparison operators perform comparison directly and deeply, if there are nested structures involved.
 - Referential equality operators compare shallowly and by reference.
+
+Comparison can only be performed on integers, floats (and other numbers), strings, sets and maps. Set/map comparisons are compared keywise, while strings are compared in Unicode order.
 
 | Operator         | Abstract | Structural | Referential |
 | ---------------- | -------- | ---------- | ----------- |
@@ -586,6 +634,8 @@ String literals can be delimited by matching single or double quotes. Strings co
 val greeting = 'Hello World!'
 val dialog = "I said, \"Can you hear me?\""
 ```
+
+Strings are multiline, and lines ending in a backslash joins lines into a single line.
 
 #### Escape Sequences
 
@@ -640,19 +690,20 @@ print('#name%s is #height%2.2f meters tall') # James is 1.90 meters tall
 
 ```coffee
 val height: float = 1.9, @name: str = 'James'
-print('#name%s is #height%2.2f meters tall') # James is 1.90 meters tall
+print('#name%s is #height%2.2f meters tall')
+# James is 1.90 meters tall
 ```
 
 #### Indexing
 
-Strings and lists are **zero and negative indexed**, similar to Python. Strings are indexed by code point and not by code units. Strings are immutable.
+Strings and lists are **zero and negative indexed**, similar to Python. Strings are indexed by Unicode characters and not their individual (or multiple code points). Strings are immutable.
 
 All valid indices range from `-len s` to `len s - 1`. So given a string `s` of length `5`, the first element, `s[0]` is also represented as `[-5]`, and `s[1]` to `s[-4]`, and so on.
 
 All indices are calculated with this formula.
 
 ```coffee
-def clamp(index: float, len: int): int = int(index) %% @len ?: 0
+def clamp(index: float, len: int): int = int(index) % @len ?: 0
 ```
 
 Use Python extended slicing notation to retrieve indices. `:` behaves like `until`, counting from the starting number until the stop point. `:` can take a third number which specifies how many characters to skip over.
@@ -680,6 +731,158 @@ len '\u10001\u10001' # 2
 
 size '12345' # 5
 size '\u10001\u10001' # 4
+```
+
+### Regular expressions
+
+Nyx supprots both inline and. Inline `/pattern/flags` and multiline `/>pattern</flags` are supported, with multiline regexes supporting free spacing, comments and interpolation, as well as embedded code.
+
+```coffee
+/>\b{wb}(fee|fie|foe|fum)\b{wb}</
+/[ ! @ " \# $ % ^ & * () = ? <> ' ]/x
+
+/>
+  (Y)       # group 1
+  (         # group 2
+    (X)     # group 3
+    \g<-1>  # backref to group 3
+    \g<-3>  # backref to group 1
+  )
+</x
+```
+
+Nyx's regular expressions also include a right hand, replacement section immediately following the pattern, and is used with the match `<>`, substitute `=<` or translate `</>` operators, similar to Perl's `s`, `m` and `tr` modifiers.
+
+```coffee
+val str = 'Alex Ross'
+val newStr = str =< /(\w+)\s(\w+)/$2, $1/g
+// Ross, Alex
+
+val str = 'Diana Lee'
+val newStr = str =< />
+  (\w+)\s(\w+)
+</>
+  $2, $1
+</g // Lee, Diana
+```
+
+Using the sticky modifier:
+
+```coffee
+val str = 'table football'
+val regex = 6/foo/y
+regex.y // true
+regex =~ str // true
+regex =~ str // false
+```
+
+> **Note**: Stick around for a full guide on how to write and manipulate regular expressions.
+
+Interpolation works in regular expression literals just as it does in string literals. Note this feature might cause an exception to be raised if the resulting string results in an invalid regular expression.
+
+### Collections: Lists, Maps and Sets
+
+Lists, maps and sets are very similar to their JavaScript counterparts, but they are immutable by default and have fixed fields. All three of them have immutable and mutable counterparts, where the immutable versions are prefixed with a hash sign `#`.
+
+All collections are heterogeneous, though they can be made homogeneous with the help of generics. Declare a list as `list<int>` or `int[]` to constrain a list from having values other than integers.
+
+- Lists are ordered (indexed) and finite sequences of values.
+- Sets are finite, unordered collections of unique values.
+- Maps are finite, unordered collections of values each assigned to a unique key.
+
+Maps compile to regular JavaScript objects but their keys are YAML-serialized.
+
+Sets and maps are both delimited with curly brackets, so an empty map has a compulsory colon: `{:}`.
+
+```coffee
+val list: int#[] = #[1, 2, 3, 4]
+val set: int#{} = #{1, 2, 3, 4}
+val map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
+
+val list: int[] = [1, 2, 3, 4]
+val set: int[] = {1, 2, 3, 4}
+val map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
+```
+
+Add elements, concatenate and repeat lists:
+
+```coffee
+var arr = [1, 2, 3]
+arr += 1 // [1, 2, 3, 4]
+
+arr ++= [5, 6, 7, 8] // [1, 2, 3, 4, 5, 6, 7, 8]
+
+arr *= 3 /*
+[1, 2, 3, 4, 5, 6, 7, 8,
+ 1, 2, 3, 4, 5, 6, 7, 8,
+ 1, 2, 3, 4, 5, 6, 7, 8] */
+```
+
+Set operations such as `&` (intersection), `|` (union), `-` (difference) and `^` (symmetric difference).
+
+Those same operators also work on maps, but the operations are only performed on keys, overriding any values if necessary.
+
+```coffee
+val a = {1, 2, 3, 4, 5},
+    b = {4, 5, 6, 7, 8}
+
+a | b == {1, 2, 3, 4, 5, 6, 7, 8}
+a & b == {4, 5}
+a ^ b == {1, 2, 3, 6, 7, 8}
+a - b == {1, 2, 3}
+```
+
+Set a property on a map either in-place with `=` and the `del` command, or use operators like `.=` and `.-`.
+
+```coffee
+var map: {[int]: int} = {1: 1, 2: 2, 3: 3, 4: 4}
+map.4 = [4] // {1: 1, 2: 2, 3: 3, 4: [4]}
+del map[4] // {1: 1, 2: 2, 3: 3}
+
+// Immutable map
+var map: #{[int]: int} = #{1: 1, 2: 2, 3: 3, 4: 4}
+map = map.4 .= [4] // #{1: 1, 2: 2, 3: 3, 4: [4]}
+map = .-map[4] // #{1: 1, 2: 2, 3: 3}
+```
+
+Access properties with dots or angle brackets, prefixing them with `?` to return `nil` if a key does not exist or its value is `nil`, or `!` to throw an error if so.
+
+```coffee
+map.'text-align' = 'right'
+map['text-align'] = 'center'
+
+map?.'font-size' // nil
+
+// Use angle brackets for property expressions
+map['font' ++ '-' ++ 'size'] = 'inherit'
+```
+
+Use interfaces to describe the types of objects:
+
+```coffee
+inter font {
+  fontFamily: str | str[]
+  fontSize: int
+}
+```
+
+### Ranges and Generators
+
+Ranges expand to sequences of numbers in an arithmetic progression. The left-hand side defaults to 0, and the right-hand side &pm;&infin;. You can leave out both or either sides if you wish. `..` counts **til** (not including) the end, while `..=` counts up **to** (including) the end.
+
+```coffee
+1..=10; 1 to 10 // #(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+1..10; 1 til 10 // #(1, 2, 3, 4, 5, 6, 7, 8, 9)
+(..=10) == #(0..=10)
+```
+
+You can also specify an additional increment/decrement parameter after the range with the keyword `by` or another set of two dots. The range automatically counts up by `abs(step)` if the start is less than the end, and downward otherwise.
+
+```coffee
+var oddNumbers = 1 to 1 / 0 by 2
+var evenNumbers = ..= ..2
+var evenNumbers = 0..=1 / 0..2
+var infiniteOnes = 1..= ..2
 ```
 
 ### Defining Functions
