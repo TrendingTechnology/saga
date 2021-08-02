@@ -6564,12 +6564,11 @@ repository:
       captures:
         1: {name: keyword.operator.spread.nyx}
         2: {name: keyword.operator.private.nyx}
-        3: {patterns: [{include: '#sigils'}]}
+        3: {patterns: [{include: '#variable-sigil'}]}
         4: {name: keyword.operator.optional.parameter.nyx}
     - include: '#typed-vars-and-props'
   typed-vars-and-props:
     patterns:
-    - include: '#sigils'
     - match: \s*+(\?)
       captures:
         1: {name: keyword.operator.type.nyx}
