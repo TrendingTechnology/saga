@@ -2679,8 +2679,8 @@ repository:
         8: {name: keyword.operator.currency.nyx}
         9: {name: keyword.operator.ascii.nyx}
         10: {name: keyword.operator.infix.nyx}
-  function-sigils:  
-    patterns: 
+  function-sigils:
+    patterns:
     - begin: (\^)(['"])
       end: (\2)\s*(?=\()
       name: entity.name.symbol.nyx
@@ -4711,10 +4711,10 @@ repository:
         3: {name: storage.type.format.nyx}
       patterns:
       - include: '#core'
-  quasi-variable: 
-    patterns: 
-      - include: '#sigils'
-      - include: '#variable'
+  quasi-variable:
+    patterns:
+    - include: '#sigils'
+    - include: '#variable'
   query:
     patterns:
     - begin: (?<!\.|::)\s*+\b(from)\b\s*
