@@ -331,21 +331,37 @@ tokenColors:
   settings: {foreground: '#381851'}
 - scope: entity.other.inherited-class
   settings: {foreground: '#00aa79'}
-- scope: constant.other.language
+- scope:
+  - constant.other.language
+  - entity.name.language
   settings: {foreground: '#998300'}
-- scope: constant.other.global
+- scope:
+  - constant.other.global
+  - entity.name.global
   settings: {foreground: '#2a713c'}
-- scope: constant.other.symbol
+- scope:
+  - constant.other.symbol
+  - entity.name.symbol
   settings: {foreground: '#600086'}
-- scope: constant.other.spread
+- scope:
+  - constant.other.spread
+  - entity.name.spread
   settings: {foreground: '#00b5a1'}
-- scope: constant.other.decorator
+- scope:
+  - constant.other.decorator
+  - entity.name.decorator
   settings: {foreground: '#0054a0'}
-- scope: constant.other.private
+- scope:
+  - constant.other.private
+  - entity.name.private
   settings: {foreground: '#007870'}
-- scope: constant.other.instance
+- scope:
+  - constant.other.instance
+  - entity.name.instance
   settings: {foreground: '#8d0047'}
-- scope: constant.other.variable
+- scope:
+  - constant.other.variable
+  - entity.name.variable
   settings: {foreground: '#9e0000'}
 - scope:
   - meta.brace.square
@@ -1649,6 +1665,14 @@ tokenColors:
 - scope: punctuation
   settings: {foreground: '#3c4b64'}
 - scope:
+  - entity.name.language
+  - entity.name.global
+  - entity.name.symbol
+  - entity.name.spread
+  - entity.name.decorator
+  - entity.name.private
+  - entity.name.instance
+  - entity.name.variable
   - emphasis strong
   - strong emphasis
   - keyword.control
@@ -1669,7 +1693,6 @@ tokenColors:
   - entity
   - entity.name
   - storage.type.function.arrow
-  - constant.other
   settings: {fontStyle: bold}
 - scope:
   - emphasis
@@ -1678,12 +1701,12 @@ tokenColors:
   - constant.language
   - variable.language
   - markup.quote
+  - constant
   - variable.parameter
   - meta.function.parameters variable.parameter
   settings: {fontStyle: italic}
 - scope:
   - variable
-  - constant
   - markup
   - punctuation
   settings: {fontStyle: ''}
