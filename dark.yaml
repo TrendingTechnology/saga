@@ -1099,6 +1099,16 @@ tokenColors:
   settings: {foreground: '#db7f8e'}
 - scope: keyword.operator.accessor
   settings: {foreground: '#59a5d8'}
+- scope: keyword.operator.sum
+  settings: {foreground: '#c789d6'}
+- scope: keyword.operator.difference
+  settings: {foreground: '#df769b'}
+- scope: keyword.operator.product
+  settings: {foreground: '#d67e5c'}
+- scope: keyword.operator.separator
+  settings: {foreground: '#8cc265'}
+- scope: keyword.operator.result
+  settings: {foreground: '#4aa5f0'}
 - scope:
   - keyword.operator.type
   - meta.identifier.css
@@ -1325,7 +1335,9 @@ tokenColors:
   - entity.name.tag.doctype
   - entity.name.tag.namespace
   settings: {foreground: '#a6e22e'}
-- scope: entity.name.tag.styledcss
+- scope:
+  - entity.name.tag.styledcss
+  - entity.name.tag.style
   settings: {foreground: '#27d797'}
 - scope:
   - entity.name.script
