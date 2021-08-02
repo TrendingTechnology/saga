@@ -55,14 +55,14 @@ Things to do before **Version 1.0.0**
 
 <table><tr><td valign=top>
 
-- An Introduction
+- **An Introduction**
   - Installation
   - Overview
   - The Basics
     - Syntax
     - Comments
-- Variables and Constants
-- Data Types
+- **Variables and Constants**
+- **Data Types**
   - Type System
   - Booleans
   - Integers and Floats
@@ -70,17 +70,19 @@ Things to do before **Version 1.0.0**
     - Quoted Strings
     - Raw Strings
     - Slicing and Splicing
-  - Data Structures
-    - Lists
-    - Sets
-    - Maps
+  - Collections
+    - Lists/Tuples
+    - Sets/Collections
+    - Maps/Dictionaries
+    - Sequences
     - Destructuring
   - Regular Expressions
     - Block Regexes
     - Syntax Reference
   - Buffers
-  - Symbols
-- Control Flow
+  - Functions
+  - Functions
+- **Control Flow**
   - Do Block
   - If-Elif-Else
   - Unless and Eless
@@ -90,7 +92,7 @@ Things to do before **Version 1.0.0**
 
 </td><td valign=top>
 
-- Functions
+- **Functions**
   - Pure Functions and Closures
   - Inline and Named Functions
   - Anonymous and Higher-Order Functions
@@ -99,11 +101,11 @@ Things to do before **Version 1.0.0**
   - Piping and Composition
   - Generators
   - String Macros
-- Type Declarations
+- **Types**
   - Any, Mixed, Void/Unit, Empty
   - Optional Types
-  - Interfaces
-  - Structures
+  - Function Types
+  - Collection Types
   - Type Combinators
   - Conditional Types
   - Enumerations
@@ -112,12 +114,12 @@ Things to do before **Version 1.0.0**
   - Type Aliases
   - Infer, Key-Of, Name-Of
   - Constraints (For-All)
-- Concurrency and Asynchrony
+- **Concurrency and Asynchrony**
   - Channels
   - Series and Parallel Blocks
   - Async-Await
   - Callbacks and Futures
-- Classes
+- **Classes**
   - Constructors
   - Methods and Attributes
   - Access Modifiers
@@ -130,13 +132,13 @@ Things to do before **Version 1.0.0**
 
 </td><td valign=top>
 
-- Modules
+- **Modules**
   - The Module System
   - Imports and Exports
   - Python and JS Modules
   - The Standard
   - Managing and Publishing Packages
-- Advanced Topics
+- **Advanced Topics**
   - More on Types
   - Domain-Specific Extensions
     - Macros and Procedures
@@ -161,13 +163,13 @@ Things to do before **Version 1.0.0**
   - Language Interop
     - Translating Python/JS to Nyx
     - Translating Nyx to Python
-- Writing documentation
+- **Documentation**
 
 </td><td valign=top>
 
-- Tools
+- **Tools**
   - Nifty, Nyx's Formatter
-- A Tour of the Standard Library
+- **Standard Library**
   - Test-Driven Development
   - File System and I/O
   - Serialization
@@ -178,7 +180,7 @@ Things to do before **Version 1.0.0**
   - Machine Learning\*
   - Mathematical Computing
   - Cryptography
-  - Science\*
+  - Scientific Programming\*
   - Data Analysis\*
   - Reactive Programming
   - Asynchronous Programming
@@ -187,7 +189,7 @@ Things to do before **Version 1.0.0**
   - Markup and Styling
   - Web APIs
   - Domain-Specific Language Extensions
-- Appendices
+- **Appendices and References**
   - Keywords and Modifiers
   - Operators & Precedence
   - Regex Language
