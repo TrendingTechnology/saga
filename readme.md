@@ -95,6 +95,7 @@ Things to do before **Version 1.0.0**
 - Do Block
 - If-Elif-Else
 - Unless and Eless
+- Loops and Ranges
 - Switch
 - Pattern Matching
 - Try-Catch-Finally
