@@ -143,14 +143,14 @@ Things to do before **Version 1.0.0**
 - Infer, Key-Of, Name-Of
 - Constraints (For-All)
 
+</td><td width=25% valign=top>
+
 #### Concurrency and Asynchrony
 
 - Channels
 - Series and Parallel Blocks
 - Async-Await
 - Callbacks and Futures
-
-</td><td width=25% valign=top>
 
 #### Modules
 
