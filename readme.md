@@ -120,8 +120,9 @@ Things to do before **Version 1.0.0**
 - Access Modifiers
 - Getters and Setters
 - Symbols
-- Traits and Extensions
-- Fragments and Constraints
+- Traits and Fragments
+- Constraints
+- Extending Built-in Objects
 - Objects and Records
 - Advanced Modifiers
 
