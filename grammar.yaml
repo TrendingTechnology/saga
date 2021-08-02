@@ -3450,7 +3450,7 @@ repository:
   method-call:
     patterns:
       - applyEndPatternLast: 1
-        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         end: (?=.)
         name: meta.method-call.without-arguments.nyx
         beginCaptures:
@@ -3467,7 +3467,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         end: (?=.)
         name: meta.method-call.without-arguments.nyx
         beginCaptures:
@@ -3484,7 +3484,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}])*+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         end: (?=.)
         name: meta.method-call.with-arguments.nyx
         beginCaptures:
@@ -3501,7 +3501,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])+)\s*+(?:(\?\.)|(!\.)|(~\.)|(\.))\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         end: (?=.)
         name: meta.method-call.with-arguments.nyx
         beginCaptures:
@@ -3518,7 +3518,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.|::)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+        begin: (?<=\.|::)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
         end: (?=.)
         name: meta.method-call.without-arguments.nyx
         beginCaptures:
@@ -3530,7 +3530,7 @@ repository:
           - include: '#type-argument-brackets'
           - include: '#round-brackets'
       - applyEndPatternLast: 1
-        begin: (?<=\.|::)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+        begin: (?<=\.|::)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
         end: (?=.)
         name: meta.method-call.with-arguments.nyx
         beginCaptures:
