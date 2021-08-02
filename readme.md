@@ -523,7 +523,7 @@ gen def hailstoneSeq(n) =
   yield n
   while n != 1
     yield n = n % 2 != 0 ? n * 3 + 1 : n / 2
-x: 10 =
+
 gen def hailstoneSeq(n) =
   yield n
   while n != 1
@@ -636,7 +636,7 @@ print('#name%s is #height%2.2f meters tall') # James is 1.90 meters tall
 
 #### String Interpolation and Formatting
 
-`#` begins an interpolation sequence, prefixing a `$variable` or `${expression}`, the latter enclosed in curly brackets. Variable/expression references can also be followed by a `printf`-style format string like `%d`.
+`#` begins an interpolation sequence, prefixing a `#variable` or `#{expression}`, the latter enclosed in round brackets. Variable/expression references can also be followed by a `printf`-style format string like `%d`.
 
 ```coffee
 val height: float = 1.9, @name: str = 'James'
@@ -647,7 +647,7 @@ print('#name%s is #height%2.2f meters tall') # James is 1.90 meters tall
 
 Strings and lists are **zero and negative indexed**, similar to Python. Strings are indexed by code point and not by code units. Strings are immutable.
 
-All valid indices range from `-(len s)` to `s - 1`. So given a string `s` of length `5`, the first element, `s[0]` is also represented as `[-5]`, and `s[1]` to `s[-4]`, and so on.
+All valid indices range from `-len s` to `len s - 1`. So given a string `s` of length `5`, the first element, `s[0]` is also represented as `[-5]`, and `s[1]` to `s[-4]`, and so on.
 
 All indices are calculated with this formula.
 
