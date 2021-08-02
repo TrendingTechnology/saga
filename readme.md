@@ -174,6 +174,8 @@ Things to do before **Version 1.0.0**
   - Proxies and Reflectors
   - Extending Built-Ins
 - Text Processing
+  - String Library
+  - Regex Flavors, Compared
 - Internationalization
   - Date and Time
   - Currency
@@ -279,8 +281,6 @@ This is not a flat-out tutorial to the language, but something which you would c
 
 ---
 
-Except commands like `assert`, `break`/`halt`, `continue`/`skip`, `fallthru`, `return`, `yield`, `throw` and more. They can still be included as part of expressions, but once evaluated, return nothing.
-
 Blocks are delimited by indentation, curly braces, or Ruby-style `then`-`end` blocks. Curly braces are mainly used in case you want to compile Nyx into a more compact form.
 
 ```coffee
@@ -304,6 +304,17 @@ if true {
 # Multiple inline blocks
 for val x in val arr = 1 to 10 if x < 10
   print(x += 10)
+```
+
+Everything is an expression --- except commands like `assert`, `break`/`halt`, `continue`/`skip`, `fallthru`, `return`, `goto`, `yield`, `throw` and more. They can still be included as part of expressions, but once evaluated, return nothing.
+
+```coffee
+def fib(n: int): int = match n
+  when is 1 | 2 -> 0
+  when is int -> fib(n) + fib(n - 1)
+
+for x in 1 to 100
+  print 'The #x%do fibonacci number is #{fib(x)}'
 ```
 
 Outside string literals, even a single space is counted as an indentation. All blocks are to share the same indent level as to otherwise not throw errors. All tabs outside string literals are converted into spaces before parsing.
@@ -840,7 +851,7 @@ arr ++= [5, 6, 7, 8] # [1, 2, 3, 4, 5, 6, 7, 8]
 arr *= 3 #(
 [1, 2, 3, 4, 5, 6, 7, 8,
  1, 2, 3, 4, 5, 6, 7, 8,
- 1, 2, 3, 4, 5, 6, 7, 8] 
+ 1, 2, 3, 4, 5, 6, 7, 8]
 )
 ```
 
@@ -931,4 +942,3 @@ In Nyx, almost In Nyx, almost everything is an expression and the last one reach
 ```coffee
 noRet = x =>!
 ```
-
