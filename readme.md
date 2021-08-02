@@ -55,146 +55,165 @@ Things to do before **Version 1.0.0**
 
 <table><tr><td valign=top>
 
-- **An Introduction**
-  - Installation
-  - Overview
-  - The Basics
-    - Syntax
-    - Comments
-- **Variables and Constants**
-- **Data Types**
-  - Type System
-  - Booleans
-  - Integers and Floats
-  - Strings
-    - Quoted Strings
-    - Raw Strings
-    - Slicing and Splicing
-  - Collections
-    - Lists/Tuples
-    - Sets/Collections
-    - Maps/Dictionaries
-    - Sequences
-    - Destructuring
-  - Regular Expressions
-    - Block Regexes
-    - Syntax Reference
-  - Buffers
-  - Functions
-  - Functions
-- **Control Flow**
-  - Do Block
-  - If-Elif-Else
-  - Unless and Eless
-  - Switch
-  - Pattern Matching
-  - Try-Catch-Finally
+- Installation
+- Overview
+- The Basics
+  - Syntax
+  - Comments
+
+#### Variables and Constants
+
+#### Data Types
+
+- Type System
+- Booleans
+- Integers and Floats
+- Strings
+  - Quoted Strings
+  - Raw Strings
+  - Slicing and Splicing
+- Collections
+  - Lists/Tuples
+  - Sets/Collections
+  - Maps/Dictionaries
+  - Sequences
+  - Destructuring
+- Regular Expressions
+  - Block Regexes
+  - Syntax Reference
+- Buffers
+- Functions
+- Functions
+
+#### Control Flow
+
+- Do Block
+- If-Elif-Else
+- Unless and Eless
+- Switch
+- Pattern Matching
+- Try-Catch-Finally
 
 </td><td valign=top>
 
-- **Functions**
-  - Pure Functions and Closures
-  - Inline and Named Functions
-  - Anonymous and Higher-Order Functions
-  - Currying
-  - Recursion
-  - Piping and Composition
-  - Generators
-  - String Macros
-- **Types**
-  - Any, Mixed, Void/Unit, Empty
-  - Optional Types
-  - Function Types
-  - Collection Types
-  - Type Combinators
-  - Conditional Types
-  - Enumerations
-  - Sum and Product Types
-  - Generics and Variants
-  - Type Aliases
-  - Infer, Key-Of, Name-Of
-  - Constraints (For-All)
-- **Concurrency and Asynchrony**
-  - Channels
-  - Series and Parallel Blocks
-  - Async-Await
-  - Callbacks and Futures
-- **Classes**
-  - Constructors
-  - Methods and Attributes
-  - Access Modifiers
-  - Getters and Setters
-  - Symbols
-  - Traits and Extensions
+#### Functions
+
+- Pure Functions and Closures
+- Inline and Named Functions
+- Anonymous and Higher-Order Functions
+- Currying
+- Recursion
+- Piping and Composition
+- Generators
+- String Macros
+
+#### Types
+
+- Any, Mixed, Void/Unit, Empty
+- Optional Types
+- Function Types
+- Collection Types
+- Type Combinators
+- Conditional Types
+- Enumerations
+- Sum and Product Types
+- Generics and Variants
+- Type Aliases
+- Infer, Key-Of, Name-Of
+- Constraints (For-All)
+
+#### Concurrency and Asynchrony
+
+- Channels
+- Series and Parallel Blocks
+- Async-Await
+- Callbacks and Futures
+
+#### Classes
+
+- Constructors
+- Methods and Attributes
+- Access Modifiers
+- Getters and Setters
+- Symbols
+- Traits and Extensions
+- Fragments and Constraints
+- Objects and Records
+- Advanced Modifiers
+
+</td><td valign=top>
+
+#### Modules
+
+- The Module System
+- Imports and Exports
+- Python and JS Modules
+- The Standard
+- Managing and Publishing Packages
+
+#### Advanced Topics
+
+- More on Types
+- Domain-Specific Extensions
+  - Macros and Procedures
   - Fragments and Constraints
-  - Objects and Records
-  - Advanced Modifiers
+  - Custom Operators
+  - Operator Overloading
+  - Custom Methods
+  - Custom Control Flow
+  - Proxies and Reflectors
+  - Extending Built-Ins
+- Text Processing
+- Internationalization
+  - Date and Time
+  - Currency
+  - Math
+- File System
+  - Reading and Writing Files
+  - Languages and Markup
+- React + JSX, CSS and GraphQL
+- Debugging and TDD
+- Conditional Compilation
+- Language Interop
+  - Translating Python/JS to Nyx
+  - Translating Nyx to Python
+- Documentation
 
 </td><td valign=top>
 
-- **Modules**
-  - The Module System
-  - Imports and Exports
-  - Python and JS Modules
-  - The Standard
-  - Managing and Publishing Packages
-- **Advanced Topics**
-  - More on Types
-  - Domain-Specific Extensions
-    - Macros and Procedures
-    - Fragments and Constraints
-    - Custom Operators
-    - Operator Overloading
-    - Custom Methods
-    - Custom Control Flow
-    - Proxies and Reflectors
-    - Extending Built-Ins
-  - Text Processing
-  - Internationalization
-    - Date and Time
-    - Currency
-    - Math
-  - File System
-    - Reading and Writing Files
-    - Languages and Markup
-  - React + JSX, CSS and GraphQL
-  - Debugging and TDD
-  - Conditional Compilation
-  - Language Interop
-    - Translating Python/JS to Nyx
-    - Translating Nyx to Python
-- **Documentation**
+#### Tools
 
-</td><td valign=top>
+- Nifty, Nyx's Formatter
 
-- **Tools**
-  - Nifty, Nyx's Formatter
-- **Standard Library**
-  - Test-Driven Development
-  - File System and I/O
-  - Serialization
-  - Collections
-  - Text Processing
-  - Internationalization
-  - Natural Language Processing
-  - Machine Learning\*
-  - Mathematical Computing
-  - Cryptography
-  - Scientific Programming\*
-  - Data Analysis\*
-  - Reactive Programming
-  - Asynchronous Programming
-  - Functional Programming
-  - Object-Oriented Programming
-  - Markup and Styling
-  - Web APIs
-  - Domain-Specific Language Extensions
-- **Appendices and References**
-  - Keywords and Modifiers
-  - Operators & Precedence
-  - Regex Language
-  - Format Language
-  - J-Expression Language
+#### Standard Library
+
+- Test-Driven Development
+- File System and I/O
+- Serialization
+- Collections
+- Text Processing
+- Internationalization
+- Natural Language Processing
+- Machine Learning\*
+- Mathematical Computing
+- Cryptography
+- Scientific Programming\*
+- Data Analysis\*
+- Reactive Programming
+- Asynchronous Programming
+- Functional Programming
+- Object-Oriented Programming
+- Markup and Styling
+- Web APIs
+- Domain-Specific Language Extensions
+
+#### Appendices and References
+
+- Keywords and Modifiers
+- Operators & Precedence
+- Regex Language
+- Format Language
+- J-Expression Language
 
 </td></tr></table>
 
