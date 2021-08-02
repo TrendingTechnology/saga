@@ -310,7 +310,7 @@ repository:
     - include: '#extension'
     repository:
       class:
-        begin: (?<!\.)\s*+\b(class)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(class)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.class.nyx}
@@ -321,7 +321,7 @@ repository:
           name: entity.name.class.nyx
         - include: '#block-entities'
       constraint:
-        begin: (?<!\.)\s*+\b(given|constr)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(given|constr)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.constraint.nyx}
@@ -332,7 +332,7 @@ repository:
           name: entity.name.constraint.nyx
         - include: '#block-entities'
       enum:
-        begin: (?<!\.)\s*+\b(enum)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(enum)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         name: meta.enum.declaration.nyx
         beginCaptures:
@@ -345,7 +345,7 @@ repository:
           name: entity.name.enum.nyx
         - include: '#block-entities'
       extension:
-        begin: (?<!\.)\s*+\b(extend|extn)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(extend|extn)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.extension.nyx}
@@ -356,7 +356,7 @@ repository:
           name: entity.name.extension.nyx
         - include: '#block-entities'
       fragment:
-        begin: (?<!\.)\s*+\b(frag|struct)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(frag|struct)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.fragment.nyx}
@@ -367,7 +367,7 @@ repository:
           name: entity.name.fragment.nyx
         - include: '#block-entities'
       interface:
-        begin: (?<!\.)\s*+\b(inter|schema)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(inter|schema)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.interface.nyx}
@@ -378,7 +378,7 @@ repository:
           name: entity.name.interface.nyx
         - include: '#block-entities'
       module:
-        begin: (?<!\.)\s*+\b(module)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(module)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.module.nyx}
@@ -389,7 +389,7 @@ repository:
           name: entity.name.module.nyx
         - include: '#block-entities'
       namespace:
-        begin: (?<!\.)\s*+\b(nspace)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(nspace)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.namespace.nyx}
@@ -400,7 +400,7 @@ repository:
           name: entity.name.namespace.nyx
         - include: '#block-entities'
       object:
-        begin: (?<!\.)\s*+\b(object|record)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(object|record)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.object.nyx}
@@ -411,7 +411,7 @@ repository:
           name: entity.name.object.nyx
         - include: '#block-entities'
       raw:
-        begin: (?<!\.)\s*+\b(raw)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(raw)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.raw.nyx}
@@ -422,7 +422,7 @@ repository:
           name: entity.name.raw.nyx
         - include: '#block-entities'
       schema:
-        begin: (?<!\.)\s*+\b(data|query)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(data|query)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.schema.nyx}
@@ -433,7 +433,7 @@ repository:
           name: entity.name.schema.nyx
         - include: '#block-entities'
       style:
-        begin: (?<!\.)\s*+\b(style)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(style)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.style.nyx}
@@ -444,7 +444,7 @@ repository:
           name: entity.name.style.nyx
         - include: '#block-entities'
       trait:
-        begin: (?<!\.)\s*+\b(trait)(\s+|$)
+        begin: (?<!\.|::)\s*+\b(trait)(\s+|$)
         end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
         beginCaptures:
           1: {name: storage.type.trait.nyx}
@@ -480,8 +480,8 @@ repository:
     repository:
       case-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(case|fail)\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(case|fail)\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           beginCaptures:
             1: {name: keyword.control.switch.nyx}
           endCaptures:
@@ -490,8 +490,8 @@ repository:
           - include: $self
       catch-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(try|retry|catch|rescue|finally)\b\s*(await)?\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(try|retry|catch|rescue|finally)\b\s*(await)?\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.catch.nyx
           beginCaptures:
             1: {name: keyword.control.trycatch.nyx}
@@ -504,17 +504,17 @@ repository:
             endCaptures:
               1: {name: meta.brace.round.nyx}
             patterns:
-            - match: (?<!\.)\s*+\b(as)\b
+            - match: (?<!\.|::)\s*+\b(as)\b
               name: keyword.control.trycatch.nyx
             - include: $self
           - include: '#curly-brackets'
-          - match: (?<!\.)\s*+\b(as)\b
+          - match: (?<!\.|::)\s*+\b(as)\b
             name: keyword.control.trycatch.nyx
           - include: $self
       do-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(do|redo)\b\s*(await)?\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(do|redo)\b\s*(await)?\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.do.nyx
           beginCaptures:
             1: {name: keyword.control.do.nyx}
@@ -525,14 +525,14 @@ repository:
           - include: $self
       for-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(for|each|while|until)\b\s*(await)?\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(for|each|while|until)\b\s*(await)?\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.for.nyx
           beginCaptures:
             1: {name: keyword.control.loop.nyx}
             2: {name: keyword.control.flow.nyx}
           patterns:
-          - match: (?<!\.)\s*+\b(in|of|by|to|til)\b
+          - match: (?<!\.|::)\s*+\b(in|of|by|to|til)\b
             name: keyword.control.loop.nyx
           - include: '#let-clause'
           - begin: \s*+(\()
@@ -542,7 +542,7 @@ repository:
             endCaptures:
               1: {name: meta.brace.round.nyx}
             patterns:
-            - match: (?<!\.)\s*+\b(in|of|by|to|til)\b
+            - match: (?<!\.|::)\s*+\b(in|of|by|to|til)\b
               name: keyword.control.loop.nyx
             - include: '#let-clause'
             - include: $self
@@ -550,12 +550,12 @@ repository:
           - include: $self
         repository:
           let-clause:
-            match: (?<!\.)\s*+\b(const|con|let|var|val)\b\s*
+            match: (?<!\.|::)\s*+\b(const|con|let|var|val)\b\s*
             name: storage.type.nyx
       if-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(if|els?if|ell?ess?|unless?|guard)\b\s*(await)?\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(if|els?if|ell?ess?|unless?|guard)\b\s*(await)?\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.if.nyx
           beginCaptures:
             1: {name: keyword.control.conditional.nyx}
@@ -566,8 +566,8 @@ repository:
           - include: $self
       match-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(match)\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(match)\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.match.nyx
           beginCaptures:
             1: {name: keyword.control.match.nyx}
@@ -575,8 +575,8 @@ repository:
           - include: $self
       parallel-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(para|seq)\b\s*(await)?\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(para|seq)\b\s*(await)?\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.parallel.nyx
           beginCaptures:
             1: {name: keyword.control.parallel.nyx}
@@ -589,17 +589,17 @@ repository:
             endCaptures:
               1: {name: meta.brace.round.nyx}
             patterns:
-            - match: (?<!\.)\s*+\b(as)\b
+            - match: (?<!\.|::)\s*+\b(as)\b
               name: keyword.control.parallel.nyx
             - include: $self
           - include: '#curly-brackets'
-          - match: (?<!\.)\s*+\b(as)\b
+          - match: (?<!\.|::)\s*+\b(as)\b
             name: keyword.control.parallel.nyx
           - include: $self
       switch-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(switch)\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(switch)\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.switch.nyx
           beginCaptures:
             1: {name: keyword.control.switch.nyx}
@@ -617,8 +617,8 @@ repository:
           - include: $self
       when-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(when)\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(when)\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           beginCaptures:
             1: {name: keyword.control.match.nyx}
           endCaptures:
@@ -630,8 +630,8 @@ repository:
           - include: $self
         repository:
           as-clause:
-            begin: (?<!\.)\s*\b([ai]s|with)\b\s*
-            end: (?<!\.)\s*\b(?=[ai]s|with)|\s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+            begin: (?<!\.|::)\s*\b([ai]s|with)\b\s*
+            end: (?<!\.|::)\s*\b(?=[ai]s|with)|\s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
             beginCaptures:
               1: {name: keyword.control.match.nyx}
             endCaptures:
@@ -643,7 +643,7 @@ repository:
             - include: '#typed-parse-types'
           case-separator:
             begin: ([,;])
-            end: (?<!\.)\s*\b(?=[ai]s|with|if|unless|where)|\s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+            end: (?<!\.|::)\s*\b(?=[ai]s|with|if|unless|where)|\s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
             beginCaptures:
               1: {patterns: [{include: $self}]}
             endCaptures:
@@ -654,8 +654,8 @@ repository:
             - include: '#case-separator'
             - include: $self
           match-clause:
-            begin: (?<!\.)\s*\b(if|unless|where)\b\s*
-            end: (?<!\.)\s*\b(?=if|unless|where)|\s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+            begin: (?<!\.|::)\s*\b(if|unless|where)\b\s*
+            end: (?<!\.|::)\s*\b(?=if|unless|where)|\s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
             beginCaptures:
               1: {name: keyword.control.match.nyx}
             endCaptures:
@@ -667,8 +667,8 @@ repository:
             - include: $self
       with-clause:
         patterns:
-        - begin: (?<!\.)\s*+\b(with)\b\s*(await)?\b
-          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.)\s*+\b(?:begin|then)\b)
+        - begin: (?<!\.|::)\s*+\b(with)\b\s*(await)?\b
+          end: \s*(?=\p{Pe}|$|(?<=\s)->|(?<!\.|::)\s*+\b(?:begin|then)\b)
           name: meta.with.nyx
           beginCaptures:
             1: {name: keyword.control.with.nyx}
@@ -678,7 +678,7 @@ repository:
           - begin: \s*
             end: \s*(?=[{,])
             patterns:
-            - match: (?<!\.)\s*+\b(as)\b
+            - match: (?<!\.|::)\s*+\b(as)\b
               name: keyword.control.with.nyx
             - include: $self
           - begin: \s*+(\()
@@ -688,7 +688,7 @@ repository:
             endCaptures:
               1: {name: meta.brace.round.nyx}
             patterns:
-            - match: (?<!\.)\s*+\b(as)\b
+            - match: (?<!\.|::)\s*+\b(as)\b
               name: keyword.control.with.nyx
             - include: $self
           - include: $self
@@ -2359,7 +2359,7 @@ repository:
   function:
     patterns:
     - applyEndPatternLast: 1
-      begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+(?:\b(async)\b\s+)?\s*+(?:(?<=\.\.\.)|(?<!\.|::))(\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.type.nyx}
@@ -2373,7 +2373,7 @@ repository:
       - include: '#core'
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
-      begin: \s*+()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.|::)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
@@ -2390,7 +2390,7 @@ repository:
       - include: '#core'
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
-      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))(proto)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.|::)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: keyword.operator.private.nyx}
@@ -2414,7 +2414,7 @@ repository:
       - include: '#core'
       - include: '#curly-brackets'
     - applyEndPatternLast: 1
-      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
+      begin: \s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)(?:(\?\.)|(\.))()((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))\s*+(=)\s*+(?:(async)\s+)?\s*+((?<!\.|::)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(\*?)\s*+((?:[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*|[\p{S}\p{Po}\p{Pd}&&[^,;'"`<\/>\\$]]+|'(?:\\'|[^'])*'|"(?:\\"|[^"])*"|`(?:``|[^`])*`))?(?=\s*+(\(|<))
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       name: meta.function.static.nyx
       beginCaptures:
@@ -2438,7 +2438,7 @@ repository:
   function-call:
     patterns:
     - include: '#comments'
-    - match: (?<!\.)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
+    - match: (?<!\.|::)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\)))
       name: meta.new-class.without-arguments.nyx
       captures:
         1: {name: keyword.operator.new.nyx}
@@ -2452,7 +2452,7 @@ repository:
         9: {name: meta.brace.round.nyx}
         10: {name: meta.brace.round.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
+      begin: (?<!\.|::)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
       end: (?=.)
       name: meta.new-class.without-arguments.nyx
       beginCaptures:
@@ -2468,7 +2468,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
+      begin: (?<!\.|::)\s*+(\bnew\b)\s*+(()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
       end: (?=.)
       name: meta.new-class.with-arguments.nyx
       beginCaptures:
@@ -2484,7 +2484,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - include: '#operators'
-    - match: (?<!\.)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
+    - match: (?<!\.|::)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?(\()\s*+(\))
       name: meta.function-call.without-arguments.nyx
       captures:
         1: {name: keyword.operator.private.nyx}
@@ -2496,7 +2496,7 @@ repository:
         7: {name: meta.brace.round.nyx}
         8: {name: meta.brace.round.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
+      begin: (?<!\.|::)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\)))
       end: (?=.)
       name: meta.function-call.without-arguments.nyx
       beginCaptures:
@@ -2510,7 +2510,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+((\bnew\b)*)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\(\s*+\))
+      begin: (?<!\.|::)\s*+((\bnew\b)*)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\(\s*+\))
       end: (?=.)
       name: meta.function-call.without-arguments.nyx
       beginCaptures:
@@ -2522,7 +2522,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+      begin: (?<!\.|::)\s*+()([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?:(\?\.)|(~\.|::)|(!\.)|(::|\.))?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
       end: (?=.)
       name: meta.function-call.with-arguments.nyx
       beginCaptures:
@@ -2536,7 +2536,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+((\bnew\b)*)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+      begin: (?<!\.|::)\s*+((\bnew\b)*)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\g<-1>)*\])\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
       end: (?=.)
       name: meta.function-call.with-arguments.nyx
       beginCaptures:
@@ -2555,7 +2555,7 @@ repository:
     - include: '#function-string'
   function-labels:
     patterns:
-    - begin: (?<=^|{|,)\s*+([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
+    - begin: (?<=^|{|,)\s*+([&^|*%@$]?[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(:)\s*+(?:(async)\s+)?\s*+((?<!\.|::)\b(?:defn?|func?|fn|proc|macro)\b)\s*+(?:(\*)\s*)?(?=\s*(\(|<))
       end: \s*(=)|\s*(?<=})
       name: meta.function.json.nyx
       beginCaptures:
@@ -2570,7 +2570,7 @@ repository:
       - include: '#types'
       - include: '#core'
       - include: '#curly-brackets'
-    - begin: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(async)?\s*+((?<!\.)\b(?:defn?|func?|fn|proc|macro)\b)\s*(\*\s*)?(?=\s*(\(|<))
+    - begin: (?<=^|{|,)\s*+(('|")([^"']*)(\k<-3>))\s*+(:)\s*+(async)?\s*+((?<!\.|::)\b(?:defn?|func?|fn|proc|macro)\b)\s*(\*\s*)?(?=\s*(\(|<))
       end: \s*(=)|\s*(?<=})
       name: meta.function.json.nyx
       beginCaptures:
@@ -2593,10 +2593,10 @@ repository:
     - include: '#sigils'
     - include: '#support-functions'
     - include: '#support-methods'
-    - match: (?i)(?<!\.)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
+    - match: (?i)(?<!\.|::)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
       captures:
         1: {name: support.type.builtin.primitive.nyx}
-    - match: (?i)(?<!\.)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mixed|mix))\b
+    - match: (?i)(?<!\.|::)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mixed|mix))\b
       captures:
         1: {name: support.type.builtin.nyx}
     - match: \b(WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|String|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|Number|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array)\b
@@ -2748,7 +2748,7 @@ repository:
     - match: ^.{1000,}
   implicit-call:
     patterns:
-    - match: (?x)(?<=\.)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
+    - match: (?x)(?<=\.|::)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
       captures:
         1: {patterns: [{include: '#method-name'}]}
     - match: (?x)\s*([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*(?=['"`(]|::|<[-+|])
@@ -2925,7 +2925,7 @@ repository:
           name: keyword.operator.assignment.jsx
       jsx-attribute-name:
         patterns:
-        - match: (?<!\S)([_\\\p{L}](?:[_\\\p{L}\p{M}\p{N}](?<!\.\.))*+)(?<!\.)(?=\#|\#[\[{]|=|\s|>|/>)
+        - match: (?<!\S)([_\\\p{L}](?:[_\\\p{L}\p{M}\p{N}](?<!\.\.))*+)(?<!\.|::)(?=\#|\#[\[{]|=|\s|>|/>)
           captures:
             0: {name: entity.other.attribute-name.jsx}
       jsx-entities:
@@ -2954,7 +2954,7 @@ repository:
           - include: '#core'
       jsx-spread-attribute:
         patterns:
-        - match: (?<!\.)\.\.\.
+        - match: (?<!\.|::)\.\.\.
           name: keyword.operator.spread.jsx
       jsx-string-double-quoted:
         begin: '"'
@@ -3032,7 +3032,7 @@ repository:
           - include: '#jsx-tag-element-name'
   keyword-storage:
     patterns:
-    - begin: (?<!\.)\s*+\b(const|con|let|var|val)\b
+    - begin: (?<!\.|::)\s*+\b(const|con|let|var|val)\b
       end: (?=\s*[_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*:\s*($|\b(do|redo|for|each|while)\b))|\s*(?=;|[}\]]\#|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
       beginCaptures:
         1: {name: storage.type.nyx}
@@ -3042,7 +3042,7 @@ repository:
     patterns:
     - include: '#new'
     - include: '#query'
-    - begin: (?<!\.)\s*+\b(halt|skip|break|continue|goto|label)\b
+    - begin: (?<!\.|::)\s*+\b(halt|skip|break|continue|goto|label)\b
       end: ^\s*|\s*(?=,|;|:|\#|$|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\p{Pe})
       beginCaptures:
         1: {name: keyword.control.flow.nyx}
@@ -3054,7 +3054,7 @@ repository:
         captures:
           1: {name: constant.other.label.nyx}
     - match: |-
-        (?x)(?<!\.)\s*+\b(?:
+        (?x)(?<!\.|::)\s*+\b(?:
           (in|of|as|void|new|(?:type|name|key|size)of|infer) #1
           |(size)|(len)|(del)|(is)|(to|til|by)|(type)|(name)|(key) #2-9
         )\b
@@ -3069,7 +3069,7 @@ repository:
         8: {name: keyword.operator.expression.nameof.nyx}
         9: {name: keyword.operator.expression.keyof.nyx}
     - match: |-
-        (?x)(?<!\.)\s*+\b(?:
+        (?x)(?<!\.|::)\s*+\b(?:
           (if|else|els?if|ell?ess?|unless?|guard)|(for|each|while|until|repeat)| #1,2
           (switch|case|def)|(match|when|pass)| #3,4
           (try|retry|throw|raise|catch|rescue|finally)|(with|as)| #5,6
@@ -3124,7 +3124,7 @@ repository:
         3: {name: punctuation.separator.key-value.nyx}
   language-constant:
     patterns:
-    - match: (?i)(?<!\.)\s*+\b((true|yes|on)|(false|no|off)|(null|nil|none)|(undef)|(nan)|(inf|infin))\b
+    - match: (?i)(?<!\.|::)\s*+\b((true|yes|on)|(false|no|off)|(null|nil|none)|(undef)|(nan)|(inf|infin))\b
       captures:
         2: {name: constant.language.boolean.true.nyx}
         3: {name: constant.language.boolean.false.nyx}
@@ -3134,29 +3134,29 @@ repository:
         7: {name: constant.language.infinity.nyx}
   language-variable:
     patterns:
-    - match: (?<!\.)\s*+\b(params|args)\b
+    - match: (?<!\.|::)\s*+\b(params|args)\b
       captures:
         1: {name: variable.language.arguments.nyx}
-    - match: (?<!\.)\s*+\b(super)\b\s*+(?!\()
+    - match: (?<!\.|::)\s*+\b(super)\b\s*+(?!\()
       captures:
         1: {name: variable.language.super.nyx}
-    - match: (?<!\.)\s*+\b(this)\b
+    - match: (?<!\.|::)\s*+\b(this)\b
       captures:
         1: {name: variable.language.this.nyx}
-    - match: (?<!\.)\s*+\b(self)\b\s*+(?!\()
+    - match: (?<!\.|::)\s*+\b(self)\b\s*+(?!\()
       captures:
         1: {name: variable.language.self.nyx}
-    - match: (?<=\.)\s*+\b(\\proto)\b
+    - match: (?<=\.|::)\s*+\b(\\proto)\b
       captures:
         1: {name: variable.language.proto.nyx}
-    - match: (?<=\.)\s*+\b(ctor)\b\s*+(?!\()
+    - match: (?<=\.|::)\s*+\b(ctor)\b\s*+(?!\()
       captures:
         1: {name: variable.language.constructor.nyx}
-    - match: (?<=\.)\s*+\b(proto)\b
+    - match: (?<=\.|::)\s*+\b(proto)\b
       captures:
         1: {name: variable.language.prototype.nyx}
     - match: |-
-        (?x)(?<!\.)\s*+\b(?:
+        (?x)(?<!\.|::)\s*+\b(?:
           (params|args)|(super|this|self|proto)|(\\proto|main)|(ctor)|(targ)|(len|size)
         )\b
       captures:
@@ -3168,7 +3168,7 @@ repository:
         6: {name: variable.language.length.nyx}
   method:
     patterns:
-    - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)()(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
+    - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.|::)()(?!\bstatic\b)([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\())
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
@@ -3183,7 +3183,7 @@ repository:
       - include: '#curly-brackets'
       - include: '#core'
       - include: $self
-    - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.)(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
+    - begin: (?<!:)(?<=^|;|,|@@|}|{)\s*+(\bstatic\b)?\s*+(\basync\b)?\s*+(\*?)\s*+(?<!\.|::)(('|")([^"']*)(\k<-3>))(?=\s*+(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?(\())
       end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|}|,|;)|\s*(?=;|=|{|[}\]]\#|\)|})
       beginCaptures:
         1: {name: storage.modifier.nyx}
@@ -3312,7 +3312,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<=\.)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
+      begin: (?<=\.|::)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+(\(\s*+\)))
       end: (?=.)
       name: meta.method-call.without-arguments.nyx
       beginCaptures:
@@ -3324,7 +3324,7 @@ repository:
       - include: '#type-argument-brackets'
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<=\.)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
+      begin: (?<=\.|::)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(?=(\[(?:(?>[^\[\]]+)|\\g<-1>)*\])?+\s*+(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\()
       end: (?=.)
       name: meta.method-call.with-arguments.nyx
       beginCaptures:
@@ -3344,7 +3344,7 @@ repository:
   modifiers:
     patterns:
     - match: |-
-        (?x)(?<!\.)\s*+\b(?:
+        (?x)(?<!\.|::)\s*+\b(?:
           (pub|prot|pvt|priv|ronly|(?:in|ex)tl)| #1
           (over|abs|stat|dyn|vol|a?sync|(?:im)?mut|part|seal|final|dele|[dr]ef|
           trans|(?:im|ex)pl|ext|(?:un)?(?:sign|safe|check|size))| #2
@@ -3371,7 +3371,7 @@ repository:
         5: {name: keyword.operator.$5.nyx}
         6: {name: keyword.operator.instanceof.nyx}
     - match: |-
-        (?x)(?<!\.)\s*+\b(?:
+        (?x)(?<!\.|::)\s*+\b(?:
           (class|enum|module|object|raw|style)
           |(given|constr)
           |(enum)
@@ -3403,12 +3403,12 @@ repository:
         13: {name: storage.type.trait.nyx}
         14: {name: keyword.other.typedef.nyx}
   module:
-    begin: (?<!\.)\s*+\b(import|export|open|close)\b\s*
+    begin: (?<!\.|::)\s*+\b(import|export|open|close)\b\s*
     end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=$|\p{Pe}|;)|\s*(?=;|=|{|[}\]]\#|\)|})
     beginCaptures:
       1: {name: keyword.control.module.nyx}
     patterns:
-    - match: (?<!\.)\s*+\b(from|import|export|open|close|as|all|any|it|show|hide|to)\b\s*
+    - match: (?<!\.|::)\s*+\b(from|import|export|open|close|as|all|any|it|show|hide|to)\b\s*
       name: keyword.control.module.nyx
     - match: \s*\*
       name: keyword.operator.module.all.nyx
@@ -3469,7 +3469,7 @@ repository:
       - include: '#types'
       - include: '#fat-arrow-braced-body'
   new:
-  - match: (?<!\.)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?(\()\s*+(\)))
+  - match: (?<!\.|::)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?(\()\s*+(\)))
     name: meta.new-class.without-arguments.nyx
     captures:
       1: {name: keyword.operator.new.nyx}
@@ -3480,7 +3480,7 @@ repository:
       6: {name: meta.brace.round.nyx}
       7: {name: meta.brace.round.nyx}
   - applyEndPatternLast: 1
-    begin: (?<!\.)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
+    begin: (?<!\.|::)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)\s*+(\()\s*+(\))))
     end: (?=.)
     name: meta.new-class.without-arguments.nyx
     beginCaptures:
@@ -3493,7 +3493,7 @@ repository:
     - include: '#type-argument-brackets'
     - include: '#round-brackets'
   - applyEndPatternLast: 1
-    begin: (?<!\.)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
+    begin: (?<!\.|::)\s*+(\bnew\b)\s*+(()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\?\.)?\s*+(?=(<(?:(?>[^<>]+)|\g<-1>)*>)?\s*+\())
     end: (?=.)
     name: meta.new-class.with-arguments.nyx
     beginCaptures:
@@ -4508,8 +4508,8 @@ repository:
       - include: '#core'
   query:
     patterns:
-    - begin: (?<!\.)\s*+\b(from)\b\s*
-      end: (?<!\.)\s*+\b(in|of)\b\s*
+    - begin: (?<!\.|::)\s*+\b(from)\b\s*
+      end: (?<!\.|::)\s*+\b(in|of)\b\s*
       beginCaptures:
         1: {name: keyword.query.nyx}
       endCaptures:
@@ -4528,10 +4528,10 @@ repository:
     - include: '#take-clause'
     repository:
       fold-clause:
-        match: (?<!\.)\s*+\b((\b(fold|scan)\b)\s*(\b(left|right)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
+        match: (?<!\.|::)\s*+\b((\b(fold|scan)\b)\s*(\b(left|right)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
         name: keyword.query.nyx
       group-clause:
-        begin: (?<!\.)\s*+\b(group)\b\s*
+        begin: (?<!\.|::)\s*+\b(group)\b\s*
         end: \s*(by)\b
         beginCaptures:
           1: {name: keyword.query.nyx}
@@ -4541,7 +4541,7 @@ repository:
         - include: '#let-clause'
         - include: '#core'
       join-clause:
-        begin: (?<!\.)\s*+\b(join)\b\s*
+        begin: (?<!\.|::)\s*+\b(join)\b\s*
         end: \s*(in|of)\b
         beginCaptures:
           1: {name: keyword.query.nyx}
@@ -4551,22 +4551,22 @@ repository:
         - include: '#let-clause'
         - include: '#core'
       join-keywords:
-        match: (?<!\.)\s*+\b(equals?|[io]nto)\b\s*
+        match: (?<!\.|::)\s*+\b(equals?|[io]nto)\b\s*
         name: keyword.query.nyx
       let-clause:
-        match: (?<!\.)\s*+\b(const|con|let|var|val)\b\s*
+        match: (?<!\.|::)\s*+\b(const|con|let|var|val)\b\s*
         name: storage.type.nyx
       order-clause:
-        match: (?<!\.)\s*+\b((\b(order)\b)\s*(\b((a|de)sc)\b)?\s*(\b(by)\b)?)\b\s*
+        match: (?<!\.|::)\s*+\b((\b(order)\b)\s*(\b((a|de)sc)\b)?\s*(\b(by)\b)?)\b\s*
         name: keyword.query.nyx
       select-clause:
-        match: (?<!\.)\s*+\b(select)\b\s*
+        match: (?<!\.|::)\s*+\b(select)\b\s*
         name: keyword.query.nyx
       take-clause:
-        match: (?<!\.)\s*+\b((\b(take|drop)\b)\s*(\b(left|right|init|head|tail|last)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
+        match: (?<!\.|::)\s*+\b((\b(take|drop)\b)\s*(\b(left|right|init|head|tail|last)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
         name: keyword.query.nyx
       where-clause:
-        match: (?<!\.)\s*+\b(where)\b\s*
+        match: (?<!\.|::)\s*+\b(where)\b\s*
         name: keyword.query.nyx
   regex-group-name:
     patterns:
@@ -4675,21 +4675,19 @@ repository:
     - match: \{(\s*\d*\s*(?:,?\s*\d*\s*)*)\}\??
       name: keyword.operator.quantifier.nyx
     - begin: (\\Q)
-      contentName: string.quoted.double.nyx
+      contentName: string.quoted.single.nyx
       end: (\\E)
       name: string.quoted.raw.nyx
-      beginCaptures:
-        1: {name: punctuation.definition.string.begin.nyx}
-      endCaptures:
-        1: {name: punctuation.definition.string.end.nyx}
+      captures:
+        1: {name: keyword.control.quote.nyx}
+      patterns:
+      - include: '#quasi-embedded-raw'
     - begin: (\\q)
-      contentName: string.quoted.single.nyx
+      contentName: string.quoted.double.nyx
       end: (\\e)
       name: string.quoted.nyx
-      beginCaptures:
-        1: {name: punctuation.definition.string.begin.nyx}
-      endCaptures:
-        1: {name: punctuation.definition.string.end.nyx}
+      captures:
+        1: {name: keyword.control.quote.nyx}
       patterns:
       - include: '#string-content'
     - begin: \((\?(?:&|P(=))(?:([+-]?\d+)|([_\\\p{L}\p{Nl}][_\\d\p{L}\p{M}\p{N}]*)|([+-]?\d*)))(:)?
@@ -5355,23 +5353,23 @@ repository:
       patterns:
       - include: '#round-brackets'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+\b((Eval|Range|Reference|Syntax|Type|URI)?Error)\b
+      begin: (?<!\.|::)\s*+\b((Eval|Range|Reference|Syntax|Type|URI)?Error)\b
       end: (?=.)
       beginCaptures:
         1: {name: support.class.error.nyx}
       patterns:
       - include: '#round-brackets'
-    - match: (?<!\.)\s*+\b(debug|assert|check)\b
+    - match: (?<!\.|::)\s*+\b(debug|assert|check)\b
       captures:
         1: {name: keyword.other.nyx}
-    - match: (?<!\.)\s*+\b(doc|event|navi|perf|scrn|win)\b
+    - match: (?<!\.|::)\s*+\b(doc|event|navi|perf|scrn|win)\b
       captures:
         1: {name: support.type.object.dom.nyx}
     - match: \s*+\b(ELEMENT_NODE|ATTRIBUTE_NODE|TEXT_NODE|CDATA_SECTION_NODE|ENTITY_REFERENCE_NODE|ENTITY_NODE|PROCESSING_INSTRUCTION_NODE|COMMENT_NODE|DOCUMENT_NODE|DOCUMENT_TYPE_NODE|DOCUMENT_FRAGMENT_NODE|NOTATION_NODE|INDEX_SIZE_ERR|DOMSTRING_SIZE_ERR|HIERARCHY_REQUEST_ERR|WRONG_DOCUMENT_ERR|INVALID_CHARACTER_ERR|NO_DATA_ALLOWED_ERR|NO_MODIFICATION_ALLOWED_ERR|NOT_FOUND_ERR|NOT_SUPPORTED_ERR|INUSE_ATTRIBUTE_ERR)\b
       captures:
         1: {name: support.constant.dom.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+\b(console)(?:(\.)(warn|info|log|error|time|timeEnd|assert))?\b
+      begin: (?<!\.|::)\s*+\b(console)(?:(\.)(warn|info|log|error|time|timeEnd|assert))?\b
       end: (?=.)
       beginCaptures:
         1: {name: support.type.object.console.nyx}
@@ -5379,13 +5377,13 @@ repository:
         3: {name: support.function.console.nyx}
       patterns:
       - include: '#round-brackets'
-    - match: (?<!\.)\s*+\b(process)(?:(\.)(stdout|stderr|stdin|argv|execPath|execArgv|env|exitCode|version|versions|config|pid|title|arch|platform|mainModule))?\b
+    - match: (?<!\.|::)\s*+\b(process)(?:(\.)(stdout|stderr|stdin|argv|execPath|execArgv|env|exitCode|version|versions|config|pid|title|arch|platform|mainModule))?\b
       captures:
         1: {name: support.type.object.process.nyx}
         2: {name: keyword.operator.accessor.nyx}
         3: {name: support.type.object.process.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+\b(process)(?:(\.)(abort|chdir|cwd|exit|getgid|setgid|getuid|setuid|setgroups|getgroups|initgroups|kill|memoryUsage|nextTick|umask|uptime|hrtime))?\b
+      begin: (?<!\.|::)\s*+\b(process)(?:(\.)(abort|chdir|cwd|exit|getgid|setgid|getuid|setuid|setgroups|getgroups|initgroups|kill|memoryUsage|nextTick|umask|uptime|hrtime))?\b
       end: (?=.)
       beginCaptures:
         1: {name: support.type.object.process.nyx}
@@ -5393,12 +5391,12 @@ repository:
         3: {name: support.function.process.nyx}
       patterns:
       - include: '#round-brackets'
-    - match: (((?<!\.)\s*+\bmodule\.((?<!\,)exports|id|require|parent|filename|loaded|children)|exports))\b
+    - match: (((?<!\.|::)\s*+\bmodule\.((?<!\,)exports|id|require|parent|filename|loaded|children)|exports))\b
       captures:
         1: {name: support.type.object.module.nyx}
         2: {name: keyword.operator.accessor.nyx}
         3: {name: support.type.object.module.nyx}
-    - match: (?<!\.)\s*+\b(global|GLOBAL|root|__dirname|__filename)\b
+    - match: (?<!\.|::)\s*+\b(global|GLOBAL|root|__dirname|__filename)\b
       captures:
         1: {name: support.type.object.node.nyx}
     - applyEndPatternLast: 1
@@ -5421,12 +5419,12 @@ repository:
     patterns:
     - include: '#support-python'
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+(shift|sort|splice|unshift|pop|push|reverse)\b
+      begin: (?<!\.|::)\s*+(shift|sort|splice|unshift|pop|push|reverse)\b
       end: (?=.)
       beginCaptures:
         1: {name: support.function.mutator.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+(decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|eval|isFinite|isNaN|parseFloat|parseInt|unescape)\b
+      begin: (?<!\.|::)\s*+(decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|eval|isFinite|isNaN|parseFloat|parseInt|unescape)\b
       end: (?=.)
       beginCaptures:
         1: {name: support.function.nyx}
@@ -5637,26 +5635,26 @@ repository:
       - include: '#round-brackets'
   support-objects:
     patterns:
-    - match: (?<!\.)\s*\b(global|GLOBAL|root|__dirname|__filename)\b\s*
+    - match: (?<!\.|::)\s*\b(global|GLOBAL|root|__dirname|__filename)\b\s*
       name: support.variable.object.node.nyx
-    - match: (?<!\.)\s*\b(exports|process)\s*\b
+    - match: (?<!\.|::)\s*\b(exports|process)\s*\b
       name: support.variable.$1.nyx
-    - match: (?<!\.)\s*\b(JSON)\s*\b
+    - match: (?<!\.|::)\s*\b(JSON)\s*\b
       name: support.constant.json.nyx
-    - match: (?<!\.)\s*\b(Math)\s*\b
+    - match: (?<!\.|::)\s*\b(Math)\s*\b
       name: support.constant.math.nyx
-    - match: (?<!\.)\s*\b(console)\s*\b
+    - match: (?<!\.|::)\s*\b(console)\s*\b
       name: support.constant.console.nyx
-    - match: (?<!\.)\s*+\b(document|event|navigator|performance|screen|window)\s*+\b
+    - match: (?<!\.|::)\s*+\b(document|event|navigator|performance|screen|window)\s*+\b
       name: support.variable.dom.nyx
     - match: |-
-        (?x) (?<!\.) \s*+ \b
+        (?x) (?<!\.|::) \s*+ \b
           (Buffer|EventEmitter|Server|Pipe|Socket|REPLServer|ReadStream|WriteStream|Stream 
         |Inflate|Deflate|InflateRaw|DeflateRaw|GZip|GUnzip|Unzip|Zip) \b
       name: support.class.node.nyx
     - applyEndPatternLast: 1
       begin: |-
-        (?x) (?<!\.) \s*+ \b
+        (?x) (?<!\.|::) \s*+ \b
           (AnalyserNode|ArrayBufferView|Attr|AudioBuffer|AudioBufferSourceNode|AudioContext|AudioDestinationNode|AudioListener
           |AudioNode|AudioParam|BatteryManager|BeforeUnloadEvent|BiquadFilterNode|Blob|BufferSource|ByteString|CSS|CSSConditionRule
           |CSSCounterStyleRule|CSSGroupingRule|CSSMatrix|CSSMediaRule|CSSPageRule|CSSPrimitiveValue|CSSRule|CSSRuleList|CSSStyleDeclaration
@@ -5724,7 +5722,7 @@ repository:
   support-properties:
     patterns:
     - match: |-
-        (?<=\.)\s*\b
+        (?<=\.|::)\s*\b
         (ATTRIBUTE_NODE|CDATA_SECTION_NODE|COMMENT_NODE|DOCUMENT_FRAGMENT_NODE|DOCUMENT_NODE|DOCUMENT_TYPE_NODE
         |DOMSTRING_SIZE_ERR|ELEMENT_NODE|ENTITY_NODE|ENTITY_REFERENCE_NODE|HIERARCHY_REQUEST_ERR|INDEX_SIZE_ERR
         |INUSE_ATTRIBUTE_ERR|INVALID_CHARACTER_ERR|NO_DATA_ALLOWED_ERR|NO_MODIFICATION_ALLOWED_ERR|NOT_FOUND_ERR
@@ -5732,7 +5730,7 @@ repository:
         \b\s*
       name: support.variable.property.dom.nyx
     - match: |-
-        (?x)(?<=\.)\s*\b (_content|[xyz]|abbr|above|accept|acceptCharset|accessKey|action|align|[av]Link(?:color)?|all|alt|anchors|appCodeName    |appCore|applets|appMinorVersion|appName|appVersion|archive|areas|arguments|attributes|availHeight|availLeft|availTop    |availWidth|axis|background|backgroundColor|backgroundImage|below|bgColor|body|border|borderBottomWidth|borderColor    |borderLeftWidth|borderRightWidth|borderStyle|borderTopWidth|borderWidth|bottom|bufferDepth|callee|caller|caption    |cellPadding|cells|cellSpacing|ch|characterSet|charset|checked|childNodes|chOff|cite|classes|className|clear    |clientInformation|clip|clipBoardData|closed|code|codeBase|codeType|color|colorDepth|cols|colSpan|compact|complete    |components|content|controllers|cookie|cookieEnabled|cords|cpuClass|crypto|current|data|dateTime|declare|defaultCharset    |defaultChecked|defaultSelected|defaultStatus|defaultValue|defaultView|defer|description|dialogArguments|dialogHeight
+        (?x)(?<=\.|::)\s*\b (_content|[xyz]|abbr|above|accept|acceptCharset|accessKey|action|align|[av]Link(?:color)?|all|alt|anchors|appCodeName    |appCore|applets|appMinorVersion|appName|appVersion|archive|areas|arguments|attributes|availHeight|availLeft|availTop    |availWidth|axis|background|backgroundColor|backgroundImage|below|bgColor|body|border|borderBottomWidth|borderColor    |borderLeftWidth|borderRightWidth|borderStyle|borderTopWidth|borderWidth|bottom|bufferDepth|callee|caller|caption    |cellPadding|cells|cellSpacing|ch|characterSet|charset|checked|childNodes|chOff|cite|classes|className|clear    |clientInformation|clip|clipBoardData|closed|code|codeBase|codeType|color|colorDepth|cols|colSpan|compact|complete    |components|content|controllers|cookie|cookieEnabled|cords|cpuClass|crypto|current|data|dateTime|declare|defaultCharset    |defaultChecked|defaultSelected|defaultStatus|defaultValue|defaultView|defer|description|dialogArguments|dialogHeight
             |dialogLeft|dialogTop|dialogWidth|dir|directories|disabled|display|docmain|doctype|documentElement|elements|embeds
             |enabledPlugin|encoding|enctype|entities|event|expando|external|face|fgColor|filename|firstChild|fontFamily|fontSize
             |fontWeight|form|formName|forms|frame|frameBorder|frameElement|frames|hasFocus|hash|headers|height|history|host
@@ -5753,13 +5751,13 @@ repository:
             |vAlign|value|valueType|vendor|vendorSub|version|visibility|vspace|whiteSpace|width|X[MS]LDocument|zIndex)
         \b\s*
       name: support.variable.property.dom.nyx
-    - match: (?x)(?<=\.)\s*\b (module|exports|id|filename|loaded|parent|children) \b\s*
+    - match: (?x)(?<=\.|::)\s*\b (module|exports|id|filename|loaded|parent|children) \b\s*
       name: support.type.object.module.nyx
   support-python:
     patterns:
     - match: |-
         (?x)
-          (?<!\.) \s*+ \b(
+          (?<!\.|::) \s*+ \b(
             __import__ | abs | all | any | ascii | bin | breakpoint | callable
             | chr | compile | copyright | credits | delattr | dir | divmod
             | enumerate | eval | exec | exit | filter | format | getattr
@@ -5772,14 +5770,14 @@ repository:
       name: support.function.builtin.nyx
     - match: |-
         (?x)
-          (?<!\.) \s*+ \b(
+          (?<!\.|::) \s*+ \b(
             file | reduce | intern | raw_input | unicode | cmp | basestring
             | execfile | long | xrange
           )\b
       name: variable.legacy.builtin.nyx
     - match: |-
         (?x)
-          (?<!\.) \s*+ \b(
+          (?<!\.|::) \s*+ \b(
             bool | bytearray | bytes | classmethod | complex | dict
             | float | frozenset | int | list | object | property
             | slice | staticmethod | str | tuple | type
@@ -5977,11 +5975,11 @@ repository:
         1: {name: keyword.operator.optional.parameter.nyx}
   typed-declare:
     patterns:
-    - match: (?<!\.)\s*+\b(decl?|def)\b\s*+
+    - match: (?<!\.|::)\s*+\b(decl?|def)\b\s*+
       captures:
         1: {name: keyword.other.declare.nyx}
     - applyEndPatternLast: 1
-      begin: (?<!\.)\s*+\b(decl?|def)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?![:<=>]))
+      begin: (?<!\.|::)\s*+\b(decl?|def)\b\s*+\b(module)(.)(exports)(:)((?=::)|(?![:<=>]))
       end: (?=.)
       beginCaptures:
         1: {name: keyword.other.declare.nyx}
@@ -5992,7 +5990,7 @@ repository:
       patterns:
       - include: '#typed-parse-objects'
       - include: '#typed-parse-types'
-    - begin: (?<!\.)\s*+\b(decl?|def)\b\s*+\b(module)(\s|$)
+    - begin: (?<!\.|::)\s*+\b(decl?|def)\b\s*+\b(module)(\s|$)
       end: \s*(?<=})
       beginCaptures:
         1: {name: keyword.other.declare.nyx}
@@ -6014,7 +6012,7 @@ repository:
         - include: '#typed-keywords'
         - include: '#typed-method'
         - include: '#core'
-    - begin: (?<!\.)\s*+\b(decl?|def)\b\s*+(\bexport\b)?\s*+\b(class)\b
+    - begin: (?<!\.|::)\s*+\b(decl?|def)\b\s*+(\bexport\b)?\s*+\b(class)\b
       end: \s*(?<=})
       beginCaptures:
         1: {name: keyword.other.declare.nyx}
@@ -6052,7 +6050,7 @@ repository:
         captures:
           1: {name: keyword.operator.accessor.nyx}
   typed-interface:
-    begin: (?<!\.)\s*+\b(inter|schema|struct)(\s+|$)
+    begin: (?<!\.|::)\s*+\b(inter|schema|struct)(\s+|$)
     end: \s*(\.?=|::?=)(?![<~>=])\s*|(?<=})|\s*(?=;|=|{|[}\]]\#|\b(in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b|\)|})
     beginCaptures:
       1: {name: keyword.other.interface.nyx}
@@ -6139,7 +6137,7 @@ repository:
   typed-parse-types:
     patterns:
     - include: '#sigils'
-    - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<!\.)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+    - begin: (?<=[>_\\\p{L}\p{M}\p{N}]*)\s+(?=(?<!\.|::)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
       end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
@@ -6150,16 +6148,16 @@ repository:
     - include: '#string'
     - include: '#regexp'
     - include: '#regexp-multiline'
-    - match: (?<!\.)\s*+\b(?:(typeof|nameof|infer|keyof|only)|(ext)|(impl))\b\s*+
+    - match: (?<!\.|::)\s*+\b(?:(typeof|nameof|infer|keyof|only)|(ext)|(impl))\b\s*+
       captures:
         1: {name: keyword.operator.expression.$1.nyx}
         2: {name: keyword.operator.expression.extends.nyx}
         3: {name: keyword.operator.expression.implements.nyx}
     - include: '#language-constant'
-    - match: (?i)(?<!\.)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
+    - match: (?i)(?<!\.|::)\s*+\b((?>bool|int|float|[nr]at|real|imag|cmp|num|char|rune|str|sym|regex|re|func|[usn]?(?:byte|short|int|long|cent)|[ci]?(?:half|float|double|quad|oct)))\b
       captures:
         1: {name: support.type.builtin.primitive.nyx}
-    - match: (?i)(?<!\.)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mixed|mix))\b
+    - match: (?i)(?<!\.|::)\s*+\b((?>this|any|void|empty|object|list|set|map|dict|array|tuple|record|seq|dict|unit|buff|mixed|mix))\b
       captures:
         1: {name: support.type.builtin.nyx}
     - match: \s*+(_|[\p{Lu}\p{Lt}\p{Lo}\p{Nl}][_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}\p{N}\p{M}]*)(?!\p{Ll})
@@ -6217,8 +6215,8 @@ repository:
     - include: '#operators'
     repository:
       as-clause:
-        begin: (?<!\.)\s*\b([ai]s)\b\s*
-        end: (?<!\.)\s*\b(?=where)
+        begin: (?<!\.|::)\s*\b([ai]s)\b\s*
+        end: (?<!\.|::)\s*\b(?=where)
         beginCaptures:
           1: {name: keyword.control.forall.nyx}
         endCaptures:
@@ -6229,7 +6227,7 @@ repository:
         - include: '#typed-parse-types'
       case-separator:
         begin: ([,;])
-        end: (?<!\.)\s*\b(?=[ai]s|where)
+        end: (?<!\.|::)\s*\b(?=[ai]s|where)
         beginCaptures:
           1: {patterns: [{include: '#core'}]}
         endCaptures:
@@ -6239,19 +6237,19 @@ repository:
         - include: '#case-separator'
         - include: '#core'
       for-all-clause:
-        begin: (?<!\.)\s*+\b(for\s*all)\b\s*
+        begin: (?<!\.|::)\s*+\b(for\s*all)\b\s*
         end: ^\s*|$|(?=;|,|\p{Pe})
         beginCaptures:
           1: {name: keyword.control.forall.nyx}
         patterns:
-        - begin: (?<!\.)\s*+\b(where)\b
+        - begin: (?<!\.|::)\s*+\b(where)\b
           end: ^\s*|$|(?=;|,|\p{Pe})
           beginCaptures:
             1: {name: keyword.control.forall.nyx}
           patterns:
           - include: '#comments'
           - include: '#core'
-        - match: (?<!\.)\s*+\b(va[rl]|const|con|let)\b\s*+
+        - match: (?<!\.|::)\s*+\b(va[rl]|const|con|let)\b\s*+
           name: storage.type.nyx
         - include: '#as-clause'
         - include: '#core'
@@ -6337,12 +6335,12 @@ repository:
     - include: '#punctuation'
   typed-variable:
     patterns:
-    - match: (?<!\.)\s*+()((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
+    - match: (?<!\.|::)\s*+()((?:[_\\\p{L}\p{Nl}])(?:[_\\\p{L}\p{M}\p{N}])*+)\s*+(\??)\s*+(?=:\s*([_\\\p{L}\p{Nl}](?:[.\\_\\\p{L}\p{M}\p{N}])*+)?\s*(<(?:(?>(?<==)>|[^<>]+)|\g<-1>)*>)?\s*(\b(?:[fF]unc?|[fF]n)\b|(\((?>[^()"']|("(\\.|[^"])*+")++|('(\\.|[^'])*+')++|\g<-5>)*+\))\s*=>|\(\s*$))
       captures:
         1: {name: keyword.operator.private.nyx}
         2: {name: storage.type.function.nyx}
         3: {name: keyword.operator.optional.parameter.nyx}
-    - match: ((?<!\.)\.\.\.)?\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
+    - match: ((?<!\.|::)\.\.\.)?\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)\s*+(\??)\s*+(?!::)(?=:|=>)
       captures:
         1: {name: keyword.operator.spread.nyx}
         2: {name: keyword.operator.private.nyx}
@@ -6377,7 +6375,7 @@ repository:
         1: {name: storage.type.function.arrow.nyx}
       patterns:
       - include: '#typed-parse-types'
-    - begin: (?<!let|const|var|val|def|con)(?<=[_\\\p{L}\p{M}\p{N}])\s+(?=(?<!\.)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
+    - begin: (?<!let|const|var|val|def|con)(?<=[_\\\p{L}\p{M}\p{N}])\s+(?=(?<!\.|::)\s*+\b(?:in|of|as|void|new|(?:type|name|key|size)(?:of)?|infer|size|len|del|to|til|by|then|if|else|els?if|ell?ess?|unless?|guard|for|each|while|until|repeat|switch|case|def|match|when|pass|fail|try|retry|throw|raise|catch|rescue|finally|with|defn?|func?|fn|macro|proc|let|va[rl]|con|const|do|redo|goto|label|await|return|fallthru|yield|halt|skip|break|continue|from|where|join|equals|[io]nto|order|take|drop|fold|scan|group|select|(?:im|ex)port|use|using|ref|open|close|out|begin|end|show|hide|debug|check|assert)\b)
       end: \s*(?=[,;\p{Pe}]|[}\]]\#)|$
       patterns:
       - include: '#core'
@@ -6404,7 +6402,7 @@ repository:
       captures:
         1: {name: keyword.operator.private.nyx}
         2: {name: variable.other.constant.nyx}
-    - match: (?<=\.)\s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)
+    - match: (?<=\.|::)\s*+()((?:[_\\\p{Lu}\p{Lt}\p{Lo}\p{Nl}]+[_\\\p{Ll}\p{M}\p{N}]*)+)
       captures:
         1: {name: keyword.operator.private.nyx}
         2: {name: variable.other.property.static.nyx}
@@ -6417,7 +6415,7 @@ repository:
       captures:
         1: {name: keyword.operator.private.nyx}
         2: {name: variable.other.object.nyx}
-    - match: (?<=\.)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
+    - match: (?<=\.|::)\s*+()([_\\\p{L}\p{Nl}][_\\\p{L}\p{M}\p{N}]*)
       name: meta.property.object.nyx
       captures:
         1: {name: keyword.operator.private.nyx}
