@@ -389,6 +389,8 @@ tokenColors:
   settings: {foreground: '#0c818d'}
 - scope: keyword.operator.module
   settings: {foreground: '#347984'}
+- scope: keyword.operator.generic
+  settings: {foreground: '#258f74'}
 - scope: punctuation.definition.entity
   settings: {foreground: '#aa1a00'}
 - scope: punctuation.definition.keyword
@@ -854,6 +856,8 @@ tokenColors:
   settings: {foreground: '#bb5f00'}
 - scope: keyword.other
   settings: {foreground: '#520097'}
+- scope: keyword.control.quote
+  settings: {foreground: '#84b721'}
 - scope: keyword.generator.asterisk
   settings: {foreground: '#860d7c'}
 - scope: keyword.control.yield-from
@@ -1656,7 +1660,7 @@ tokenColors:
   - keyword.query
   - keyword.operator.expression
   - entity.other.attribute-name
-  - constant.other
+  - constant.other.character-class
   settings: {fontStyle: bold italic}
 - scope:
   - strong
@@ -1665,11 +1669,13 @@ tokenColors:
   - entity
   - entity.name
   - storage.type.function.arrow
+  - constant.other
   settings: {fontStyle: bold}
 - scope:
   - emphasis
   - comment
-  - constant
+  - constant.character
+  - constant.language
   - variable.language
   - markup.quote
   - variable.parameter
@@ -1677,6 +1683,7 @@ tokenColors:
   settings: {fontStyle: italic}
 - scope:
   - variable
+  - constant
   - markup
   - punctuation
   settings: {fontStyle: ''}
