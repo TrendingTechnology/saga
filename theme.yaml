@@ -1,0 +1,746 @@
+type: dark
+name: Saga
+$schema: vscode://schemas/color-theme
+colors:
+  # Color themes go here, mate
+tokenColors:
+  # ---- Punctuation ----
+  # Regular expression punctuation
+  - scope: punctuation.definition.group
+    settings: { foreground: '#e06c75' }
+  - scope: punctuation.definition.group.no-capture
+    settings: { foreground: '#ad99ae' }
+  - scope: punctuation.definition.group.non-capturing
+    settings: { foreground: '#59a5d8' }
+  - scope: punctuation.definition.group.look-ahead
+    settings: { foreground: '#3ad900' }
+  - scope: punctuation.definition.group.negative-look-ahead
+    settings: { foreground: '#d27b53' }
+  - scope: punctuation.definition.group.look-behind
+    settings: { foreground: '#9bc53d' }
+  - scope: punctuation.definition.group.negative-look-behind
+    settings: { foreground: '#ee5d43' }
+  - scope: punctuation.definition.group.flag
+    settings: { foreground: '#7a9bc2' }
+  - scope: punctuation.definition.group.call-out
+    settings: { foreground: '#0db9d7' }
+  - scope: punctuation.definition.group.atomic
+    settings: { foreground: '#6a9955' }
+  - scope: punctuation.definition.group.branch
+    settings: { foreground: '#6a7ec8' }
+  - scope: punctuation.definition.group.absent
+    settings: { foreground: '#de9237' }
+  - scope: punctuation.definition.group.named
+    settings: { foreground: '#ff6ab3' }
+  - scope: punctuation.definition.group.back-reference
+    settings: { foreground: '#1abc9c' }
+  - scope: punctuation.definition.character-class
+    settings: { foreground: '#58b4ff' }
+  - scope: punctuation.definition.character-class.negated
+    settings: { foreground: '#a186cf' }
+  - scope: punctuation.definition.character-class.posix
+    settings: { foreground: '#4ec9b0' }
+  - scope: punctuation.section.expression
+    settings: { foreground: '#55c500' }
+
+  # Markdown
+  - scope: punctuation.definition.quote
+    settings: { foreground: '#4eb071' }
+  - scope: punctuation.definition.italic
+    settings: { foreground: '#ff8f00' }
+  - scope: punctuation.definition.bold
+    settings: { foreground: '#ec6051' }
+  - scope: punctuation.definition.link
+    settings: { foreground: '#45bd9a' }
+  - scope: punctuation.definition.list
+    settings: { foreground: '#6994bf' }
+  - scope: punctuation.definition.math
+    settings: { foreground: '#599caa' }
+  - scope: punctuation.definition.raw
+    settings: { foreground: '#3ba155' }
+  - scope: punctuation.definition.heading
+    settings: { foreground: '#9096a2' }
+  - scope: punctuation.definition.constant
+    settings: { foreground: '#d19a66' }
+
+  # Data structures
+  - scope: punctuation.definition.sequence
+    settings: { foreground: '#40a6ff' }
+  - scope: [meta.brace.square, punctuation.definition.array]
+    settings: { foreground: '#0096c7' }
+  - scope: punctuation.definition.parameters
+    settings: { foreground: '#ff5459' }
+  - scope: [meta.brace.round, punctuation.definition.expression]
+    settings: { foreground: '#f25c54' }
+  - scope: punctuation.definition.mapping
+    settings: { foreground: '#37bd58' }
+  - scope: [meta.brace.curly, punctuation.definition.dictionary]
+    settings: { foreground: '#52b788' }
+
+  # Miscellaneous Punctuation
+  - scope: punctuation.definition.variable
+    settings: { foreground: '#f44747' }
+  - scope: punctuation.definition.directive
+    settings: { foreground: '#6897bb' }
+  - scope: punctuation.definition.decorator
+    settings: { foreground: '#61afef' }
+  - scope: punctuation.definition.alias
+    settings: { foreground: '#c668ba' }
+  - scope: punctuation.definition.anchor
+    settings: { foreground: '#3aa184' }
+  - scope: punctuation.definition.entity
+    settings: { foreground: '#ff9057' }
+  - scope: punctuation.definition.keyword
+    settings: { foreground: '#ff66bb' }
+  - scope: punctuation.definition.block
+    settings: { foreground: '#819aff' }
+  - scope: punctuation.definition.block.sequence.item
+    settings: { foreground: '#6796e6' }
+  - scope: punctuation.definition.object
+    settings: { foreground: '#b388eb' }
+
+  # JSON and YAML
+  - scope:
+      - punctuation.separator.key-value
+      - punctuation.separator.dictionary.key-value
+      - punctuation.definition.key-value
+    settings: { foreground: '#ff6d00' }
+  - scope:
+      - punctuation.terminator
+      - punctuation.terminator.statement
+    settings: { foreground: '#1abc9c' }
+  - scope: punctuation.separator.comma
+    settings: { foreground: '#8ac926' }
+  - scope: punctuation.separator.format
+    settings: { foreground: '#9f9fed' }
+  - scope: punctuation.definition.quasi
+    settings: { foreground: '#cd9731' }
+  - scope: punctuation.quasi.element
+    settings: { foreground: '#ec6a88' }
+  - scope: punctuation.separator.mapping
+    settings: { foreground: '#98c379' }
+  - scope: punctuation.separator.sequence
+    settings: { foreground: '#40c8ae' }
+
+  # Other coding punctuation
+  - scope: punctuation.definition.instance
+    settings: { foreground: '#e05252' }
+  - scope: punctuation.definition.global
+    settings: { foreground: '#35ad68' }
+  - scope: punctuation.definition.string
+    settings: { foreground: '#7abd7a' }
+  - scope: punctuation.definition.tag
+    settings: { foreground: '#56b6c2' }
+  - scope: punctuation.definition.regexp
+    settings: { foreground: '#e66533' }
+  - scope: punctuation.section.class
+    settings: { foreground: '#bf9277' }
+  - scope: punctuation.decorator.internal-declaration
+    settings: { foreground: '#6796e6' }
+
+  - scope: punctuation.definition.comment
+    settings: { foreground: '#676e95' }
+
+  # ---- Comments ----
+  # Line comments
+  - scope: comment.line
+    settings: { foreground: '#4f93d8' }
+  - scope: comment.line.special
+    settings: { foreground: '#0dbc79' }
+  - scope: comment.line.documentation
+    settings: { foreground: '#c57bdb' }
+  - scope: comment.line.doctype
+    settings: { foreground: '#c2985b' }
+  - scope: comment.line.playground
+    settings: { foreground: '#9699a3' }
+  - scope: comment.line.shebang
+    settings: { foreground: '#ef596f' }
+
+  # Block comments
+  - scope: comment.block
+    settings: { foreground: '#5ab6c1' }
+  - scope: comment.block.inline
+    settings: { foreground: '#619ac3' }
+  - scope: comment.block.special
+    settings: { foreground: '#928aee' }
+  - scope: comment.block.documentation
+    settings: { foreground: '#9bb955' }
+
+  # ---- Constants ----
+  # Numbers and numeric escape sequences
+  - scope:
+      - constant.numeric
+      - constant.int
+      - constant.numeric.integer
+      - constant.numeric.dec
+      - constant.numeric.decimal
+      - constant.character.escape.decimal
+      - constant.character.entity.numeric.decimal
+    settings: { foreground: '#46afe3' }
+  - scope:
+      - constant.float, constant.numeric.float
+      - constant.language.json
+      - constant.angle.units
+      - constant.character.parameter-entity
+    settings: { foreground: '#33ced8' }
+  - scope:
+      - constant.numeric.binary
+      - constant.numeric.bin
+      - constant.character.escape.binary
+      - constant.freq.units
+    settings: { foreground: '#e3cf65' }
+  - scope:
+      - constant.numeric.octal
+      - constant.numeric.oct
+      - constant.character.escape.octal
+      - constant.length.units
+      - constant.character.escape.slash
+      - constant.numeric.double
+    settings: { foreground: '#d8985f' }
+  - scope:
+      - constant.numeric.hexadecimal
+      - constant.numeric.hex
+      - constant.character.escape.hexadecimal
+      - constant.character.entity.numeric.hexadecimal
+    settings: { foreground: '#819aff' }
+  - scope:
+      - constant.numeric.quaternary
+      - constant.numeric.qua
+      - constant.character.escape.quaternary
+      - constant.character.escape.ansi-c
+    settings: { foreground: '#86bbd8' }
+  - scope:
+      - constant.numeric.senary
+      - constant.numeric.sen
+      - constant.character.escape.senary
+      - constant.character.escape.apostrophe
+    settings: { foreground: '#e39695' }
+  - scope:
+      - constant.numeric.duodecimal
+      - constant.numeric.doz
+      - constant.character.escape.duodecimal
+      - constant.character.escape.control-char
+    settings: { foreground: '#23c4b6' }
+
+  # Boolean and language constants
+  - scope:
+      - constant.boolean
+      - constant.language.boolean
+      - constant.language.boolean.true
+      - constant.character.escape.unicode
+      - constant.percentage.units
+    settings: { foreground: '#89ca78' }
+  - scope:
+      - constant.language.boolean.false
+      - constant.character.escape.illegal
+    settings: { foreground: '#e07267' }
+  - scope:
+      - constant.language.null
+      - constant.language.nil
+      - constant.character.escape.symbol
+      - constant.resolution.units
+    settings: { foreground: '#ee64ac' }
+  - scope:
+      - constant.language.undefined
+      - constant.language.merge
+      - constant.character.escape.other
+      - constant.time.units
+    settings: { foreground: '#b877db' }
+  - scope:
+      - constant.language.infinity
+      - constant.numeric.indentation-indicator
+    settings: { foreground: '#0db9d7' }
+  - scope:
+      - constant.language.nan
+      - constant.other.timestamp
+      - constant.numeric.yaml-version
+    settings: { foreground: '#1abc9c' }
+  - scope: constant.numeric.arbitrary-radix
+    settings: { foreground: '#a0c4ff' }
+  - scope: constant.numeric.ratio
+    settings: { foreground: '#ffb5a7' }
+  - scope: constant.numeric.index
+    settings: { foreground: '#f28482' }
+  - scope:
+      - constant.numeric.bigdecimal
+      - constant.numeric.bigint
+    settings: { foreground: '#f6bd60' }
+  - scope: constant.numeric.preprocessor
+    settings: { foreground: '#f28482' }
+  - scope: constant.numeric.other
+    settings: { foreground: '#f6bd60' }
+
+  # Regex character classes
+  - scope: constant.other.character-class
+    settings: { foreground: '#1adeba' }
+  - scope:
+      - constant.character.range
+      - constant.other.character-class.range
+    settings: { foreground: '#ffae57' }
+  - scope:
+      - constant.character.set
+      - constant.other.character-class.set
+    settings: { foreground: '#c6df3a' }
+  - scope: constant.other.character-class.xml
+    settings: { foreground: '#a5a58d' }
+  - scope: constant.other.character-class.unicode
+    settings: { foreground: '#a480cf' }
+  - scope: constant.other.character-class.posix
+    settings: { foreground: '#ff75b5' }
+  - scope: constant.character.format.placeholder.other
+    settings: { foreground: '#e9c46a' }
+
+  - scope: constant.character.unicode
+    settings: { foreground: '#b5828d' }
+  - scope: constant.character.numeric
+    settings: { foreground: '#16c98d' }
+  - scope:
+      - constant.character.control
+      - constant.character.escape.control-char
+    settings: { foreground: '#57b6c2' }
+  - scope: constant.character.all
+    settings: { foreground: '#8e9aaf' }
+  - scope: constant.character.entity
+    settings: { foreground: '#78c0e0' }
+  - scope: constant.character.math
+    settings: { foreground: '#b6ad90' }
+
+  # Escapes
+  - scope:
+      - constant.character.escape
+      - constant.character.escape.backslash
+      - constant.character.string.escape
+    settings: { foreground: '#21bfc2' }
+  - scope:
+      - constant.character.escape.continuation
+      - constant.character.escape.newline
+      - constant.character.escape.line-continuation
+    settings: { foreground: '#e06c75' }
+  - scope: constant.character.escape.bit
+    settings: { foreground: '#72efdd' }
+  - scope: constant.character.escape.byte
+    settings: { foreground: '#40c8ae' }
+  - scope: constant.character.escape.codepoint
+    settings: { foreground: '#b5c99a' }
+  - scope: constant.character.escape.unicode
+    settings: { foreground: '#9ba7c0' }
+  - scope: constant.character.escape.unicode.punctuation
+    settings: { foreground: '#3bb273' }
+  - scope: constant.character.escape.unicode.name
+    settings: { foreground: '#6096ba' }
+  - scope: constant.character.math
+    settings: { foreground: '#40c8ae' }
+  - scope: constant.character.enum
+    settings: { foreground: '#8b9eb7' }
+
+  # Other constants
+  - scope: constant.other
+    settings: { foreground: '#' }
+  - scope:
+      - constant.other.language
+      - constant.language
+    settings: { foreground: '#d6bf55' }
+  - scope:
+      - constant.other.global
+      - constant.global
+    settings: { foreground: '#81b88b' }
+  - scope:
+      - constant.other.symbol
+      - constant.keyword
+    settings: { foreground: '#c178dd' }
+  - scope:
+      - constant.other.key
+      - constant.other.object.key
+    settings: { foreground: '#' }
+  - scope:
+      - constant.other.description
+      - constant.other.placeholder
+    settings: { foreground: '#' }
+  - scope:
+      - constant.other.database-name
+      - constant.other.table-name
+    settings: { foreground: '#' }
+
+  - scope: constant.other.spread
+    settings: { foreground: '#07d4b6' }
+  - scope: constant.other.decorator
+    settings: { foreground: '#61afef' }
+  - scope: constant.other.private
+    settings: { foreground: '#80cbc4' }
+  - scope: constant.other.instance
+    settings: { foreground: '#f075b5' }
+  - scope: constant.other.variable
+    settings: { foreground: '#e66255' }
+  - scope: constant.other.description
+    settings: { foreground: '#9096a2' }
+  - scope: constant.other.email.link.underline
+    settings: { foreground: '#edb54b' }
+  - scope: constant.other.caps
+    settings: { foreground: '#e6db74' }
+  - scope: constant.other.bareword
+    settings: { foreground: '#e6db74' }
+  - scope: constant.other.class
+    settings: { foreground: '#e6db74' }
+  - scope: constant.other.general
+    settings: { foreground: '#' }
+  - scope: constant.other.label
+    settings: { foreground: '#' }
+  - scope: constant.other.object
+    settings: { foreground: '#' }
+  - scope: constant.other.rune
+    settings: { foreground: '#' }
+  - scope: constant.other.constant.other.unicode-range
+    settings: { foreground: '#' }
+  - scope: constant.other.placeholder
+    settings: { foreground: '#' }
+  - scope: constant.other.reference.link
+    settings: { foreground: '#a093c7' }
+  - scope: constant.other.inline-data
+    settings: { foreground: '#80cbc4' }
+  - scope: constant.other.object.key
+    settings: { foreground: '#ea5964' }
+
+  # ---- Entities ----
+  #
+  - scope: entity.alias.import
+  - scope: entity.global
+  - scope: entity.name
+  - scope: entity.name.class
+  - scope: entity.name.class.decorator
+  - scope: entity.name.fragment
+  - scope: entity.name.goto-label
+  - scope: entity.name.import
+  - scope:
+      - entity.name.label
+      - entity.name.label.call
+  - scope: entity.name.label
+  - scope: entity.name.label.call
+  - scope: entity.name.module
+  - scope:
+      - entity.name.namespace
+      - entity.name.namespace.alias
+  - scope: entity.name.namespace.scope-resolution
+  - scope: entity.name.operator
+  - scope: entity.name.other.preprocessor.macro.include
+  - scope: entity.name.package
+  - scope: entity.name.pragma.name
+  - scope: entity.name.section
+  - scope: entity.scalar
+  - scope: entity.scope
+  - scope: entity.scope.name
+
+  # Tag entities
+  - scope: entity.name.tag
+  - scope: entity.name.tag.named.backreference
+  - scope: entity.name.tag.named.group
+
+  - scope: entity.name.tag.backreference
+  - scope: entity.name.tag.block.any
+  - scope: entity.name.tag.blockquote
+  - scope: entity.name.tag.close
+  - scope: entity.name.tag.custom
+  - scope: entity.name.tag.directive
+  - scope: entity.name.tag.doctype
+  - scope: entity.name.tag.footnote
+  - scope: entity.name.tag.graphql
+  - scope: entity.name.tag.heading
+  - scope: entity.name.tag.html
+  - scope: entity.name.tag.inline
+  - scope: entity.name.tag.inline.any
+  - scope: entity.name.tag.localname
+  - scope: entity.name.tag.namespace
+  - scope: entity.name.tag.open
+  - scope: entity.name.tag.other
+  - scope: entity.name.tag.paragraph
+  - scope: entity.name.tag.pragma-mark
+  - scope: entity.name.tag.reference
+  - scope: entity.name.tag.script
+  - scope: entity.name.tag.structure
+  - scope: entity.name.tag.style
+  - scope: entity.name.tag.styledcss
+  - scope: entity.name.tag.svg
+  - scope: entity.name.tag.tokenised
+  - scope: entity.name.tag.wildcard
+  - scope: entity.name.tag.xml
+
+  # Type entities
+  - scope: entity.name.type
+  - scope: entity.name.type.alias
+  - scope: entity.name.type.anchor
+  - scope: entity.name.type.class
+  - scope: entity.name.type.class.parameter
+  - scope: entity.name.type.constructor
+  - scope: entity.name.type.declaration
+  - scope: entity.name.type.delegate
+  - scope: entity.name.type.destructor
+  - scope: entity.name.type.enum
+  - scope: entity.name.type.enum.parameter
+  - scope: entity.name.type.format.specifier
+  - scope: entity.name.type.inherited
+  - scope: entity.name.type.instance
+  - scope: entity.name.type.instance.pod
+  - scope: entity.name.type.interface
+  - scope: entity.name.type.lifetime
+  - scope: entity.name.type.macro
+  - scope: entity.name.type.metavariable
+  - scope: entity.name.type.module
+  - scope: entity.name.type.namespace
+  - scope: entity.name.type.numeric
+  - scope: entity.name.type.object
+  - scope: entity.name.type.option
+  - scope: entity.name.type.parameter
+  - scope: entity.name.type.precedencegroup
+  - scope: entity.name.type.primitive
+  - scope: entity.name.type.record
+  - scope: entity.name.type.result
+  - scope: entity.name.type.struct
+  - scope: entity.name.type.struct.parameter
+  - scope: entity.name.type.template
+  - scope: entity.name.type.trait
+  - scope: entity.name.type.type-parameter
+  - scope: entity.name.type.typealias
+  - scope: entity.name.type.union
+  - scope: entity.name.type.union.parameter
+
+  # Function entities
+  - scope: entity.name.function
+  - scope: entity.name.function.accessor
+  - scope: entity.name.function.call
+  - scope: entity.name.function.call.initializer
+  - scope: entity.name.function.compound-name
+  - scope: entity.name.function.constructor
+  - scope: entity.name.function.decorator
+  - scope: entity.name.function.definition
+  - scope: entity.name.function.definition.special
+  - scope: entity.name.function.destructor
+  - scope: entity.name.function.directive
+  - scope: entity.name.function.format
+  - scope: entity.name.function.keyframe
+  - scope: entity.name.function.macro
+  - scope: entity.name.function.macro.rules
+  - scope: entity.name.function.math
+  - scope: entity.name.function.member
+  - scope: entity.name.function.method
+  - scope: entity.name.function.method.inner
+  - scope: entity.name.function.method.instance
+  - scope: entity.name.function.method.static
+  - scope: entity.name.function.name-of-parameter
+  - scope: entity.name.function.namespace-prefix
+  - scope: entity.name.function.operator
+  - scope: entity.name.function.predicate
+  - scope: entity.name.function.preprocessor
+  - scope: entity.name.function.tagged-template
+  - scope: entity.name.function.tagged-template.js
+
+  # Other entities
+
+  # ---- Keywords ----
+  # Control flow keywords
+  - scope:
+      - keyword.control.conditional
+      - keyword.control.if
+      - keyword.control.elseif
+      - keyword.control.else
+    settings: { foreground: '#e4b227' }
+  - scope:
+      - keyword.control.loop
+      - keyword.control.for
+      - keyword.control.while
+      - keyword.control.foreach
+      - keyword.control.each
+      - keyword.control.until
+      - keyword.control.repeat
+    settings: { foreground: '#21bfc2' }
+  - scope:
+      - keyword.control.switch
+      - keyword.control.case
+      - keyword.control.default
+      - keyword.control.fail
+    settings: { foreground: '#35ba66' }
+  - scope:
+      - keyword.control.error, keyword.control.exception
+      - keyword.control.trycatch, keyword.control.try-catch
+      - keyword.control.try, keyword.control.catch, keyword.control.finally
+      - keyword.control.raise, keyword.control.rescue
+    settings: { foreground: '#e66255' }
+  - scope:
+      - keyword.control.module
+      - keyword.control.import
+      - keyword.control.export
+      - keyword.control.from
+      - keyword.control.as
+    settings: { foreground: '#09cbdd' }
+  - scope:
+      - keyword.control.flow, keyword.control.goto
+      - keyword.control., keyword.control.goto
+      - keyword.control.flow, keyword.control.goto
+    settings: { foreground: '#4fb4d8' }
+  - scope: [keyword.control.require, keyword.control.with, keyword.as]
+    settings: { foreground: '#cc7832' }
+  - scope: [keyword.control.then, keyword.operator.arrow]
+    settings: { foreground: '#78c6a3' }
+  - scope: keyword.control.match
+    settings: { foreground: '#32abff' }
+  - scope: keyword.control.do
+    settings: { foreground: '#9f7efe' }
+  - scope: keyword.control.parallel
+    settings: { foreground: '#c57bdb' }
+  - scope: keyword.control.forall
+    settings: { foreground: '#f4a066' }
+  - scope: [keyword.control.query, keyword.query]
+    settings: { foreground: '#ec7930' }
+  - scope: keyword.control.yield-from
+    settings: { foreground: '#5bc0eb' }
+  - scope: keyword.annotation
+    settings: { foreground: '#    ' }
+  - scope: keyword.as
+
+  # Regular expression keywords
+  - scope: keyword.control.begin
+    settings: { foreground: '#8f9d6a' }
+  - scope: keyword.control.end
+    settings: { foreground: '#578bb3' }
+  - scope: keyword.control.anchor
+    settings: { foreground: '#35ad68' }
+  - scope: keyword.control.recursion
+    settings: { foreground: '#43bccd' }
+  - scope: keyword.control.keep-out
+    settings: { foreground: '#aacc4f' }
+  - scope: keyword.control.search
+    settings: { foreground: '#ff7d4f' }
+  - scope: keyword.control.quote
+    settings: { foreground: '#82c64f' }
+
+  - scope: keyword.control.flow.alias
+    settings: { foreground: '#bba461' }
+  - scope: keyword.control.flow.block-scalar.folded
+    settings: { foreground: '#2bbac5' }
+  - scope: keyword.control.flow.block-scalar.literal
+    settings: { foreground: '#9bb955' }
+  - scope: keyword.control.property.anchor
+    settings: { foreground: '#23d18b' }
+  - scope: keyword.operator.call-out
+    settings: { foreground: '#38a4c9' }
+  - scope: keyword.control.disjunction
+    settings: { foreground: '#59f2f7' }
+
+  - scope: keyword.generator.asterisk
+    settings: { foreground: '#c668ba' }
+
+  - scope: keyword.other
+    settings: { foreground: '#b267e6' }
+
+  # ---- Strings ----
+  - scope: string
+    settings: { foreground: '#abb8c0' }
+  - scope: string.quasi
+    settings: { foreground: '#29d398' }
+  - scope: string.quoted.single
+    settings: { foreground: '#70f49c' }
+  - scope: string.quoted.double
+    settings: { foreground: '#b3d667' }
+  - scope: string.quoted.triple
+    settings: { foreground: '#78c6a3' }
+  - scope: string.quoted.rune
+    settings: { foreground: '#bcdb0d' }
+  - scope: [string.quoted.template, string.template]
+    settings: { foreground: '#86de74' }
+  - scope: [string.quoted.module, string.modulename]
+    settings: { foreground: '#bec191' }
+  - scope: string.quoted.raw
+    settings: { foreground: '#29d398' }
+  - scope: string.quoted.other.qq
+    settings: { foreground: '#a9e190' }
+  - scope: [string.quoted.other.q, string.url]
+    settings: { foreground: '#91f291' }
+
+  - scope: string.regexp
+    settings: { foreground: '#bec5d4' }
+  - scope: string.pattern.regexp
+    settings: { foreground: '#89b8c2' }
+  - scope: string.replace.regexp
+    settings: { foreground: '#91acd1' }
+
+  - scope: string.unquoted
+    settings: { foreground: '#abe4bb' }
+  - scope: string.unquoted.plain.in
+    settings: { foreground: '#cdb6de' }
+  - scope: string.unquoted.plain.out
+    settings: { foreground: '#7fdbca' }
+  - scope: [string.quoted.heredoc, string.unquoted.heredoc]
+    settings: { foreground: '#2ec4b6' }
+  - scope: [string.unquoted.alias, string.linktext]
+    settings: { foreground: '#b5c99a' }
+  - scope: string.unquoted.attribute-value
+    settings: { foreground: '#adc178' }
+  - scope: string.unquoted.cdata
+    settings: { foreground: '#cad2c5' }
+  - scope: string.unquoted.block
+    settings: { foreground: '#57cdff' }
+
+  - scope: string.other
+    settings: { foreground: '#a1ba89' }
+  - scope: string.other.math
+    settings: { foreground: '#d0ada7' }
+  - scope: string.other.link
+    settings: { foreground: '#1cd6cf' }
+
+  - scope: [string.docstring, string.quoted.docstring]
+    settings: { foreground: '#9bdeac' }
+  - scope: string.interpolated
+    settings: { foreground: '#c3d1d5' }
+  - scope: string.interpolated.single
+    settings: { foreground: '#8ac4ff' }
+  - scope: string.interpolated.double
+    settings: { foreground: '#63d471' }
+  - scope: string.interpolated.triple
+    settings: { foreground: '#f7a179' }
+
+  - scope: string.comment
+    settings: { foreground: '#74a57f' }
+  - scope: string.url
+    settings: { foreground: '#8ed081' }
+
+  # Strings
+  - scope:
+    settings: { foreground: '#' }
+
+  # ---- Text Styles ----
+  - scope:
+      - emphasis strong
+      - strong emphasis
+      - storage
+      - storage.type
+      - meta.enum.of
+      - keyword
+      - keyword.operator.expression
+      - entity.other.attribute-name
+      - constant.other.character-class
+    settings:
+      fontStyle: bold italic
+  - scope:
+      - strong
+      - support
+      - keyword.operator
+      - entity
+      - entity.name
+      - storage.type.function.arrow
+    settings:
+      fontStyle: bold
+  - scope:
+      - emphasis
+      - comment
+      - constant.character
+      - constant.language
+      - variable.language
+      - markup.quote
+      - constant
+      - variable.parameter
+    settings:
+      fontStyle: italic
+  - scope:
+      - variable
+      - markup
+      - punctuation
+    settings:
+      fontStyle: ''
