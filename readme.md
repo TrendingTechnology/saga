@@ -67,6 +67,18 @@ Things to do in **Version 1.0.0**
 - [ ] Logo and website
 - [ ] Translator (Python/JS)
 
+### Goals
+
+Bach:
+
+- Should be a language that integrates closely with existing ecosystems
+- Aim to be sweet and terse enough without sacrificing legibility or readability
+- Have a huge and comprehensive standard library
+- Provide the best of object-oriented and functional programming
+- Flexible enough for developers to apply their own language patterns to
+- Will encourage good coding practices and conventions
+- Strongly typed, so no type-related bugs can surface
+
 ### Installation and Architecture
 
 Install Bach globally through NPM: `npm i -g @bach/core`, or through PyPI: `pip install -H bach-lang`. Bach's core library, and CLI are all compressed and bundled up in a single NPM package, and exposing the Bach command.
