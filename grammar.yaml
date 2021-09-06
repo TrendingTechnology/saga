@@ -15,23 +15,23 @@ information_for_contributors:
       - Only _ is counted as a `_` character. The rest are considered operator characters.
 
   - To-do:
-      - Add destructuring syntax
-      - Add standard library  (the bulk of this grammar)
-      - - Python, PHP, Perl, CSS, HTML, JS, TS, Swift, R, C, C++,
-        - Bash, Shell, SQL and more
-        - NumPy, Pandas, Lodash and tons more libraries
+      - Add object/list/map destructuring syntax
       - Add color, date/time, advanced numeric literals and more.
-      - Add YAML syntax
+      - Add YAML/Bash unquoted literals
 
   - Doing:
-      - Fix disabling of keywords
+      - Add standard library stuff (the bulk of this grammar)
+      - - Python, PHP, Perl, CSS, HTML, JS, TS, Swift, R, C, C++,
+        - Bash, Shell, SQL and more
+        - Dictionaries from Code Spell Checker (see https://github.com/nxltm/cspell-dicts)
+        - NumPy, Pandas, NLTK, Gensim and more (see libraries in action)
 
   - Done:
       - Revamp literals
-      - Fixed pipeline operator
-      - Added literals
+      - Fixed pipeline/composition operator highlighting
+      - Added string, number, symbol and regex literals
       - Fixed highlighting for pipeline operator
-      - Added syntax for function and method calls. For methods, the object part is not triggered.
+      - Added syntax for bracket-less function/method calls
       - Rework regex syntax (brackets)
 
 name: Nyx
@@ -56,14 +56,26 @@ repository:
 
   entities:
     patterns:
+      - include: "#function-name"
+      - include: "#constant-name"
+      - include: "#type-name"
+
     repository:
       function-name:
+        patterns: []
+        comment: Names for functions and methods
 
-      method-name:
+      constant-name:
+        patterns: []
+        comment: Names for constants, symbols and static properties
 
       type-name:
+        patterns: []
+        comment: Names for types and more
 
       property-name:
+        patterns: []
+        comment: Standard Library property names
 
   labels:
     patterns:
