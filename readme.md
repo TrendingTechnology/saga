@@ -4,14 +4,14 @@
 
 Bach is a replacement for JS (and) Ba(t)ch (Script). Inspired by many modern programming languages such as Python, Ruby and Elixir, Bach is a concise, flexible and expressive alternative aimed at bringing other backends and ecosystems to JavaScript. With Bach, you're always one step away from using new technologies all while leveraging on the language's powerful features.
 
-> Sample Code
+### Sample Code
 
 ```coffee
 #: Generates a custom Fibonacci sequence
 #: with an arbitrary set of integers
 rec gen fn fibonacci[<A>](start: valof int[], term: int): int = match term
   if term in 1...len start ->
-    yield start[int - 1]
+    yield start[term - 1]
   if term > len start ->
     yield sum <| [term...term - len start].map x => fibonacci start x
   else throw "Invalid Fibonacci sequence"
@@ -25,7 +25,7 @@ type int = bigint;
 const int = BigInt;
 
 function* fibonacci(start: int[], term: int): int {
-  if (range(1n).to(int(start.length)).has(term)) yield start[int - 1];
+  if (range(1n).to(int(start.length)).has(term)) yield start[term - 1];
   if (term > start.length)
     yield sum(
       range(term)
