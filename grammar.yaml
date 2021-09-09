@@ -61,7 +61,7 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -182,7 +182,7 @@ repository:
           |try|retry|throw|raise|catch|rescue|finally
           |with|ref|defer|refer|show|hide|enter|exit
           |then|begin|end|debug|check|assert
-          |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+          |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
           |yield\b\s*\bfrom|import|export|show|hide
           |from|where|join|equals|[io]nto|order
           |take|drop|fold|scan|select|use|using
@@ -232,7 +232,6 @@ repository:
           |(?:un)?(?:sign|safe|check|lock|fixed|size)
           |(?:pre|in|post|suf|a[df])fix
           |(?:u|bi|ter|)nary
-          |(?:0|[1-9]\d*)ary
           )\s*\b
           )*
           (?=\s|$)
@@ -326,10 +325,9 @@ repository:
           |lawful|rogue|early|late|unique|handle|over|abs|vol|stat|dyn|final
           |[gs]et|[dr]ef|trans|part|rec|gen|(?:im)?pure|local|global|native
           |(?:un)?(?:sign|safe|check|lock|fixed|size)
-          |except|ext|impl|(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+          |except|ext|impl|break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
           |(?:pre|in|post|suf|a[df])fix
           |(?:u|bi|ter|)nary
-          |(?:0|[1-9]\d*)ary
           )\b)
           \s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*([\S\s]*))
         end: ^|(?=[}\]]\#)|(?=\4$)
@@ -1203,7 +1201,7 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -1231,7 +1229,7 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -1265,7 +1263,7 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -1604,7 +1602,7 @@ repository:
               |try|retry|throw|raise|catch|rescue|finally
               |with|ref|defer|refer|show|hide|enter|exit
               |then|begin|end|debug|check|assert
-              |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+              |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
               |yield\b\s*\bfrom|import|export|show|hide
               |from|where|join|equals|[io]nto|order
               |take|drop|fold|scan|select|use|using
@@ -1643,7 +1641,7 @@ repository:
                   |try|retry|throw|raise|catch|rescue|finally
                   |with|ref|defer|refer|show|hide|enter|exit
                   |then|begin|end|debug|check|assert
-                  |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+                  |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
                   |yield\b\s*\bfrom|import|export|show|hide
                   |from|where|join|equals|[io]nto|order
                   |take|drop|fold|scan|select|use|using
@@ -1675,7 +1673,7 @@ repository:
                   |try|retry|throw|raise|catch|rescue|finally
                   |with|ref|defer|refer|show|hide|enter|exit
                   |then|begin|end|debug|check|assert
-                  |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+                  |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
                   |yield\b\s*\bfrom|import|export|show|hide
                   |from|where|join|equals|[io]nto|order
                   |take|drop|fold|scan|select|use|using
@@ -1707,7 +1705,7 @@ repository:
                   |try|retry|throw|raise|catch|rescue|finally
                   |with|ref|defer|refer|show|hide|enter|exit
                   |then|begin|end|debug|check|assert
-                  |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+                  |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
                   |yield\b\s*\bfrom|import|export|show|hide
                   |from|where|join|equals|[io]nto|order
                   |take|drop|fold|scan|select|use|using
@@ -1792,7 +1790,7 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |(?:break|continue|halt|skip|return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -2035,8 +2033,7 @@ repository:
       )|
       (# Property modifiers
       (?:pre|in|post|suf|a[df])fix|
-      (?:u|bi|ter|)nary|
-      (?:0|[1-9]\d*)ary
+      (?:u|bi|ter|)nary
       )
       )\b(?=\b
       (?:\s*\b
@@ -2047,8 +2044,7 @@ repository:
       |(?:un)?(?:sign|safe|check|lock|fixed|size)
       |# Function or method modifiers
       (?:pre|in|post|suf|a[df])fix|
-      (?:u|bi|ter|)nary|
-      (?:0|[1-9]\d*)ary
+      (?:u|bi|ter|)nary
       )
       \b\s*)*
       \s*\b
@@ -2238,7 +2234,7 @@ repository:
           1: {name: keyword.control.module.saga}
         patterns:
           - include: "#modifier-keywords"
-          - include: "#typed-keywords"
+          - include: "#type-keywords"
           - match: |
               (?x)\s*(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               (from|to|as|all|any|show|hide|to|and|x?or|not)\b\s*
@@ -2249,7 +2245,6 @@ repository:
           - include: "#support-types"
           - include: "#custom-types"
           - include: "#types"
-          - include: "#operator"
           - include: "#operators"
           - include: "#punctuation"
         repository:
@@ -2294,22 +2289,11 @@ repository:
               1: {name: keyword.query.saga}
             patterns:
               - include: $self
-          - include: "#where-clause"
-          - include: "#join-clause"
-          - include: "#join-keywords"
-          - include: "#group-clause"
-          - include: "#select-clause"
-          - include: "#order-clause"
-          - include: "#fold-clause"
-          - include: "#take-clause"
-        repository:
-          fold-clause:
-            match: |
+          - match: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               ((\b(fold|scan)\b)\s*(\b(left|right)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
             name: keyword.query.saga
-          group-clause:
-            begin: |
+          - begin: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               (group)\b\s*
             end: |
@@ -2319,8 +2303,7 @@ repository:
               1: {name: keyword.query.saga}
             patterns:
               - include: $self
-          join-clause:
-            begin: |
+          - begin: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               (join)\b\s*
             end: |
@@ -2330,28 +2313,23 @@ repository:
               1: {name: keyword.query.saga}
             patterns:
               - include: $self
-          join-keywords:
-            match: |
+          - match: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               (equals?|[io]nto)\b\s*
             name: keyword.query.saga
-          order-clause:
-            match: |
+          - match: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               ((\b(order)\b)\s*(\b((a|de)sc)\b)?\s*(\b(by)\b)?)\b\s*
             name: keyword.query.saga
-          select-clause:
-            match: |
+          - match: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               (select)\b\s*
             name: keyword.query.saga
-          take-clause:
-            match: |
+          - match: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               ((\b(take|drop)\b)\s*(\b(left|right|init|head|tail|last)\b)?\s*(\b(by|while|until|with)\b)?)\b\s*
             name: keyword.query.saga
-          where-clause:
-            match: |
+          - match: |
               (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
               (where)\b\s*
             name: keyword.query.saga
@@ -2781,16 +2759,15 @@ repository:
               5: {name: storage.type.function.arrow.saga}
 
       new-clause:
+        applyEndPatternLast: 1
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(new)\b
+        end: (?=\O)|$
+        beginCaptures:
+          1: {name: keyword.operator.expression.$1.saga}
         patterns:
-          - applyEndPatternLast: 1
-            begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(new)\b
-            end: (?=\O)|$
-            beginCaptures:
-              1: {name: keyword.operator.expression.$1.saga}
-            patterns:
-              - match: \s*([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
-                name: entity.name.instance.saga
-              - include: "#block-entities"
+          - match: \s*([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
+            name: entity.name.instance.saga
+          - include: "#block-entities"
 
       type-clause:
         patterns:
@@ -2822,216 +2799,207 @@ repository:
                   1: {name: keyword.operator.assignment.saga}
               - include: "#types"
           - applyEndPatternLast: 1
-            begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b((?:throw|raise|yield|return|give|await|break|skip|halt|continue)s)\b
+            begin: |
+              (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(
+              (?:return|give|await|yield|throw|raise)s
+              )\b
             end: (?=\O)|$
             beginCaptures:
-              1: {name: keyword.modifier.saga}
+              1: {name: keyword.control.modifier.saga}
             patterns:
               - include: "#types"
 
       case-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(case|fail)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        beginCaptures:
+          1: {name: keyword.control.switch.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(case|fail)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            beginCaptures:
-              1: {name: keyword.control.switch.saga}
-            patterns:
-              - include: "#clause-content"
+          - include: "#clause-content"
 
       catch-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(try|retry|catch|rescue|finally)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.catch.saga
+        beginCaptures:
+          1: {name: keyword.control.error.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(try|retry|catch|rescue|finally)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.catch.saga
-            beginCaptures:
-              1: {name: keyword.control.error.saga}
+          - begin: \s*(\()
+            end: \s*(\))
+            captures:
+              1: {name: meta.brace.round.saga}
             patterns:
-              - begin: \s*(\()
-                end: \s*(\))
-                captures:
-                  1: {name: meta.brace.round.saga}
-                patterns:
-                  - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
-                    name: keyword.control.error.saga
-                  - include: "#clause-content"
-              - include: "#curly-brackets"
               - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
                 name: keyword.control.error.saga
               - include: "#clause-content"
+          - include: "#curly-brackets"
+          - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
+            name: keyword.control.error.saga
+          - include: "#clause-content"
 
       thread-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(para|series|spawn)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.parallel.saga
+        beginCaptures:
+          1: {name: keyword.control.parallel.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(para|series|spawn)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.parallel.saga
+          - begin: \s*(\()
+            end: \s*(\))
             beginCaptures:
-              1: {name: keyword.control.parallel.saga}
+              1: {name: meta.brace.round.saga}
             patterns:
-              - begin: \s*(\()
-                end: \s*(\))
-                beginCaptures:
-                  1: {name: meta.brace.round.saga}
-                patterns:
-                  - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
-                    name: keyword.control.parallel.saga
-                  - include: "#clause-content"
-              - include: "#curly-brackets"
               - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
                 name: keyword.control.parallel.saga
               - include: "#clause-content"
+          - include: "#curly-brackets"
+          - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
+            name: keyword.control.parallel.saga
+          - include: "#clause-content"
 
       do-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(do|redo)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.do.saga
+        beginCaptures:
+          1: {name: keyword.control.do.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(do|redo)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.do.saga
-            beginCaptures:
-              1: {name: keyword.control.do.saga}
-            patterns:
-              - include: "#round-brackets"
-              - include: "#curly-brackets"
-              - include: "#clause-content"
+          - include: "#round-brackets"
+          - include: "#curly-brackets"
+          - include: "#clause-content"
 
       for-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(for|each|while|until|repeat)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.for.saga
+        beginCaptures:
+          1: {name: keyword.control.loop.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(for|each|while|until|repeat)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.for.saga
-            beginCaptures:
-              1: {name: keyword.control.loop.saga}
+          - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(in|of|to|til|thru|at|by)\b
+            name: keyword.control.loop.saga
+          - begin: \s*(\()
+            end: \s*(\))
+            captures:
+              1: {name: meta.brace.round.saga}
             patterns:
               - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(in|of|to|til|thru|at|by)\b
                 name: keyword.control.loop.saga
-              - begin: \s*(\()
-                end: \s*(\))
-                captures:
-                  1: {name: meta.brace.round.saga}
-                patterns:
-                  - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(in|of|to|til|thru|at|by)\b
-                    name: keyword.control.loop.saga
-                  - include: "#clause-content"
-              - include: "#curly-brackets"
               - include: "#clause-content"
+          - include: "#curly-brackets"
+          - include: "#clause-content"
 
       if-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(if|elif|else|unless|eless|guard)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.if.saga
+        beginCaptures:
+          1: {name: keyword.control.conditional.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(if|elif|else|unless|eless|guard)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.if.saga
-            beginCaptures:
-              1: {name: keyword.control.conditional.saga}
-            patterns:
-              - include: "#curly-brackets"
-              - include: "#round-brackets"
-              - include: "#clause-content"
+          - include: "#curly-brackets"
+          - include: "#round-brackets"
+          - include: "#clause-content"
 
       match-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(match)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.match.saga
+        beginCaptures:
+          1: {name: keyword.control.match.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(match)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.match.saga
-            beginCaptures:
-              1: {name: keyword.control.match.saga}
-            patterns:
-              - include: "#clause-content"
+          - include: "#clause-content"
 
       switch-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(switch)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.switch.saga
+        beginCaptures:
+          1: {name: keyword.control.switch.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(switch)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.switch.saga
+          - include: "#round-brackets"
+          - begin: \s*({)
+            end: \s*(?=})
             beginCaptures:
-              1: {name: keyword.control.switch.saga}
+              1: {name: meta.brace.curly.switchStart.saga}
             patterns:
-              - include: "#round-brackets"
-              - begin: \s*({)
-                end: \s*(?=})
-                beginCaptures:
-                  1: {name: meta.brace.curly.switchStart.saga}
-                patterns:
-                  - include: "#case-clause"
-                  - include: "#clause-content"
+              - include: "#case-clause"
               - include: "#clause-content"
+          - include: "#clause-content"
 
       when-clause:
-        patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(when)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            beginCaptures:
-              1: {name: keyword.control.match.saga}
-            patterns:
-              - applyEndPatternLast: 1
-                begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as|is)\b
-                end: (?=\O)|$
-                beginCaptures:
-                  1: {name: keyword.control.match.saga}
-                patterns:
-                  - include: "#types"
-              - applyEndPatternLast: 1
-                begin: |
-                  (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(
-                    (?:throw|raise|yield|return|give|await|break|skip|halt|continue)s
-                  )\b
-                end: (?=\O)|$
-                beginCaptures:
-                  1: {name: keyword.control.match.saga}
-                patterns:
-                  - include: "#types"
-              - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(if|elif|eless|unless|guard|where)\b
-                end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-                endCaptures:
-                  0: {name: punctuation.separator.colon.saga}
-                beginCaptures:
-                  1: {name: keyword.control.match.saga}
-                patterns:
-                  - include: "#clause-content"
-              - include: "#type-operators"
-              - include: "#clause-content"
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(when)\b
+      end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+      endCaptures:
+        0: {name: punctuation.separator.colon.saga}
+      beginCaptures:
+        1: {name: keyword.control.match.saga}
+      patterns:
+        - applyEndPatternLast: 1
+          begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as|is)\b
+          end: (?=\O)|$
+          beginCaptures:
+            1: {name: keyword.control.match.saga}
+          patterns:
+            - include: "#types"
+        - applyEndPatternLast: 1
+          begin: |
+            (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b((?:return|give|await|yield|throw|raise)s?)\b
+          end: (?=\O)|$
+          beginCaptures:
+            1: {name: keyword.control.match.saga}
+          patterns:
+            - include: "#types"
+        - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(if|elif|else|unless|eless|guard)\b
+          end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+          endCaptures:
+            0: {name: punctuation.separator.colon.saga}
+          beginCaptures:
+            1: {name: keyword.control.match.saga}
+          patterns:
+            - include: "#clause-content"
+        - include: "#type-operators"
+        - include: "#clause-content"
 
       with-clause:
+        begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(with)\b
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        name: meta.with.saga
+        beginCaptures:
+          1: {name: keyword.control.with.saga}
         patterns:
-          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(with)\b
-            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-            endCaptures:
-              0: {name: punctuation.separator.colon.saga}
-            name: meta.with.saga
-            beginCaptures:
-              1: {name: keyword.control.with.saga}
+          - include: "#curly-brackets"
+          - begin: \s*
+            end: \s*(?=[{,])
             patterns:
-              - include: "#curly-brackets"
-              - begin: \s*
-                end: \s*(?=[{,])
-                patterns:
-                  - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
-                    name: keyword.control.with.saga
-                  - include: "#clause-content"
-              - begin: \s*(\()
-                end: \s*(\))
-                captures:
-                  1: {name: meta.brace.round.saga}
-                patterns:
-                  - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
-                    name: keyword.control.with.saga
-                  - include: "#clause-content"
+              - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
+                name: keyword.control.with.saga
               - include: "#clause-content"
+          - begin: \s*(\()
+            end: \s*(\))
+            captures:
+              1: {name: meta.brace.round.saga}
+            patterns:
+              - match: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as)\b
+                name: keyword.control.with.saga
+              - include: "#clause-content"
+          - include: "#clause-content"
 
   punctuation:
     patterns:
