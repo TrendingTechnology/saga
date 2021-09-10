@@ -44,9 +44,7 @@ information_for_contributors:
   - Done:
       - Revamp string, number, symbol and regex literals
       - Fixed pipeline/composition operator highlighting
-      - Added
       - Fixed highlighting for pipeline operator
-      - Added syntax for bracket-less function/method calls
       - Rework regex syntax (brackets)
 
 name: Saga
