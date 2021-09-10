@@ -521,8 +521,8 @@ repository:
       - match: |
           (?x)
           (?<=^|\p{ps}|\s+)\s*(\\)
-          ([^\s_,:;'"\`\\\#]+?)
-          (?=[\p{ps}\p{pe}]|$|[\s_,:;'"\`\\\#])
+          ([^\s,:;'"\`\\\#]+?)
+          (?=[\p{ps}\p{pe}]|$|[\s,:;'"\`\\\#])
         name: string.unquoted.saga
         captures:
           1: {name: punctuation.definition.string.saga}
