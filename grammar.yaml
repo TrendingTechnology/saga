@@ -155,8 +155,8 @@ repository:
       - include: "#symbols"
       - include: "#constants"
       - include: "#numbers"
-      - include: "#strings"
       - include: "#regexps"
+      - include: "#strings"
 
   constants:
     patterns:
@@ -861,6 +861,26 @@ repository:
 
   regexps:
     patterns:
+      - begin: (\p{alnum}*)(\`)\s*
+        end: \s*(?!\\)(\`(?!\`))(\p{alnum}*)
+        contentName: string.pattern.regexp.saga
+        beginCaptures:
+          1: {name: keyword.modifier.saga}
+          2: {name: punctuation.section.regexp.begin.saga}
+        endCaptures:
+          1: {name: punctuation.section.regexp.end.saga}
+          2: {name: keyword.other.flag.saga}
+        patterns:
+          - include: "#comments"
+          - include: "#regexp-patterns"
+          - begin: (\`)(\`)\s*\n?
+            end: \s*(?=(?!\\)\`)
+            contentName: string.replace.regexp.saga
+            beginCaptures:
+              1: {name: punctuation.section.regexp.end.saga}
+              2: {name: punctuation.section.regexp.begin.saga}
+            patterns:
+              - include: "#back-references"
       - begin: |
           (?x)
           (\\\/)\s*
@@ -890,26 +910,6 @@ repository:
             name: string.unquoted.plain.out.saga
             patterns:
               - include: "#regexp-patterns"
-      - begin: (\p{alnum}*)(\`)\s*
-        end: \s*(?!\\)(\`(?!\`))(\p{alnum}*)
-        contentName: string.pattern.regexp.saga
-        beginCaptures:
-          1: {name: keyword.modifier.saga}
-          2: {name: punctuation.section.regexp.begin.saga}
-        endCaptures:
-          1: {name: punctuation.section.regexp.end.saga}
-          2: {name: keyword.other.flag.saga}
-        patterns:
-          - include: "#comments"
-          - include: "#regexp-patterns"
-          - begin: (\`)(\`)\s*\n?
-            end: \s*(?=(?!\\)\`)
-            contentName: string.replace.regexp.saga
-            beginCaptures:
-              1: {name: punctuation.section.regexp.end.saga}
-              2: {name: punctuation.section.regexp.begin.saga}
-            patterns:
-              - include: "#back-references"
 
   back-references:
     patterns:
@@ -2105,7 +2105,7 @@ repository:
       - include: "#type-operators"
       - include: "#type-brackets"
 
-      - match: (?<=\))\s*((?:[/|]){0,2}=?=>)\s*
+      - match: (?<=\))\s*((?:(?://?|\|\|?|[!:])*=*)*=>)\s*
         name: storage.type.function.arrow.saga
 
       - match: (?!^)\s*\b((?>WeakSet|WeakMap|URIError|Uint8ClampedArray|Uint8Array|Uint32Array|Uint16Array|TypeError|TypedArray|SyntaxError|Symbol|strings|SIMD.Uint8x16|SIMD.Uint32x4|SIMD.Uint16x8|SIMD.Int8x16|SIMD.Int32x4|SIMD.Int16x8|SIMD.Float64x2|SIMD.Float32x4|SIMD.Bool8x16|SIMD.Bool64x2|SIMD.Bool32x4|SIMD.Bool16x8|SIMD|SharedArrayBuffer|Set|RegExp|Reflect|ReferenceError|RangeError|Proxy|Promise|Object|numbers|NaN|Math|Map|JSON|Intl.NumberFormat|Intl.DateTimeFormat|Intl.Collator|Intl|InternalError|Int8Array|Int32Array|Int16Array|Infinity|GeneratorFunction|Generator|Function|Float64Array|Float32Array|EvalError|Error|Date|DataView|Boolean|Atomics|ArrayBuffer|Array))\b
@@ -2700,7 +2700,7 @@ repository:
               ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
               (:?=)\s+
               ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+              ((?:(?://?|\|\|?|[!:])*=*)*=>)(?=$|['"\`\\\s\p{pe}])
             captures:
               1: {name: entity.name.function.method.saga}
               2: {name: keyword.operator.assignment.saga}
@@ -2750,7 +2750,7 @@ repository:
               )\s*\b)*)\s*
               ((?:\(.*?\))*)\s*
               (?:\s*(:)\s*(.*))?\s*
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+              ((?:(?://?|\|\|?|[!:])*=*)*=>)(?=$|['"\`\\\s\p{pe}])
             captures:
               1: {name: entity.name.function.method.saga}
               2: {name: keyword.operator.assignment.saga}
@@ -2806,7 +2806,7 @@ repository:
               )\s*\b)*)\s*
               ((?:\(.*?\))*)\s*
               (?:\s*(:)\s*(.*))?\s*
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+              ((?:(?://?|\|\|?|[!:])*=*)*=>)(?=$|['"\`\\\s\p{pe}])
             captures:
               1: {name: entity.name.function.saga}
               2: {name: keyword.operator.assignment.saga}
@@ -2831,7 +2831,7 @@ repository:
               )\s*\b)*)\s+
               ((?:\(.*?\))*)\s*
               (?:\s*(:)\s*(.*))?\s+
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+              ((?:(?://?|\|\|?|[!:])*=*)*=>)(?=$|['"\`\\\s\p{pe}])
             captures:
               1: {name: storage.modifier.saga}
               2: {patterns: [{include: "#pattern-brackets"}]}
@@ -2846,7 +2846,7 @@ repository:
               ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
               (:?=)\s+
               ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+              ((?:(?://?|\|\|?|[!:])*=*)*=>)(?=$|['"\`\\\s\p{pe}])
             captures:
               1: {name: entity.name.function.saga}
               2: {name: keyword.operator.assignment.saga}
@@ -2858,7 +2858,7 @@ repository:
             match: |
               (?x)\s*
               ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+              ((?:(?://?|\|\|?|[!:])*=*)*=>)(?=$|['"\`\\\s\p{pe}])
             captures:
               1: {patterns: [{include: "#function-params"}]}
               2: {name: storage.type.function.arrow.saga}
@@ -3129,7 +3129,7 @@ repository:
         captures:
           1: {name: punctuation.definition.arrow.saga}
       fat-arrow:
-        match: (?:^|['"\`\\\p{ps}\s]*)((?:[/|]){0,2}=?=>)(?:$|['"\`\\\s\p{pe}])
+        match: (?:^|['"\`\\\p{ps}\s]*)((?:(?://?|\|\|?|[!:])*=*)*=>)(?:$|['"\`\\\s\p{pe}])
         captures:
           1: {name: storage.type.function.arrow.saga}
       double-semi:
