@@ -33,7 +33,8 @@ information_for_contributors:
       - Add standard library stuff (the bulk of this grammar)
       - - Python, PHP, Perl, CSS, HTML, JS, TS, Swift, R, C, C++,
         - Bash, Shell, SQL and more
-        - Dictionaries from https://github.com/nxltm/cspell-dicts:
+        - |
+          Dictionaries from https://github.com/nxltm/cspell-dicts:
             - Java, Scala
             - Golang, C++
             - Python/Django
