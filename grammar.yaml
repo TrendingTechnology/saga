@@ -17,7 +17,7 @@ information_for_contributors:
   - To-do:
       - Add object/list/map destructuring syntax
       - Add color, date/time, advanced numeric literals and more.
-      - Add YAML/Bash unquoted literals
+      - Add.saga/Bash unquoted literals
 
   - Doing:
       - Add standard library stuff (the bulk of this grammar)
@@ -85,6 +85,11 @@ repository:
       - include: "#keywords"
       - include: "#calls"
       - include: "#variables"
+      - include: "#illegal"
+
+  illegal:
+    - match: .
+      name: invalid.illegal.syntax.saga
 
   clause-content:
     patterns:
@@ -130,30 +135,401 @@ repository:
         comment: Standard Library property names
         patterns: []
 
-  symbols:
+  literals:
     patterns:
+      - include: "#symbols"
+      - include: "#constants"
+      - include: "#numbers"
+      - include: "#strings"
+      - include: "#regexps"
+
+  constants:
+    patterns:
+      - match: |
+          (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(?:
+          (true|yes|on)|(false|no|off)|(null|nil|none)|(undef|void)|(nan)|(inf|infin)
+          )\b
+        captures:
+          1: {name: constant.language.boolean.true.saga}
+          2: {name: constant.language.boolean.false.saga}
+          3: {name: constant.language.null.saga}
+          4: {name: constant.language.undefined.saga}
+          5: {name: constant.language.nan.saga}
+          6: {name: constant.language.infinity.saga}
+      - match: |
+          (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(?:
+          (params|args)|(super|this|self|proto)|(\\proto|main)|(ctor)|(targ)
+          )\b
+        captures:
+          1: {name: variable.language.arguments.saga}
+          2: {name: variable.language.$2.saga}
+          3: {name: variable.language.prototype.saga}
+          4: {name: variable.language.constructor.saga}
+          5: {name: variable.language.target.saga}
+
+  numbers:
+    patterns:
+      - match: (?<=(^|\p{ps})\s*\d\w*)\.
+        name: punctuation.separator.decimal.period.saga
+      - match: (?<=(?:^|\p{ps})\s*|\s)\.(?=\d)
+        name: punctuation.separator.decimal.period.saga
+      - match: (?xi)\s*\b0b(?:[01][01_]*[01]?)?(?:(\.)[01][01_]*[01]?)(?:(r)[01][01_]*[01]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.binary.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0b[01][01_]*[01]?(?:(\.)[01][01_]*[01]?)?(?:(r)[01][01_]*[01]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.binary.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0q(?:[0-3][0-3_]*[0-3]?)?(?:(\.)[0-3][0-3_]*[0-3]?)(?:(r)[0-3][0-3_]*[0-3]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.quaternary.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0q[0-3][0-3_]*[0-3]?(?:(\.)[0-3][0-3_]*[0-3]?)?(?:(r)[0-3][0-3_]*[0-3]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.quaternary.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0s(?:[0-5][0-5_]*[0-5]?)?(?:(\.)[0-5][0-5_]*[0-5]?)(?:(r)[0-5][0-5_]*[0-5]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.senary.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0s[0-5][0-5_]*[0-5]?(?:(\.)[0-5][0-5_]*[0-5]?)?(?:(r)[0-5][0-5_]*[0-5]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.senary.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0o(?:[0-7][0-7_]*[0-7]?)?(?:(\.)[0-7][0-7_]*[0-7]?)(?:(r)[0-7][0-7_]*[0-7]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.octal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0o[0-7][0-7_]*[0-7]?(?:(\.)[0-7][0-7_]*[0-7]?)?(?:(r)[0-7][0-7_]*[0-7]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.octal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0z(?:[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(\.)[\dabetxz][\dabetxz_]*[\dabetxz]?)(?:(r)[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.duodecimal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0z[\dabetxz][\dabetxz_]*[\dabetxz]?(?:(\.)[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(r)[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.duodecimal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0x(?:\h[\h_]*\h?)?(?:(\.)\h[\h_]*\h?)(?:(r)\h[\h_]*\h?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.hexadecimal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b0x\h[\h_]*\h?(?:(\.)\h[\h_]*\h?)?(?:(r)\h[\h_]*\h?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.hexadecimal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b(?:\d[\d_]*\d?)?(?:(\.)\d[\d_]*\d?)(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.decimal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b\d[\d_]*\d?(?:(\.)\d[\d_]*\d?)?(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.decimal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b\d\w(?:\w[\w_]*\w?)?(?:(\.)\w[\w_]*\w?)(?:(r)\w[\w_]*\w?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.illegal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+      - match: (?xi)\s*\b\d\w\w[\w_]*\w?(?:(\.)\w[\w_]*\w?)?(?:(r)\w[\w_]*\w?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
+        captures:
+          0: {name: constant.numeric.illegal.saga}
+          1: {name: meta.delimiter.decimal.period.saga}
+          2: {name: storage.type.numeric.bigint.saga}
+          3: {name: storage.type.numeric.bigint.saga}
+          4: {name: storage.type.numeric.bigint.saga}
+          5: {name: storage.type.numeric.bigint.saga}
+
+  strings:
+    patterns:
+      - include: "#string-unquoted"
+      - comment: single quoted raw string
+        begin: \s*('{3,})
+        contentName: string.quoted.single.saga
+        end: \s*((\1)(?!\1))
+        captures:
+          1: {name: punctuation.definition.string.saga}
+        patterns:
+          - include: "#embedded-raw"
+      - comment: simple single quoted raw string
+        begin: \s*(')
+        contentName: string.quoted.single.saga
+        end: \s*((\1)(?!\1))
+        captures:
+          1: {name: punctuation.definition.string.saga}
+        patterns:
+          - match: "''"
+            name: constant.character.escape.saga
+          - include: "#embedded-raw"
+      - comment: double quoted standard string
+        begin: \s*("{3,}|")
+        contentName: string.quoted.double.saga
+        end: \s*((\1)(?!\1))
+        captures:
+          1: {name: punctuation.definition.string.saga}
+        patterns:
+          - include: "#string-escapes"
+
+  string-escapes:
+    patterns:
+      - match: \\(?=\s*$)
+        name: constant.character.escape.newline.saga
+      - match: (?i)\\b(?:[01]{1,21}|{[01\s]+?})
+        name: constant.character.escape.binary.saga
+      - match: (?i)\\q(?:[0-3]{1,11}|{[0-3\s]+?})
+        name: constant.character.escape.quaternary.saga
+      - match: (?i)\\s(?:[0-5]{1,8}|{[0-5\s]+?})
+        name: constant.character.escape.senary.saga
+      - match: (?i)\\o(?:[0-7]{1,7}|{[0-7\s]+?})
+        name: constant.character.escape.octal.saga
+      - match: (?i)\\d?\d{1,7}|\\d{[\d\s]+?}
+        name: constant.character.escape.decimal.saga
+      - match: (?i)\\z(?:[\dabetxz]{1,6}|{[\s\dabetxz]+?})
+        name: constant.character.escape.duodecimal.saga
+      - match: (?i)\\x(?:\h{1,6}|{[\h\s]+?})
+        name: constant.character.escape.hexadecimal.saga
+      - match: (?i)\\u(?:\h{1,6}|{[\h\s]+?})
+        name: constant.character.escape.unicode.saga
+      - begin: (?i)\\j{
+        end: \s*}
+        name: constant.character.entity.named.saga
+        patterns:
+          - include: "#regexp-patterns"
+      - match: (?i)\\[abceflnprtvz]
+        name: constant.character.escape.saga
+      - match: \\[\p{s}\p{p}]
+        name: constant.character.escape.symbol.saga
+      - match: \\[\p{l}\p{n}]
+        name: constant.character.escape.illegal.saga
+      - include: "#embedded"
+
+  embedded:
+    patterns:
+      - match: (\$)(\d+)
+        captures:
+          1: {name: punctuation.quasi.element.saga}
+          2: {name: constant.numeric.decimal.saga}
+      - match: (%)((['"\`])(?:\\\g<-1>|.)*?\g<-1>|\w+(?:[^\s'"\`]+\w+)*)
+        captures:
+          1: {name: punctuation.separator.key-value.saga}
+          2: {name: storage.type.format.saga}
+      - match: |
+          (?xi)
+          #(?<!\\)# no backslash
+          (\$)# prefix
+          (
+          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
+          (?:(?:[?!~]?\.|[?!:]:|->)
+          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
+          )# variable
+        captures:
+          1: {name: punctuation.quasi.element.saga}
+          2: {patterns: [{include: $self}]}
+      - begin: (?#?<!\\)(\${)\s*
+        end: (})
+        name: entity.quasi.element.saga
+        captures:
+          1: {name: punctuation.quasi.element.saga}
+        patterns:
+          - include: $self
+
+  embedded-raw:
+    patterns:
+      - match: (\$)(\d+)
+        captures:
+          1: {name: punctuation.quasi.element.saga}
+          2: {name: constant.numeric.decimal.saga}
+      - match: ([$%]){2}
+        name: constant.character.escape.saga
+      - match: (%)((['"\`])(?:\\\g<-1>|.)*?\g<-1>|\w+(?:[^\s'"\`]+\w+)*)
+        captures:
+          1: {name: punctuation.separator.key-value.saga}
+          2: {name: storage.type.format.saga}
+      - match: |
+          (?xi)
+          (?<!\$)# no dollar
+          (\$)# prefix
+          (
+          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
+          (?:(?:[?!~]?\.|[?!:]:|->)
+          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
+          )# variable
+        captures:
+          1: {name: punctuation.quasi.element.saga}
+          2: {patterns: [{include: $self}]}
+      - begin: (?<!\$)(\${)\s*
+        end: (})
+        name: entity.quasi.element.saga
+        captures:
+          1: {name: punctuation.quasi.element.saga}
+        patterns:
+          - include: $self
+
+  string-unquoted:
+    patterns:
+      - begin: |
+          (?x)
+          (\\\\)
+          (?:(\d\w+)|
+          (
+          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
+          (?:(?:[?!~]?\.|[?!:]:|->)
+          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
+          ))?([-+])?(.*\n?)
+        beginCaptures:
+          1: {name: keyword.control.flow.block-scalar.literal.saga}
+          2: {patterns: [include: "#numbers"]}
+          3: {name: fenced_code.block.language.saga}
+          4: {name: storage.modifier.chomping-indicator.saga}
+          5:
+            patterns:
+              - include: "#comments"
+              - match: .+
+                name: invalid.illegal.expected-comment-or-newline.saga
+        end: ^(?=\S)|(?!\G)
+        patterns:
+          - begin: ^(([ \t])+)(?!\2)
+            end: ^(?!\1|\s*$)
+            name: string.unquoted.block.saga
+            patterns:
+              - include: "#embedded-raw"
+              - include: "#markdown-inline"
+      - begin: |
+          (?x)
+          (\/\\)
+          (?:(\d\w+)|
+          (
+          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
+          (?:(?:[?!~]?\.|[?!:]:|->)
+          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
+          ))?([-+])?(.*\n?)
+        beginCaptures:
+          1: {name: keyword.control.flow.block-scalar.folded.saga}
+          2: {patterns: [include: "#numbers"]}
+          3: {name: fenced_code.block.language.saga}
+          4: {name: storage.modifier.chomping-indicator.saga}
+          5:
+            patterns:
+              - include: "#comments"
+              - match: .+
+                name: invalid.illegal.expected-comment-or-newline.saga
+        end: ^(?=\S)|(?!\G)
+        patterns:
+          - begin: ^(([ \t])+)(?!\2)
+            end: ^(?!\1|\s*$)
+            name: string.unquoted.plain.in.saga
+            patterns:
+              - include: "#string-escapes"
+              - include: "#markdown-inline"
+      - begin: |
+          (?x)
+          (\\\/)
+          (?:(\d\w+)|
+          (
+          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
+          (?:(?:[?!~]?\.|[?!:]:|->)
+          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
+          ))?([-+])?(.*\n?)
+        beginCaptures:
+          1: {name: keyword.control.flow.block-scalar.regexp.saga}
+          2: {patterns: [include: "#numbers"]}
+          3: {name: fenced_code.block.language.saga}
+          4: {name: storage.modifier.chomping-indicator.saga}
+          5:
+            patterns:
+              - include: "#comments"
+              - match: .+
+                name: invalid.illegal.expected-comment-or-newline.saga
+        end: ^(?=\S)|(?!\G)
+        patterns:
+          - begin: ^(([ \t])+)(?!\2)
+            end: ^(?!\1|\s*$)
+            name: string.unquoted.plain.out.saga
+            patterns:
+              - include: "#regexp-patterns"
       - match: |
           (?x)
           (?<=^|\p{ps}|\s+)\s*(\\)
-          ((?!:+)(?:
-          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*
-          [_\p{l}\p{m}\p{n}]+)+
-          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*
-          (?!:+))
-          (?=[\p{ps}\p{pe}]|\s)
+          (?!/)([^\s:]+?)
+          (?=[\p{ps}\p{pe}]|\s|:+)
         name: string.unquoted.saga
         captures:
           1: {name: punctuation.definition.string.saga}
           2: {patterns: [{include: "#string-escapes"}]}
+
+  symbols:
+    patterns:
       - match: |
           (?x)
           (?<=^|\p{ps}|\s+)\s*(:)
-          ((?!:+)(?:
-          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*
+          ((?:
+          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*
           [_\p{l}\p{m}\p{n}]+)+
-          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*
-          (?!:+))
-          (?=[\p{ps}\p{pe}]|\s)
+          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,:;'"\`\#]]*
+          )
+          (?=[\p{ps}\p{pe}]|\s|:+)
         name: meta.symbol.saga
         captures:
           1: {name: punctuation.definition.symbol.saga}
@@ -191,9 +567,9 @@ repository:
           )\b
           )
           (?:
-          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*
+          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*
           [_\p{l}\p{m}\p{n}]+)+
-          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*
+          [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,:;'"\`\#]]*
           )
           (:)(?=\s)
         name: meta.object-literal.key.saga
@@ -492,298 +868,7 @@ repository:
           - include: "#markdown-inline"
           - include: "#nested-special"
 
-  literals:
-    patterns:
-      - include: "#symbols"
-      - include: "#constants"
-      - include: "#numbers"
-      - include: "#strings"
-      - include: "#regexes"
-
-  constants:
-    patterns:
-      - match: |
-          (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(?:
-          (true|yes|on)|(false|no|off)|(null|nil|none)|(undef|void)|(nan)|(inf|infin)
-          )\b
-        captures:
-          1: {name: constant.language.boolean.true.saga}
-          2: {name: constant.language.boolean.false.saga}
-          3: {name: constant.language.null.saga}
-          4: {name: constant.language.undefined.saga}
-          5: {name: constant.language.nan.saga}
-          6: {name: constant.language.infinity.saga}
-      - match: |
-          (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(?:
-          (params|args)|(super|this|self|proto)|(\\proto|main)|(ctor)|(targ)
-          )\b
-        captures:
-          1: {name: variable.language.arguments.saga}
-          2: {name: variable.language.$2.saga}
-          3: {name: variable.language.prototype.saga}
-          4: {name: variable.language.constructor.saga}
-          5: {name: variable.language.target.saga}
-
-  numbers:
-    patterns:
-      - match: (?<=(^|\p{ps})\s*\d\w*)\.
-        name: punctuation.separator.decimal.period.saga
-      - match: (?<=(?:^|\p{ps})\s*|\s)\.(?=\d)
-        name: punctuation.separator.decimal.period.saga
-      - match: (?xi)\s*\b0b(?:[01][01_]*[01]?)?(?:(\.)[01][01_]*[01]?)(?:(r)[01][01_]*[01]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.binary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0b[01][01_]*[01]?(?:(\.)[01][01_]*[01]?)?(?:(r)[01][01_]*[01]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.binary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0q(?:[0-3][0-3_]*[0-3]?)?(?:(\.)[0-3][0-3_]*[0-3]?)(?:(r)[0-3][0-3_]*[0-3]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.quaternary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0q[0-3][0-3_]*[0-3]?(?:(\.)[0-3][0-3_]*[0-3]?)?(?:(r)[0-3][0-3_]*[0-3]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.quaternary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0s(?:[0-5][0-5_]*[0-5]?)?(?:(\.)[0-5][0-5_]*[0-5]?)(?:(r)[0-5][0-5_]*[0-5]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.senary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0s[0-5][0-5_]*[0-5]?(?:(\.)[0-5][0-5_]*[0-5]?)?(?:(r)[0-5][0-5_]*[0-5]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.senary.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0o(?:[0-7][0-7_]*[0-7]?)?(?:(\.)[0-7][0-7_]*[0-7]?)(?:(r)[0-7][0-7_]*[0-7]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.octal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0o[0-7][0-7_]*[0-7]?(?:(\.)[0-7][0-7_]*[0-7]?)?(?:(r)[0-7][0-7_]*[0-7]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.octal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0z(?:[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(\.)[\dabetxz][\dabetxz_]*[\dabetxz]?)(?:(r)[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.duodecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0z[\dabetxz][\dabetxz_]*[\dabetxz]?(?:(\.)[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(r)[\dabetxz][\dabetxz_]*[\dabetxz]?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.duodecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0x(?:\h[\h_]*\h?)?(?:(\.)\h[\h_]*\h?)(?:(r)\h[\h_]*\h?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.hexadecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b0x\h[\h_]*\h?(?:(\.)\h[\h_]*\h?)?(?:(r)\h[\h_]*\h?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.hexadecimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b(?:\d[\d_]*\d?)?(?:(\.)\d[\d_]*\d?)(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.decimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b\d[\d_]*\d?(?:(\.)\d[\d_]*\d?)?(?:(r)\d[\d_]*\d?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.decimal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b\d\w(?:\w[\w_]*\w?)?(?:(\.)\w[\w_]*\w?)(?:(r)\w[\w_]*\w?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.illegal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-      - match: (?xi)\s*\b\d\w\w[\w_]*\w?(?:(\.)\w[\w_]*\w?)?(?:(r)\w[\w_]*\w?)?(?:(p[+-]?)\d+)?(?:(s)\d+)?(?:(\\)\w+)?\s*\b
-        captures:
-          0: {name: constant.numeric.illegal.saga}
-          1: {name: meta.delimiter.decimal.period.saga}
-          2: {name: storage.type.numeric.bigint.saga}
-          3: {name: storage.type.numeric.bigint.saga}
-          4: {name: storage.type.numeric.bigint.saga}
-          5: {name: storage.type.numeric.bigint.saga}
-
-  strings:
-    patterns:
-      - comment: single quoted raw string
-        begin: \s*('{3,})
-        contentName: string.quoted.single.saga
-        end: \s*((\1)(?!\1))
-        captures:
-          1: {name: punctuation.definition.string.saga}
-        patterns:
-          - include: "#embedded-raw"
-      - comment: simple single quoted raw string
-        begin: \s*(')
-        contentName: string.quoted.single.saga
-        end: \s*((\1)(?!\1))
-        captures:
-          1: {name: punctuation.definition.string.saga}
-        patterns:
-          - match: "''"
-            name: constant.character.escape.saga
-          - include: "#embedded-raw"
-      - comment: double quoted standard string
-        begin: \s*("{3,}|")
-        contentName: string.quoted.double.saga
-        end: \s*((\1)(?!\1))
-        captures:
-          1: {name: punctuation.definition.string.saga}
-        patterns:
-          - include: "#string-escapes"
-
-  string-escapes:
-    patterns:
-      - match: \\(?=\s*$)
-        name: constant.character.escape.newline.saga
-      - match: (?i)\\b(?:[01]{1,21}|{[01\s]+?})
-        name: constant.character.escape.binary.saga
-      - match: (?i)\\q(?:[0-3]{1,11}|{[0-3\s]+?})
-        name: constant.character.escape.quaternary.saga
-      - match: (?i)\\s(?:[0-5]{1,8}|{[0-5\s]+?})
-        name: constant.character.escape.senary.saga
-      - match: (?i)\\o(?:[0-7]{1,7}|{[0-7\s]+?})
-        name: constant.character.escape.octal.saga
-      - match: (?i)\\d?\d{1,7}|\\d{[\d\s]+?}
-        name: constant.character.escape.decimal.saga
-      - match: (?i)\\z(?:[\dabetxz]{1,6}|{[\s\dabetxz]+?})
-        name: constant.character.escape.duodecimal.saga
-      - match: (?i)\\x(?:\h{1,6}|{[\h\s]+?})
-        name: constant.character.escape.hexadecimal.saga
-      - match: (?i)\\u(?:\h{1,6}|{[\h\s]+?})
-        name: constant.character.escape.unicode.saga
-      - begin: (?i)\\j{
-        end: \s*}
-        name: constant.character.entity.named.saga
-        patterns:
-          - include: "#regexp-patterns"
-      - match: (?i)\\[abceflnprtvz]
-        name: constant.character.escape.saga
-      - match: \\[\p{s}\p{p}]
-        name: constant.character.escape.symbol.saga
-      - match: \\[\p{l}\p{n}]
-        name: constant.character.escape.illegal.saga
-      - include: "#embedded"
-
-  embedded:
-    patterns:
-      - match: (\$)(\d+)
-        captures:
-          1: {name: punctuation.quasi.element.saga}
-          2: {name: constant.numeric.decimal.saga}
-      - match: (%)((['"\`])(?:\\\g<-1>|.)*?\g<-1>|\w+(?:[^\s'"\`]+\w+)*)
-        captures:
-          1: {name: punctuation.separator.key-value.saga}
-          2: {name: storage.type.format.saga}
-      - match: |
-          (?xi)
-          #(?<!\\)# no backslash
-          (\$)# prefix
-          (
-          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
-          (?:(?:[?!~]?\.|[?!:]:|->)
-          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
-          )# variable
-        captures:
-          1: {name: punctuation.quasi.element.saga}
-          2: {patterns: [{include: $self}]}
-      - begin: (?#?<!\\)(\${)\s*
-        end: (})
-        name: entity.quasi.element.saga
-        captures:
-          1: {name: punctuation.quasi.element.saga}
-        patterns:
-          - include: $self
-
-  embedded-raw:
-    patterns:
-      - match: (\$)(\d+)
-        captures:
-          1: {name: punctuation.quasi.element.saga}
-          2: {name: constant.numeric.decimal.saga}
-      - match: ([$%]){2}
-        name: constant.character.escape.saga
-      - match: (%)((['"\`])(?:\\\g<-1>|.)*?\g<-1>|\w+(?:[^\s'"\`]+\w+)*)
-        captures:
-          1: {name: punctuation.separator.key-value.saga}
-          2: {name: storage.type.format.saga}
-      - match: |
-          (?xi)
-          (?<!\$)# no dollar
-          (\$)# prefix
-          (
-          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
-          (?:(?:[?!~]?\.|[?!:]:|->)
-          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
-          )# variable
-        captures:
-          1: {name: punctuation.quasi.element.saga}
-          2: {patterns: [{include: $self}]}
-      - begin: (?<!\$)(\${)\s*
-        end: (})
-        name: entity.quasi.element.saga
-        captures:
-          1: {name: punctuation.quasi.element.saga}
-        patterns:
-          - include: $self
-
-  regexes:
+  regexps:
     begin: (\p{alnum}*)(\`)\s*
     end: \s*(?!\\)(\`(?!\`))(\p{alnum}*)
     contentName: string.pattern.regexp.saga
@@ -1183,7 +1268,7 @@ repository:
       for let x int|str, y int in list arr 'json' if x % 2 < 3
     match: |
       (?x)
-      (?<=^\s*|\p{ps}\s*|\p{pe}\s*
+      (?!['"\`]\s*)(?<=^\s*|[\p{ps}\p{pe}]\s*
       |[\p{s}\p{p}]\s+
       |(?:^|[\p{pe}\s])\s*(?:[!?~]?\.|[?!:]:|->)
       |\s*
@@ -1214,7 +1299,7 @@ repository:
       \s*)
 
       (
-      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# prefix
+      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# prefix
       (?!\b(?:# don't match keywords
       in|of|as|is|new|infer|unset
       |typeof|nameof|sizeof|keyof|valof
@@ -1240,15 +1325,15 @@ repository:
       |open|close
       )\b)
       [_\p{l}\p{m}\p{n}]+
-      (?:[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# adfix
+      (?:[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# adfix
       [_\p{l}\p{m}\p{n}]+)*
-      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# suffix
+      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# suffix
       )
 
       (?=\s+
       (?:
       (?!:)
-      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# prefix
+      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# prefix
       (?!\b(?:# don't match keywords
       in|of|as|is|new|infer|unset
       |typeof|nameof|sizeof|keyof|valof
@@ -1274,9 +1359,9 @@ repository:
       |open|close
       )\b)
       [_\p{l}\p{m}\p{n}]+
-      (?:[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# adfix
+      (?:[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# adfix
       [_\p{l}\p{m}\p{n}]+)*
-      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# suffix
+      [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# suffix
       |(?:[~!?]\.?)?[\p{ps}&&[^\[{]]|<[|+]\s+)+
       |(?:[~!?]\.?)?\s*(?:\[<|['"\`\p{ps}&&[^\[{]])
       |(?:[~!?]\.?)?!\.?
@@ -1294,7 +1379,7 @@ repository:
           ((?:[_\p{lu}\p{lt}\p{lo}\p{nl}]+[_\p{ll}\p{m}\p{n}]*)+)|
           ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
           )
-          (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
+          (?=(?:[?!~]?\.?=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
           |
           (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
@@ -1346,7 +1431,7 @@ repository:
       ((?:[_\p{lu}\p{lt}\p{lo}\p{nl}]+[_\p{ll}\p{m}\p{n}]*)+)|
       ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
       )
-      (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
+      (?=(?:[?!~]?\.?=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
       |
       (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
@@ -1389,7 +1474,7 @@ repository:
       binary-ops-builtin:
         patterns:
           - comment: augmented assignment += -= *= /= etc
-            match: (?<=^|['"\`\p{ps}\s])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+(?<![!:~.<=>])=)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+(?<![!:~.<=>])=)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.assignment.augmented.saga
           - comment: arithmetic + - * ** *** / // /// % %% *> <*
             match: (?<=^|['"\`\p{ps}\s])((?<!<)\+(?!>|\++)|(?<!<)-(?!>|-+)|\*{1,3}|/{1,3}(?!\\)|%%?|\*+>|<\*+)(?=$|['"\`\s\p{pe}])
@@ -1455,38 +1540,38 @@ repository:
             match: (?<=^|['"\`\p{ps}\s])(:?=)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.assignment.saga
           - comment: custom bitwise (leading &|^ ~)
-            match: (?<=^|['"\`\p{ps}\s])([&|^~][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([&|^~][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.bitwise.saga
           - comment: custom arithmetic (leading + - * / %)
-            match: (?<=^|['"\`\p{ps}\s])([+\-*/%][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([+\-*/%][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.arithmetic.saga
           - comment: "custom accessor (leading : .)"
-            match: (?<=^|['"\`\p{ps}\s])([:.][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([:.][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.prototype.saga
           - comment: custom equality (leading = !)
-            match: (?<=^|['"\`\p{ps}\s])([!=][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([!=][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.comparison.saga
           - comment: custom comparison (leading < >)
-            match: (?<=^|['"\`\p{ps}\s])([<>][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([<>][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.relational.saga
           - comment: custom optional (leading ?)
-            match: (?<=^|['"\`\p{ps}\s])(\?[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])(\?[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.private.saga
           - comment: custom mathematical (leading Unicode category Sm)
-            match: (?<=^|['"\`\p{ps}\s])([\p{sm}&&[\x{80}-\x{10ffff}]][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([\p{sm}&&[\x{80}-\x{10ffff}]][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.math.saga
           - comment: custom currency-based (leading Unicode category Sc)
-            match: (?<=^|['"\`\p{ps}\s])([\p{sc}&&[^$]][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([\p{sc}&&[^$]][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.currency.saga
           - comment: custom ASCII (leading Unicode 0x80 to 0xFF)
-            match: (?<=^|['"\`\p{ps}\s])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[\x{80}-\x{ff}]][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[\x{80}-\x{ff}]][\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.ascii.saga
           - comment: other custom (leading anything not covered above)
-            match: (?<=^|['"\`\p{ps}\s])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+            match: (?<=^|['"\`\p{ps}\s])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
             name: keyword.operator.infix.saga
 
       binary-ops:
-        match: (?<=^|['"\`\s\p{ps}])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]+)(?=$|['"\`\s\p{pe}])
+        match: (?<=^|['"\`\s\p{ps}])([\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]+)(?=$|['"\`\s\p{pe}])
         captures:
           0: {patterns: [{include: "#binary-ops-builtin"}]}
 
@@ -1523,8 +1608,8 @@ repository:
               |(\?)#11
               |(\=)#12
               |(\$)#13
-              |[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])#14
-              (?=[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*
+              |[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])#14
+              (?=[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*
               [\p{l}\p{m}\p{n}\p{ps}_,;'"\`])
             name: keyword.operator.prefix.saga
             captures:
@@ -1548,7 +1633,7 @@ repository:
             match: |
               (?x)
               (?<=[\p{l}\p{m}\p{n}\p{pe}_,;'"\`]
-              [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*)
+              [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*)
               (?:(\*)#1
               |(\+)#2
               |(\-)#3
@@ -1562,7 +1647,7 @@ repository:
               |(\?)#11
               |(\=)#12
               |(\$)#13
-              |[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])#14
+              |[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])#14
             name: keyword.operator.suffix.saga
             captures:
               1: {name: keyword.operator.module.all.saga}
@@ -1571,11 +1656,11 @@ repository:
               4: {name: keyword.operator.intersection.saga}
               5: {name: keyword.operator.union.saga}
               6: {name: keyword.operator.sym-diff.saga}
-              7: {name: keyword.operator.assertion.saga}
+              7: {name: punctuation.accessor.call.saga}
               8: {name: keyword.operator.private.saga}
               9: {name: keyword.operator.decorator.saga}
               10: {name: keyword.operator.bitwise.saga}
-              11: {name: keyword.operator.existential.saga}
+              11: {name: punctuation.accessor.optional.saga}
               12: {name: keyword.operator.assignment.saga}
               13: {name: keyword.operator.pipeline.saga}
               14: {name: keyword.operator.suffix.saga}
@@ -1585,7 +1670,7 @@ repository:
           - applyEndPatternLast: 1
             begin: |
               (?x)\s*(?:(\++>)|(\|+>))(?=\s*(
-              [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# prefix
+              [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# prefix
 
               (?!
               \b(?:# don't match keywords
@@ -1615,9 +1700,9 @@ repository:
               )
 
               [_\p{l}\p{m}\p{n}]+
-              (?:[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# adfix
+              (?:[\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# adfix
               [_\p{l}\p{m}\p{n}]+)*
-              [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]*# suffix
+              [\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]*# suffix
               )\s*([^(]|$|;))
             end: (?=.)
             beginCaptures:
@@ -1761,7 +1846,7 @@ repository:
   constant-types:
     - include: "#numbers"
     - include: "#strings"
-    - include: "#regexes"
+    - include: "#regexps"
 
   custom-types:
     comment: |
@@ -1809,7 +1894,7 @@ repository:
       ((?:[_\p{lu}\p{lt}\p{lo}\p{nl}]+[_\p{ll}\p{m}\p{n}]*)+)|
       ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
       )
-      (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
+      (?=(?:[?!~]?\.?=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
       |
       (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
@@ -1941,43 +2026,43 @@ repository:
           5: {name: punctuation.accessor.module.saga}
 
       - comment: sum type +
-        match: \s*(\+)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\+)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.sum.saga
       - comment: difference type -
-        match: \s*(\-)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\-)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.difference.saga
       - comment: product type *
-        match: \s*(\*)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\*)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.product.saga
       - comment: quotient type /
-        match: \s*(\/)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\/)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.quotient.saga
       - comment: remainder type %
-        match: \s*(\/)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\/)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.remainder.saga
       - comment: result/return type !
-        match: \s*(\!)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\!)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.only.saga
       - comment: some or maybe type ?
-        match: \s*(\?)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\?)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.maybe.saga
       - comment: intersection type &
-        match: \s*(\&)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\&)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.intersection.saga
       - comment: union type |
-        match: \s*(\|)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\|)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.union.saga
       - comment: symmetric difference type ^
-        match: \s*(\^)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\^)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.sym-diff.saga
       - comment: complement type ~
-        match: \s*(\~)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(\~)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.negation.saga
       - comment: class type < >
-        match: \s*([<>])(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*([<>])(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: keyword.operator.class.saga
       - comment: "type operator :"
-        match: \s*(:)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]])
+        match: \s*(:)(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]])
         name: punctuation.definition.annotation.saga
 
   type-annotation:
@@ -2022,7 +2107,7 @@ repository:
       (?x)
       (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b
       (# Generator modifiers
-      (?:throw|raise|yield|return|give|await|break|skip|halt|continue)s|
+      break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?|
       prev|next
       )|
       (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(?:
@@ -2092,7 +2177,7 @@ repository:
       |(data|query)# indented GraphQL
       |(style)# inline CSS
       |(trait|impl)# trait
-      |(alias)# type alias
+      |(type|alias)# type alias
       |(decl)# declaration
       )\b
     captures:
@@ -2195,7 +2280,7 @@ repository:
           ((?:[_\p{lu}\p{lt}\p{lo}\p{nl}]+[_\p{ll}\p{m}\p{n}]*)+)|
           ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
           )
-          (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
+          (?=(?:[?!~]?\.?=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
           |
           (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
@@ -2375,7 +2460,7 @@ repository:
       - include: "#type-operators"
       - *adfix-operators
       - applyEndPatternLast: 1
-        begin: \s*(:)(?:(?=::)|(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\#]]))
+        begin: \s*(:)(?:(?=::)|(?![\p{s}\p{po}\p{pd}\p{pi}\p{pf}\p{pc}&&[^_,;'"\`\\\#]]))
         end: (?=\O)|$
         beginCaptures:
           1: {name: punctuation.definition.annotation.saga}
@@ -2621,9 +2706,7 @@ repository:
               )
               \b\s*)*
               \s*\b
-              (?:
-              def|func?|fn|macro|proc|sub
-              )\b
+              (?:def|func?|fn|macro|proc|sub)\b
               )
             captures:
               1: {name: entity.name.function.method.saga}
@@ -2703,9 +2786,7 @@ repository:
               )
               \b\s*)*
               \s*\b
-              (?:
-              def|func?|fn|macro|proc|sub
-              )\b
+              (?:def|func?|fn|macro|proc|sub)\b
               )
             captures:
               1: {name: entity.name.function.saga}
@@ -2782,7 +2863,7 @@ repository:
             patterns:
               - include: "#types"
           - applyEndPatternLast: 1
-            begin: (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(alias)\b
+            begin: (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(type|alias)\b
             end: (?=\O)|$
             beginCaptures:
               1: {name: keyword.other.typedef.saga}
@@ -2946,37 +3027,37 @@ repository:
 
       when-clause:
         begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(when)\b
-      end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-      endCaptures:
-        0: {name: punctuation.separator.colon.saga}
-      beginCaptures:
-        1: {name: keyword.control.match.saga}
-      patterns:
-        - applyEndPatternLast: 1
-          begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as|is)\b
-          end: (?=\O)|$
-          beginCaptures:
-            1: {name: keyword.control.match.saga}
-          patterns:
-            - include: "#types"
-        - applyEndPatternLast: 1
-          begin: |
-            (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b((?:return|give|await|yield|throw|raise)s?)\b
-          end: (?=\O)|$
-          beginCaptures:
-            1: {name: keyword.control.match.saga}
-          patterns:
-            - include: "#types"
-        - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(if|elif|else|unless|eless|guard)\b
-          end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
-          endCaptures:
-            0: {name: punctuation.separator.colon.saga}
-          beginCaptures:
-            1: {name: keyword.control.match.saga}
-          patterns:
-            - include: "#clause-content"
-        - include: "#type-operators"
-        - include: "#clause-content"
+        end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+        endCaptures:
+          0: {name: punctuation.separator.colon.saga}
+        beginCaptures:
+          1: {name: keyword.control.match.saga}
+        patterns:
+          - applyEndPatternLast: 1
+            begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(as|is)\b
+            end: (?=\O)|$
+            beginCaptures:
+              1: {name: keyword.control.match.saga}
+            patterns:
+              - include: "#types"
+          - applyEndPatternLast: 1
+            begin: |
+              (?x)(?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b((?:return|give|await|yield|throw|raise)s?)\b
+            end: (?=\O)|$
+            beginCaptures:
+              1: {name: keyword.control.match.saga}
+            patterns:
+              - include: "#types"
+          - begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(if|elif|else|unless|eless|guard)\b
+            end: (?<=^|\s*)(:)(?=\s|$)|(?=[\p{pe};]|(?<=\s)(?:->|\b(?:begin|then))|$)
+            endCaptures:
+              0: {name: punctuation.separator.colon.saga}
+            beginCaptures:
+              1: {name: keyword.control.match.saga}
+            patterns:
+              - include: "#clause-content"
+          - include: "#type-operators"
+          - include: "#clause-content"
 
       with-clause:
         begin: (?<![!?~]\.=|(?<!\.)\.=|[!?~]\.|(?<!\.)\.|[?!:]:|->)\b(with)\b
