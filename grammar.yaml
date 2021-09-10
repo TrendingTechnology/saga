@@ -17,7 +17,7 @@ information_for_contributors:
   - To-do:
       - Add object/list/map destructuring syntax
       - Add color, date/time, advanced numeric literals and more.
-      - Add.saga/Bash unquoted literals
+      - Add YAML/Bash unquoted literals
 
   - Doing:
       - Add standard library stuff (the bulk of this grammar)
@@ -521,8 +521,8 @@ repository:
       - match: |
           (?x)
           (?<=^|\p{ps}|\s+)\s*(\\)
-          (?!/)([^\s,;\p{ps}\p{pe}]+)
-          (?=[\p{ps}\p{pe}]|$|[\s,:;'"\`\\\#])
+          ([^\s_,:;'"\`\\\#]+?)
+          (?=[\p{ps}\p{pe}]|$|[\s_,:;'"\`\\\#])
         name: string.unquoted.saga
         captures:
           1: {name: punctuation.definition.string.saga}
@@ -3139,11 +3139,6 @@ repository:
     repository:
       punctuation:
         patterns:
-          - match: ^(?:\s*\*)*\s*(\*)\s+|^(?:\s*\+)*\s*(\+)\s+|^(?:\s*-)*\s*(-)\s+
-            captures:
-              1: {name: punctuation.definition.block.sequence.item.yaml}
-              2: {name: punctuation.definition.block.sequence.item.yaml}
-              3: {name: punctuation.definition.block.sequence.item.yaml}
           - match: ","
             name: punctuation.separator.mapping.saga
           - match: (?<=\b|^|[\p{pe}'"\`\\\s])(:)(?=\b|$|[\p{ps}'"\`\\\s])
