@@ -2734,7 +2734,7 @@ repository:
               2: {name: keyword.operator.assignment.saga}
           - comment: |
               Method def before arrow function
-              x = async pub (): void =>
+              x.x = async pub (): void =>
             match: |
               (?x)(?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
               ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
@@ -2763,30 +2763,6 @@ repository:
       function-clause:
         patterns:
           - comment: |
-              Simple arrow function assignment
-              x = x =>
-            match: |
-              (?x)\s*
-              ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\+
-              (:?=)\+
-              ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\+
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
-            captures:
-              1: {name: entity.name.function.saga}
-              2: {name: keyword.operator.assignment.saga}
-              3: {patterns: [{include: "#function-params"}]}
-              4: {name: storage.type.function.arrow.saga}
-          - comment: |
-              Simple arrow function
-              x =>
-            match: |
-              (?x)
-              ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
-              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
-            captures:
-              1: {patterns: [{include: "#function-params"}]}
-              2: {name: storage.type.function.arrow.saga}
-          - comment: |
               Function def before function keyword
               x = def()
             match: |
@@ -2813,7 +2789,7 @@ repository:
               1: {name: entity.name.function.saga}
               2: {name: keyword.operator.assignment.saga}
           - comment: |
-              Function def before arrow function
+              function def before arrow function
               x = async pub (): void =>
             match: |
               (?x)\s*
@@ -2843,7 +2819,7 @@ repository:
               Arrow function with modifiers
               async pub (): void =>
             match: |
-              (?x)
+              (?x)\s*
               ((?:(?:
               pub|prot|pvt|priv|read|a?sync|inline|fixed|lazy|eager
               |lawful|rogue|early|late|unique|handle|over|abs|vol|stat|dyn|final
@@ -2862,6 +2838,30 @@ repository:
               3: {name: punctuation.definition.annotation.saga}
               4: {patterns: [{include: "#types"}]}
               5: {name: storage.type.function.arrow.saga}
+          - comment: |
+              Simple arrow method assignment
+              x = x =>
+            match: |
+              (?x)\s*
+              ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
+              (:?=)\s+
+              ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
+              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+            captures:
+              1: {name: entity.name.function.saga}
+              2: {name: keyword.operator.assignment.saga}
+              3: {patterns: [{include: "#function-params"}]}
+              4: {name: storage.type.function.arrow.saga}
+          - comment: |
+              Simple arrow function
+              x =>
+            match: |
+              (?x)\s*
+              ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
+              ((?:[/|]){0,2}=?=>)(?=$|['"\`\\\s\p{pe}])
+            captures:
+              1: {patterns: [{include: "#function-params"}]}
+              2: {name: storage.type.function.arrow.saga}
 
       new-clause:
         applyEndPatternLast: 1
