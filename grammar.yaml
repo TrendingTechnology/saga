@@ -713,7 +713,7 @@ repository:
         name: constant.character.entity.named.saga
         patterns:
           - include: "#regexp-patterns"
-      - match: (?i)\\(a|n|r|t|b|f|v|e|c|l|z|p)
+      - match: (?i)\\[abceflnprtvz]
         name: constant.character.escape.saga
       - match: \\[\p{s}\p{p}]
         name: constant.character.escape.symbol.saga
@@ -888,9 +888,9 @@ repository:
         patterns:
           - include: "#variables"
           - include: "#numbers"
-      - include: "#regex-groups"
-      - include: "#regex-character-set"
-      - include: "#regex-character-class"
+      - include: "#regexp-groups"
+      - include: "#regexp-charset"
+      - include: "#regexp-character-class"
       - match: (?i)(?:(\\M)|(\\K)|(\\G)|(\\X))
         captures:
           1: {name: keyword.control.anchor.saga}
@@ -911,7 +911,7 @@ repository:
         name: constant.character.escape.other.saga
 
     repository:
-      regex-groups:
+      regexp-groups:
         patterns:
           - begin: \(([*+])
             end: \s*(\))
@@ -1053,7 +1053,7 @@ repository:
             patterns:
               - include: "#regexp-patterns"
 
-      regex-character-class:
+      regexp-character-class:
         patterns:
           - match: \\(?=\s*$)
             name: constant.character.escape.newline.saga
@@ -1091,13 +1091,13 @@ repository:
             name: constant.other.character-class.unicode.saga
           - match: (?i)\\[ci]
             name: constant.other.character-class.xml.saga
-          - match: \.|\\(w|s|d|v|n|t|l|u|h)
+          - match: \.|\\[dhlns-w]
             name: constant.other.character-class.saga
-          - match: \\(W|S|D|V|N|T|L|U|H)
+          - match: \\[DHLNS-W]
             name: constant.other.character-class.negated.saga
           - match: (?i)\\n{[\w\s]+}
             name: constant.character.escape.unicode.name.saga
-          - match: (?i)\\(a|n|r|t|b|f|v|e|c|l|z|p)
+          - match: (?i)\\[abceflnprtvz]
             name: constant.character.escape.saga
           - match: \\[\p{s}\p{p}]
             name: constant.character.escape.symbol.saga
@@ -1107,7 +1107,7 @@ repository:
             name: constant.character.escape.illegal.saga
           - include: "#embedded"
 
-      regex-character-operators:
+      regexp-char-ops:
         patterns:
           - match: \--
             name: keyword.operator.optional.saga
@@ -1126,7 +1126,7 @@ repository:
           - match: \\.
             name: constant.character.escape.other.saga
 
-      regex-character-set:
+      regexp-charset:
         patterns:
           - begin: (\[=)
             end: \s*(=\])
@@ -1162,9 +1162,9 @@ repository:
               1: {name: punctuation.definition.character-class.negated.saga}
             patterns:
               - include: "#comments"
-              - include: "#regex-character-class"
-              - include: "#regex-character-operators"
-              - include: "#regex-character-set"
+              - include: "#regexp-character-class"
+              - include: "#regexp-char-ops"
+              - include: "#regexp-charset"
           - begin: (\[)
             end: \s*(\])
             name: constant.other.character-class.set.saga
@@ -1172,9 +1172,9 @@ repository:
               1: {name: punctuation.definition.character-class.saga}
             patterns:
               - include: "#comments"
-              - include: "#regex-character-class"
-              - include: "#regex-character-operators"
-              - include: "#regex-character-set"
+              - include: "#regexp-character-class"
+              - include: "#regexp-char-ops"
+              - include: "#regexp-charset"
 
   calls:
     comment: |
@@ -1183,7 +1183,10 @@ repository:
       for let x int|str, y int in list arr 'json' if x % 2 < 3
     match: |
       (?x)
-      (?<!\p{pe}\s*)(?<=^\s*|\p{ps}\s*|[\p{s}\p{p}]\s+|\s*
+      (?<=^\s*|\p{ps}\s*|\p{pe}\s*
+      |[\p{s}\p{p}]\s+
+      |(?:^|[\p{pe}\s])\s*(?:[!?~]?\.|[?!:]:|->)
+      |\s*
       \b(?:# don't match keywords
       in|of|as|is|new|infer|unset
       |typeof|nameof|sizeof|keyof|valof
@@ -1294,7 +1297,7 @@ repository:
           (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
           |
-          (?<!\.\.+)(?<=[_\p{l}\p{m}\p{n}]?[!?~]?\.|[?!:]:|->)
+          (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
           (?:# Properties (note all properties are by default, symbols)
           (_+[\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*(?!_+)|[\p{l}\p{nl}][\p{l}\p{m}\p{n}]*_+)|
           ([\p{lu}\p{lt}\p{lo}\p{nl}][_\p{lu}\p{lt}\p{lo}\p{nl}\p{n}\p{m}]*)|
@@ -1346,7 +1349,7 @@ repository:
       (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
       |
-      (?<!\.\.+)(?<=[_\p{l}\p{m}\p{n}]?[!?~]?\.|[?!:]:|->)
+      (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
       (?:# Properties (note all properties are by default, symbols)
       (_+[\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*(?!_+)|[\p{l}\p{nl}][\p{l}\p{m}\p{n}]*_+)|
       ([\p{lu}\p{lt}\p{lo}\p{nl}][_\p{lu}\p{lt}\p{lo}\p{nl}\p{n}\p{m}]*)|
@@ -1809,7 +1812,7 @@ repository:
       (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
       |
-      (?<!\.\.+)(?<=[_\p{l}\p{m}\p{n}]?[!?~]?\.|[?!:]:|->)
+      (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
       (?:# Properties (note all properties are by default, symbols)
       (_+[\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*(?!_+)|[\p{l}\p{nl}][\p{l}\p{m}\p{n}]*_+)|
       ([\p{lu}\p{lt}\p{lo}\p{nl}][_\p{lu}\p{lt}\p{lo}\p{nl}\p{n}\p{m}]*)|
@@ -2195,7 +2198,7 @@ repository:
           (?=(?:[?!~]?\.=?)?\[(?!<)|(?![>.]\.[.<]?)[?!~]?\.=?|[?!:]:|->)
 
           |
-          (?<!\.\.+)(?<=[_\p{l}\p{m}\p{n}]?[!?~]?\.|[?!:]:|->)
+          (?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
           (?:# Properties (note all properties are by default, symbols)
           (_+[\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*(?!_+)|[\p{l}\p{nl}][\p{l}\p{m}\p{n}]*_+)|
           ([\p{lu}\p{lt}\p{lo}\p{nl}][_\p{lu}\p{lt}\p{lo}\p{nl}\p{n}\p{m}]*)|
@@ -2587,7 +2590,7 @@ repository:
               Simple arrow method assignment
               x = x =>
             match: |
-              (?x)(?<!\.\.+)(?<=[_\p{l}\p{m}\p{n}]?[!?~]?\.|[?!:]:|->)
+              (?x)(?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
               ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
               (:?=)\s+
               ([?*&%$]?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
@@ -2601,7 +2604,7 @@ repository:
               Method def before function keyword
               x = def()
             match: |
-              (?x)(?<!\.\.+)(?<=[_\p{l}\p{m}\p{n}]?[!?~]?\.|[?!:]:|->)
+              (?x)(?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
               ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
               (:?=)\s+
               (?=\b
@@ -2629,7 +2632,7 @@ repository:
               Method def before arrow function
               x = async pub (): void =>
             match: |
-              (?x)(?<!\.\.+)(?<=[_\p{l}\p{m}\p{n}]?[!?~]?\.|[?!:]:|->)
+              (?x)(?<!\.\.+)(?<=[!?~]?\.|[?!:]:|->)
               ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\s+
               (:?=)\s+
               ((?:(?:
