@@ -12,24 +12,37 @@ information_for_contributors:
   - to edit.
 
   - Updates:
-      - Only _ is counted as a `_` character. The rest are considered operator characters.
+      - |
+        Only _ out of all Unicode `Pc` symbols are considered letters.
+        The rest are considered operator characters.
+      - Add YAML/Bash unquoted literals
+
+  - Bugs:
+      - In code sample "x ().int", does not highlight ".int" part as method call
+      - Fix code highlighting for YAML-like syntax
+      - |
+        In backslash code literals, "\:" only the last `:` should not be parsed
+        in type annotations such as "(3 + 4): int" or object keys such as `int:`
 
   - To-do:
       - Add object/list/map destructuring syntax
       - Add color, date/time, advanced numeric literals and more.
-      - Add YAML/Bash unquoted literals
 
   - Doing:
       - Add standard library stuff (the bulk of this grammar)
       - - Python, PHP, Perl, CSS, HTML, JS, TS, Swift, R, C, C++,
         - Bash, Shell, SQL and more
-        - Dictionaries from Code Spell Checker (see https://github.com/nxltm/cspell-dicts)
+        - Dictionaries from https://github.com/nxltm/cspell-dicts:
+            - Java, Scala
+            - Golang, C++
+            - Python/Django
+            - TypeScript
         - NumPy, Pandas, NLTK, Gensim and more (see libraries in action)
 
   - Done:
-      - Revamp literals
+      - Revamp string, number, symbol and regex literals
       - Fixed pipeline/composition operator highlighting
-      - Added string, number, symbol and regex literals
+      - Added
       - Fixed highlighting for pipeline operator
       - Added syntax for bracket-less function/method calls
       - Rework regex syntax (brackets)
