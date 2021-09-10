@@ -1408,10 +1408,10 @@ repository:
           )
           )\b
         captures:
-          1: {name: variable.other.global.saga}
-          2: {name: variable.other.constant.object.saga}
-          3: {name: variable.other.conditional.saga}
-          4: {name: variable.other.object.saga}
+          1: {name: entity.name.module.saga}
+          2: {name: entity.name.tag.saga}
+          3: {name: entity.name.namespace.saga}
+          4: {name: entity.name.interface.saga}
           5: {name: entity.name.tag.saga}
           6: {name: entity.name.tag.saga support.class.component.saga}
           7: {name: entity.name.class.builtin.saga}
