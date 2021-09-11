@@ -23,7 +23,7 @@ information_for_contributors:
         But "x () y z" highlights x and y as function calls.
       - Fix list/set/item highlighting in function calls
       - |
-        In backslash code literals, "\:" only the last ":" should not be parsed
+        In backslash string literals, "\:" only the last ":" should not be parsed
         in type annotations such as "(3 + 4): int" or object keys such as "int:"
       - Fix "x = x => y" syntax
 
