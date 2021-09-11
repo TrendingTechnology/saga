@@ -17,7 +17,7 @@ rec gen fn fib[A: num](start: []A, term: A): A =
       select fib start x
       fold left (+)
   else:
-    raise new Error \Invalid\ Sequence
+    raise new Error \Invalid\ sequence
 ```
 
 ## History
