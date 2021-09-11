@@ -2,9 +2,9 @@
 
 > JavaScript's twin.
 
-Saga is a new programming language designed as a suitable replacement for JavaScript, designed for everyday software engineers, developers and code tinkerers. It offers a familiar syntax that allows you to write expressive, type-safe and performant code devoid of repetitive boilerplate, exposing its good parts without all that noisy syntax or weird runtime behavior.
+Saga is a new programing language designed to replace JavaScript, getting rid of its weird syntax or runtime behavior, replacing it with a host of new syntax and powerful features. Designed to be easy to write and still easy to comprehend, Saga allows you to write expressive, type-safe and performant code devoid of repetitive boilerplate.
 
-With Saga, you can leverage the full power of JavaScript in a robust and strongly-typed language without the fear of type-related errors or bugs. Saga also adds many features and improvements to JavaScript to assist in functional, object-oriented, declarative and imperative programming.
+With Saga, you can leverage the full power of JavaScript in a robust and strongly-typed language without the fear of type-related errors or bugs, all coded in JavaScript. Saga also adds many features and improvements to JavaScript to assist in functional, object-oriented, declarative, imperative and meta-programming.
 
 ```coffee
 #: Generates a custom Fibonacci sequence
@@ -13,23 +13,18 @@ rec gen fn fib[A: num](start: []A, term: A): A =
   if term in keyof start:
     yield start[term - 1]
   elif term > len start:
-    yield from let x in term to term - len start
+    yield from let x in term - len start to term
       select fib start x
       fold left (+)
   else:
-    raise new Error "Invalid Sequence"
-
-law String[T](x) impl Y =
-  fn toString: str = self
+    raise new Error \Invalid\ Sequence
 ```
 
 ## History
 
-The web is a platform with a mostly fixed set of APIs and technologies, and JavaScript remains the de facto standard for web development. We know JavaScript isn't the best language for every task, especially when developing complex applications. To avoid this problem, several new languages and transpilers from existing languages have been developed, generating JS code without even writing a single line, all without having to think about the underlying implementation or limitations of the language.
+The web is a platform with a mostly fixed set of APIs and web technologies, including HTML, CSS and JavaScript. JavaScript was not initially designed to be scalable or a good viable option for building complex applications for the web, and as such, new languages and transpilers for existing languages have been developed. And with the advent of new technologies such as WebAssembly, web applications not written with JavaScript can perform much faster than with JavaScript.
 
-Saga started out as a holiday project from an idea that centred about breaking the boundaries between JavaScript and Python by combining their APIs into a single language. The project soon expanded into extensive research, gathering syntax and ideas from other languages in the form of code snippets, regular expressions, themes and grammar files that I tinkered with.
-
-Why Saga? Rhymes with Java.
+Saga started out as a holiday project in experimenting with language grammars, writing and experimenting with code snippets, researching and writing documentation. Saga's influences are diverse, starting out with Python, Ruby, OCaml, Flix, Rust, Bash, C#, F#, Haskell, Nim, Elixir, Scala, YAML, Stylus and far too many languages to list.
 
 ### Saga's Goals
 
@@ -39,11 +34,28 @@ The compiler is performance-optimized so that it can scale to any codebase size,
 
 ## Roadmap
 
-Saga is inspired from Python, Ruby, OCaml, Flix, Rust, Bash, C#, Scala, and far too other languages to list. Its standard library is also inspired by Haskell, Python and Clojure, and also takes root in third-party JavaScript, Python and Ruby libraries.
+Saga will have a standard library covering many domains all the way from primitive operations to file manipulation and heavy number crunching, solely from the NPM community. There is even a module to convert existing JavaScript or TypeScript code over to Saga, with tons of options available.
+
+Saga will compile not only to JavaScript but also directly to WebAssembly, making it one of the few (or the only?) language to ever compile to either language, without the need for any form of conversion.
 
 ---
 
-This document is currently in the works and is my largest project to date. Some of these things are going to changed, including the language name, as I am so busy with work and school that I might not find time to work on this project in the meantime. Constructive criticism is welcome; feel free to open or contribute to the project on this GitHub repository: http://github.com/nxltm/saga-lang/.
+This document is currently in the works and is my largest project to date. Some things are going to change. I will be posting a Trello on Saga very, very soon, for all of you to see.
+
+Feel free to open or contribute to the project on this GitHub repository: http://github.com/nxltm/saga/.
+
+### Version Name Lists
+
+- 1.0 Don Quicksort
+- 2.0 Lord of Recursion
+- 3.0 Pride and Processes
+- 4.0 Frankenstack
+- 5.0 Moby Docker
+- 6.0 Gulliver's Transpiler
+- 7.0 Parameters Lost
+- 8.0 Wizard of OOP
+
+### Version 1.0
 
 - Grammar (rework)
 - Documentation (language and API)
@@ -55,56 +67,167 @@ This document is currently in the works and is my largest project to date. Some 
 
 ### Architecture
 
-- Rust: compiler
-- TabNine + VS Code: Workstation
-- React + NextJS: Documentation
+- JavaScript with Babel: compiler and standard library
+  - Lodash: Core libraries
 
-### Syntax
+<!-- TODO: List more libraries here as modules for Saga's standard library  -->
 
-Saga uses significant whitespace to delimit blocks of code. Semicolons, even commas are not needed to terminate or separate expressions, ending the line would do just as well. Curly braces to surround blocks of code are entirely optional, though it is preferred you use indentation.
+## Language Ideas
 
-Parentheses are not needed in function or method calls. If two or more identifiers, numbers, strings, etc or unary expressions are lined up in a row, then the first is parsed as a function call, and the rest are its parameters.
+> This reference is structured so that it can be read from top to bottom. Later sections use ideas and syntax previously introduced. Familiarity with JavaScript is assumed.
+
+> The file extension for Saga is `.sa` or `.saga`.
+
+Saga uses significant whitespace to delimit blocks of code. Semicolons `;`, even commas `,` are not needed to terminate or separate expressions, ending the line would do just as well. Curly braces `{}` to surround blocks of code are entirely optional, though it is preferred you use indentation.
+
+You can omit the parentheses and commas when invoking a function. The implicit call wraps until the next infix operator or until the end of the line.
 
 ```coffee
-kids = {
-  define:
-    entity-name: let entityName = \\
-      (?x)\s*\b
-      (?!
-      \b(?:# don't match keywords
-      in|of|as|is|new|infer|unset
-      |typeof|nameof|sizeof|keyof|valof
-      |len|del|to|til|thru|at|by
-      |and|x?or|not|para|series|spawn
-      |def|func?|fn|macro|proc|sub
-      |let|var|val|const|decl
-      |class|given|law|enum|rel|lat
-      |proj|prot|ext|impl|frag|inter|struct
-      |module|nspace|object|record|label
-      |raw|data|query|schema|style|trait|alias|type
-      |if|else|elif|eless|unless|guard
-      |for|each|while|until|repeat|do|redo
-      |switch|case|fail|match|when|pass
-      |try|retry|throw|raise|catch|rescue|finally
-      |with|ref|defer|refer|show|hide|enter|exit
-      |then|begin|end|debug|check|assert
-      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
-      |yield\b\s*\bfrom|import|export|show|hide
-      |from|where|join|equals|[io]nto|order
-      |take|drop|fold|scan|select|use|using
-      |fi|rof|done|esac|wend|yrt|kill|wout
-      |open|close
-      )\b
-      )
-      ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
-      \b
-}
-
 x y z == x(y, z)
 x.y z == x.y(z)
 v.w x.y z  == v.w(x.y, z)
 v.w(x.y z) == v.w(x.y(z))
 ```
+
+Line comments begin with `#` or `#:` and continue up to the end of the line. Block comments begin with either `#{` or `#[]` and end in `}#` or `]#`. Note that `#:` and `#{}#` are considered tokens in the language, and are used to generate documentation.
+
+Special comments such as `#!`, `#=` and `#?` are used to tell the compiler what and where to compile, and what modules to require. Some are reserved for software tooling, such as identifying issues or important things.
+
+```coffee
+#: @author John Doe <johndoe@example.com>
+
+#! usr/bin/env wasm
+#= x = 2
+#? TODO fix grammar highlighting for some parts
+```
+
+Inline comments begin with `#(` and end in `)`.and can be inserted wherever needs be
+
+### Assignment
+
+Every variable should be declared before you can use them. This lets you and the compiler know which variables should be overshadowed and which ones can be reassigned, to prevent variable or reference-related errors from occurring.
+
+All variables are block-scoped. This makes sure that the values do not leak out into the parent scope. Declarations can be scoped with `do` blocks or any control flow statement.
+
+```coffee
+do
+  let x = 10 # creates a local variable named x
+print x #! RefError: variable `x` is not defined
+```
+
+The value of the last line of a scope is implicitly returned.
+
+```coffee
+val greet = if displayGreeting:
+  let message = "Enjoying the docs so far?"
+  message
+
+greet #= 'Enjoying the docs so far?'
+```
+
+There are four ways to declare variables: `var`, `val`, `let` and `const`. `val` and `const` declarations are "immutable", aka "cannot change", and to optimize compilation performance, we recommend you use `val` and `const` rather than their immutable counterparts.
+
+```coffee
+var x = 5     # mutable, re-declarable
+val x = 5     # immutable, re-declarable
+let x = 5     # mutable, not re-declarable
+const x = 5   # immutable, not re-declarable
+```
+
+"Re-declarable" means that on the same scope" reusing the same let binding name overshadows the previous bindings with the same name. So you can write this too:
+
+```coffee
+let x = 10
+let x = 10 #! RefError: x already declared
+
+do:
+  let x = 5
+x #= 10
+
+do:
+  x = 2
+x #= 2
+```
+
+### Everything is an expression
+
+Almost everything is an expression, which means you can do things like:
+
+```coffee
+let x = if 2 + 2 == 4: 10 else: 0
+x #= 10
+```
+
+Things such as loops, switch statements, and even try/catch statements are all expressions.
+
+If you want to simply declare a variable and not initialize it, you can.
+
+```coffee
+var x
+```
+
+### Literals
+
+#### Booleans, Void, Nil
+
+Aliases as in CoffeeScript.
+
+```coffee
+true == yes == on
+false == no == off
+```
+
+Nil, none and null are synonyms. Void and undef are too.
+
+```coffee
+nil == none == null
+void == undef
+```
+
+#### Numbers
+
+Any base can be used, including base 2, 4, 6, 8, 10, 12 and 16. All numbers are either 32-bit signed integers or 64-bit floats, and floating-point numbers are distinguished by a dot or a `p` for "power" part.
+
+```coffee
+(val base04 = 0b100) == 4
+(val base04 = 0q100) == 16
+(val base06 = 0s100) == 36
+(val base08 = 0o100) == 64
+(var base10 =   100) == 100
+(var base12 = 0z100) == 144
+(var base16 = 0x100) == 256
+```
+
+| Base | Name | Prefix | Digits |
+| :-: | :-: | :-: | :-: |
+| 2 | Binary | `0b` | `0` and `1` |
+| 4 | Quaternary | `0q` | `0` to `3` |
+| 6 | Senary | `0s` | `0` to `5` |
+| 8 | Octal | `0o` | `0` to `7` |
+| 10 | Decimal | no prefix | `0` to `9` |
+| 12 | Duodecimal | `0z` | `0` to `9`, then `a`/`t`/`x` and `b`/`e`/`z` |
+| 16 | Hexadecimal | `0x` | `0` to `9` then `a` to `f` |
+
+In line with traditional ASCII notations for duodecimal, letters `a`, `t` and `x` are used for digit 10, and letters `b`, `e` and `z` are used for digit 11.
+
+In floating-point literals, repeating digits are delimited with `r`, `p` controls the exponent and `s` controls the precision after the decimal point, in that order.
+
+```coffee
+0x0.1r3p2s6 == (1 / 16 + 1 / 40) * 2 ** 16 .fix 6
+```
+
+### Defining functions
+
+Defining functions is very lightweight in Saga.
+
+```coffee
+=> # empty function
+x = x => y #
+```
+
+As you see, function definitions are considerably shorter! You may also have noticed that we have omitted `return`. In Saga, almost everything is an expression and the last statement is automatically returned.
+
+You can still use `return` to force returns if you want. Alternatively, mark the function with a `/` to suppress automatic returns.
 
 #### Semicolons
 
@@ -274,7 +397,6 @@ fn x(&?y) = 1     # optional parameter
 fn x(*y) = 1      # variable arguments
 fn x(y = 1) = 1   # default parameter
 fn x(y: int): int = 1 # with type annotations
-
 ```
 
 #### Compound Expressions
