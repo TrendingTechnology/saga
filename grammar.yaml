@@ -18,12 +18,14 @@ information_for_contributors:
       - Add YAML/Bash unquoted literals
 
   - Bugs:
-      - In code sample "x ().int", does not highlight ".int" part as method call
-      - Fix code highlighting for YAML-like syntax
       - |
-        In backslash code literals, "\:" only the last `:` should not be parsed
-        in type annotations such as "(3 + 4): int" or object keys such as `int:`
-      - Fix x = x => y syntax
+        In code sample "x ().int", does not highlight ".int" part as method call.
+        But "x () y z" highlights x and y as function calls.
+      - Fix list/set/item highlighting in function calls
+      - |
+        In backslash code literals, "\:" only the last ":" should not be parsed
+        in type annotations such as "(3 + 4): int" or object keys such as "int:"
+      - Fix "x = x => y" syntax
 
   - To-do:
       - Add object/list/map destructuring syntax
@@ -345,6 +347,78 @@ repository:
         patterns:
           - include: "#string-escapes"
 
+  string-unquoted:
+    patterns:
+      - begin: |
+          (?x)
+          (\\\|)\s*
+          (?:(\d\w*)|
+          (
+          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
+          (?:(?:[?!~]?\.|[?!:]:|->)
+          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
+          )
+          )?\s*
+          ([-+*/<=>])?\s*
+          (.*\n?)
+        beginCaptures:
+          1: {name: keyword.control.flow.block-scalar.literal.saga}
+          2: {patterns: [include: "#numbers"]}
+          3: {name: fenced_code.block.language.saga}
+          4: {name: storage.modifier.chomping-indicator.saga}
+          5:
+            patterns:
+              - include: "#comments"
+              - match: .+
+                name: invalid.illegal.expected-comment-or-newline.saga
+        end: ^(?=\S)|(?!\G)
+        patterns:
+          - begin: ^(([ \t])+)(?!\2)
+            end: ^(?!\1|\s*$)
+            name: string.unquoted.block.saga
+            patterns:
+              - include: "#embedded-raw"
+              - include: text.html.markdown#inline
+      - begin: |
+          (?x)
+          (\\\>)\s*
+          (?:(\d\w*)|
+          (
+          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
+          (?:(?:[?!~]?\.|[?!:]:|->)
+          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
+          )
+          )?\s*
+          ([-+*/<=>])?\s*
+          (.*\n?)
+        beginCaptures:
+          1: {name: keyword.control.flow.block-scalar.folded.saga}
+          2: {patterns: [include: "#numbers"]}
+          3: {name: fenced_code.block.language.saga}
+          4: {name: storage.modifier.chomping-indicator.saga}
+          5:
+            patterns:
+              - include: "#comments"
+              - match: .+
+                name: invalid.illegal.expected-comment-or-newline.saga
+        end: ^(?=\S)|(?!\G)
+        patterns:
+          - begin: ^(([ \t])+)(?!\2)
+            end: ^(?!\1|\s*$)
+            name: string.unquoted.plain.in.saga
+            patterns:
+              - include: "#string-escapes"
+              - include: text.html.markdown#inline
+      - match: |
+          (?x)
+          (?<=^|\p{ps}|\s+)\s*(\\)
+          ((?:\\.|[^\s,:;])+?)
+          (?=[\p{ps}\p{pe}\s,:;]|$)
+        name: string.unquoted.saga
+        captures:
+          1: {name: punctuation.definition.string.saga}
+          2: {patterns: [{include: "#string-escapes"}]}
+
   string-escapes:
     patterns:
       - match: \\(?=\s*$)
@@ -374,7 +448,7 @@ repository:
         name: constant.character.escape.saga
       - match: \\[\p{s}\p{p}]
         name: constant.character.escape.symbol.saga
-      - match: \\[\p{l}\p{n}]
+      - match: \\[\p{l}\p{n}\p{z}\p{c}]
         name: constant.character.escape.illegal.saga
       - include: "#embedded"
 
@@ -440,78 +514,6 @@ repository:
         patterns:
           - include: $self
 
-  string-unquoted:
-    patterns:
-      - begin: |
-          (?x)
-          (\\\\)\s*
-          (?:(\d\w*)|
-          (
-          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
-          (?:(?:[?!~]?\.|[?!:]:|->)
-          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
-          )
-          )?\s*
-          ([-+])?\s*
-          (.*\n?)
-        beginCaptures:
-          1: {name: keyword.control.flow.block-scalar.literal.saga}
-          2: {patterns: [include: "#numbers"]}
-          3: {name: fenced_code.block.language.saga}
-          4: {name: storage.modifier.chomping-indicator.saga}
-          5:
-            patterns:
-              - include: "#comments"
-              - match: .+
-                name: invalid.illegal.expected-comment-or-newline.saga
-        end: ^(?=\S)|(?!\G)
-        patterns:
-          - begin: ^(([ \t])+)(?!\2)
-            end: ^(?!\1|\s*$)
-            name: string.unquoted.block.saga
-            patterns:
-              - include: "#embedded-raw"
-              - include: text.html.markdown#inline
-      - begin: |
-          (?x)
-          (\/\\)\s*
-          (?:(\d\w*)|
-          (
-          [_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*
-          (?:(?:[?!~]?\.|[?!:]:|->)
-          (?:(?:[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)))*
-          )
-          )?\s*
-          ([-+])?\s*
-          (.*\n?)
-        beginCaptures:
-          1: {name: keyword.control.flow.block-scalar.folded.saga}
-          2: {patterns: [include: "#numbers"]}
-          3: {name: fenced_code.block.language.saga}
-          4: {name: storage.modifier.chomping-indicator.saga}
-          5:
-            patterns:
-              - include: "#comments"
-              - match: .+
-                name: invalid.illegal.expected-comment-or-newline.saga
-        end: ^(?=\S)|(?!\G)
-        patterns:
-          - begin: ^(([ \t])+)(?!\2)
-            end: ^(?!\1|\s*$)
-            name: string.unquoted.plain.in.saga
-            patterns:
-              - include: "#string-escapes"
-              - include: text.html.markdown#inline
-      - match: |
-          (?x)
-          (?<=^|\p{ps}|\s+)\s*(\\)
-          ((?:\\\S|[^\s,:;])+?)
-          (?=[\p{ps}\p{pe}\s,:;]|$)
-        name: string.unquoted.saga
-        captures:
-          1: {name: punctuation.definition.string.saga}
-          2: {patterns: [{include: "#string-escapes"}]}
-
   symbols:
     patterns:
       - match: |
@@ -572,291 +574,6 @@ repository:
           - match: '[^\s:]+'
             name: constant.other.object.key.saga
 
-  document:
-    patterns:
-      - include: "#document-inline-tags"
-      - include: "#document-access"
-      - include: "#document-as-name-path"
-      - include: "#document-simple-name-path"
-      - include: "#document-module"
-      - include: "#document-type-name"
-      - include: "#document-type-no-name"
-      - match: (?<=^|[''"\`\\\s\p{ps}])@([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\b
-        name: storage.type.class.saga
-
-    repository:
-      document-access:
-        match: |
-          (?x)
-          (@acc)\b\s*\b
-          (?:
-          (?:
-          pub|prot|pvt|priv|read|a?sync|inline|fixed|lazy|eager
-          |lawful|rogue|early|late|unique|handle|over|abs|vol|stat|dyn|final
-          |[gs]et|[dr]ef|trans|part|rec|gen|(?:im)?pure|local|global|native
-          |(?:un)?(?:sign|safe|check|lock|fixed|size)
-          |(?:pre|in|post|suf|a[df])fix
-          |(?:u|bi|ter|)nary
-          )\s*\b
-          )*
-          (?=\s|$)
-        captures:
-          1: {name: storage.type.class.saga}
-          0: {name: storage.modifier.saga}
-      document-as-name-path:
-        begin: (@(borrows|lends)\b)\s*(?=(?![}\]]\#)\S+(?:(?:\s*\bas\b\s*(?![}\]]\#)\S+)?)?([\S\s]*))
-        end: ^|(?=[}\]]\#)|(?=\3$)
-        beginCaptures:
-          1: {name: storage.type.class.saga}
-        patterns:
-          - include: "#document-name-path-scopes"
-      document-inline-tags:
-        begin: (\[(?:(?>[^\[\]]+)|\g<-1>)*\])?({)(?=@)
-        end: (})
-        name: meta.tag.inline.saga
-        beginCaptures:
-          1: {name: string.linktext.saga}
-          2: {name: meta.brace.curly.saga}
-        endCaptures:
-          1: {name: meta.brace.curly.saga}
-        patterns:
-          - match: (@(link|tutorial))\b([^}]*)
-            captures:
-              1: {name: storage.type.class.saga}
-              3: {name: string.saga}
-      document-module:
-        begin: |
-          (?x)(@(
-          (?:(?:im|ex)port|listen|require|use)s?
-          )\b)
-          \s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(\S*)([\S\s]*))
-        end: ^|(?=[}\]]\#)|(?=\5$)
-        beginCaptures:
-          1: {name: storage.type.class.saga}
-        patterns:
-          - include: "#document-typedef-scopes"
-          - match: (?:(module)(:))?(((?![}\]]\#)\S)+)
-            captures:
-              1: {name: keyword.module.saga}
-              2: {name: punctuation.saga}
-              3: {name: string.module-name.saga}
-      document-name-scopes:
-        patterns:
-          - match: ((?![}\]]\#)[\S&&[^\[\]"']])+
-            captures:
-              0: {name: variable.other.saga}
-          - begin: \[
-            end: \]|^
-            name: variable.other.saga
-            patterns:
-              - include: "#document-string"
-              - include: "#document-name-scopes"
-      document-simple-name-path:
-        begin: |
-          (?x)(@(
-          (?:use|call|emit|event|fire)s?|alias|name|mixes|prop
-          |this|that|it|self|super
-          )\b)
-          \s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*\S*([\S*\s]*))
-        end: ^|(?=[}\]]\#)|(?=\4$)
-        beginCaptures:
-          1: {name: storage.type.class.saga}
-        patterns:
-          - include: "#document-typedef-scopes"
-          - include: "#types"
-      document-string:
-        match: '"(\\"|[^"])*"|''(\\''|[^''])*'''
-        name: string.saga
-      document-type-name:
-        begin: |
-          (?x)(@(
-          def|func?|fn|macro|proc|sub|class|given|law|const|enum|rel|lat
-          |proj|prot|ext|impl|frag|inter|struct|module|nspace|object|record|raw
-          |data|query|schema|style|trait|alias|type|decl|let|va[rl]
-          |arg|ctor|member|method|mixin|param
-          )\b)\s*
-          (?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\S)+)?([\S\s]*))
-        end: ^|(?=[}\]]\#)|(?=\7$)
-        beginCaptures:
-          1: {name: storage.type.class.saga}
-        patterns:
-          - include: "#document-typedef-scopes"
-          - include: "#document-name-scopes"
-      document-type-no-name:
-        begin: |
-          (?x)
-          (@(
-          pub|prot|pvt|priv|read|a?sync|inline|fixed|lazy|eager
-          |lawful|rogue|early|late|unique|handle|over|abs|vol|stat|dyn|final
-          |[gs]et|[dr]ef|trans|part|rec|gen|(?:im)?pure|local|global|native
-          |(?:un)?(?:sign|safe|check|lock|fixed|size)
-          |except|ext|impl|break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
-          |(?:pre|in|post|suf|a[df])fix
-          |(?:u|bi|ter|)nary
-          )\b)
-          \s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*([\S\s]*))
-        end: ^|(?=[}\]]\#)|(?=\4$)
-        beginCaptures:
-          1: {name: storage.type.class.saga}
-        patterns:
-          - include: "#document-typedef-scopes"
-      document-typedef-obj:
-        begin: "{"
-        end: "}|^"
-        captures:
-          0: {name: meta.brace.curly.saga}
-        patterns:
-          - include: "#types"
-      document-typedef-scopes:
-        begin: "{"
-        end: "}|^"
-        name: entity.name.type.instance.saga
-        captures:
-          0: {name: meta.brace.curly.saga}
-        patterns:
-          - include: "#types"
-
-  comments:
-    patterns:
-      - begin: \s*((#\())
-        end: (\s*(\)))
-        name: comment.block.inline.saga
-        captures:
-          1: {name: comment.block.inline.saga}
-          2: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#markdown-inline"
-          - include: "#nested-inline"
-      - begin: \s*((#{))
-        end: (\s*(}#))
-        name: comment.block.documentation.saga
-        captures:
-          1: {name: comment.block.documentation.saga}
-          2: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#document"
-          - include: "#markdown-inline"
-          - include: "#nested-document-block"
-      - begin: \s*((#\[))
-        end: (\s*(\]#))
-        name: comment.block.saga
-        captures:
-          1: {name: comment.block.saga}
-          2: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#markdown-inline"
-          - include: "#nested-block"
-      - begin: ((^\s*)|\s*)((#=))
-        end: \s*$
-        name: comment.line.special.saga
-        beginCaptures:
-          2: {name: punctuation.whitespace.comment.leading.saga}
-          3: {name: comment.line.special.saga}
-          4: {name: punctuation.definition.comment.saga}
-        endCaptures:
-          1: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#comment-special"
-          - include: "#markdown-inline"
-      - begin: ((^\s*)|\s*)((##))
-        end: \s*$
-        name: comment.line.playground.saga
-        beginCaptures:
-          2: {name: punctuation.whitespace.comment.leading.saga}
-          3: {name: comment.line.playground.saga}
-          4: {name: punctuation.definition.comment.saga}
-        endCaptures:
-          0: {name: comment.line.playground.saga}
-        patterns:
-          - include: "#document"
-          - include: "#markdown-inline"
-      - begin: ((^\s*)|\s*)((#:))
-        end: \s*$
-        name: comment.line.documentation.saga
-        beginCaptures:
-          2: {name: punctuation.whitespace.comment.leading.saga}
-          3: {name: comment.line.documentation.saga}
-          4: {name: punctuation.definition.comment.saga}
-        endCaptures:
-          0: {name: comment.line.documentation.saga}
-        patterns:
-          - include: "#document"
-          - include: "#markdown-inline"
-      - begin: ((^\s*)|\s*)((#!))
-        end: \s*$
-        name: comment.line.shebang.saga
-        beginCaptures:
-          2: {name: punctuation.whitespace.comment.leading.saga}
-          3: {name: comment.line.shebang.saga}
-          4: {name: punctuation.definition.comment.saga}
-        endCaptures:
-          0: {name: comment.line.shebang.saga}
-        patterns:
-          - include: "#markdown-inline"
-      - begin: ((^\s*)|\s*)((#\?))
-        end: \s*$
-        name: comment.line.doctype.saga
-        beginCaptures:
-          2: {name: punctuation.whitespace.comment.leading.saga}
-          3: {name: comment.line.doctype.saga}
-          4: {name: punctuation.definition.comment.saga}
-        endCaptures:
-          0: {name: comment.line.doctype.saga}
-        patterns:
-          - include: "#markdown-inline"
-      - begin: ((^\s*)|\s*)((#))
-        end: \s*$
-        name: comment.line.number-sign.saga
-        beginCaptures:
-          2: {name: punctuation.whitespace.comment.leading.saga}
-          3: {name: comment.line.double-slash.saga}
-          4: {name: punctuation.definition.comment.saga}
-        endCaptures:
-          0: {name: comment.line.number-sign.saga}
-        patterns:
-          - include: "#markdown-inline"
-
-    repository:
-      markdown-inline:
-        patterns:
-          - include: text.html.markdown#inline
-      nested-block:
-        begin: (#\[)\s*
-        end: \s*(\]#)
-        captures:
-          1: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#document"
-          - include: "#markdown-inline"
-          - include: "#nested-block"
-      nested-document-block:
-        begin: (#{)\s*
-        end: \s*(}#)
-        captures:
-          1: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#document"
-          - include: "#markdown-inline"
-          - include: "#nested-document-block"
-      nested-inline:
-        begin: (\()\s*
-        end: \s*(\))
-        name: comment.block.inline.saga
-        captures:
-          1: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#markdown-inline"
-          - include: "#nested-inline"
-      nested-special:
-        begin: (\()\s*
-        end: \s*(\))
-        captures:
-          1: {name: punctuation.definition.comment.saga}
-        patterns:
-          - include: "#document"
-          - include: "#markdown-inline"
-          - include: "#nested-special"
-
   regexps:
     patterns:
       - begin: (\p{alnum}*)(\`)\s*
@@ -881,7 +598,7 @@ repository:
               - include: "#back-references"
       - begin: |
           (?x)
-          (\\\/)\s*
+          (\\\<)\s*
           (?:(\w+)?\b\s*\b
           (
           \w+\s*
@@ -889,7 +606,7 @@ repository:
           (?:(?:\w+)))*
           )
           )?\s*
-          ([-+])?\s*
+          ([-+*/<=>])?\s*
           (.*\n?)
         beginCaptures:
           1: {name: keyword.control.flow.block-scalar.regexp.saga}
@@ -1207,7 +924,7 @@ repository:
             name: constant.character.escape.symbol.saga
           - match: \\\p{z}
             name: constant.character.escape.symbol.saga
-          - match: \\[\p{l}\p{n}]
+          - match: \\[\p{l}\p{n}\p{z}\p{c}]
             name: constant.character.escape.illegal.saga
           - include: "#embedded"
 
@@ -1279,6 +996,291 @@ repository:
               - include: "#regexp-character-class"
               - include: "#regexp-char-ops"
               - include: "#regexp-charset"
+
+  document:
+    patterns:
+      - include: "#document-inline-tags"
+      - include: "#document-access"
+      - include: "#document-as-name-path"
+      - include: "#document-simple-name-path"
+      - include: "#document-module"
+      - include: "#document-type-name"
+      - include: "#document-type-no-name"
+      - match: (?<=^|[''"\`\\\s\p{ps}])@([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)\b
+        name: storage.type.class.saga
+
+    repository:
+      document-access:
+        match: |
+          (?x)
+          (@acc)\b\s*\b
+          (?:
+          (?:
+          pub|prot|pvt|priv|read|a?sync|inline|fixed|lazy|eager
+          |lawful|rogue|early|late|unique|handle|over|abs|vol|stat|dyn|final
+          |[gs]et|[dr]ef|trans|part|rec|gen|(?:im)?pure|local|global|native
+          |(?:un)?(?:sign|safe|check|lock|fixed|size)
+          |(?:pre|in|post|suf|a[df])fix
+          |(?:u|bi|ter|)nary
+          )\s*\b
+          )*
+          (?=\s|$)
+        captures:
+          1: {name: storage.type.class.saga}
+          0: {name: storage.modifier.saga}
+      document-as-name-path:
+        begin: (@(borrows|lends)\b)\s*(?=(?![}\]]\#)\S+(?:(?:\s*\bas\b\s*(?![}\]]\#)\S+)?)?([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\3$)
+        beginCaptures:
+          1: {name: storage.type.class.saga}
+        patterns:
+          - include: "#document-name-path-scopes"
+      document-inline-tags:
+        begin: (\[(?:(?>[^\[\]]+)|\g<-1>)*\])?({)(?=@)
+        end: (})
+        name: meta.tag.inline.saga
+        beginCaptures:
+          1: {name: string.linktext.saga}
+          2: {name: meta.brace.curly.saga}
+        endCaptures:
+          1: {name: meta.brace.curly.saga}
+        patterns:
+          - match: (@(link|tutorial))\b([^}]*)
+            captures:
+              1: {name: storage.type.class.saga}
+              3: {name: string.saga}
+      document-module:
+        begin: |
+          (?x)(@(
+          (?:(?:im|ex)port|listen|require|use)s?
+          )\b)
+          \s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(\S*)([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\5$)
+        beginCaptures:
+          1: {name: storage.type.class.saga}
+        patterns:
+          - include: "#document-typedef-scopes"
+          - match: (?:(module)(:))?(((?![}\]]\#)\S)+)
+            captures:
+              1: {name: keyword.module.saga}
+              2: {name: punctuation.saga}
+              3: {name: string.module-name.saga}
+      document-name-scopes:
+        patterns:
+          - match: ((?![}\]]\#)[\S&&[^\[\]"']])+
+            captures:
+              0: {name: variable.other.saga}
+          - begin: \[
+            end: \]|^
+            name: variable.other.saga
+            patterns:
+              - include: "#document-string"
+              - include: "#document-name-scopes"
+      document-simple-name-path:
+        begin: |
+          (?x)(@(
+          (?:use|call|emit|event|fire)s?|alias|name|mixes|prop
+          |this|that|it|self|super
+          )\b)
+          \s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*\S*([\S*\s]*))
+        end: ^|(?=[}\]]\#)|(?=\4$)
+        beginCaptures:
+          1: {name: storage.type.class.saga}
+        patterns:
+          - include: "#document-typedef-scopes"
+          - include: "#types"
+      document-string:
+        match: '"(\\"|[^"])*"|''(\\''|[^''])*'''
+        name: string.saga
+      document-type-name:
+        begin: |
+          (?x)(@(
+          def|func?|fn|macro|proc|sub|class|given|law|const|enum|rel|lat
+          |proj|prot|ext|impl|frag|inter|struct|module|nspace|object|record|raw
+          |data|query|schema|style|trait|alias|type|decl|let|va[rl]
+          |arg|ctor|member|method|mixin|param
+          )\b)\s*
+          (?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*(((\[(?:(?>[^\[\]]+)|\g<-1>)*\])|\S)+)?([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\7$)
+        beginCaptures:
+          1: {name: storage.type.class.saga}
+        patterns:
+          - include: "#document-typedef-scopes"
+          - include: "#document-name-scopes"
+      document-type-no-name:
+        begin: |
+          (?x)
+          (@(
+          pub|prot|pvt|priv|read|a?sync|inline|fixed|lazy|eager
+          |lawful|rogue|early|late|unique|handle|over|abs|vol|stat|dyn|final
+          |[gs]et|[dr]ef|trans|part|rec|gen|(?:im)?pure|local|global|native
+          |(?:un)?(?:sign|safe|check|lock|fixed|size)
+          |except|ext|impl|break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+          |(?:pre|in|post|suf|a[df])fix
+          |(?:u|bi|ter|)nary
+          )\b)
+          \s*(?=({(?:(?>[^{}]+)|\g<-1>)*\})?\s*([\S\s]*))
+        end: ^|(?=[}\]]\#)|(?=\4$)
+        beginCaptures:
+          1: {name: storage.type.class.saga}
+        patterns:
+          - include: "#document-typedef-scopes"
+      document-typedef-obj:
+        begin: "{"
+        end: "}|^"
+        captures:
+          0: {name: meta.brace.curly.saga}
+        patterns:
+          - include: "#types"
+      document-typedef-scopes:
+        begin: "{"
+        end: "}|^"
+        name: entity.name.type.instance.saga
+        captures:
+          0: {name: meta.brace.curly.saga}
+        patterns:
+          - include: "#types"
+
+  comments:
+    patterns:
+      - begin: \s*((#\())
+        end: (\s*(\)))
+        name: comment.block.inline.saga
+        captures:
+          1: {name: comment.block.inline.saga}
+          2: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#markdown-inline"
+          - include: "#nested-inline"
+      - begin: \s*((#{))
+        end: (\s*(}#))
+        name: comment.block.documentation.saga
+        captures:
+          1: {name: comment.block.documentation.saga}
+          2: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#document"
+          - include: "#markdown-inline"
+          - include: "#nested-document-block"
+      - begin: \s*((#\[))
+        end: (\s*(\]#))
+        name: comment.block.saga
+        captures:
+          1: {name: comment.block.saga}
+          2: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#markdown-inline"
+          - include: "#nested-block"
+      - begin: ((^\s*)|\s*)((#=))
+        end: \s*$
+        name: comment.line.special.saga
+        beginCaptures:
+          2: {name: punctuation.whitespace.comment.leading.saga}
+          3: {name: comment.line.special.saga}
+          4: {name: punctuation.definition.comment.saga}
+        endCaptures:
+          1: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#comment-special"
+          - include: "#markdown-inline"
+      - begin: ((^\s*)|\s*)((##))
+        end: \s*$
+        name: comment.line.playground.saga
+        beginCaptures:
+          2: {name: punctuation.whitespace.comment.leading.saga}
+          3: {name: comment.line.playground.saga}
+          4: {name: punctuation.definition.comment.saga}
+        endCaptures:
+          0: {name: comment.line.playground.saga}
+        patterns:
+          - include: "#document"
+          - include: "#markdown-inline"
+      - begin: ((^\s*)|\s*)((#:))
+        end: \s*$
+        name: comment.line.documentation.saga
+        beginCaptures:
+          2: {name: punctuation.whitespace.comment.leading.saga}
+          3: {name: comment.line.documentation.saga}
+          4: {name: punctuation.definition.comment.saga}
+        endCaptures:
+          0: {name: comment.line.documentation.saga}
+        patterns:
+          - include: "#document"
+          - include: "#markdown-inline"
+      - begin: ((^\s*)|\s*)((#!))
+        end: \s*$
+        name: comment.line.shebang.saga
+        beginCaptures:
+          2: {name: punctuation.whitespace.comment.leading.saga}
+          3: {name: comment.line.shebang.saga}
+          4: {name: punctuation.definition.comment.saga}
+        endCaptures:
+          0: {name: comment.line.shebang.saga}
+        patterns:
+          - include: "#markdown-inline"
+      - begin: ((^\s*)|\s*)((#\?))
+        end: \s*$
+        name: comment.line.doctype.saga
+        beginCaptures:
+          2: {name: punctuation.whitespace.comment.leading.saga}
+          3: {name: comment.line.doctype.saga}
+          4: {name: punctuation.definition.comment.saga}
+        endCaptures:
+          0: {name: comment.line.doctype.saga}
+        patterns:
+          - include: "#markdown-inline"
+      - begin: ((^\s*)|\s*)((#))
+        end: \s*$
+        name: comment.line.number-sign.saga
+        beginCaptures:
+          2: {name: punctuation.whitespace.comment.leading.saga}
+          3: {name: comment.line.double-slash.saga}
+          4: {name: punctuation.definition.comment.saga}
+        endCaptures:
+          0: {name: comment.line.number-sign.saga}
+        patterns:
+          - include: "#markdown-inline"
+
+    repository:
+      markdown-inline:
+        patterns:
+          - include: text.html.markdown#inline
+      nested-block:
+        begin: (#\[)\s*
+        end: \s*(\]#)
+        captures:
+          1: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#document"
+          - include: "#markdown-inline"
+          - include: "#nested-block"
+      nested-document-block:
+        begin: (#{)\s*
+        end: \s*(}#)
+        captures:
+          1: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#document"
+          - include: "#markdown-inline"
+          - include: "#nested-document-block"
+      nested-inline:
+        begin: (\()\s*
+        end: \s*(\))
+        name: comment.block.inline.saga
+        captures:
+          1: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#markdown-inline"
+          - include: "#nested-inline"
+      nested-special:
+        begin: (\()\s*
+        end: \s*(\))
+        captures:
+          1: {name: punctuation.definition.comment.saga}
+        patterns:
+          - include: "#document"
+          - include: "#markdown-inline"
+          - include: "#nested-special"
 
   calls:
     comment: |
