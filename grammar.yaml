@@ -17,41 +17,44 @@ information_for_contributors:
   - to edit.
 
   - Updates:
-      - |
-        Only _ out of all Unicode 'Pc' symbols are considered letters.
-        The rest are considered operator characters.
-      - |
-        Add YAML/Bash unquoted string literals:
-        \| begins a raw string literal;
-        \> begins a escaped string literal; and
-        \< begins a regular expression literal.
-        \ begins an unquoted string literal.
+  - - |
+      Only _ out of all Unicode 'Pc' symbols are considered letters.
+      The rest are considered operator characters.
+    - |
+      Add YAML/Bash unquoted string literals:
+      \| => raw string literal;
+      \> => escaped string literal; and
+      \< => regular expression literal.
+      \ => unquoted string literal, but every space should be escaped
 
-  - Bugs:
-      - |
-        In code sample "x ().int", does not highlight ".int" part as method call.
-        But "x () y z" highlights x and y as function calls.
-      - Fix list/set/item highlighting in function calls
-      - |
-        In backslash string literals, "\:" only the last ":" should not be parsed
-        in type annotations such as "(3 + 4): int" or object keys such as "int:"
-      - Fix "x = x => y" syntax
+  - |
+    Bugs:
+  - - |
+      In code sample "x ().int", does not highlight ".int" part as method call.
+      But "x () y z" highlights x and y as function calls.
+    - Fix list/set/item highlighting in function calls
+    - |
+      In backslash string literals, "\:" only the last ":" should not be parsed
+      in type annotations such as "(3 + 4): int" or object keys such as "int:"
+    - Fix "x = x => y" syntax
 
-  - To-do:
+  - |
+    To-do:
       - Add object/list/map destructuring syntax
       - Add color, date/time,
 
-  - Doing:
-      - Add standard library stuff (the bulk of this grammar)
-      - - Python, PHP, Perl, CSS, HTML, JS, TS, Swift, R, C, C++,
-        - Bash, Shell, SQL and more
-        - |
-          Dictionaries from https://github.com/nxltm/cspell-dicts:
-            - Java, Scala
-            - Golang, C++
-            - Python/Django
-            - TypeScript
-        - NumPy, Pandas, NLTK, Gensim and more (see libraries in action)
+  - |
+    Doing:
+  - - Add standard library stuff (the bulk of this grammar)
+    - - Python, PHP, Perl, CSS, HTML, JS, TS, Swift, R, C, C++,
+      - Bash, Shell, SQL and more
+      - |
+        Dictionaries from https://github.com/nxltm/cspell-dicts:
+      - - Java, Scala
+        - Golang, C++
+        - Python/Django
+        - TypeScript
+      - NumPy, Pandas, NLTK, Gensim and more (see libraries in action)
 
   - Done:
       - Revamp string, number, symbol and regex literals
