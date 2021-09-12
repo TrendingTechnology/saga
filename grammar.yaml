@@ -431,61 +431,61 @@ repository:
         captures: *multi-radix
       - match: (?i)\s*\b(36r)[\da-z](?:_*[\da-z]+)*(?:(\.)[\da-z](?:_*[\da-z]+)*)?(?:(r)[\da-z](?:_*[\da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(37r)[\dAa-z](?:_*[\dAa-z]+)*(?:(\.)[\dAa-z](?:_*[\dAa-z]+)*)?(?:(r)[\dAa-z](?:_*[\dAa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(37r)[\dAa-z](?:_*[\dAa-z]+)*(?:(\.)[\dAa-z](?:_*[\dAa-z]+)*)?(?:(r)[\dAa-z](?:_*[\dAa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(38r)[\dABa-z](?:_*[\dABa-z]+)*(?:(\.)[\dABa-z](?:_*[\dABa-z]+)*)?(?:(r)[\dABa-z](?:_*[\dABa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(38r)[\dABa-z](?:_*[\dABa-z]+)*(?:(\.)[\dABa-z](?:_*[\dABa-z]+)*)?(?:(r)[\dABa-z](?:_*[\dABa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(39r)[\dA-Ca-z](?:_*[\dA-Ca-z]+)*(?:(\.)[\dA-Ca-z](?:_*[\dA-Ca-z]+)*)?(?:(r)[\dA-Ca-z](?:_*[\dA-Ca-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(39r)[\dA-Ca-z](?:_*[\dA-Ca-z]+)*(?:(\.)[\dA-Ca-z](?:_*[\dA-Ca-z]+)*)?(?:(r)[\dA-Ca-z](?:_*[\dA-Ca-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(40r)[\dA-Da-z](?:_*[\dA-Da-z]+)*(?:(\.)[\dA-Da-z](?:_*[\dA-Da-z]+)*)?(?:(r)[\dA-Da-z](?:_*[\dA-Da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(40r)[\dA-Da-z](?:_*[\dA-Da-z]+)*(?:(\.)[\dA-Da-z](?:_*[\dA-Da-z]+)*)?(?:(r)[\dA-Da-z](?:_*[\dA-Da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(41r)[\dA-Ea-z](?:_*[\dA-Ea-z]+)*(?:(\.)[\dA-Ea-z](?:_*[\dA-Ea-z]+)*)?(?:(r)[\dA-Ea-z](?:_*[\dA-Ea-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(41r)[\dA-Ea-z](?:_*[\dA-Ea-z]+)*(?:(\.)[\dA-Ea-z](?:_*[\dA-Ea-z]+)*)?(?:(r)[\dA-Ea-z](?:_*[\dA-Ea-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(42r)[\dA-Fa-z](?:_*[\dA-Fa-z]+)*(?:(\.)[\dA-Fa-z](?:_*[\dA-Fa-z]+)*)?(?:(r)[\dA-Fa-z](?:_*[\dA-Fa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(42r)[\dA-Fa-z](?:_*[\dA-Fa-z]+)*(?:(\.)[\dA-Fa-z](?:_*[\dA-Fa-z]+)*)?(?:(r)[\dA-Fa-z](?:_*[\dA-Fa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(43r)[\dA-Ga-z](?:_*[\dA-Ga-z]+)*(?:(\.)[\dA-Ga-z](?:_*[\dA-Ga-z]+)*)?(?:(r)[\dA-Ga-z](?:_*[\dA-Ga-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(43r)[\dA-Ga-z](?:_*[\dA-Ga-z]+)*(?:(\.)[\dA-Ga-z](?:_*[\dA-Ga-z]+)*)?(?:(r)[\dA-Ga-z](?:_*[\dA-Ga-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(44r)[\dA-Ha-z](?:_*[\dA-Ha-z]+)*(?:(\.)[\dA-Ha-z](?:_*[\dA-Ha-z]+)*)?(?:(r)[\dA-Ha-z](?:_*[\dA-Ha-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(44r)[\dA-Ha-z](?:_*[\dA-Ha-z]+)*(?:(\.)[\dA-Ha-z](?:_*[\dA-Ha-z]+)*)?(?:(r)[\dA-Ha-z](?:_*[\dA-Ha-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(45r)[\dA-Ia-z](?:_*[\dA-Ia-z]+)*(?:(\.)[\dA-Ia-z](?:_*[\dA-Ia-z]+)*)?(?:(r)[\dA-Ia-z](?:_*[\dA-Ia-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(45r)[\dA-Ia-z](?:_*[\dA-Ia-z]+)*(?:(\.)[\dA-Ia-z](?:_*[\dA-Ia-z]+)*)?(?:(r)[\dA-Ia-z](?:_*[\dA-Ia-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(46r)[\dA-Ja-z](?:_*[\dA-Ja-z]+)*(?:(\.)[\dA-Ja-z](?:_*[\dA-Ja-z]+)*)?(?:(r)[\dA-Ja-z](?:_*[\dA-Ja-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(46r)[\dA-Ja-z](?:_*[\dA-Ja-z]+)*(?:(\.)[\dA-Ja-z](?:_*[\dA-Ja-z]+)*)?(?:(r)[\dA-Ja-z](?:_*[\dA-Ja-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(47r)[\dA-Ka-z](?:_*[\dA-Ka-z]+)*(?:(\.)[\dA-Ka-z](?:_*[\dA-Ka-z]+)*)?(?:(r)[\dA-Ka-z](?:_*[\dA-Ka-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(47r)[\dA-Ka-z](?:_*[\dA-Ka-z]+)*(?:(\.)[\dA-Ka-z](?:_*[\dA-Ka-z]+)*)?(?:(r)[\dA-Ka-z](?:_*[\dA-Ka-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(48r)[\dA-La-z](?:_*[\dA-La-z]+)*(?:(\.)[\dA-La-z](?:_*[\dA-La-z]+)*)?(?:(r)[\dA-La-z](?:_*[\dA-La-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(48r)[\dA-La-z](?:_*[\dA-La-z]+)*(?:(\.)[\dA-La-z](?:_*[\dA-La-z]+)*)?(?:(r)[\dA-La-z](?:_*[\dA-La-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(49r)[\dA-Ma-z](?:_*[\dA-Ma-z]+)*(?:(\.)[\dA-Ma-z](?:_*[\dA-Ma-z]+)*)?(?:(r)[\dA-Ma-z](?:_*[\dA-Ma-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(49r)[\dA-Ma-z](?:_*[\dA-Ma-z]+)*(?:(\.)[\dA-Ma-z](?:_*[\dA-Ma-z]+)*)?(?:(r)[\dA-Ma-z](?:_*[\dA-Ma-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(50r)[\dA-Na-z](?:_*[\dA-Na-z]+)*(?:(\.)[\dA-Na-z](?:_*[\dA-Na-z]+)*)?(?:(r)[\dA-Na-z](?:_*[\dA-Na-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(50r)[\dA-Na-z](?:_*[\dA-Na-z]+)*(?:(\.)[\dA-Na-z](?:_*[\dA-Na-z]+)*)?(?:(r)[\dA-Na-z](?:_*[\dA-Na-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(51r)[\dA-Oa-z](?:_*[\dA-Oa-z]+)*(?:(\.)[\dA-Oa-z](?:_*[\dA-Oa-z]+)*)?(?:(r)[\dA-Oa-z](?:_*[\dA-Oa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(51r)[\dA-Oa-z](?:_*[\dA-Oa-z]+)*(?:(\.)[\dA-Oa-z](?:_*[\dA-Oa-z]+)*)?(?:(r)[\dA-Oa-z](?:_*[\dA-Oa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(52r)[\dA-Pa-z](?:_*[\dA-Pa-z]+)*(?:(\.)[\dA-Pa-z](?:_*[\dA-Pa-z]+)*)?(?:(r)[\dA-Pa-z](?:_*[\dA-Pa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(52r)[\dA-Pa-z](?:_*[\dA-Pa-z]+)*(?:(\.)[\dA-Pa-z](?:_*[\dA-Pa-z]+)*)?(?:(r)[\dA-Pa-z](?:_*[\dA-Pa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(53r)[\dA-Qa-z](?:_*[\dA-Qa-z]+)*(?:(\.)[\dA-Qa-z](?:_*[\dA-Qa-z]+)*)?(?:(r)[\dA-Qa-z](?:_*[\dA-Qa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(53r)[\dA-Qa-z](?:_*[\dA-Qa-z]+)*(?:(\.)[\dA-Qa-z](?:_*[\dA-Qa-z]+)*)?(?:(r)[\dA-Qa-z](?:_*[\dA-Qa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(54r)[\dA-Ra-z](?:_*[\dA-Ra-z]+)*(?:(\.)[\dA-Ra-z](?:_*[\dA-Ra-z]+)*)?(?:(r)[\dA-Ra-z](?:_*[\dA-Ra-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(54r)[\dA-Ra-z](?:_*[\dA-Ra-z]+)*(?:(\.)[\dA-Ra-z](?:_*[\dA-Ra-z]+)*)?(?:(r)[\dA-Ra-z](?:_*[\dA-Ra-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(55r)[\dA-Sa-z](?:_*[\dA-Sa-z]+)*(?:(\.)[\dA-Sa-z](?:_*[\dA-Sa-z]+)*)?(?:(r)[\dA-Sa-z](?:_*[\dA-Sa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(55r)[\dA-Sa-z](?:_*[\dA-Sa-z]+)*(?:(\.)[\dA-Sa-z](?:_*[\dA-Sa-z]+)*)?(?:(r)[\dA-Sa-z](?:_*[\dA-Sa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(56r)[\dA-Ta-z](?:_*[\dA-Ta-z]+)*(?:(\.)[\dA-Ta-z](?:_*[\dA-Ta-z]+)*)?(?:(r)[\dA-Ta-z](?:_*[\dA-Ta-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(56r)[\dA-Ta-z](?:_*[\dA-Ta-z]+)*(?:(\.)[\dA-Ta-z](?:_*[\dA-Ta-z]+)*)?(?:(r)[\dA-Ta-z](?:_*[\dA-Ta-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(57r)[\dA-Ua-z](?:_*[\dA-Ua-z]+)*(?:(\.)[\dA-Ua-z](?:_*[\dA-Ua-z]+)*)?(?:(r)[\dA-Ua-z](?:_*[\dA-Ua-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(57r)[\dA-Ua-z](?:_*[\dA-Ua-z]+)*(?:(\.)[\dA-Ua-z](?:_*[\dA-Ua-z]+)*)?(?:(r)[\dA-Ua-z](?:_*[\dA-Ua-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(58r)[\dA-Va-z](?:_*[\dA-Va-z]+)*(?:(\.)[\dA-Va-z](?:_*[\dA-Va-z]+)*)?(?:(r)[\dA-Va-z](?:_*[\dA-Va-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(58r)[\dA-Va-z](?:_*[\dA-Va-z]+)*(?:(\.)[\dA-Va-z](?:_*[\dA-Va-z]+)*)?(?:(r)[\dA-Va-z](?:_*[\dA-Va-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(59r)[\dA-Wa-z](?:_*[\dA-Wa-z]+)*(?:(\.)[\dA-Wa-z](?:_*[\dA-Wa-z]+)*)?(?:(r)[\dA-Wa-z](?:_*[\dA-Wa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(59r)[\dA-Wa-z](?:_*[\dA-Wa-z]+)*(?:(\.)[\dA-Wa-z](?:_*[\dA-Wa-z]+)*)?(?:(r)[\dA-Wa-z](?:_*[\dA-Wa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(60r)[\dA-Xa-z](?:_*[\dA-Xa-z]+)*(?:(\.)[\dA-Xa-z](?:_*[\dA-Xa-z]+)*)?(?:(r)[\dA-Xa-z](?:_*[\dA-Xa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(60r)[\dA-Xa-z](?:_*[\dA-Xa-z]+)*(?:(\.)[\dA-Xa-z](?:_*[\dA-Xa-z]+)*)?(?:(r)[\dA-Xa-z](?:_*[\dA-Xa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(61r)[\dA-Ya-z](?:_*[\dA-Ya-z]+)*(?:(\.)[\dA-Ya-z](?:_*[\dA-Ya-z]+)*)?(?:(r)[\dA-Ya-z](?:_*[\dA-Ya-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(61r)[\dA-Ya-z](?:_*[\dA-Ya-z]+)*(?:(\.)[\dA-Ya-z](?:_*[\dA-Ya-z]+)*)?(?:(r)[\dA-Ya-z](?:_*[\dA-Ya-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(62r)[\dA-Za-z](?:_*[\dA-Za-z]+)*(?:(\.)[\dA-Za-z](?:_*[\dA-Za-z]+)*)?(?:(r)[\dA-Za-z](?:_*[\dA-Za-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(62r)[\dA-Za-z](?:_*[\dA-Za-z]+)*(?:(\.)[\dA-Za-z](?:_*[\dA-Za-z]+)*)?(?:(r)[\dA-Za-z](?:_*[\dA-Za-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(63r)[\dA-Za-z\xFE](?:_*[\dA-Za-z\xFE]+)*(?:(\.)[\dA-Za-z\xFE](?:_*[\dA-Za-z\xFE]+)*)?(?:(r)[\dA-Za-z\xFE](?:_*[\dA-Za-z\xFE]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(63r)[\dA-Za-zþ](?:_*[\dA-Za-zþ]+)*(?:(\.)[\dA-Za-zþ](?:_*[\dA-Za-zþ]+)*)?(?:(r)[\dA-Za-zþ](?:_*[\dA-Za-zþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
-      - match: \s*\b(64r)[\dA-Za-z\xDE\xFE](?:_*[\dA-Za-z\xDE\xFE]+)*(?:(\.)[\dA-Za-z\xDE\xFE](?:_*[\dA-Za-z\xDE\xFE]+)*)?(?:(r)[\dA-Za-z\xDE\xFE](?:_*[\dA-Za-z\xDE\xFE]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+      - match: (?i)\s*\b(64r)[\dA-Za-zÞþ](?:_*[\dA-Za-zÞþ]+)*(?:(\.)[\dA-Za-zÞþ](?:_*[\dA-Za-zÞþ]+)*)?(?:(r)[\dA-Za-zÞþ](?:_*[\dA-Za-zÞþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
         captures: *multi-radix
 
   strings:
