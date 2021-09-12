@@ -20,7 +20,12 @@ information_for_contributors:
       - |
         Only _ out of all Unicode 'Pc' symbols are considered letters.
         The rest are considered operator characters.
-      - Add YAML/Bash unquoted literals
+      - |
+        Add YAML/Bash unquoted string literals:
+        \| begins a raw string literal;
+        \> begins a escaped string literal; and
+        \< begins a regular expression literal.
+        \ begins an unquoted string literal.
 
   - Bugs:
       - |
@@ -34,7 +39,7 @@ information_for_contributors:
 
   - To-do:
       - Add object/list/map destructuring syntax
-      - Add color, date/time, advanced numeric literals and more.
+      - Add color, date/time,
 
   - Doing:
       - Add standard library stuff (the bulk of this grammar)
@@ -220,7 +225,7 @@ repository:
         name: punctuation.separator.decimal.period.saga
       - match: |-
           (?ix)\s*\b
-          ((?:[2-9]|[1-9]\d+)r)
+          ((?:[2-9]|[1-9]\d+)b)
           (?:\p{alnum}+(?:_*\p{alnum}+)*)
           (?:(\.)\p{alnum}+(?:_*\p{alnum}+)*)?
           (?:(r)\p{alnum}+(?:_*\p{alnum}+)*)?
@@ -233,7 +238,7 @@ repository:
           <<: *number-literal
       - match: |-
           (?ix)\s*\b
-          ((?:[2-9]|[1-9]\d+)r)
+          ((?:[2-9]|[1-9]\d+)b)
           (?:\p{alnum}+(?:_*\p{alnum}+)*)?
           (?:(\.)\p{alnum}+(?:_*\p{alnum}+)*)
           (?:(r)\p{alnum}+(?:_*\p{alnum}+)*)?
