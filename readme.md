@@ -1,6 +1,6 @@
 # Saga
 
-> JavaScript's twin.
+> Yet another JavaScript-like language with a Pythonic syntax.
 
 Saga is a new programing language designed to replace JavaScript, getting rid of its weird syntax or runtime behavior, replacing it with a host of new syntax and powerful features. Designed to be easy to write and still easy to comprehend, Saga allows you to write expressive, type-safe and performant code devoid of repetitive boilerplate.
 
