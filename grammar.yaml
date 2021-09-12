@@ -84,7 +84,8 @@ define:
     |try|retry|throw|raise|catch|rescue|finally
     |with|ref|defer|refer|show|hide|enter|exit
     |then|begin|end|debug|check|assert
-    |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+    |break|continue|halt|skip
+    |(?:return|give|await|yield|throw|raise)s?
     |yield\b\s*\bfrom|import|export|show|hide
     |from|where|join|equals|[io]nto|order
     |take|drop|fold|scan|select|use|using
@@ -181,12 +182,12 @@ repository:
 
   literals:
     patterns:
-      - include: "#symbols"
-      - include: "#constants"
-      - include: "#numbers"
       - include: "#regexps"
       - include: "#strings-unquoted"
       - include: "#strings-quoted"
+      - include: "#symbols"
+      - include: "#numbers"
+      - include: "#constants"
 
   constants:
     patterns:
@@ -404,260 +405,6 @@ repository:
           5: {name: constant.numeric.other.density.saga}
           6: {name: storage.type.numeric.saga}
 
-  multi-radix:
-    patterns:
-      - match: (?i)\s*\b(2r)(?:[01]+(?:_?[01]+)*)(?:(\.)[01]+(?:_?[01]+)*)?(?:(r)[01]+(?:_?[01]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(2r)(?:[01]+(?:_?[01]+)*)?(?:(\.)[01]+(?:_?[01]+)*)(?:(r)[01]+(?:_?[01]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(3r)(?:[0-2]+(?:_?[0-2]+)*)(?:(\.)[0-2]+(?:_?[0-2]+)*)?(?:(r)[0-2]+(?:_?[0-2]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(3r)(?:[0-2]+(?:_?[0-2]+)*)?(?:(\.)[0-2]+(?:_?[0-2]+)*)(?:(r)[0-2]+(?:_?[0-2]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(4r)(?:[0-3]+(?:_?[0-3]+)*)(?:(\.)[0-3]+(?:_?[0-3]+)*)?(?:(r)[0-3]+(?:_?[0-3]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(4r)(?:[0-3]+(?:_?[0-3]+)*)?(?:(\.)[0-3]+(?:_?[0-3]+)*)(?:(r)[0-3]+(?:_?[0-3]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(5r)(?:[0-4]+(?:_?[0-4]+)*)(?:(\.)[0-4]+(?:_?[0-4]+)*)?(?:(r)[0-4]+(?:_?[0-4]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(5r)(?:[0-4]+(?:_?[0-4]+)*)?(?:(\.)[0-4]+(?:_?[0-4]+)*)(?:(r)[0-4]+(?:_?[0-4]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(6r)(?:[0-5]+(?:_?[0-5]+)*)(?:(\.)[0-5]+(?:_?[0-5]+)*)?(?:(r)[0-5]+(?:_?[0-5]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(6r)(?:[0-5]+(?:_?[0-5]+)*)?(?:(\.)[0-5]+(?:_?[0-5]+)*)(?:(r)[0-5]+(?:_?[0-5]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(7r)(?:[0-6]+(?:_?[0-6]+)*)(?:(\.)[0-6]+(?:_?[0-6]+)*)?(?:(r)[0-6]+(?:_?[0-6]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(7r)(?:[0-6]+(?:_?[0-6]+)*)?(?:(\.)[0-6]+(?:_?[0-6]+)*)(?:(r)[0-6]+(?:_?[0-6]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(8r)(?:[0-7]+(?:_?[0-7]+)*)(?:(\.)[0-7]+(?:_?[0-7]+)*)?(?:(r)[0-7]+(?:_?[0-7]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(8r)(?:[0-7]+(?:_?[0-7]+)*)?(?:(\.)[0-7]+(?:_?[0-7]+)*)(?:(r)[0-7]+(?:_?[0-7]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(9r)(?:[0-8]+(?:_?[0-8]+)*)(?:(\.)[0-8]+(?:_?[0-8]+)*)?(?:(r)[0-8]+(?:_?[0-8]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(9r)(?:[0-8]+(?:_?[0-8]+)*)?(?:(\.)[0-8]+(?:_?[0-8]+)*)(?:(r)[0-8]+(?:_?[0-8]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(10r)(?:[\d]+(?:_?[\d]+)*)(?:(\.)[\d]+(?:_?[\d]+)*)?(?:(r)[\d]+(?:_?[\d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(10r)(?:[\d]+(?:_?[\d]+)*)?(?:(\.)[\d]+(?:_?[\d]+)*)(?:(r)[\d]+(?:_?[\d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(11r)(?:[\da]+(?:_?[\da]+)*)(?:(\.)[\da]+(?:_?[\da]+)*)?(?:(r)[\da]+(?:_?[\da]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(11r)(?:[\da]+(?:_?[\da]+)*)?(?:(\.)[\da]+(?:_?[\da]+)*)(?:(r)[\da]+(?:_?[\da]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(12r)(?:[\dab]+(?:_?[\dab]+)*)(?:(\.)[\dab]+(?:_?[\dab]+)*)?(?:(r)[\dab]+(?:_?[\dab]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(12r)(?:[\dab]+(?:_?[\dab]+)*)?(?:(\.)[\dab]+(?:_?[\dab]+)*)(?:(r)[\dab]+(?:_?[\dab]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(13r)(?:[\da-c]+(?:_?[\da-c]+)*)(?:(\.)[\da-c]+(?:_?[\da-c]+)*)?(?:(r)[\da-c]+(?:_?[\da-c]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(13r)(?:[\da-c]+(?:_?[\da-c]+)*)?(?:(\.)[\da-c]+(?:_?[\da-c]+)*)(?:(r)[\da-c]+(?:_?[\da-c]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(14r)(?:[\da-d]+(?:_?[\da-d]+)*)(?:(\.)[\da-d]+(?:_?[\da-d]+)*)?(?:(r)[\da-d]+(?:_?[\da-d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(14r)(?:[\da-d]+(?:_?[\da-d]+)*)?(?:(\.)[\da-d]+(?:_?[\da-d]+)*)(?:(r)[\da-d]+(?:_?[\da-d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(15r)(?:[\da-e]+(?:_?[\da-e]+)*)(?:(\.)[\da-e]+(?:_?[\da-e]+)*)?(?:(r)[\da-e]+(?:_?[\da-e]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(15r)(?:[\da-e]+(?:_?[\da-e]+)*)?(?:(\.)[\da-e]+(?:_?[\da-e]+)*)(?:(r)[\da-e]+(?:_?[\da-e]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(16r)(?:[\da-f]+(?:_?[\da-f]+)*)(?:(\.)[\da-f]+(?:_?[\da-f]+)*)?(?:(r)[\da-f]+(?:_?[\da-f]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(16r)(?:[\da-f]+(?:_?[\da-f]+)*)?(?:(\.)[\da-f]+(?:_?[\da-f]+)*)(?:(r)[\da-f]+(?:_?[\da-f]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(17r)(?:[\da-g]+(?:_?[\da-g]+)*)(?:(\.)[\da-g]+(?:_?[\da-g]+)*)?(?:(r)[\da-g]+(?:_?[\da-g]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(17r)(?:[\da-g]+(?:_?[\da-g]+)*)?(?:(\.)[\da-g]+(?:_?[\da-g]+)*)(?:(r)[\da-g]+(?:_?[\da-g]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(18r)(?:[\da-h]+(?:_?[\da-h]+)*)(?:(\.)[\da-h]+(?:_?[\da-h]+)*)?(?:(r)[\da-h]+(?:_?[\da-h]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(18r)(?:[\da-h]+(?:_?[\da-h]+)*)?(?:(\.)[\da-h]+(?:_?[\da-h]+)*)(?:(r)[\da-h]+(?:_?[\da-h]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(19r)(?:[\da-i]+(?:_?[\da-i]+)*)(?:(\.)[\da-i]+(?:_?[\da-i]+)*)?(?:(r)[\da-i]+(?:_?[\da-i]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(19r)(?:[\da-i]+(?:_?[\da-i]+)*)?(?:(\.)[\da-i]+(?:_?[\da-i]+)*)(?:(r)[\da-i]+(?:_?[\da-i]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(20r)(?:[\da-j]+(?:_?[\da-j]+)*)(?:(\.)[\da-j]+(?:_?[\da-j]+)*)?(?:(r)[\da-j]+(?:_?[\da-j]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(20r)(?:[\da-j]+(?:_?[\da-j]+)*)?(?:(\.)[\da-j]+(?:_?[\da-j]+)*)(?:(r)[\da-j]+(?:_?[\da-j]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(21r)(?:[\da-k]+(?:_?[\da-k]+)*)(?:(\.)[\da-k]+(?:_?[\da-k]+)*)?(?:(r)[\da-k]+(?:_?[\da-k]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(21r)(?:[\da-k]+(?:_?[\da-k]+)*)?(?:(\.)[\da-k]+(?:_?[\da-k]+)*)(?:(r)[\da-k]+(?:_?[\da-k]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(22r)(?:[\da-l]+(?:_?[\da-l]+)*)(?:(\.)[\da-l]+(?:_?[\da-l]+)*)?(?:(r)[\da-l]+(?:_?[\da-l]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(22r)(?:[\da-l]+(?:_?[\da-l]+)*)?(?:(\.)[\da-l]+(?:_?[\da-l]+)*)(?:(r)[\da-l]+(?:_?[\da-l]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(23r)(?:[\da-m]+(?:_?[\da-m]+)*)(?:(\.)[\da-m]+(?:_?[\da-m]+)*)?(?:(r)[\da-m]+(?:_?[\da-m]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(23r)(?:[\da-m]+(?:_?[\da-m]+)*)?(?:(\.)[\da-m]+(?:_?[\da-m]+)*)(?:(r)[\da-m]+(?:_?[\da-m]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(24r)(?:[\da-n]+(?:_?[\da-n]+)*)(?:(\.)[\da-n]+(?:_?[\da-n]+)*)?(?:(r)[\da-n]+(?:_?[\da-n]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(24r)(?:[\da-n]+(?:_?[\da-n]+)*)?(?:(\.)[\da-n]+(?:_?[\da-n]+)*)(?:(r)[\da-n]+(?:_?[\da-n]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(25r)(?:[\da-o]+(?:_?[\da-o]+)*)(?:(\.)[\da-o]+(?:_?[\da-o]+)*)?(?:(r)[\da-o]+(?:_?[\da-o]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(25r)(?:[\da-o]+(?:_?[\da-o]+)*)?(?:(\.)[\da-o]+(?:_?[\da-o]+)*)(?:(r)[\da-o]+(?:_?[\da-o]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(26r)(?:[\da-p]+(?:_?[\da-p]+)*)(?:(\.)[\da-p]+(?:_?[\da-p]+)*)?(?:(r)[\da-p]+(?:_?[\da-p]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(26r)(?:[\da-p]+(?:_?[\da-p]+)*)?(?:(\.)[\da-p]+(?:_?[\da-p]+)*)(?:(r)[\da-p]+(?:_?[\da-p]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(27r)(?:[\da-q]+(?:_?[\da-q]+)*)(?:(\.)[\da-q]+(?:_?[\da-q]+)*)?(?:(r)[\da-q]+(?:_?[\da-q]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(27r)(?:[\da-q]+(?:_?[\da-q]+)*)?(?:(\.)[\da-q]+(?:_?[\da-q]+)*)(?:(r)[\da-q]+(?:_?[\da-q]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(28r)(?:[\da-r]+(?:_?[\da-r]+)*)(?:(\.)[\da-r]+(?:_?[\da-r]+)*)?(?:(r)[\da-r]+(?:_?[\da-r]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(28r)(?:[\da-r]+(?:_?[\da-r]+)*)?(?:(\.)[\da-r]+(?:_?[\da-r]+)*)(?:(r)[\da-r]+(?:_?[\da-r]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(29r)(?:[\da-s]+(?:_?[\da-s]+)*)(?:(\.)[\da-s]+(?:_?[\da-s]+)*)?(?:(r)[\da-s]+(?:_?[\da-s]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(29r)(?:[\da-s]+(?:_?[\da-s]+)*)?(?:(\.)[\da-s]+(?:_?[\da-s]+)*)(?:(r)[\da-s]+(?:_?[\da-s]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(30r)(?:[\da-t]+(?:_?[\da-t]+)*)(?:(\.)[\da-t]+(?:_?[\da-t]+)*)?(?:(r)[\da-t]+(?:_?[\da-t]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(30r)(?:[\da-t]+(?:_?[\da-t]+)*)?(?:(\.)[\da-t]+(?:_?[\da-t]+)*)(?:(r)[\da-t]+(?:_?[\da-t]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(31r)(?:[\da-u]+(?:_?[\da-u]+)*)(?:(\.)[\da-u]+(?:_?[\da-u]+)*)?(?:(r)[\da-u]+(?:_?[\da-u]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(31r)(?:[\da-u]+(?:_?[\da-u]+)*)?(?:(\.)[\da-u]+(?:_?[\da-u]+)*)(?:(r)[\da-u]+(?:_?[\da-u]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(32r)(?:[\da-v]+(?:_?[\da-v]+)*)(?:(\.)[\da-v]+(?:_?[\da-v]+)*)?(?:(r)[\da-v]+(?:_?[\da-v]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(32r)(?:[\da-v]+(?:_?[\da-v]+)*)?(?:(\.)[\da-v]+(?:_?[\da-v]+)*)(?:(r)[\da-v]+(?:_?[\da-v]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(33r)(?:[\da-w]+(?:_?[\da-w]+)*)(?:(\.)[\da-w]+(?:_?[\da-w]+)*)?(?:(r)[\da-w]+(?:_?[\da-w]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(33r)(?:[\da-w]+(?:_?[\da-w]+)*)?(?:(\.)[\da-w]+(?:_?[\da-w]+)*)(?:(r)[\da-w]+(?:_?[\da-w]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(34r)(?:[\da-x]+(?:_?[\da-x]+)*)(?:(\.)[\da-x]+(?:_?[\da-x]+)*)?(?:(r)[\da-x]+(?:_?[\da-x]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(34r)(?:[\da-x]+(?:_?[\da-x]+)*)?(?:(\.)[\da-x]+(?:_?[\da-x]+)*)(?:(r)[\da-x]+(?:_?[\da-x]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(35r)(?:[\da-y]+(?:_?[\da-y]+)*)(?:(\.)[\da-y]+(?:_?[\da-y]+)*)?(?:(r)[\da-y]+(?:_?[\da-y]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(35r)(?:[\da-y]+(?:_?[\da-y]+)*)?(?:(\.)[\da-y]+(?:_?[\da-y]+)*)(?:(r)[\da-y]+(?:_?[\da-y]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(36r)(?:[\da-z]+(?:_?[\da-z]+)*)(?:(\.)[\da-z]+(?:_?[\da-z]+)*)?(?:(r)[\da-z]+(?:_?[\da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(36r)(?:[\da-z]+(?:_?[\da-z]+)*)?(?:(\.)[\da-z]+(?:_?[\da-z]+)*)(?:(r)[\da-z]+(?:_?[\da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(37r)(?:[\dAa-z]+(?:_?[\dAa-z]+)*)(?:(\.)[\dAa-z]+(?:_?[\dAa-z]+)*)?(?:(r)[\dAa-z]+(?:_?[\dAa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(37r)(?:[\dAa-z]+(?:_?[\dAa-z]+)*)?(?:(\.)[\dAa-z]+(?:_?[\dAa-z]+)*)(?:(r)[\dAa-z]+(?:_?[\dAa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(38r)(?:[\dABa-z]+(?:_?[\dABa-z]+)*)(?:(\.)[\dABa-z]+(?:_?[\dABa-z]+)*)?(?:(r)[\dABa-z]+(?:_?[\dABa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(38r)(?:[\dABa-z]+(?:_?[\dABa-z]+)*)?(?:(\.)[\dABa-z]+(?:_?[\dABa-z]+)*)(?:(r)[\dABa-z]+(?:_?[\dABa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(39r)(?:[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)(?:(\.)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(?:(r)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(39r)(?:[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(?:(\.)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)(?:(r)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(40r)(?:[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)(?:(\.)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(?:(r)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(40r)(?:[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(?:(\.)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)(?:(r)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(41r)(?:[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)(?:(\.)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(?:(r)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(41r)(?:[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(?:(\.)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)(?:(r)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(42r)(?:[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)(?:(\.)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(?:(r)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(42r)(?:[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(?:(\.)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)(?:(r)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(43r)(?:[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)(?:(\.)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(?:(r)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(43r)(?:[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(?:(\.)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)(?:(r)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(44r)(?:[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)(?:(\.)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(?:(r)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(44r)(?:[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(?:(\.)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)(?:(r)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(45r)(?:[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)(?:(\.)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(?:(r)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(45r)(?:[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(?:(\.)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)(?:(r)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(46r)(?:[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)(?:(\.)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(?:(r)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(46r)(?:[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(?:(\.)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)(?:(r)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(47r)(?:[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)(?:(\.)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(?:(r)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(47r)(?:[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(?:(\.)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)(?:(r)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(48r)(?:[\dA-La-z]+(?:_?[\dA-La-z]+)*)(?:(\.)[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(?:(r)[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(48r)(?:[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(?:(\.)[\dA-La-z]+(?:_?[\dA-La-z]+)*)(?:(r)[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(49r)(?:[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)(?:(\.)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(?:(r)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(49r)(?:[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(?:(\.)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)(?:(r)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(50r)(?:[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)(?:(\.)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(?:(r)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(50r)(?:[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(?:(\.)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)(?:(r)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(51r)(?:[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)(?:(\.)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(?:(r)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(51r)(?:[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(?:(\.)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)(?:(r)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(52r)(?:[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)(?:(\.)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(?:(r)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(52r)(?:[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(?:(\.)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)(?:(r)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(53r)(?:[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)(?:(\.)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(?:(r)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(53r)(?:[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(?:(\.)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)(?:(r)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(54r)(?:[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)(?:(\.)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(?:(r)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(54r)(?:[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(?:(\.)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)(?:(r)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(55r)(?:[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)(?:(\.)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(?:(r)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(55r)(?:[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(?:(\.)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)(?:(r)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(56r)(?:[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)(?:(\.)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(?:(r)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(56r)(?:[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(?:(\.)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)(?:(r)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(57r)(?:[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)(?:(\.)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(?:(r)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(57r)(?:[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(?:(\.)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)(?:(r)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(58r)(?:[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)(?:(\.)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(?:(r)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(58r)(?:[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(?:(\.)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)(?:(r)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(59r)(?:[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)(?:(\.)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(?:(r)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(59r)(?:[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(?:(\.)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)(?:(r)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(60r)(?:[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)(?:(\.)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(?:(r)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(60r)(?:[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(?:(\.)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)(?:(r)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(61r)(?:[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)(?:(\.)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(?:(r)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(61r)(?:[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(?:(\.)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)(?:(r)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(62r)(?:[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)(?:(\.)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(?:(r)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(62r)(?:[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(?:(\.)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)(?:(r)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(63r)(?:[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)(?:(\.)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(?:(r)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(63r)(?:[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(?:(\.)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)(?:(r)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(64r)(?:[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)(?:(\.)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(?:(r)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
-      - match: (?i)\s*\b(64r)(?:[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(?:(\.)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)(?:(r)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
-        captures: *multi-radix
   strings-quoted:
     patterns:
       - comment: single quoted raw string
@@ -889,7 +636,8 @@ repository:
           |try|retry|throw|raise|catch|rescue|finally
           |with|ref|defer|refer|show|hide|enter|exit
           |then|begin|end|debug|check|assert
-          |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+          |break|continue|halt|skip
+          |(?:return|give|await|yield|throw|raise)s?
           |yield\b\s*\bfrom|import|export|show|hide
           |from|where|join|equals|[io]nto|order
           |take|drop|fold|scan|select|use|using
@@ -1655,7 +1403,8 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip
+      |(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -1683,7 +1432,8 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip
+      |(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -1717,7 +1467,8 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip
+      |(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -2056,7 +1807,8 @@ repository:
               |try|retry|throw|raise|catch|rescue|finally
               |with|ref|defer|refer|show|hide|enter|exit
               |then|begin|end|debug|check|assert
-              |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+              |break|continue|halt|skip
+              |(?:return|give|await|yield|throw|raise)s?
               |yield\b\s*\bfrom|import|export|show|hide
               |from|where|join|equals|[io]nto|order
               |take|drop|fold|scan|select|use|using
@@ -2095,7 +1847,8 @@ repository:
                   |try|retry|throw|raise|catch|rescue|finally
                   |with|ref|defer|refer|show|hide|enter|exit
                   |then|begin|end|debug|check|assert
-                  |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+                  |break|continue|halt|skip
+                  |(?:return|give|await|yield|throw|raise)s?
                   |yield\b\s*\bfrom|import|export|show|hide
                   |from|where|join|equals|[io]nto|order
                   |take|drop|fold|scan|select|use|using
@@ -2127,7 +1880,8 @@ repository:
                   |try|retry|throw|raise|catch|rescue|finally
                   |with|ref|defer|refer|show|hide|enter|exit
                   |then|begin|end|debug|check|assert
-                  |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+                  |break|continue|halt|skip
+                  |(?:return|give|await|yield|throw|raise)s?
                   |yield\b\s*\bfrom|import|export|show|hide
                   |from|where|join|equals|[io]nto|order
                   |take|drop|fold|scan|select|use|using
@@ -2159,7 +1913,8 @@ repository:
                   |try|retry|throw|raise|catch|rescue|finally
                   |with|ref|defer|refer|show|hide|enter|exit
                   |then|begin|end|debug|check|assert
-                  |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+                  |break|continue|halt|skip
+                  |(?:return|give|await|yield|throw|raise)s?
                   |yield\b\s*\bfrom|import|export|show|hide
                   |from|where|join|equals|[io]nto|order
                   |take|drop|fold|scan|select|use|using
@@ -2210,9 +1965,7 @@ repository:
               - include: $self
 
   constant-types:
-    - include: "#numbers"
-    - include: "#strings"
-    - include: "#regexps"
+    - include: "#literals"
 
   custom-types:
     comment: |
@@ -2244,7 +1997,8 @@ repository:
       |try|retry|throw|raise|catch|rescue|finally
       |with|ref|defer|refer|show|hide|enter|exit
       |then|begin|end|debug|check|assert
-      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+      |break|continue|halt|skip
+      |(?:return|give|await|yield|throw|raise)s?
       |yield\b\s*\bfrom|import|export|show|hide
       |from|where|join|equals|[io]nto|order
       |take|drop|fold|scan|select|use|using
@@ -2307,6 +2061,7 @@ repository:
             captures:
               1: {name: punctuation.definition.mapping.saga}
             patterns:
+              - include: "#labels"
               - include: "#types"
               - include: $self
           - begin: \s*(\{)
@@ -2314,6 +2069,7 @@ repository:
             captures:
               1: {name: punctuation.definition.dictionary.saga}
             patterns:
+              - include: "#labels"
               - include: "#types"
               - include: $self
 
@@ -3639,3 +3395,259 @@ repository:
       - comment: error classes (ending with Error)
         match: (?x)\s*\b(((\p{lu}\p{ll}*)+)Error)\b
         name: support.class.error.saga
+
+
+  multi-radix:
+    patterns:
+      - match: (?i)\s*\b(2r)(?:[01]+(?:_?[01]+)*)(?:(\.)[01]+(?:_?[01]+)*)?(?:(r)[01]+(?:_?[01]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(2r)(?:[01]+(?:_?[01]+)*)?(?:(\.)[01]+(?:_?[01]+)*)(?:(r)[01]+(?:_?[01]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(3r)(?:[0-2]+(?:_?[0-2]+)*)(?:(\.)[0-2]+(?:_?[0-2]+)*)?(?:(r)[0-2]+(?:_?[0-2]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(3r)(?:[0-2]+(?:_?[0-2]+)*)?(?:(\.)[0-2]+(?:_?[0-2]+)*)(?:(r)[0-2]+(?:_?[0-2]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(4r)(?:[0-3]+(?:_?[0-3]+)*)(?:(\.)[0-3]+(?:_?[0-3]+)*)?(?:(r)[0-3]+(?:_?[0-3]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(4r)(?:[0-3]+(?:_?[0-3]+)*)?(?:(\.)[0-3]+(?:_?[0-3]+)*)(?:(r)[0-3]+(?:_?[0-3]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(5r)(?:[0-4]+(?:_?[0-4]+)*)(?:(\.)[0-4]+(?:_?[0-4]+)*)?(?:(r)[0-4]+(?:_?[0-4]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(5r)(?:[0-4]+(?:_?[0-4]+)*)?(?:(\.)[0-4]+(?:_?[0-4]+)*)(?:(r)[0-4]+(?:_?[0-4]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(6r)(?:[0-5]+(?:_?[0-5]+)*)(?:(\.)[0-5]+(?:_?[0-5]+)*)?(?:(r)[0-5]+(?:_?[0-5]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(6r)(?:[0-5]+(?:_?[0-5]+)*)?(?:(\.)[0-5]+(?:_?[0-5]+)*)(?:(r)[0-5]+(?:_?[0-5]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(7r)(?:[0-6]+(?:_?[0-6]+)*)(?:(\.)[0-6]+(?:_?[0-6]+)*)?(?:(r)[0-6]+(?:_?[0-6]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(7r)(?:[0-6]+(?:_?[0-6]+)*)?(?:(\.)[0-6]+(?:_?[0-6]+)*)(?:(r)[0-6]+(?:_?[0-6]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(8r)(?:[0-7]+(?:_?[0-7]+)*)(?:(\.)[0-7]+(?:_?[0-7]+)*)?(?:(r)[0-7]+(?:_?[0-7]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(8r)(?:[0-7]+(?:_?[0-7]+)*)?(?:(\.)[0-7]+(?:_?[0-7]+)*)(?:(r)[0-7]+(?:_?[0-7]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(9r)(?:[0-8]+(?:_?[0-8]+)*)(?:(\.)[0-8]+(?:_?[0-8]+)*)?(?:(r)[0-8]+(?:_?[0-8]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(9r)(?:[0-8]+(?:_?[0-8]+)*)?(?:(\.)[0-8]+(?:_?[0-8]+)*)(?:(r)[0-8]+(?:_?[0-8]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(10r)(?:[\d]+(?:_?[\d]+)*)(?:(\.)[\d]+(?:_?[\d]+)*)?(?:(r)[\d]+(?:_?[\d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(10r)(?:[\d]+(?:_?[\d]+)*)?(?:(\.)[\d]+(?:_?[\d]+)*)(?:(r)[\d]+(?:_?[\d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(11r)(?:[\da]+(?:_?[\da]+)*)(?:(\.)[\da]+(?:_?[\da]+)*)?(?:(r)[\da]+(?:_?[\da]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(11r)(?:[\da]+(?:_?[\da]+)*)?(?:(\.)[\da]+(?:_?[\da]+)*)(?:(r)[\da]+(?:_?[\da]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(12r)(?:[\dab]+(?:_?[\dab]+)*)(?:(\.)[\dab]+(?:_?[\dab]+)*)?(?:(r)[\dab]+(?:_?[\dab]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(12r)(?:[\dab]+(?:_?[\dab]+)*)?(?:(\.)[\dab]+(?:_?[\dab]+)*)(?:(r)[\dab]+(?:_?[\dab]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(13r)(?:[\da-c]+(?:_?[\da-c]+)*)(?:(\.)[\da-c]+(?:_?[\da-c]+)*)?(?:(r)[\da-c]+(?:_?[\da-c]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(13r)(?:[\da-c]+(?:_?[\da-c]+)*)?(?:(\.)[\da-c]+(?:_?[\da-c]+)*)(?:(r)[\da-c]+(?:_?[\da-c]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(14r)(?:[\da-d]+(?:_?[\da-d]+)*)(?:(\.)[\da-d]+(?:_?[\da-d]+)*)?(?:(r)[\da-d]+(?:_?[\da-d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(14r)(?:[\da-d]+(?:_?[\da-d]+)*)?(?:(\.)[\da-d]+(?:_?[\da-d]+)*)(?:(r)[\da-d]+(?:_?[\da-d]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(15r)(?:[\da-e]+(?:_?[\da-e]+)*)(?:(\.)[\da-e]+(?:_?[\da-e]+)*)?(?:(r)[\da-e]+(?:_?[\da-e]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(15r)(?:[\da-e]+(?:_?[\da-e]+)*)?(?:(\.)[\da-e]+(?:_?[\da-e]+)*)(?:(r)[\da-e]+(?:_?[\da-e]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(16r)(?:[\da-f]+(?:_?[\da-f]+)*)(?:(\.)[\da-f]+(?:_?[\da-f]+)*)?(?:(r)[\da-f]+(?:_?[\da-f]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(16r)(?:[\da-f]+(?:_?[\da-f]+)*)?(?:(\.)[\da-f]+(?:_?[\da-f]+)*)(?:(r)[\da-f]+(?:_?[\da-f]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(17r)(?:[\da-g]+(?:_?[\da-g]+)*)(?:(\.)[\da-g]+(?:_?[\da-g]+)*)?(?:(r)[\da-g]+(?:_?[\da-g]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(17r)(?:[\da-g]+(?:_?[\da-g]+)*)?(?:(\.)[\da-g]+(?:_?[\da-g]+)*)(?:(r)[\da-g]+(?:_?[\da-g]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(18r)(?:[\da-h]+(?:_?[\da-h]+)*)(?:(\.)[\da-h]+(?:_?[\da-h]+)*)?(?:(r)[\da-h]+(?:_?[\da-h]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(18r)(?:[\da-h]+(?:_?[\da-h]+)*)?(?:(\.)[\da-h]+(?:_?[\da-h]+)*)(?:(r)[\da-h]+(?:_?[\da-h]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(19r)(?:[\da-i]+(?:_?[\da-i]+)*)(?:(\.)[\da-i]+(?:_?[\da-i]+)*)?(?:(r)[\da-i]+(?:_?[\da-i]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(19r)(?:[\da-i]+(?:_?[\da-i]+)*)?(?:(\.)[\da-i]+(?:_?[\da-i]+)*)(?:(r)[\da-i]+(?:_?[\da-i]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(20r)(?:[\da-j]+(?:_?[\da-j]+)*)(?:(\.)[\da-j]+(?:_?[\da-j]+)*)?(?:(r)[\da-j]+(?:_?[\da-j]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(20r)(?:[\da-j]+(?:_?[\da-j]+)*)?(?:(\.)[\da-j]+(?:_?[\da-j]+)*)(?:(r)[\da-j]+(?:_?[\da-j]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(21r)(?:[\da-k]+(?:_?[\da-k]+)*)(?:(\.)[\da-k]+(?:_?[\da-k]+)*)?(?:(r)[\da-k]+(?:_?[\da-k]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(21r)(?:[\da-k]+(?:_?[\da-k]+)*)?(?:(\.)[\da-k]+(?:_?[\da-k]+)*)(?:(r)[\da-k]+(?:_?[\da-k]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(22r)(?:[\da-l]+(?:_?[\da-l]+)*)(?:(\.)[\da-l]+(?:_?[\da-l]+)*)?(?:(r)[\da-l]+(?:_?[\da-l]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(22r)(?:[\da-l]+(?:_?[\da-l]+)*)?(?:(\.)[\da-l]+(?:_?[\da-l]+)*)(?:(r)[\da-l]+(?:_?[\da-l]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(23r)(?:[\da-m]+(?:_?[\da-m]+)*)(?:(\.)[\da-m]+(?:_?[\da-m]+)*)?(?:(r)[\da-m]+(?:_?[\da-m]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(23r)(?:[\da-m]+(?:_?[\da-m]+)*)?(?:(\.)[\da-m]+(?:_?[\da-m]+)*)(?:(r)[\da-m]+(?:_?[\da-m]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(24r)(?:[\da-n]+(?:_?[\da-n]+)*)(?:(\.)[\da-n]+(?:_?[\da-n]+)*)?(?:(r)[\da-n]+(?:_?[\da-n]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(24r)(?:[\da-n]+(?:_?[\da-n]+)*)?(?:(\.)[\da-n]+(?:_?[\da-n]+)*)(?:(r)[\da-n]+(?:_?[\da-n]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(25r)(?:[\da-o]+(?:_?[\da-o]+)*)(?:(\.)[\da-o]+(?:_?[\da-o]+)*)?(?:(r)[\da-o]+(?:_?[\da-o]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(25r)(?:[\da-o]+(?:_?[\da-o]+)*)?(?:(\.)[\da-o]+(?:_?[\da-o]+)*)(?:(r)[\da-o]+(?:_?[\da-o]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(26r)(?:[\da-p]+(?:_?[\da-p]+)*)(?:(\.)[\da-p]+(?:_?[\da-p]+)*)?(?:(r)[\da-p]+(?:_?[\da-p]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(26r)(?:[\da-p]+(?:_?[\da-p]+)*)?(?:(\.)[\da-p]+(?:_?[\da-p]+)*)(?:(r)[\da-p]+(?:_?[\da-p]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(27r)(?:[\da-q]+(?:_?[\da-q]+)*)(?:(\.)[\da-q]+(?:_?[\da-q]+)*)?(?:(r)[\da-q]+(?:_?[\da-q]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(27r)(?:[\da-q]+(?:_?[\da-q]+)*)?(?:(\.)[\da-q]+(?:_?[\da-q]+)*)(?:(r)[\da-q]+(?:_?[\da-q]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(28r)(?:[\da-r]+(?:_?[\da-r]+)*)(?:(\.)[\da-r]+(?:_?[\da-r]+)*)?(?:(r)[\da-r]+(?:_?[\da-r]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(28r)(?:[\da-r]+(?:_?[\da-r]+)*)?(?:(\.)[\da-r]+(?:_?[\da-r]+)*)(?:(r)[\da-r]+(?:_?[\da-r]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(29r)(?:[\da-s]+(?:_?[\da-s]+)*)(?:(\.)[\da-s]+(?:_?[\da-s]+)*)?(?:(r)[\da-s]+(?:_?[\da-s]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(29r)(?:[\da-s]+(?:_?[\da-s]+)*)?(?:(\.)[\da-s]+(?:_?[\da-s]+)*)(?:(r)[\da-s]+(?:_?[\da-s]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(30r)(?:[\da-t]+(?:_?[\da-t]+)*)(?:(\.)[\da-t]+(?:_?[\da-t]+)*)?(?:(r)[\da-t]+(?:_?[\da-t]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(30r)(?:[\da-t]+(?:_?[\da-t]+)*)?(?:(\.)[\da-t]+(?:_?[\da-t]+)*)(?:(r)[\da-t]+(?:_?[\da-t]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(31r)(?:[\da-u]+(?:_?[\da-u]+)*)(?:(\.)[\da-u]+(?:_?[\da-u]+)*)?(?:(r)[\da-u]+(?:_?[\da-u]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(31r)(?:[\da-u]+(?:_?[\da-u]+)*)?(?:(\.)[\da-u]+(?:_?[\da-u]+)*)(?:(r)[\da-u]+(?:_?[\da-u]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(32r)(?:[\da-v]+(?:_?[\da-v]+)*)(?:(\.)[\da-v]+(?:_?[\da-v]+)*)?(?:(r)[\da-v]+(?:_?[\da-v]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(32r)(?:[\da-v]+(?:_?[\da-v]+)*)?(?:(\.)[\da-v]+(?:_?[\da-v]+)*)(?:(r)[\da-v]+(?:_?[\da-v]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(33r)(?:[\da-w]+(?:_?[\da-w]+)*)(?:(\.)[\da-w]+(?:_?[\da-w]+)*)?(?:(r)[\da-w]+(?:_?[\da-w]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(33r)(?:[\da-w]+(?:_?[\da-w]+)*)?(?:(\.)[\da-w]+(?:_?[\da-w]+)*)(?:(r)[\da-w]+(?:_?[\da-w]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(34r)(?:[\da-x]+(?:_?[\da-x]+)*)(?:(\.)[\da-x]+(?:_?[\da-x]+)*)?(?:(r)[\da-x]+(?:_?[\da-x]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(34r)(?:[\da-x]+(?:_?[\da-x]+)*)?(?:(\.)[\da-x]+(?:_?[\da-x]+)*)(?:(r)[\da-x]+(?:_?[\da-x]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(35r)(?:[\da-y]+(?:_?[\da-y]+)*)(?:(\.)[\da-y]+(?:_?[\da-y]+)*)?(?:(r)[\da-y]+(?:_?[\da-y]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(35r)(?:[\da-y]+(?:_?[\da-y]+)*)?(?:(\.)[\da-y]+(?:_?[\da-y]+)*)(?:(r)[\da-y]+(?:_?[\da-y]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(36r)(?:[\da-z]+(?:_?[\da-z]+)*)(?:(\.)[\da-z]+(?:_?[\da-z]+)*)?(?:(r)[\da-z]+(?:_?[\da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(36r)(?:[\da-z]+(?:_?[\da-z]+)*)?(?:(\.)[\da-z]+(?:_?[\da-z]+)*)(?:(r)[\da-z]+(?:_?[\da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(37r)(?:[\dAa-z]+(?:_?[\dAa-z]+)*)(?:(\.)[\dAa-z]+(?:_?[\dAa-z]+)*)?(?:(r)[\dAa-z]+(?:_?[\dAa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(37r)(?:[\dAa-z]+(?:_?[\dAa-z]+)*)?(?:(\.)[\dAa-z]+(?:_?[\dAa-z]+)*)(?:(r)[\dAa-z]+(?:_?[\dAa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(38r)(?:[\dABa-z]+(?:_?[\dABa-z]+)*)(?:(\.)[\dABa-z]+(?:_?[\dABa-z]+)*)?(?:(r)[\dABa-z]+(?:_?[\dABa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(38r)(?:[\dABa-z]+(?:_?[\dABa-z]+)*)?(?:(\.)[\dABa-z]+(?:_?[\dABa-z]+)*)(?:(r)[\dABa-z]+(?:_?[\dABa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(39r)(?:[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)(?:(\.)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(?:(r)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(39r)(?:[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(?:(\.)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)(?:(r)[\dA-Ca-z]+(?:_?[\dA-Ca-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(40r)(?:[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)(?:(\.)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(?:(r)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(40r)(?:[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(?:(\.)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)(?:(r)[\dA-Da-z]+(?:_?[\dA-Da-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(41r)(?:[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)(?:(\.)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(?:(r)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(41r)(?:[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(?:(\.)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)(?:(r)[\dA-Ea-z]+(?:_?[\dA-Ea-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(42r)(?:[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)(?:(\.)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(?:(r)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(42r)(?:[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(?:(\.)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)(?:(r)[\dA-Fa-z]+(?:_?[\dA-Fa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(43r)(?:[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)(?:(\.)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(?:(r)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(43r)(?:[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(?:(\.)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)(?:(r)[\dA-Ga-z]+(?:_?[\dA-Ga-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(44r)(?:[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)(?:(\.)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(?:(r)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(44r)(?:[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(?:(\.)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)(?:(r)[\dA-Ha-z]+(?:_?[\dA-Ha-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(45r)(?:[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)(?:(\.)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(?:(r)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(45r)(?:[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(?:(\.)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)(?:(r)[\dA-Ia-z]+(?:_?[\dA-Ia-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(46r)(?:[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)(?:(\.)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(?:(r)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(46r)(?:[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(?:(\.)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)(?:(r)[\dA-Ja-z]+(?:_?[\dA-Ja-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(47r)(?:[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)(?:(\.)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(?:(r)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(47r)(?:[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(?:(\.)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)(?:(r)[\dA-Ka-z]+(?:_?[\dA-Ka-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(48r)(?:[\dA-La-z]+(?:_?[\dA-La-z]+)*)(?:(\.)[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(?:(r)[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(48r)(?:[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(?:(\.)[\dA-La-z]+(?:_?[\dA-La-z]+)*)(?:(r)[\dA-La-z]+(?:_?[\dA-La-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(49r)(?:[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)(?:(\.)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(?:(r)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(49r)(?:[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(?:(\.)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)(?:(r)[\dA-Ma-z]+(?:_?[\dA-Ma-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(50r)(?:[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)(?:(\.)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(?:(r)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(50r)(?:[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(?:(\.)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)(?:(r)[\dA-Na-z]+(?:_?[\dA-Na-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(51r)(?:[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)(?:(\.)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(?:(r)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(51r)(?:[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(?:(\.)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)(?:(r)[\dA-Oa-z]+(?:_?[\dA-Oa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(52r)(?:[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)(?:(\.)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(?:(r)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(52r)(?:[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(?:(\.)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)(?:(r)[\dA-Pa-z]+(?:_?[\dA-Pa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(53r)(?:[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)(?:(\.)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(?:(r)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(53r)(?:[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(?:(\.)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)(?:(r)[\dA-Qa-z]+(?:_?[\dA-Qa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(54r)(?:[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)(?:(\.)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(?:(r)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(54r)(?:[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(?:(\.)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)(?:(r)[\dA-Ra-z]+(?:_?[\dA-Ra-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(55r)(?:[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)(?:(\.)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(?:(r)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(55r)(?:[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(?:(\.)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)(?:(r)[\dA-Sa-z]+(?:_?[\dA-Sa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(56r)(?:[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)(?:(\.)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(?:(r)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(56r)(?:[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(?:(\.)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)(?:(r)[\dA-Ta-z]+(?:_?[\dA-Ta-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(57r)(?:[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)(?:(\.)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(?:(r)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(57r)(?:[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(?:(\.)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)(?:(r)[\dA-Ua-z]+(?:_?[\dA-Ua-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(58r)(?:[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)(?:(\.)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(?:(r)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(58r)(?:[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(?:(\.)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)(?:(r)[\dA-Va-z]+(?:_?[\dA-Va-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(59r)(?:[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)(?:(\.)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(?:(r)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(59r)(?:[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(?:(\.)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)(?:(r)[\dA-Wa-z]+(?:_?[\dA-Wa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(60r)(?:[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)(?:(\.)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(?:(r)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(60r)(?:[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(?:(\.)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)(?:(r)[\dA-Xa-z]+(?:_?[\dA-Xa-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(61r)(?:[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)(?:(\.)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(?:(r)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(61r)(?:[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(?:(\.)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)(?:(r)[\dA-Ya-z]+(?:_?[\dA-Ya-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(62r)(?:[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)(?:(\.)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(?:(r)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(62r)(?:[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(?:(\.)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)(?:(r)[\dA-Za-z]+(?:_?[\dA-Za-z]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(63r)(?:[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)(?:(\.)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(?:(r)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(63r)(?:[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(?:(\.)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)(?:(r)[\dA-Za-zþ]+(?:_?[\dA-Za-zþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(64r)(?:[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)(?:(\.)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(?:(r)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
+      - match: (?i)\s*\b(64r)(?:[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(?:(\.)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)(?:(r)[\dA-Za-zÞþ]+(?:_?[\dA-Za-zÞþ]+)*)?(:?[ep][+-]?\d+)?(:?s\d+)?(:?[_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)?\s*\b
+        captures: *multi-radix
