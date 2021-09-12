@@ -225,7 +225,7 @@ repository:
         name: punctuation.separator.decimal.period.saga
       - match: |-
           (?ix)\s*\b
-          ((?:[2-9]|[1-9]\d+)b)
+          ((?:[2-9]|[1-9]\d+)\p{alpha})
           (?:\p{alnum}+(?:_*\p{alnum}+)*)
           (?:(\.)\p{alnum}+(?:_*\p{alnum}+)*)?
           (?:(r)\p{alnum}+(?:_*\p{alnum}+)*)?
@@ -238,7 +238,7 @@ repository:
           <<: *number-literal
       - match: |-
           (?ix)\s*\b
-          ((?:[2-9]|[1-9]\d+)b)
+          ((?:[2-9]|[1-9]\d+)\p{alpha})
           (?:\p{alnum}+(?:_*\p{alnum}+)*)?
           (?:(\.)\p{alnum}+(?:_*\p{alnum}+)*)
           (?:(r)\p{alnum}+(?:_*\p{alnum}+)*)?
