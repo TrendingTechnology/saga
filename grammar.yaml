@@ -5,7 +5,7 @@ patterns: [{include: "#core"}]
 
 information_for_contributors:
   - This file is a grammar for the Saga programming language, whose syntax is
-  - inspired by Python, Ruby, OCaml, Nim, Elixir, F#, Go, Swift, Bash, and Smalltalk.
+  - inspired by Python, Ruby, OCaml, Nim, Elixir, F#, Go, Swift, Bash, YAML and Smalltalk.
 
   - Should you want to provide a fix or improvement, or even a new feature,
   - please create a pull request against this repo - https://github.com/nxltm/saga
