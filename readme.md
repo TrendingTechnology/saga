@@ -9,7 +9,7 @@ With Saga, you can leverage the full power of JavaScript in a robust and strongl
 ```coffee
 #: Generates a custom Fibonacci sequence
 #: with an arbitrary set of integers
-rec gen fn fib[A: num](start: []A, term: A): A =
+rec gen def fib[A: num](start: []A, term: A): A =
   if term in keyof start:
     yield start[term - 1]
   elif term > len start:
@@ -110,7 +110,7 @@ Every variable should be declared before you can use them. This lets you and the
 All variables are block-scoped. This makes sure that the values do not leak out into the parent scope. Declarations can be scoped with `do` blocks or any control flow statement.
 
 ```coffee
-do
+do:
   let x = 10 # creates a local variable named x
 print x #! RefError: variable `x` is not defined
 ```
@@ -121,17 +121,16 @@ The value of the last line of a scope is implicitly returned.
 val greet = if displayGreeting:
   let message = "Enjoying the docs so far?"
   message
-
 greet #= 'Enjoying the docs so far?'
 ```
 
 There are four ways to declare variables: `var`, `val`, `let` and `const`. `val` and `const` declarations are "immutable", aka "cannot change", and to optimize compilation performance, we recommend you use `val` and `const` rather than their immutable counterparts.
 
 ```coffee
-var x = 5     # mutable, re-declarable
-val x = 5     # immutable, re-declarable
-let x = 5     # mutable, not re-declarable
-const x = 5   # immutable, not re-declarable
+var x = 5   # mutable, re-declarable
+val x = 5   # immutable, re-declarable
+let x = 5   # mutable, not re-declarable
+const x = 5 # immutable, not re-declarable
 ```
 
 "Re-declarable" means that on the same scope" reusing the same let binding name overshadows the previous bindings with the same name. So you can write this too:
@@ -186,34 +185,82 @@ void == undef
 
 #### Numbers
 
-Any base can be used, including base 2, 4, 6, 8, 10, 12 and 16. All numbers are either 32-bit signed integers or 64-bit floats, and floating-point numbers are distinguished by a dot or a `p` for "power" part.
+Saga has support for integer and floating-point literals, in multiple bases: 2, 4, 6, 8, 10, 12 and 16. All floating-point numbers are distinguished by a dot, or the modifiers `r`, `p` and/or `s` in any combination.
 
 ```coffee
-(val base04 = 0b100) == 4
-(val base04 = 0q100) == 16
-(val base06 = 0s100) == 36
-(val base08 = 0o100) == 64
-(var base10 =   100) == 100
-(var base12 = 0z100) == 144
-(var base16 = 0x100) == 256
+val base04 = 0b100 #= 4
+val base04 = 0q100 #= 16
+val base06 = 0s100 #= 36
+val base08 = 0o100 #= 64
+var base10 =   100 #= 100
+var base12 = 0z100 #= 144
+var base16 = 0x100 #= 256
 ```
 
-| Base | Name | Prefix | Digits |
-| :-: | :-: | :-: | :-: |
-| 2 | Binary | `0b` | `0` and `1` |
-| 4 | Quaternary | `0q` | `0` to `3` |
-| 6 | Senary | `0s` | `0` to `5` |
-| 8 | Octal | `0o` | `0` to `7` |
-| 10 | Decimal | no prefix | `0` to `9` |
-| 12 | Duodecimal | `0z` | `0` to `9`, then `a`/`t`/`x` and `b`/`e`/`z` |
-| 16 | Hexadecimal | `0x` | `0` to `9` then `a` to `f` |
+Integer literals without a type suffix are automatically cast into the supported range, by default. Integers can be fast cast There is no limit for the length of integer literals apart from what can be stored in available memory.
 
-In line with traditional ASCII notations for duodecimal, letters `a`, `t` and `x` are used for digit 10, and letters `b`, `e` and `z` are used for digit 11.
+Numeric literals are case-insensitive, and can contain leading 0s or underscores. A prefix cannot be immediately followed by an underscore, and a numeric literal cannot end in an underscore.
+
+```coffee
+7     2147483647                        0o177    0b100110111
+3     79228162514264337593543950336     0o377    0xdeadbeef
+      100_000_000_000                   0b1110_0101
+```
 
 In floating-point literals, repeating digits are delimited with `r`, `p` controls the exponent and `s` controls the precision after the decimal point, in that order.
 
 ```coffee
-0x0.1r3p2s6 == (1 / 16 + 1 / 40) * 2 ** 16 .fix 6
+0x0.1r3p2s6 == ((1 / 16 + 1 / 40) * 2 ** 16).fix 6
+```
+
+Numbers can be automatically followed by a type suffix, such as `i32`, `f64` or any of the like. Un-suffixed literals are by default `i32` for integers, and `f64` for floats.
+
+```coffee
+123                              # type i32
+123i32                           # type i32
+123u32                           # type u32
+123:u32                          # type u32
+let a: u64 = 123                 # type u64
+0xff                             # type i32
+0xff:u8                          # type u8
+0o70                             # type i32
+0o70:i16                         # type i16
+0b1111_1111_1001_0000            # type i32
+0b1111_1111_1001_0000i64         # type i64
+9007199254740991                 # type i64
+9007199254740991u                # type u64
+0b0_1                            # type i32
+0u                               # type u32
+```
+
+Examples of invalid integer literals:
+
+```coffee
+#! leading or trailing underscores after numeric parts
+0_
+0_.1
+
+#! undefined is not defined
+0undefined
+
+#! uses numbers of the wrong base
+123AFB43
+0b0102
+0o0581
+
+#! integers too big for their type (they overflow)
+128i8
+256u8
+
+#! prefixed-base literals must have at least one digit
+0b_
+0b_____________________
+```
+
+Arbitrary-radix literals start with the base first, then a combination of alphanumeric characters, then `Þ` and `þ`, or by decimal digits separated by commas.
+
+```coffee
+1r3 == 40 ** 3
 ```
 
 ### Defining functions
@@ -392,7 +439,7 @@ x => 1        # function with one parameter
 (x, y) => 1   # function with two parameters
 
 fn x(y) = 1       # named function
-fn x(&y :1) = 1      # named parameter
+fn x(&y: 1) = 1      # named parameter
 fn x(&?y) = 1     # optional parameter
 fn x(*y) = 1      # variable arguments
 fn x(y = 1) = 1   # default parameter
