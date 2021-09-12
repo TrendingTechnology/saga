@@ -53,49 +53,48 @@ name: Saga
 scopeName: source.coffee
 fileTypes: [saga, coffee]
 patterns: [{include: "#core"}]
+define:
+  multi-radix: &multi-radix
+    0: {name: constant.numeric.arbitrary-radix.saga}
+    1: {name: storage.type.numeric.saga}
+    2: {name: punctuation.separator.decimal.period.saga}
+    3: {name: constant.numeric.other.separator.saga}
+    4: {name: constant.numeric.other.exponent.saga}
+    5: {name: constant.numeric.other.density.saga}
+    6: {name: storage.type.numeric.saga}
+
+  entity-name: &entity-name |
+    (?x)\s*\b
+    (?!
+    \b(?:# don't match keywords
+    in|of|as|is|new|infer|unset
+    |typeof|nameof|sizeof|keyof|valof
+    |len|del|to|til|thru|at|by
+    |and|x?or|not|para|series|spawn
+    |def|func?|fn|macro|proc|sub
+    |let|var|val|const|decl
+    |class|given|law|enum|rel|lat
+    |proj|prot|ext|impl|frag|inter|struct
+    |module|nspace|object|record|label
+    |raw|data|query|schema|style|trait|alias|type
+    |if|else|elif|eless|unless|guard
+    |for|each|while|until|repeat|do|redo
+    |switch|case|fail|match|when|pass
+    |try|retry|throw|raise|catch|rescue|finally
+    |with|ref|defer|refer|show|hide|enter|exit
+    |then|begin|end|debug|check|assert
+    |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
+    |yield\b\s*\bfrom|import|export|show|hide
+    |from|where|join|equals|[io]nto|order
+    |take|drop|fold|scan|select|use|using
+    |fi|rof|done|esac|wend|yrt|kill|wout
+    |open|close
+    )\b
+    )
+    ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
+    \b
 
 repository:
-  define:
-    multi-radix: &multi-radix
-      0: {name: constant.numeric.arbitrary-radix.saga}
-      1: {name: storage.type.numeric.saga}
-      2: {name: punctuation.separator.decimal.period.saga}
-      3: {name: constant.numeric.other.separator.saga}
-      4: {name: constant.numeric.other.exponent.saga}
-      5: {name: constant.numeric.other.density.saga}
-      6: {name: storage.type.numeric.saga}
-
-    entity-name: &entity-name |
-      (?x)\s*\b
-      (?!
-      \b(?:# don't match keywords
-      in|of|as|is|new|infer|unset
-      |typeof|nameof|sizeof|keyof|valof
-      |len|del|to|til|thru|at|by
-      |and|x?or|not|para|series|spawn
-      |def|func?|fn|macro|proc|sub
-      |let|var|val|const|decl
-      |class|given|law|enum|rel|lat
-      |proj|prot|ext|impl|frag|inter|struct
-      |module|nspace|object|record|label
-      |raw|data|query|schema|style|trait|alias|type
-      |if|else|elif|eless|unless|guard
-      |for|each|while|until|repeat|do|redo
-      |switch|case|fail|match|when|pass
-      |try|retry|throw|raise|catch|rescue|finally
-      |with|ref|defer|refer|show|hide|enter|exit
-      |then|begin|end|debug|check|assert
-      |break|continue|halt|skip|(?:return|give|await|yield|throw|raise)s?
-      |yield\b\s*\bfrom|import|export|show|hide
-      |from|where|join|equals|[io]nto|order
-      |take|drop|fold|scan|select|use|using
-      |fi|rof|done|esac|wend|yrt|kill|wout
-      |open|close
-      )\b
-      )
-      ([_\p{l}\p{nl}][_\p{l}\p{m}\p{n}]*)
-      \b
-
   core:
     patterns:
       - include: "#definitions"
