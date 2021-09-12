@@ -56,11 +56,12 @@ information_for_contributors:
         - TypeScript
       - NumPy, Pandas, NLTK, Gensim and more (see libraries in action)
 
-  - Done:
-      - Revamp string, number, symbol and regex literals
-      - Fixed pipeline/composition operator highlighting
-      - Fixed highlighting for pipeline operator
-      - Rework regex syntax (brackets)
+  - |
+    Done:
+  - - Revamp string, number, symbol and regex literals
+    - Fixed pipeline/composition operator highlighting
+    - Fixed highlighting for pipeline operator
+    - Rework regex syntax (brackets)
 
 define:
   number-literal: &number-literal
